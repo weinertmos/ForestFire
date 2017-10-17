@@ -21,8 +21,8 @@ ForestFire
 
 .. toctree::
     :maxdepth: 3
-    :caption: Demo Mode
-    :name: demo
+    :caption: Comparational Mode
+    :name: compare
 
     Compare
     Plot
