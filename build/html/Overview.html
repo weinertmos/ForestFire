@@ -1,0 +1,180 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Overview &#8212; ForestFire 1.0.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/haiku.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.0.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Import Data" href="Importing_Data.html" />
+    <link rel="prev" title="ForestFire" href="index.html" /> 
+  </head>
+  <body role="document">
+      <div class="header" role="banner"><h1 class="heading"><a href="index.html">
+          <span>ForestFire 1.0.0 documentation</span></a></h1>
+        <h2 class="heading"><span>Overview</span></h2>
+      </div>
+      <div class="topnav" role="navigation" aria-label="top navigation">
+      
+        <p>
+        «&#160;&#160;<a href="index.html">ForestFire</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="index.html">Contents</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="Importing_Data.html">Import Data</a>&#160;&#160;»
+        </p>
+
+      </div>
+      <div class="content">
+        
+        
+  <div class="section" id="overview">
+<h1>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h1>
+<p>General Overview of the different parts that ForestFire consists of.</p>
+<span class="target" id="module-ForestFire"></span><p>und so</p>
+<dl class="class">
+<dt id="ForestFire.Main.decisionnode">
+<em class="property">class </em><code class="descclassname">ForestFire.Main.</code><code class="descname">decisionnode</code><span class="sig-paren">(</span><em>col=-1</em>, <em>value=None</em>, <em>results=None</em>, <em>tb=None</em>, <em>fb=None</em><span class="sig-paren">)</span><a class="headerlink" href="#ForestFire.Main.decisionnode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Allein auf weiter Flur</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="ForestFire.Main.gen_database">
+<code class="descclassname">ForestFire.Main.</code><code class="descname">gen_database</code><span class="sig-paren">(</span><em>n_runs</em>, <em>X</em>, <em>y</em>, <em>X_test</em>, <em>y_test</em><span class="sig-paren">)</span><a class="headerlink" href="#ForestFire.Main.gen_database" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<div class="literal-block-wrapper docutils container" id="id1">
+<div class="code-block-caption"><span class="caption-text">oha</span><a class="headerlink" href="#id1" title="Permalink to this code">¶</a></div>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="mi">5</span>
+</pre></div>
+</td></tr></table></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="c1"># sklearn imports</span>
+<span class="c1"># from sklearn.datasets.samples_generator import make_blobs</span>
+<span class="c1"># from sklearn.metrics import zero_one_loss  # only needed for percentage error</span>
+<span class="kn">from</span> <span class="nn">sklearn</span> <span class="k">import</span> <span class="n">preprocessing</span>
+<span class="c1"># from sklearn.model_selection import train_test_split</span>
+<span class="c1"># from sklearn.metrics import mean_squared_error</span>
+<span class="kn">from</span> <span class="nn">PIL</span> <span class="k">import</span> <span class="n">Image</span><span class="p">,</span> <span class="n">ImageDraw</span>
+<span class="kn">from</span> <span class="nn">compute</span> <span class="k">import</span> <span class="n">compute</span>
+<span class="kn">from</span> <span class="nn">import_data</span> <span class="k">import</span> <span class="n">import_data</span>
+
+<span class="c1"># matplotlib.use(&#39;TkAgg&#39;)  # set Backend</span>
+
+
+<span class="c1"># change settings</span>
+<span class="n">np</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">threshold</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">)</span>   <span class="c1"># print whole numpy array in console</span>
+<span class="n">np</span><span class="o">.</span><span class="n">seterr</span><span class="p">(</span><span class="n">divide</span><span class="o">=</span><span class="s1">&#39;ignore&#39;</span><span class="p">,</span> <span class="n">invalid</span><span class="o">=</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>  <span class="c1"># ignore warnings if dividing by zero or NaN</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;bmh&#39;</span><span class="p">)</span>
+
+
+<span class="c1"># initialize conventional parameter to run script from within this file --&gt; turn off to run it from external script (default)</span>
+<span class="n">__name__</span> <span class="o">=</span> <span class="s1">&#39;not__main_&#39;</span>
+
+
+<span class="c1"># initialization</span>
+<span class="n">z1</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># counter for path generation --&gt; needs fixing! global variable = bad ?</span>
+
+
+<span class="c1"># Functions for Generating Database for RF</span>
+
+<span class="c1"># Generate Data Set for RF</span>
+<span class="k">def</span> <span class="nf">gen_database</span><span class="p">(</span><span class="n">n_runs</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">):</span>
+    <span class="n">X_DT</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n_runs</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="mi">0</span><span class="p">])),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>  <span class="c1"># Prelocate Memory</span>
+    <span class="c1"># print X_DT</span>
+    <span class="n">y_DT</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n_runs</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>  <span class="c1"># Prelocate Memory</span>
+
+    <span class="c1"># create SVMs that can only see subset of features</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_runs</span><span class="p">):</span>
+        <span class="c1"># create random mask to select subgroup of features</span>
+        <span class="n">mask_sub_features</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>  <span class="c1"># Prelocate Memory</span>
+        <span class="c1"># mask_sub_data = np.zeros(len(X), dtype=bool)  # Prelocate Memory</span>
+        <span class="c1"># selecting features: any number between 1 and all features are selected</span>
+        <span class="n">size</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="n">rand_feat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="mi">0</span><span class="p">])),</span> <span class="n">size</span><span class="o">=</span><span class="n">size</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>  <span class="c1"># in first run prob is None --&gt; all features are equally selected, in later runs prob is result of previous RF results</span>
+        <span class="n">mask_sub_features</span><span class="p">[</span><span class="n">rand_feat</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>  <span class="c1"># set chosen features to True</span>
+
+        <span class="c1"># Select Train and Test Data for subgroup</span>
+
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span>10≤
+def gen_database(n_runs, X, y, X_test, y_test):
+    X_DT = np.zeros((n_runs, len(X[0])), dtype=bool)  # Prelocate Memory
+    # print X_DT
+    y_DT = np.zeros((n_runs, 1))  # Prelocate Memory
+
+    # create SVMs that can only see subset of features
+    for i in range(n_runs):
+        # create random mask to select subgroup of features
+        mask_sub_features = np.zeros(len(X[0]), dtype=bool)  # Prelocate Memory
+        # mask_sub_data = np.zeros(len(X), dtype=bool)  # Prelocate Memory
+        # selecting features: any number between 1 and all features are selected
+        size = np.random.choice(range(len(X[0]) - 1)) + 1
+        rand_feat = np.random.choice(range(len(X[0])), size=size, replace=True, p=None)  # in first run prob is None --&gt; all features are equally selected, in later runs prob is result of previous RF results
+        mask_sub_features[rand_feat] = True  # set chosen features to True
+
+        # Select Train and Test Data for subgroup
+        # print X
+        X_sub = X[:, mask_sub_features]  # select only chosen features (still all datasets)
+        # print len(X_sub[0])
+        # print X_sub[0]
+
+        # compute subgroup
+        # print X_sub
+        y_DT[i] = compute(X_sub, y, mask_sub_features, X_test, y_test)
+
+        # Save Data
+        X_DT[i] = mask_sub_features  # for the Decision Tree / Random Forest the X values are the information about whether an SVM has seen a certain feature or not
+    # print X_DT
+    # print y_DT
+
+    # merge X and y values
+    Data = np.concatenate((X_DT, y_DT), axis=1)  # this Dataset goes into the Decision Tree / Random Forest
+    return Data
+</pre></div>
+</div>
+</div>
+
+
+      </div>
+      <div class="bottomnav" role="navigation" aria-label="bottom navigation">
+      
+        <p>
+        «&#160;&#160;<a href="index.html">ForestFire</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="index.html">Contents</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="Importing_Data.html">Import Data</a>&#160;&#160;»
+        </p>
+
+      </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2017, Marlon Weinert.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.1.
+    </div>
+  </body>
+</html>
