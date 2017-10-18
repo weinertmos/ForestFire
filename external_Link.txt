@@ -1,1 +1,1 @@
-https://cdn.rawgit.com/weinertmos/ForestFire/master/build/html/index.html
+https://rawgit.com/weinertmos/ForestFire/master/build/html/index.html
