@@ -51,7 +51,15 @@
   <div class="section" id="overview">
 <h1>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h1>
 <p>General Overview of the different parts that ForestFire consists of.</p>
-<span class="target" id="module-ForestFire"></span><p>und so</p>
+<span class="target" id="module-ForestFire"></span><p>ForestFire is a Python tool that aims to enhance the performance of machine learning algorithms. 
+It utilises the Random Forest algorithm - which is itself a machine learning technique - to determine the 
+importance of feature sets in a given set of data.
+It is most usefull in data sets with a number of feature sets &gt;10.</p>
+<p>In order to use ForestFire you are required to provide your Test data in the form of two numpy arrays:</p>
+<ul class="simple">
+<li>X - containing the values of the feature sets for each data set</li>
+<li>y - containing the corresponding performance of those feature sets as a single value</li>
+</ul>
 <dl class="class">
 <dt id="ForestFire.Main.decisionnode">
 <em class="property">class </em><code class="descclassname">ForestFire.Main.</code><code class="descname">decisionnode</code><span class="sig-paren">(</span><em>col=-1</em>, <em>value=None</em>, <em>results=None</em>, <em>tb=None</em>, <em>fb=None</em><span class="sig-paren">)</span><a class="headerlink" href="#ForestFire.Main.decisionnode" title="Permalink to this definition">¶</a></dt>

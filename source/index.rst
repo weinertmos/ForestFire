@@ -1,28 +1,40 @@
 ForestFire
 ==========
 
+.. automodule:: ForestFire
+    :members:
+
+.. _get_started:
+
+Getting Started
+---------------
+
 .. toctree::
    :maxdepth: 3
-   :caption: Getting Started:
-   :name: get_started
 
    Overview
    Importing_Data
    Generate_Database
 
+.. _loop:
+
+Building and Burning Random Forests
+-----------------------------------
+
 .. toctree::
     :maxdepth: 3
-    :caption: Building and Burning Random Forests
-    :name: loop
 
     DT
     RF
     Update_Database
 
+.. _compare:
+
+Comparational Mode
+------------------
+
 .. toctree::
     :maxdepth: 3
-    :caption: Comparational Mode
-    :name: compare
 
     Compare
     Plot
