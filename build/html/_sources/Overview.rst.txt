@@ -3,12 +3,15 @@ Overview
 
 General Overview of the different parts that ForestFire consists of.
 
+Utilized Modules
+----------------
+
+The following Modules are used during the execution of ForestFire:
+
+.. literalinclude:: ForestFire/Main.py
+    :lines: 2-10
 
 
-
-
-.. automodule:: ForestFire
-    :members:
 
 .. autoclass:: ForestFire.Main.decisionnode
 

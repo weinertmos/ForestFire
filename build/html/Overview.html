@@ -51,15 +51,20 @@
   <div class="section" id="overview">
 <h1>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h1>
 <p>General Overview of the different parts that ForestFire consists of.</p>
-<span class="target" id="module-ForestFire"></span><p>ForestFire is a Python tool that aims to enhance the performance of machine learning algorithms. 
-It utilises the Random Forest algorithm - which is itself a machine learning technique - to determine the 
-importance of feature sets in a given set of data.
-It is most usefull in data sets with a number of feature sets &gt;10.</p>
-<p>In order to use ForestFire you are required to provide your Test data in the form of two numpy arrays:</p>
-<ul class="simple">
-<li>X - containing the values of the feature sets for each data set</li>
-<li>y - containing the corresponding performance of those feature sets as a single value</li>
-</ul>
+<div class="section" id="utilized-modules">
+<h2>Utilized Modules<a class="headerlink" href="#utilized-modules" title="Permalink to this headline">¶</a></h2>
+<p>The following Modules are used during the execution of ForestFire:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1">#  Imports</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="c1"># sklearn imports</span>
+<span class="c1"># from sklearn.datasets.samples_generator import make_blobs</span>
+<span class="c1"># from sklearn.metrics import zero_one_loss  # only needed for percentage error</span>
+<span class="kn">from</span> <span class="nn">sklearn</span> <span class="k">import</span> <span class="n">preprocessing</span>
+<span class="c1"># from sklearn.model_selection import train_test_split</span>
+<span class="c1"># from sklearn.metrics import mean_squared_error</span>
+</pre></div>
+</div>
 <dl class="class">
 <dt id="ForestFire.Main.decisionnode">
 <em class="property">class </em><code class="descclassname">ForestFire.Main.</code><code class="descname">decisionnode</code><span class="sig-paren">(</span><em>col=-1</em>, <em>value=None</em>, <em>results=None</em>, <em>tb=None</em>, <em>fb=None</em><span class="sig-paren">)</span><a class="headerlink" href="#ForestFire.Main.decisionnode" title="Permalink to this definition">¶</a></dt>
@@ -69,7 +74,8 @@ It is most usefull in data sets with a number of feature sets &gt;10.</p>
 <dl class="function">
 <dt id="ForestFire.Main.gen_database">
 <code class="descclassname">ForestFire.Main.</code><code class="descname">gen_database</code><span class="sig-paren">(</span><em>n_runs</em>, <em>X</em>, <em>y</em>, <em>X_test</em>, <em>y_test</em><span class="sig-paren">)</span><a class="headerlink" href="#ForestFire.Main.gen_database" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>description of gen_database</p>
+</dd></dl>
 
 <div class="literal-block-wrapper docutils container" id="id1">
 <div class="code-block-caption"><span class="caption-text">oha</span><a class="headerlink" href="#id1" title="Permalink to this code">¶</a></div>
@@ -110,6 +116,7 @@ It is most usefull in data sets with a number of feature sets &gt;10.</p>
 
 <span class="c1"># Generate Data Set for RF</span>
 <span class="k">def</span> <span class="nf">gen_database</span><span class="p">(</span><span class="n">n_runs</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;description of gen_database&quot;&quot;&quot;</span>
     <span class="n">X_DT</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n_runs</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="mi">0</span><span class="p">])),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>  <span class="c1"># Prelocate Memory</span>
     <span class="c1"># print X_DT</span>
     <span class="n">y_DT</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n_runs</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>  <span class="c1"># Prelocate Memory</span>
@@ -124,12 +131,12 @@ It is most usefull in data sets with a number of feature sets &gt;10.</p>
         <span class="n">rand_feat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="mi">0</span><span class="p">])),</span> <span class="n">size</span><span class="o">=</span><span class="n">size</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>  <span class="c1"># in first run prob is None --&gt; all features are equally selected, in later runs prob is result of previous RF results</span>
         <span class="n">mask_sub_features</span><span class="p">[</span><span class="n">rand_feat</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>  <span class="c1"># set chosen features to True</span>
 
-        <span class="c1"># Select Train and Test Data for subgroup</span>
-
+        <span class="c1"># print X_sub[0]</span>
 </pre></div>
 </div>
 <div class="highlight-default"><div class="highlight"><pre><span></span>10≤
 def gen_database(n_runs, X, y, X_test, y_test):
+    &quot;&quot;&quot;description of gen_database&quot;&quot;&quot;
     X_DT = np.zeros((n_runs, len(X[0])), dtype=bool)  # Prelocate Memory
     # print X_DT
     y_DT = np.zeros((n_runs, 1))  # Prelocate Memory
@@ -163,6 +170,7 @@ def gen_database(n_runs, X, y, X_test, y_test):
     Data = np.concatenate((X_DT, y_DT), axis=1)  # this Dataset goes into the Decision Tree / Random Forest
     return Data
 </pre></div>
+</div>
 </div>
 </div>
 

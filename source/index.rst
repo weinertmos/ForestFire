@@ -1,6 +1,8 @@
 ForestFire
 ==========
 
+__init__
+-----------
 .. automodule:: ForestFire
     :members:
 

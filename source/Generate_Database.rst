@@ -1,2 +1,2 @@
-Generate Forestfire Database
+Generate ForestFire Database
 ================================

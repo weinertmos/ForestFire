@@ -1,4 +1,4 @@
-"""wawawawaaaas"""
+"""description Main"""
 #  Imports
 import matplotlib.pyplot as plt
 import numpy as np
@@ -33,6 +33,7 @@ z1 = 0  # counter for path generation --> needs fixing! global variable = bad ?
 
 # Generate Data Set for RF
 def gen_database(n_runs, X, y, X_test, y_test):
+    """description of gen_database"""
     X_DT = np.zeros((n_runs, len(X[0])), dtype=bool)  # Prelocate Memory
     # print X_DT
     y_DT = np.zeros((n_runs, 1))  # Prelocate Memory
@@ -729,7 +730,7 @@ def update_database(X, y, data, mask_best_featureset_mean, mask_best_featureset_
 # This is the main part of the program which uses the above made definitions
 
 
-def main_loop(n_SVM, pruning, min_data, n_forests, n_trees, n_configs_biased, n_configs_unbiased, multiplier_stepup, seen_forests,
+def main_loop(n_runs, pruning, min_data, n_forests, n_trees, n_configs_biased, n_configs_unbiased, multiplier_stepup, seen_forests,
               weight_mean, weight_gradient, scoref, demo_mode, plot_enable):
     # Generate Test Data
     print "Loading Raw Data"
@@ -752,6 +753,8 @@ def main_loop(n_SVM, pruning, min_data, n_forests, n_trees, n_configs_biased, n_
         weight_gradient = 0.9
     if scoref is 'default':
         scoref = entropy
+    elif scoref is 'entropy':
+        scoref = entropy
     elif scoref is 'giniimpurity':
         scoref = giniimpurity
 
@@ -761,7 +764,7 @@ def main_loop(n_SVM, pruning, min_data, n_forests, n_trees, n_configs_biased, n_
 
     # Generate database for RF
     print "Generate Data Base for Random Forest"
-    data = gen_database(n_SVM, X, y, X_test, y_test)
+    data = gen_database(n_runs, X, y, X_test, y_test)
     data_start = data  # save starting data for later comparison with random feature set selection
     # print "len(data): " + str(len(data))
 
@@ -848,8 +851,8 @@ def main_loop(n_SVM, pruning, min_data, n_forests, n_trees, n_configs_biased, n_
         # print out some of the results
         print "best 5 feature sets of random selection: " + str(best_featuresets_sorted_compare[:5])
         print " "
-        print "Lowest MSE after " + str(n_SVM + 2 * n_forests) + " random SVM runs: " + str(best_featuresets_sorted_compare[0, -1])
-        print "Lowest MSE of ForestFire after " + str(n_SVM) + " initial random runs and " + str(2 * n_forests) + " guided runs: " + str(best_featuresets_sorted[0, -1])
+        print "Lowest MSE after " + str(n_runs + 2 * n_forests) + " random SVM runs: " + str(best_featuresets_sorted_compare[0, -1])
+        print "Lowest MSE of ForestFire after " + str(n_runs) + " initial random runs and " + str(2 * n_forests) + " guided runs: " + str(best_featuresets_sorted[0, -1])
         if best_featuresets_sorted[0, -1] > best_featuresets_sorted_compare[0, -1]:
             print "Performance with ForestFire improved by " + str(-100 * (1 - np.divide(best_featuresets_sorted[0, -1], best_featuresets_sorted_compare[0, -1]))) + "%"
         if best_featuresets_sorted[0, -1] == best_featuresets_sorted_compare[0, -1]:
@@ -860,7 +863,7 @@ def main_loop(n_SVM, pruning, min_data, n_forests, n_trees, n_configs_biased, n_
 
         # Compare Random Search VS Random Forest Search
         print " "
-        print "Found Best value for Random Forest Search after " + str(n_SVM) + " initial runs and " + str(np.argmax(data[:, -1]) - n_SVM) + "/" + str(len(data) - n_SVM) + " smart runs"
+        print "Found Best value for Random Forest Search after " + str(n_runs) + " initial runs and " + str(np.argmax(data[:, -1]) - n_runs) + "/" + str(len(data) - n_runs) + " smart runs"
         print "Best value with RF: " + str(np.max(data[:, -1]))
         print " "
         print "Found Best value for Random Search after" + str(np.argmax(data_compare[:, -1])) + " random runs"
@@ -895,5 +898,5 @@ def main_loop(n_SVM, pruning, min_data, n_forests, n_trees, n_configs_biased, n_
 
 # Program call
 if __name__ == '__main_':
-    main_loop(n_SVM, pruning, min_data, n_forests, n_trees, n_configs_biased, n_configs_unbiased, multiplier_stepup, seen_forests,
+    main_loop(n_runs, pruning, min_data, n_forests, n_trees, n_configs_biased, n_configs_unbiased, multiplier_stepup, seen_forests,
               weight_mean, weight_gradient, scoref, demo_mode, plot_enable)
