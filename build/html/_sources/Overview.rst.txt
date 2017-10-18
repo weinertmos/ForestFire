@@ -11,6 +11,8 @@ The following Modules are used during the execution of ForestFire:
 .. literalinclude:: ForestFire/Main.py
     :lines: 2-10
 
+.. todo::
+    delete comments
 
 
 .. autoclass:: ForestFire.Main.decisionnode
