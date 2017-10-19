@@ -47,7 +47,11 @@
 
 
 <div class="viewcode-block" id="import_data"><a class="viewcode-back" href="../../Importing_Data.html#ForestFire.import_data.import_data">[docs]</a><span class="k">def</span> <span class="nf">import_data</span><span class="p">():</span>
-    <span class="sd">&quot;&quot;&quot;Generate Sample Data (Forest Fires Data Set)&quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Import raw data from two numpy arrays X.npy and y.npy. </span>
+<span class="sd">    Set how train and test data are to be split for fix splits.</span>
+<span class="sd">    Returns train/test splits as well as number of features.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;X.npy&#39;</span><span class="p">)</span>
     <span class="n">X_train</span> <span class="o">=</span> <span class="n">X</span><span class="p">[:</span><span class="mi">500</span><span class="p">]</span>
     <span class="n">X_test</span> <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="mi">500</span><span class="p">:</span><span class="mi">800</span><span class="p">]</span>

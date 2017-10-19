@@ -2,7 +2,11 @@ import numpy as np
 
 
 def import_data():
-    """Generate Sample Data (Forest Fires Data Set)"""
+    """
+    Import raw data from two numpy arrays X.npy and y.npy. 
+    Set how train and test data are to be split for fix splits.
+    Returns train/test splits as well as number of features.
+    """
     X = np.load('X.npy')
     X_train = X[:500]
     X_test = X[500:800]

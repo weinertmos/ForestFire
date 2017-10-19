@@ -1,2 +1,4 @@
-Generate ForestFire Database
-================================
+.. _compute:
+
+Generate Database
+=====================

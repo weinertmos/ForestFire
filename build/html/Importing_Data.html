@@ -26,7 +26,7 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Generate ForestFire Database" href="Generate_Database.html" />
+    <link rel="next" title="Generate Database" href="Generate_Database.html" />
     <link rel="prev" title="Overview" href="Overview.html" /> 
   </head>
   <body role="document">
@@ -41,7 +41,7 @@
         &#160;&#160;::&#160;&#160;
         <a class="uplink" href="index.html">Contents</a>
         &#160;&#160;::&#160;&#160;
-        <a href="Generate_Database.html">Generate ForestFire Database</a>&#160;&#160;»
+        <a href="Generate_Database.html">Generate Database</a>&#160;&#160;»
         </p>
 
       </div>
@@ -50,10 +50,30 @@
         
   <div class="section" id="import-data">
 <span id="id1"></span><h1>Import Data<a class="headerlink" href="#import-data" title="Permalink to this headline">¶</a></h1>
+<p><em>corresponding file: import_data.py</em></p>
+<p>The first step is the import of the raw data.
+It must consist of two numpy arrays <strong>X</strong> and <strong>y</strong> which are located in the same directory as <em>import_data.py</em>.
+<strong>X</strong> contains the data sets in rows and the features in columns.
+For example, X[0:12] is the value of the 13th feature in the first data set.
+<strong>y</strong> contains the corresponding result for all data sets in a single column.
+It must be of the same length as X.
+For example y[19] is the result of the 20th data set.</p>
+<p>After loading the data apply how it should be splitted into train and test data sets and set <strong>X_train / X_test and y_train / y_test</strong> accordingly.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The train/test split in <em>import_data.py</em> will only be done once!
+Use it if a fix split is desired.
+If a split should be done in every future calculation (e.g. with shufflesplit),
+set <strong>X = X_test = X_train and y= y_test = y_train</strong> and configure the splitting routine
+in the next step (<a class="reference internal" href="Generate_Database.html#compute"><span class="std std-ref">Generate Database</span></a>).</p>
+</div>
+<p><strong>Functions used in this chapter</strong> Click [source] to view source code</p>
 <dl class="function">
 <dt id="ForestFire.import_data.import_data">
 <code class="descclassname">ForestFire.import_data.</code><code class="descname">import_data</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/ForestFire/import_data.html#import_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ForestFire.import_data.import_data" title="Permalink to this definition">¶</a></dt>
-<dd><p>Generate Sample Data (Forest Fires Data Set)</p>
+<dd><p>Import raw data from two numpy arrays X.npy and y.npy. 
+Set how train and test data are to be split for fix splits.
+Returns train/test splits as well as number of features.</p>
 </dd></dl>
 
 </div>
@@ -67,7 +87,7 @@
         &#160;&#160;::&#160;&#160;
         <a class="uplink" href="index.html">Contents</a>
         &#160;&#160;::&#160;&#160;
-        <a href="Generate_Database.html">Generate ForestFire Database</a>&#160;&#160;»
+        <a href="Generate_Database.html">Generate Database</a>&#160;&#160;»
         </p>
 
       </div>
