@@ -31,4 +31,4 @@ The following Modules are used during the execution of ForestFire:
 
 .. literalinclude:: ForestFire/Main.py
     :pyobject: gen_database
-    :prepend: 10≤
+    :prepend: 10

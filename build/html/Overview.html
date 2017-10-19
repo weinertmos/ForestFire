@@ -138,41 +138,41 @@
         <span class="c1"># print X_sub[0]</span>
 </pre></div>
 </div>
-<div class="highlight-default"><div class="highlight"><pre><span></span>10≤
-def gen_database(n_runs, X, y, X_test, y_test):
-    &quot;&quot;&quot;description of gen_database&quot;&quot;&quot;
-    X_DT = np.zeros((n_runs, len(X[0])), dtype=bool)  # Prelocate Memory
-    # print X_DT
-    y_DT = np.zeros((n_runs, 1))  # Prelocate Memory
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="mi">10</span>
+<span class="k">def</span> <span class="nf">gen_database</span><span class="p">(</span><span class="n">n_runs</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;description of gen_database&quot;&quot;&quot;</span>
+    <span class="n">X_DT</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n_runs</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="mi">0</span><span class="p">])),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>  <span class="c1"># Prelocate Memory</span>
+    <span class="c1"># print X_DT</span>
+    <span class="n">y_DT</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n_runs</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>  <span class="c1"># Prelocate Memory</span>
 
-    # create SVMs that can only see subset of features
-    for i in range(n_runs):
-        # create random mask to select subgroup of features
-        mask_sub_features = np.zeros(len(X[0]), dtype=bool)  # Prelocate Memory
-        # mask_sub_data = np.zeros(len(X), dtype=bool)  # Prelocate Memory
-        # selecting features: any number between 1 and all features are selected
-        size = np.random.choice(range(len(X[0]) - 1)) + 1
-        rand_feat = np.random.choice(range(len(X[0])), size=size, replace=True, p=None)  # in first run prob is None --&gt; all features are equally selected, in later runs prob is result of previous RF results
-        mask_sub_features[rand_feat] = True  # set chosen features to True
+    <span class="c1"># create SVMs that can only see subset of features</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_runs</span><span class="p">):</span>
+        <span class="c1"># create random mask to select subgroup of features</span>
+        <span class="n">mask_sub_features</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>  <span class="c1"># Prelocate Memory</span>
+        <span class="c1"># mask_sub_data = np.zeros(len(X), dtype=bool)  # Prelocate Memory</span>
+        <span class="c1"># selecting features: any number between 1 and all features are selected</span>
+        <span class="n">size</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="n">rand_feat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="mi">0</span><span class="p">])),</span> <span class="n">size</span><span class="o">=</span><span class="n">size</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>  <span class="c1"># in first run prob is None --&gt; all features are equally selected, in later runs prob is result of previous RF results</span>
+        <span class="n">mask_sub_features</span><span class="p">[</span><span class="n">rand_feat</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>  <span class="c1"># set chosen features to True</span>
 
-        # Select Train and Test Data for subgroup
-        # print X
-        X_sub = X[:, mask_sub_features]  # select only chosen features (still all datasets)
-        # print len(X_sub[0])
-        # print X_sub[0]
+        <span class="c1"># Select Train and Test Data for subgroup</span>
+        <span class="c1"># print X</span>
+        <span class="n">X_sub</span> <span class="o">=</span> <span class="n">X</span><span class="p">[:,</span> <span class="n">mask_sub_features</span><span class="p">]</span>  <span class="c1"># select only chosen features (still all datasets)</span>
+        <span class="c1"># print len(X_sub[0])</span>
+        <span class="c1"># print X_sub[0]</span>
 
-        # compute subgroup
-        # print X_sub
-        y_DT[i] = compute(X_sub, y, mask_sub_features, X_test, y_test)
+        <span class="c1"># compute subgroup</span>
+        <span class="c1"># print X_sub</span>
+        <span class="n">y_DT</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">compute</span><span class="p">(</span><span class="n">X_sub</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">mask_sub_features</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>
 
-        # Save Data
-        X_DT[i] = mask_sub_features  # for the Decision Tree / Random Forest the X values are the information about whether an SVM has seen a certain feature or not
-    # print X_DT
-    # print y_DT
+        <span class="c1"># Save Data</span>
+        <span class="n">X_DT</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">mask_sub_features</span>  <span class="c1"># for the Decision Tree / Random Forest the X values are the information about whether an SVM has seen a certain feature or not</span>
+    <span class="c1"># print X_DT</span>
+    <span class="c1"># print y_DT</span>
 
-    # merge X and y values
-    Data = np.concatenate((X_DT, y_DT), axis=1)  # this Dataset goes into the Decision Tree / Random Forest
-    return Data
+    <span class="c1"># merge X and y values</span>
+    <span class="n">Data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">X_DT</span><span class="p">,</span> <span class="n">y_DT</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># this Dataset goes into the Decision Tree / Random Forest</span>
+    <span class="k">return</span> <span class="n">Data</span>
 </pre></div>
 </div>
 </div>

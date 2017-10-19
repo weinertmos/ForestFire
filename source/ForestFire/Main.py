@@ -732,6 +732,26 @@ def update_database(X, y, data, mask_best_featureset_mean, mask_best_featureset_
 
 def main_loop(n_runs, pruning, min_data, n_forests, n_trees, n_configs_biased, n_configs_unbiased, multiplier_stepup, seen_forests,
               weight_mean, weight_gradient, scoref, demo_mode, plot_enable):
+    """Load raw data and Generate database for Random Forest. Iteratively build and burn down new Random Forests, predict the performance of new feature sets and compute two new feature sets per round.
+
+    Arguments:
+
+        * n_runs {int} -- number of runs before building first RF = number of data points in first RF; minimum = 4, default = 50
+        * pruning {float} -- if greater than zero, branches of a Decision Tree will be pruned proportional to pruning value; default = 0
+        * min_data {float} -- minimum percentage of Datasets that is used in RF generation; default = 0.2
+        * n_forests {int} -- number of forests; minimum=1;  default = 25
+        * n_trees {int} -- # number of trees that stand in a forest; min = 3; default = number of features x 3 x
+        * n_configs_biased {int} -- # number of deliberately chosen feature sets that get predicted in each forest; default = n_trees x 5
+        * n_configs_unbiased {int} -- # number of randomly chosen feature sets that get predicted in each forest; default = n_configs_biased x0.2
+        * multiplier_stepup {float} -- # sets how aggressively the feature importance changes; default = 0.25
+        * seen_forests {int} -- # number of recent forests that are taken into acount for generating probability of the chosen feature sets default = 4
+        * weight_mean {float} -- # weight of the mean in calculating the new probability for selecting future feature sets; default = 0.2
+        * weight_gradient {bool} -- # weight of the gradient in calculating the new probability for selecting future feature sets; default = 0.8
+        * scoref {function} -- # which scoring metric should be used in the Decision Tree (available: entropy and giniimpurity); default = entropy
+        * demo_mode bool -- # if true a comparison between the Random Forest driven Search and a random search is done
+        * plot_enable bool -- # decide if at the end a plot should be generated , only possible in demo mode
+
+    """
     # Generate Test Data
     print "Loading Raw Data"
     X_test, X, y_test, y, n_feat = import_data()

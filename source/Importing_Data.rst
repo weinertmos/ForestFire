@@ -5,7 +5,7 @@ Import Data
 
 corresponding file: *ForestFire/import_data.py*
 
-The first step is the import of the raw data. 
+In this step the raw data is imported. 
 It must consist of two numpy arrays **X** and **y** which are located in the same directory as *import_data.py*.
 **X** contains the data sets in rows and the features in columns. 
 For example, X[0:12] is the value of the 13th feature in the first data set.
