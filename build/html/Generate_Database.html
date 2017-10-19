@@ -26,7 +26,7 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Growing a single Decision Tree" href="DT.html" />
+    <link rel="next" title="Execution" href="run.html" />
     <link rel="prev" title="Import Data" href="Importing_Data.html" /> 
   </head>
   <body role="document">
@@ -41,7 +41,7 @@
         &#160;&#160;::&#160;&#160;
         <a class="uplink" href="index.html">Contents</a>
         &#160;&#160;::&#160;&#160;
-        <a href="DT.html">Growing a single Decision Tree</a>&#160;&#160;»
+        <a href="run.html">Execution</a>&#160;&#160;»
         </p>
 
       </div>
@@ -50,6 +50,39 @@
         
   <div class="section" id="generate-database">
 <span id="compute"></span><h1>Generate Database<a class="headerlink" href="#generate-database" title="Permalink to this headline">¶</a></h1>
+<p>corresponding file: <em>ForestFire/compute.py</em></p>
+<p>In this step the underlying machine learning algorithm can be configured from scratch or inserted from an existing file.
+Required imports can be put at the top of the file.
+The default algorithm can be replaced.
+As inputs the train / test split data from <a class="reference internal" href="Importing_Data.html#import-data"><span class="std std-ref">Import Data</span></a> can be used.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If no train / test split has been configured in <a class="reference internal" href="Importing_Data.html#import-data"><span class="std std-ref">Import Data</span></a> it has to be done here.</p>
+</div>
+<p>The result of the individual algorithm is stored in the variable <em>score</em> and returned to the main file.</p>
+<p><strong>Functions used in this chapter</strong> Click [source] to view source code</p>
+<dl class="function">
+<dt id="ForestFire.compute.compute">
+<code class="descclassname">ForestFire.compute.</code><code class="descname">compute</code><span class="sig-paren">(</span><em>X_train</em>, <em>y_train</em>, <em>mask_sub_features</em>, <em>X_test</em>, <em>y_test</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ForestFire/compute.html#compute"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ForestFire.compute.compute" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes a new dataset for the Random Forest with the underlying machine learning algorithm.</p>
+<p>Configure your machine learning algorithm here. 
+Make imports at the top of the file.</p>
+<p>Arguments:</p>
+<blockquote>
+<div><ul class="simple">
+<li>X_train {np.array} &#8211; feature training data</li>
+<li>y_train {np.array} &#8211; result training data</li>
+<li>mask_sub_features {np.array} &#8211; feature set, only part of all features</li>
+<li>X_test {np.array} &#8211; result training data</li>
+<li>y_test {np.array} &#8211; result test data</li>
+</ul>
+</div></blockquote>
+<dl class="docutils">
+<dt>Returns:</dt>
+<dd>score {np.float64} &#8211; score of the selected feature set</dd>
+</dl>
+</dd></dl>
+
 </div>
 
 
@@ -61,7 +94,7 @@
         &#160;&#160;::&#160;&#160;
         <a class="uplink" href="index.html">Contents</a>
         &#160;&#160;::&#160;&#160;
-        <a href="DT.html">Growing a single Decision Tree</a>&#160;&#160;»
+        <a href="run.html">Execution</a>&#160;&#160;»
         </p>
 
       </div>

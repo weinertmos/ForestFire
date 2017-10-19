@@ -3,7 +3,7 @@
 Import Data
 ===========
 
-*corresponding file: import_data.py*
+corresponding file: *ForestFire/import_data.py*
 
 The first step is the import of the raw data. 
 It must consist of two numpy arrays **X** and **y** which are located in the same directory as *import_data.py*.

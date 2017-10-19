@@ -2,10 +2,19 @@ import numpy as np
 
 
 def import_data():
-    """
+    """import the raw data from two numpy arrays.
+
     Import raw data from two numpy arrays X.npy and y.npy. 
     Set how train and test data are to be split for fix splits.
     Returns train/test splits as well as number of features.
+
+    Returns:
+
+        * X_test {np.array} -- result training data
+        * X_train {np.array} -- feature training data
+        * y_test {np.array} -- result test data
+        * y_train {np.array} -- result training data
+
     """
     X = np.load('X.npy')
     X_train = X[:500]

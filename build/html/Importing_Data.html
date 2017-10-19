@@ -50,7 +50,7 @@
         
   <div class="section" id="import-data">
 <span id="id1"></span><h1>Import Data<a class="headerlink" href="#import-data" title="Permalink to this headline">¶</a></h1>
-<p><em>corresponding file: import_data.py</em></p>
+<p>corresponding file: <em>ForestFire/import_data.py</em></p>
 <p>The first step is the import of the raw data.
 It must consist of two numpy arrays <strong>X</strong> and <strong>y</strong> which are located in the same directory as <em>import_data.py</em>.
 <strong>X</strong> contains the data sets in rows and the features in columns.
@@ -71,9 +71,19 @@ in the next step (<a class="reference internal" href="Generate_Database.html#com
 <dl class="function">
 <dt id="ForestFire.import_data.import_data">
 <code class="descclassname">ForestFire.import_data.</code><code class="descname">import_data</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/ForestFire/import_data.html#import_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ForestFire.import_data.import_data" title="Permalink to this definition">¶</a></dt>
-<dd><p>Import raw data from two numpy arrays X.npy and y.npy. 
+<dd><p>import the raw data from two numpy arrays.</p>
+<p>Import raw data from two numpy arrays X.npy and y.npy. 
 Set how train and test data are to be split for fix splits.
 Returns train/test splits as well as number of features.</p>
+<p>Returns:</p>
+<blockquote>
+<div><ul class="simple">
+<li>X_test {np.array} &#8211; result training data</li>
+<li>X_train {np.array} &#8211; feature training data</li>
+<li>y_test {np.array} &#8211; result test data</li>
+<li>y_train {np.array} &#8211; result training data</li>
+</ul>
+</div></blockquote>
 </dd></dl>
 
 </div>

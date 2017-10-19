@@ -8,8 +8,8 @@ __init__
 
 .. _get_started:
 
-Getting Started
----------------
+Using ForestFire
+----------------
 
 .. toctree::
    :maxdepth: 3
@@ -17,6 +17,7 @@ Getting Started
    Overview
    Importing_Data
    Generate_Database
+   run
 
 .. _loop:
 
