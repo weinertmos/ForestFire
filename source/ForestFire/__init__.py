@@ -11,11 +11,11 @@ of time than randomly choosing new feature sets.
 
 **Possible benefits:**
 
-* Increase overall precision (higher accuracy / lower Error)
+* Increase overall precision (higher accuracy / lower Error Rate)
 * Reduce Computational cost (Finding a good solution earlier)
 * Gain knowledge about importance of single features
 
-In order to use *ForestFire* it is required to provide the datasets in the form of two numpy arrays:
+In order to use *ForestFire* it is required to provide data in the form of two numpy arrays:
 
 * **X.npy** - must contain the values of the features for each data set
 * **y.npy** - must contain the corresponding performance of those feature sets as a single value

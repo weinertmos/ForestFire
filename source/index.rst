@@ -30,15 +30,15 @@ Building and Burning Random Forests
     RF
     Update_Database
 
-.. _compare:
+.. _demo:
 
-Comparational Mode
+Demo Mode
 ------------------
 
 .. toctree::
     :maxdepth: 3
 
-    Compare
+    Demo
     Plot
 
 Indices and tables

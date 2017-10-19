@@ -2,3 +2,9 @@
 
 Import Data
 ===========
+
+
+
+
+
+.. autofunction:: ForestFire.import_data.import_data
