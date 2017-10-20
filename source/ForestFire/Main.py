@@ -20,16 +20,7 @@ np.set_printoptions(threshold=np.inf)   # print whole numpy array in console
 np.seterr(divide='ignore', invalid='ignore')  # ignore warnings if dividing by zero or NaN
 plt.style.use('bmh')
 
-
-# initialize conventional parameter to run script from within this file --> turn off to run it from external script (default)
-__name__ = 'not__main_'
-
-
-# initialization
-z1 = 0  # counter for path generation --> needs fixing! global variable = bad ?
-
-
-# Functions for Generating Database for RF
+### Definitions ###
 
 
 def gen_database(n_runs, X, y, X_test, y_test):
@@ -79,6 +70,14 @@ def gen_database(n_runs, X, y, X_test, y_test):
     # merge X and y values
     Data = np.concatenate((X_DT, y_DT), axis=1)  # this Dataset goes into the Decision Tree / Random Forest
     return Data
+
+
+
+# initialization
+z1 = 0  # counter for path generation --> needs fixing! global variable = bad ?
+
+
+# Functions for Generating Database for RF
 
 
 # Decision Tree
@@ -765,6 +764,7 @@ def main_loop(n_runs, pruning, min_data, n_forests, n_trees, n_configs_biased, n
         * plot_enable bool -- # decide if at the end a plot should be generated , only possible in demo mode
 
     """
+    print "Starting ForestFire"
     # Generate Test Data
     print "Loading Raw Data"
     X_test, X, y_test, y, n_feat = import_data()
@@ -899,7 +899,7 @@ def main_loop(n_runs, pruning, min_data, n_forests, n_trees, n_configs_biased, n
         print "Found Best value for Random Forest Search after " + str(n_runs) + " initial runs and " + str(np.argmax(data[:, -1]) - n_runs) + "/" + str(len(data) - n_runs) + " smart runs"
         print "Best value with RF: " + str(np.max(data[:, -1]))
         print " "
-        print "Found Best value for Random Search after" + str(np.argmax(data_compare[:, -1])) + " random runs"
+        print "Found Best value for Random Search after " + str(np.argmax(data_compare[:, -1])) + " random runs"
         print "Best value with Random Search: " + str(np.max(data_compare[:, -1]))
 
         print " "
@@ -929,7 +929,10 @@ def main_loop(n_runs, pruning, min_data, n_forests, n_trees, n_configs_biased, n
             plt.show()
 
 
-# Program call
-if __name__ == '__main_':
-    main_loop(n_runs, pruning, min_data, n_forests, n_trees, n_configs_biased, n_configs_unbiased, multiplier_stepup, seen_forests,
-              weight_mean, weight_gradient, scoref, demo_mode, plot_enable)
+# # Program call
+# # initialize conventional parameter to run script from within this file --> turn off to run it from external script (default)
+# __name__ = 'not__main_'
+
+# if __name__ == '__main_':
+#     main_loop(n_runs, pruning, min_data, n_forests, n_trees, n_configs_biased, n_configs_unbiased, multiplier_stepup, seen_forests,
+#               weight_mean, weight_gradient, scoref, demo_mode, plot_enable)

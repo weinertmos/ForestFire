@@ -1,0 +1,1000 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>ForestFire.Main &#8212; ForestFire 1.0.0 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/haiku.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.0.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+  </head>
+  <body role="document">
+      <div class="header" role="banner"><h1 class="heading"><a href="../../index.html">
+          <span>ForestFire 1.0.0 documentation</span></a></h1>
+        <h2 class="heading"><span>ForestFire.Main</span></h2>
+      </div>
+      <div class="topnav" role="navigation" aria-label="top navigation">
+      
+        <p>
+        <a class="uplink" href="../../index.html">Contents</a>
+        </p>
+
+      </div>
+      <div class="content">
+        
+        
+  <h1>Source code for ForestFire.Main</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;description Main&quot;&quot;&quot;</span>
+<span class="c1">#  Imports</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="c1"># sklearn imports</span>
+<span class="c1"># from sklearn.datasets.samples_generator import make_blobs</span>
+<span class="c1"># from sklearn.metrics import zero_one_loss  # only needed for percentage error</span>
+<span class="kn">from</span> <span class="nn">sklearn</span> <span class="k">import</span> <span class="n">preprocessing</span>
+<span class="c1"># from sklearn.model_selection import train_test_split</span>
+<span class="c1"># from sklearn.metrics import mean_squared_error</span>
+<span class="kn">from</span> <span class="nn">PIL</span> <span class="k">import</span> <span class="n">Image</span><span class="p">,</span> <span class="n">ImageDraw</span>
+<span class="kn">from</span> <span class="nn">compute</span> <span class="k">import</span> <span class="n">compute</span>
+<span class="kn">from</span> <span class="nn">import_data</span> <span class="k">import</span> <span class="n">import_data</span>
+
+<span class="c1"># matplotlib.use(&#39;TkAgg&#39;)  # set Backend</span>
+
+
+<span class="c1"># change settings</span>
+<span class="n">np</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">threshold</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">)</span>   <span class="c1"># print whole numpy array in console</span>
+<span class="n">np</span><span class="o">.</span><span class="n">seterr</span><span class="p">(</span><span class="n">divide</span><span class="o">=</span><span class="s1">&#39;ignore&#39;</span><span class="p">,</span> <span class="n">invalid</span><span class="o">=</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>  <span class="c1"># ignore warnings if dividing by zero or NaN</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;bmh&#39;</span><span class="p">)</span>
+
+<span class="c1">### Definitions ###</span>
+
+
+<div class="viewcode-block" id="gen_database"><a class="viewcode-back" href="../../Overview.html#ForestFire.Main.gen_database">[docs]</a><span class="k">def</span> <span class="nf">gen_database</span><span class="p">(</span><span class="n">n_runs</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;[summary]</span>
+
+<span class="sd">    [description]</span>
+
+<span class="sd">    Arguments:</span>
+<span class="sd">        n_runs {[type]} -- [description]</span>
+<span class="sd">        X {[type]} -- [description]</span>
+<span class="sd">        y {[type]} -- [description]</span>
+<span class="sd">        X_test {[type]} -- [description]</span>
+<span class="sd">        y_test {[type]} -- [description]</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        [type] -- [description]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">X_DT</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n_runs</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="mi">0</span><span class="p">])),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>  <span class="c1"># Prelocate Memory</span>
+    <span class="c1"># print X_DT</span>
+    <span class="n">y_DT</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n_runs</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>  <span class="c1"># Prelocate Memory</span>
+
+    <span class="c1"># create SVMs that can only see subset of features</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_runs</span><span class="p">):</span>
+        <span class="c1"># create random mask to select subgroup of features</span>
+        <span class="n">mask_sub_features</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>  <span class="c1"># Prelocate Memory</span>
+        <span class="c1"># mask_sub_data = np.zeros(len(X), dtype=bool)  # Prelocate Memory</span>
+        <span class="c1"># selecting features: any number between 1 and all features are selected</span>
+        <span class="n">size</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="n">rand_feat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="mi">0</span><span class="p">])),</span> <span class="n">size</span><span class="o">=</span><span class="n">size</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>  <span class="c1"># in first run prob is None --&gt; all features are equally selected, in later runs prob is result of previous RF results</span>
+        <span class="n">mask_sub_features</span><span class="p">[</span><span class="n">rand_feat</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>  <span class="c1"># set chosen features to True</span>
+
+        <span class="c1"># Select Train and Test Data for subgroup</span>
+        <span class="c1"># print X</span>
+        <span class="n">X_sub</span> <span class="o">=</span> <span class="n">X</span><span class="p">[:,</span> <span class="n">mask_sub_features</span><span class="p">]</span>  <span class="c1"># select only chosen features (still all datasets)</span>
+        <span class="c1"># print len(X_sub[0])</span>
+        <span class="c1"># print X_sub[0]</span>
+
+        <span class="c1"># compute subgroup</span>
+        <span class="c1"># print X_sub</span>
+        <span class="n">y_DT</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">compute</span><span class="p">(</span><span class="n">X_sub</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">mask_sub_features</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>
+
+        <span class="c1"># Save Data</span>
+        <span class="n">X_DT</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">mask_sub_features</span>  <span class="c1"># for the Decision Tree / Random Forest the X values are the information about whether an SVM has seen a certain feature or not</span>
+    <span class="c1"># print X_DT</span>
+    <span class="c1"># print y_DT</span>
+
+    <span class="c1"># merge X and y values</span>
+    <span class="n">Data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">X_DT</span><span class="p">,</span> <span class="n">y_DT</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># this Dataset goes into the Decision Tree / Random Forest</span>
+    <span class="k">return</span> <span class="n">Data</span></div>
+
+
+
+<span class="c1"># initialization</span>
+<span class="n">z1</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># counter for path generation --&gt; needs fixing! global variable = bad ?</span>
+
+
+<span class="c1"># Functions for Generating Database for RF</span>
+
+
+<span class="c1"># Decision Tree</span>
+
+
+<span class="c1"># class definition</span>
+<div class="viewcode-block" id="decisionnode"><a class="viewcode-back" href="../../Overview.html#ForestFire.Main.decisionnode">[docs]</a><span class="k">class</span> <span class="nc">decisionnode</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot; Allein auf weiter Flur&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">col</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">results</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">tb</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">fb</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">col</span> <span class="o">=</span> <span class="n">col</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">value</span>
+        <span class="bp">self</span><span class="o">.</span> <span class="n">results</span> <span class="o">=</span> <span class="n">results</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tb</span> <span class="o">=</span> <span class="n">tb</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fb</span> <span class="o">=</span> <span class="n">fb</span></div>
+
+<span class="c1"># Functions for DT</span>
+
+
+<span class="c1"># Divides a set on a specific column. Can handle numeric</span>
+<span class="c1"># or nominal vlaues</span>
+<span class="k">def</span> <span class="nf">divideset</span><span class="p">(</span><span class="n">rows</span><span class="p">,</span> <span class="n">column</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;Make a function that tells us if a row is in</span>
+<span class="sd">    the first group (true) or the second group (false) &#39;&#39;&#39;</span>
+    <span class="n">split_function</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1"># Prelocate</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">float</span><span class="p">):</span>
+        <span class="k">def</span> <span class="nf">split_function</span><span class="p">(</span><span class="n">row</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">row</span><span class="p">[</span><span class="n">column</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">value</span>  <span class="c1"># quick function definition</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">def</span> <span class="nf">split_function</span><span class="p">(</span><span class="n">row</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">row</span><span class="p">[</span><span class="n">column</span><span class="p">]</span> <span class="o">==</span> <span class="n">value</span>
+    <span class="sd">&#39;&#39;&#39; divide the rows into two sets and return them &#39;&#39;&#39;</span>
+    <span class="n">set1</span> <span class="o">=</span> <span class="p">[</span><span class="n">row</span> <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">rows</span> <span class="k">if</span> <span class="n">split_function</span><span class="p">(</span><span class="n">row</span><span class="p">)]</span>  <span class="c1"># positive side &gt;= or ==</span>
+    <span class="n">set2</span> <span class="o">=</span> <span class="p">[</span><span class="n">row</span> <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">rows</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">split_function</span><span class="p">(</span><span class="n">row</span><span class="p">)]</span>  <span class="c1"># negative side True or False</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">set1</span><span class="p">,</span> <span class="n">set2</span><span class="p">)</span>
+
+
+<span class="c1"># Create counts of possible results (the last column of each row is the result) = how many different results are in a list</span>
+<span class="k">def</span> <span class="nf">uniquecounts</span><span class="p">(</span><span class="n">rows</span><span class="p">):</span>
+    <span class="n">results</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">rows</span><span class="p">:</span>
+        <span class="c1"># The result is the last column</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">row</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
+        <span class="c1"># if r not already in results, entry will be generated</span>
+        <span class="k">if</span> <span class="n">r</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">results</span><span class="p">:</span>
+            <span class="n">results</span><span class="p">[</span><span class="n">r</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="c1"># increase count of r by one</span>
+        <span class="n">results</span><span class="p">[</span><span class="n">r</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">return</span> <span class="n">results</span>
+
+
+<span class="k">def</span> <span class="nf">giniimpurity</span><span class="p">(</span><span class="n">rows</span><span class="p">):</span>  <span class="c1"># Probability that a randomly placed item will be in the wrong category</span>
+    <span class="n">total</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">rows</span><span class="p">)</span>
+    <span class="n">counts</span> <span class="o">=</span> <span class="n">uniquecounts</span><span class="p">(</span><span class="n">rows</span><span class="p">)</span>
+    <span class="n">imp</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">k1</span> <span class="ow">in</span> <span class="n">counts</span><span class="p">:</span>
+        <span class="n">p1</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">counts</span><span class="p">[</span><span class="n">k1</span><span class="p">])</span> <span class="o">/</span> <span class="n">total</span>
+        <span class="k">for</span> <span class="n">k2</span> <span class="ow">in</span> <span class="n">counts</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">k1</span> <span class="o">==</span> <span class="n">k2</span><span class="p">:</span>
+                <span class="k">continue</span>  <span class="c1"># beendet if</span>
+            <span class="n">p2</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">counts</span><span class="p">[</span><span class="n">k2</span><span class="p">])</span> <span class="o">/</span> <span class="n">total</span>
+            <span class="n">imp</span> <span class="o">+=</span> <span class="n">p1</span> <span class="o">*</span> <span class="n">p2</span>
+    <span class="k">return</span> <span class="n">imp</span>
+
+
+<span class="c1"># Entropy is the sum of p(x)log(p(x)) across all the different possible results --&gt; how mixed is a list</span>
+<span class="k">def</span> <span class="nf">entropy</span><span class="p">(</span><span class="n">rows</span><span class="p">):</span>
+    <span class="kn">from</span> <span class="nn">math</span> <span class="k">import</span> <span class="n">log</span>
+
+    <span class="k">def</span> <span class="nf">log2</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">log</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">/</span> <span class="n">log</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">results</span> <span class="o">=</span> <span class="n">uniquecounts</span><span class="p">(</span><span class="n">rows</span><span class="p">)</span>
+    <span class="c1"># calculate Entropy</span>
+    <span class="n">ent</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">results</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+        <span class="n">p</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">results</span><span class="p">[</span><span class="n">r</span><span class="p">])</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">rows</span><span class="p">)</span>
+        <span class="n">ent</span> <span class="o">-=</span> <span class="n">p</span> <span class="o">*</span> <span class="n">log2</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+        <span class="c1"># print ent</span>
+    <span class="k">return</span> <span class="n">ent</span>
+
+
+<span class="c1"># building the tree</span>
+<span class="k">def</span> <span class="nf">buildtree</span><span class="p">(</span><span class="n">rows</span><span class="p">,</span> <span class="n">scoref</span><span class="p">):</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">rows</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">decisionnode</span><span class="p">()</span>
+    <span class="n">current_score</span> <span class="o">=</span> <span class="n">scoref</span><span class="p">(</span><span class="n">rows</span><span class="p">)</span>
+
+    <span class="c1"># Set up variables to track the best criteria</span>
+    <span class="n">best_gain</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="n">best_criteria</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">best_sets</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="n">column_count</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">rows</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">-</span> <span class="mi">1</span>  <span class="c1"># number of columns minus last one (result)</span>
+    <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">column_count</span><span class="p">):</span>
+        <span class="c1"># Generate the list of different values in this column</span>
+        <span class="n">column_values</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">rows</span><span class="p">:</span>
+            <span class="n">column_values</span><span class="p">[</span><span class="n">row</span><span class="p">[</span><span class="n">col</span><span class="p">]]</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="c1"># print column_values</span>
+        <span class="c1"># Try dividing the rows up for each value in this column</span>
+        <span class="k">for</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">column_values</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="p">(</span><span class="n">set1</span><span class="p">,</span> <span class="n">set2</span><span class="p">)</span> <span class="o">=</span> <span class="n">divideset</span><span class="p">(</span><span class="n">rows</span><span class="p">,</span> <span class="n">col</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+
+            <span class="c1"># Information Gain</span>
+            <span class="n">p</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">set1</span><span class="p">))</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">rows</span><span class="p">)</span>  <span class="c1"># = ration(Anteil) of list 1 against whole list (list1+list2)</span>
+            <span class="n">gain</span> <span class="o">=</span> <span class="n">current_score</span> <span class="o">-</span> <span class="n">p</span> <span class="o">*</span> <span class="n">scoref</span><span class="p">(</span><span class="n">set1</span><span class="p">)</span> <span class="o">-</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">p</span><span class="p">)</span> <span class="o">*</span> <span class="n">scoref</span><span class="p">(</span><span class="n">set2</span><span class="p">)</span>  <span class="c1"># set1 and set2 can be exchanged</span>
+            <span class="c1"># print gain</span>
+            <span class="k">if</span> <span class="n">gain</span> <span class="o">&gt;</span> <span class="n">best_gain</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">set1</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">set2</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">best_gain</span> <span class="o">=</span> <span class="n">gain</span>
+                <span class="n">best_criteria</span> <span class="o">=</span> <span class="p">(</span><span class="n">col</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+                <span class="n">best_sets</span> <span class="o">=</span> <span class="p">(</span><span class="n">set1</span><span class="p">,</span> <span class="n">set2</span><span class="p">)</span>
+    <span class="c1"># print &quot;Best Gain = &quot; + str(best_gain)</span>
+    <span class="c1"># print &quot;Best criteria = &quot; + str(best_criteria)</span>
+
+    <span class="c1"># Create subbranches</span>
+    <span class="k">if</span> <span class="n">best_gain</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">trueBranch</span> <span class="o">=</span> <span class="n">buildtree</span><span class="p">(</span><span class="n">best_sets</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">scoref</span><span class="p">)</span>
+        <span class="n">falseBranch</span> <span class="o">=</span> <span class="n">buildtree</span><span class="p">(</span><span class="n">best_sets</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">scoref</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">decisionnode</span><span class="p">(</span><span class="n">col</span><span class="o">=</span><span class="n">best_criteria</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">value</span><span class="o">=</span><span class="n">best_criteria</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">tb</span><span class="o">=</span><span class="n">trueBranch</span><span class="p">,</span> <span class="n">fb</span><span class="o">=</span><span class="n">falseBranch</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">decisionnode</span><span class="p">(</span><span class="n">results</span><span class="o">=</span><span class="n">uniquecounts</span><span class="p">(</span><span class="n">rows</span><span class="p">))</span>
+
+
+<span class="c1"># prints out the tree on the command line</span>
+<span class="k">def</span> <span class="nf">printtree</span><span class="p">(</span><span class="n">tree</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="s1">&#39; &#39;</span><span class="p">):</span>
+    <span class="c1"># Is this a leaf node</span>
+    <span class="k">if</span> <span class="n">tree</span><span class="o">.</span><span class="n">results</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">print</span> <span class="nb">str</span><span class="p">(</span><span class="n">tree</span><span class="o">.</span><span class="n">results</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># Print the criteriia</span>
+        <span class="nb">print</span> <span class="nb">str</span><span class="p">(</span><span class="n">tree</span><span class="o">.</span><span class="n">col</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">tree</span><span class="o">.</span><span class="n">value</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;?&#39;</span>
+
+        <span class="c1"># Print the branches</span>
+        <span class="nb">print</span> <span class="n">indent</span> <span class="o">+</span> <span class="s1">&#39;T--&gt;&#39;</span><span class="p">,</span>
+        <span class="n">printtree</span><span class="p">(</span><span class="n">tree</span><span class="o">.</span><span class="n">tb</span><span class="p">,</span> <span class="n">indent</span> <span class="o">+</span> <span class="s1">&#39;   &#39;</span><span class="p">)</span>
+        <span class="nb">print</span> <span class="n">indent</span> <span class="o">+</span> <span class="s1">&#39;F--&gt;&#39;</span><span class="p">,</span>
+        <span class="n">printtree</span><span class="p">(</span><span class="n">tree</span><span class="o">.</span><span class="n">fb</span><span class="p">,</span> <span class="n">indent</span> <span class="o">+</span> <span class="s1">&#39;   &#39;</span><span class="p">)</span>
+
+
+<span class="c1"># returns the number of leaves = endnodes in the tree</span>
+<span class="k">def</span> <span class="nf">getwidth</span><span class="p">(</span><span class="n">tree</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">tree</span><span class="o">.</span><span class="n">tb</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">tree</span><span class="o">.</span><span class="n">fb</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">1</span>
+    <span class="k">return</span> <span class="n">getwidth</span><span class="p">(</span><span class="n">tree</span><span class="o">.</span><span class="n">tb</span><span class="p">)</span> <span class="o">+</span> <span class="n">getwidth</span><span class="p">(</span><span class="n">tree</span><span class="o">.</span><span class="n">fb</span><span class="p">)</span>
+
+
+<span class="c1"># returns the maximum number of consecutive nodes</span>
+<span class="k">def</span> <span class="nf">getdepth</span><span class="p">(</span><span class="n">tree</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">tree</span><span class="o">.</span><span class="n">tb</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">tree</span><span class="o">.</span><span class="n">fb</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">0</span>
+    <span class="k">return</span> <span class="nb">max</span><span class="p">(</span><span class="n">getdepth</span><span class="p">(</span><span class="n">tree</span><span class="o">.</span><span class="n">tb</span><span class="p">),</span> <span class="n">getdepth</span><span class="p">(</span><span class="n">tree</span><span class="o">.</span><span class="n">fb</span><span class="p">))</span> <span class="o">+</span> <span class="mi">1</span>
+
+
+<span class="c1"># visualization of the tree in a jpeg</span>
+<span class="k">def</span> <span class="nf">drawtree</span><span class="p">(</span><span class="n">tree</span><span class="p">,</span> <span class="n">jpeg</span><span class="o">=</span><span class="s1">&#39;tree.jpg&#39;</span><span class="p">):</span>
+    <span class="n">w</span> <span class="o">=</span> <span class="n">getwidth</span><span class="p">(</span><span class="n">tree</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span>
+    <span class="n">h</span> <span class="o">=</span> <span class="n">getdepth</span><span class="p">(</span><span class="n">tree</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span> <span class="o">+</span> <span class="mi">120</span>
+
+    <span class="n">img</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="s1">&#39;RGB&#39;</span><span class="p">,</span> <span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">h</span><span class="p">),</span> <span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">))</span>
+    <span class="n">draw</span> <span class="o">=</span> <span class="n">ImageDraw</span><span class="o">.</span><span class="n">Draw</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
+
+    <span class="n">drawnode</span><span class="p">(</span><span class="n">draw</span><span class="p">,</span> <span class="n">tree</span><span class="p">,</span> <span class="n">w</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
+    <span class="n">img</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">jpeg</span><span class="p">,</span> <span class="s1">&#39;JPEG&#39;</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">drawnode</span><span class="p">(</span><span class="n">draw</span><span class="p">,</span> <span class="n">tree</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">tree</span><span class="o">.</span><span class="n">results</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="c1"># Get the width of each branch</span>
+        <span class="n">w1</span> <span class="o">=</span> <span class="n">getwidth</span><span class="p">(</span><span class="n">tree</span><span class="o">.</span><span class="n">fb</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span>
+        <span class="n">w2</span> <span class="o">=</span> <span class="n">getwidth</span><span class="p">(</span><span class="n">tree</span><span class="o">.</span><span class="n">tb</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span>
+
+        <span class="c1"># Determine the total space required by this node</span>
+        <span class="n">left</span> <span class="o">=</span> <span class="n">x</span> <span class="o">-</span> <span class="p">(</span><span class="n">w1</span> <span class="o">+</span> <span class="n">w2</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
+        <span class="n">right</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="p">(</span><span class="n">w1</span> <span class="o">+</span> <span class="n">w2</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
+
+        <span class="c1"># Draw the condition string</span>
+        <span class="n">draw</span><span class="o">.</span><span class="n">text</span><span class="p">((</span><span class="n">x</span> <span class="o">-</span> <span class="mi">20</span><span class="p">,</span> <span class="n">y</span> <span class="o">-</span> <span class="mi">10</span><span class="p">),</span> <span class="nb">str</span><span class="p">(</span><span class="n">tree</span><span class="o">.</span><span class="n">col</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;:&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">tree</span><span class="o">.</span><span class="n">value</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+
+        <span class="c1"># Draw links to the branches</span>
+        <span class="n">draw</span><span class="o">.</span><span class="n">line</span><span class="p">((</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">left</span> <span class="o">+</span> <span class="n">w1</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">y</span> <span class="o">+</span> <span class="mi">100</span><span class="p">),</span> <span class="n">fill</span><span class="o">=</span><span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+        <span class="n">draw</span><span class="o">.</span> <span class="n">line</span><span class="p">((</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">right</span> <span class="o">-</span> <span class="n">w2</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">y</span> <span class="o">+</span> <span class="mi">100</span><span class="p">),</span> <span class="n">fill</span><span class="o">=</span><span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+
+        <span class="c1"># Draw the branch nodes</span>
+        <span class="n">drawnode</span><span class="p">(</span><span class="n">draw</span><span class="p">,</span> <span class="n">tree</span><span class="o">.</span><span class="n">fb</span><span class="p">,</span> <span class="n">left</span> <span class="o">+</span> <span class="n">w1</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">y</span> <span class="o">+</span> <span class="mi">100</span><span class="p">)</span>
+        <span class="n">drawnode</span><span class="p">(</span><span class="n">draw</span><span class="p">,</span> <span class="n">tree</span><span class="o">.</span><span class="n">tb</span><span class="p">,</span> <span class="n">right</span> <span class="o">-</span> <span class="n">w2</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">y</span> <span class="o">+</span> <span class="mi">100</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">txt</span> <span class="o">=</span> <span class="s1">&#39; </span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">:</span><span class="si">%d</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">v</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">tree</span><span class="o">.</span><span class="n">results</span><span class="o">.</span><span class="n">items</span><span class="p">()])</span>
+        <span class="n">draw</span><span class="o">.</span><span class="n">text</span><span class="p">((</span><span class="n">x</span> <span class="o">-</span> <span class="mi">20</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="n">txt</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+
+
+<span class="c1"># classify new observation</span>
+<span class="k">def</span> <span class="nf">classify</span><span class="p">(</span><span class="n">observation</span><span class="p">,</span> <span class="n">tree</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">tree</span><span class="o">.</span><span class="n">results</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">tree</span><span class="o">.</span><span class="n">results</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">v</span> <span class="o">=</span> <span class="n">observation</span><span class="p">[</span><span class="n">tree</span><span class="o">.</span><span class="n">col</span><span class="p">]</span>
+        <span class="n">branch</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="nb">float</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">v</span> <span class="o">&gt;=</span> <span class="n">tree</span><span class="o">.</span><span class="n">value</span><span class="p">:</span>
+                <span class="n">branch</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">tb</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">branch</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">fb</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">v</span> <span class="o">==</span> <span class="n">tree</span><span class="o">.</span><span class="n">value</span><span class="p">:</span>
+                <span class="n">branch</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">tb</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">branch</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">fb</span>
+            <span class="k">return</span> <span class="n">classify</span><span class="p">(</span><span class="n">observation</span><span class="p">,</span> <span class="n">branch</span><span class="p">)</span>
+
+
+<span class="c1"># classify an observation that has missing entries</span>
+<span class="k">def</span> <span class="nf">mdclassify</span><span class="p">(</span><span class="n">observation</span><span class="p">,</span> <span class="n">tree</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">tree</span><span class="o">.</span><span class="n">results</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">tree</span><span class="o">.</span><span class="n">results</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">v</span> <span class="o">=</span> <span class="n">observation</span><span class="p">[</span><span class="n">tree</span><span class="o">.</span><span class="n">col</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">v</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">tr</span><span class="p">,</span> <span class="n">fr</span> <span class="o">=</span> <span class="n">mdclassify</span><span class="p">(</span><span class="n">observation</span><span class="p">,</span> <span class="n">tree</span><span class="o">.</span><span class="n">tb</span><span class="p">),</span> <span class="n">mdclassify</span><span class="p">(</span><span class="n">observation</span><span class="p">,</span> <span class="n">tree</span><span class="o">.</span><span class="n">fb</span><span class="p">)</span>
+            <span class="n">tcount</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">tr</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+            <span class="n">fcount</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">fr</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+            <span class="n">tw</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">tcount</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">tcount</span> <span class="o">+</span> <span class="n">fcount</span><span class="p">)</span>
+            <span class="n">fw</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">tw</span>  <span class="c1"># different from book !</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="c1"># k is name, v is value</span>
+            <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">tr</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="n">result</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span> <span class="o">*</span> <span class="n">tw</span>
+            <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">fr</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="n">result</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">v</span> <span class="o">*</span> <span class="n">fw</span><span class="p">)</span>  <span class="c1"># why setdefault and not above</span>
+            <span class="k">return</span> <span class="n">result</span>
+        <span class="c1"># same as classify from here on</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="nb">float</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">v</span> <span class="o">&gt;=</span> <span class="n">tree</span><span class="o">.</span><span class="n">value</span><span class="p">:</span>
+                    <span class="n">branch</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">tb</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">branch</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">fb</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">v</span> <span class="o">==</span> <span class="n">tree</span><span class="o">.</span><span class="n">value</span><span class="p">:</span>
+                    <span class="n">branch</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">tb</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">branch</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">fb</span>
+            <span class="k">return</span> <span class="n">mdclassify</span><span class="p">(</span><span class="n">observation</span><span class="p">,</span> <span class="n">branch</span><span class="p">)</span>
+
+
+<span class="c1"># if pruning parameter (see at top) is &gt; 0 leaves may be cut together if the information gain is &lt; mingain</span>
+<span class="k">def</span> <span class="nf">prune</span><span class="p">(</span><span class="n">tree</span><span class="p">,</span> <span class="n">mingain</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">getdepth</span><span class="p">(</span><span class="n">tree</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span>
+    <span class="c1"># If the branches aren&#39;t leaves, then prune them</span>
+    <span class="k">if</span> <span class="n">tree</span><span class="o">.</span><span class="n">tb</span><span class="o">.</span><span class="n">results</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">prune</span><span class="p">(</span><span class="n">tree</span><span class="o">.</span><span class="n">tb</span><span class="p">,</span> <span class="n">mingain</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">tree</span><span class="o">.</span><span class="n">fb</span><span class="o">.</span><span class="n">results</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">prune</span><span class="p">(</span><span class="n">tree</span><span class="o">.</span><span class="n">fb</span><span class="p">,</span> <span class="n">mingain</span><span class="p">)</span>
+
+    <span class="c1"># If both the subbranches are now leaves, see if they should be merged</span>
+    <span class="k">if</span> <span class="n">tree</span><span class="o">.</span><span class="n">tb</span><span class="o">.</span><span class="n">results</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">tree</span><span class="o">.</span><span class="n">fb</span><span class="o">.</span><span class="n">results</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="c1"># Build a combined dataset</span>
+        <span class="n">tb</span><span class="p">,</span> <span class="n">fb</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
+        <span class="c1"># v equals key, c equals value, results in a list of the different values each added up</span>
+        <span class="k">for</span> <span class="n">v</span><span class="p">,</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">tree</span><span class="o">.</span><span class="n">tb</span><span class="o">.</span><span class="n">results</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">tb</span> <span class="o">+=</span> <span class="p">[[</span><span class="n">v</span><span class="p">]]</span> <span class="o">*</span> <span class="n">c</span>
+        <span class="k">for</span> <span class="n">v</span><span class="p">,</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">tree</span><span class="o">.</span><span class="n">fb</span><span class="o">.</span><span class="n">results</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">fb</span> <span class="o">+=</span> <span class="p">[[</span><span class="n">v</span><span class="p">]]</span> <span class="o">*</span> <span class="n">c</span>
+
+        <span class="c1"># Test the reduction in entropy</span>
+        <span class="n">delta</span> <span class="o">=</span> <span class="n">entropy</span><span class="p">(</span><span class="n">tb</span> <span class="o">+</span> <span class="n">fb</span><span class="p">)</span> <span class="o">-</span> <span class="p">(</span><span class="n">entropy</span><span class="p">(</span><span class="n">tb</span><span class="p">)</span> <span class="o">+</span> <span class="n">entropy</span><span class="p">(</span><span class="n">fb</span><span class="p">))</span> <span class="o">/</span> <span class="mi">2</span>  <span class="c1"># different in book?</span>
+        <span class="c1"># print delta</span>
+        <span class="k">if</span> <span class="n">delta</span> <span class="o">&lt;</span> <span class="n">mingain</span><span class="p">:</span>
+            <span class="c1"># Merge the branches</span>
+            <span class="n">tree</span><span class="o">.</span><span class="n">tb</span><span class="p">,</span> <span class="n">tree</span><span class="o">.</span><span class="n">fb</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span>
+            <span class="n">tree</span><span class="o">.</span><span class="n">results</span> <span class="o">=</span> <span class="n">uniquecounts</span><span class="p">(</span><span class="n">tb</span> <span class="o">+</span> <span class="n">fb</span><span class="p">)</span>
+
+
+<span class="c1"># compute variance of target values if they are numbers, ? not needed ?</span>
+<span class="k">def</span> <span class="nf">variance</span><span class="p">(</span><span class="n">rows</span><span class="p">):</span>
+    <span class="c1"># if y consists of values, change scoref in buildtree!</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">rows</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">0</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="nb">float</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">row</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">])</span> <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">rows</span><span class="p">]</span>
+    <span class="n">mean</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+    <span class="n">variance</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">([(</span><span class="n">d</span> <span class="o">-</span> <span class="n">mean</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">data</span><span class="p">])</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>  <span class="c1"># normalize by dividing by mean ?</span>
+    <span class="k">return</span> <span class="n">variance</span>
+
+
+<span class="c1"># Create Matrix path which contains the structure of the tree</span>
+<span class="k">def</span> <span class="nf">path_gen</span><span class="p">(</span><span class="n">tree</span><span class="p">):</span>
+    <span class="k">global</span> <span class="n">z1</span>  <span class="c1"># doesn&#39;t work otherwise needs fixing ?</span>
+    <span class="n">z1</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># equals number of leafs, must increase during creation of path</span>
+    <span class="n">z2</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># equals depth, fluctuates during creation of path</span>
+    <span class="n">width</span> <span class="o">=</span> <span class="n">getwidth</span><span class="p">(</span><span class="n">tree</span><span class="p">)</span>
+    <span class="n">depth</span> <span class="o">=</span> <span class="n">getdepth</span><span class="p">(</span><span class="n">tree</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>  <span class="c1"># +1 for target values</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">width</span><span class="p">,</span> <span class="n">depth</span><span class="p">))</span>  <span class="c1"># Prelocate Memory</span>
+    <span class="n">path</span><span class="p">[::]</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1"># NaN in final result means branch is shorter than total depth</span>
+    <span class="k">return</span> <span class="n">path_gen2</span><span class="p">(</span><span class="n">tree</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">depth</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">z2</span><span class="p">)</span>
+
+
+<span class="c1"># create a matrix path that represents the structure of the tree and the decisions made at each node, last column contains the average MSE at that leaf</span>
+<span class="c1"># the sooner a feature gets chosen as a split feature the more important it is (the farther on the left it appears in path matrix)</span>
+<span class="c1"># order that leaves are written in (top to bottom): function will crawl to the rightmost leaf first (positive side), then jump back up one level and move one step to the left (loop)</span>
+<span class="k">def</span> <span class="nf">path_gen2</span><span class="p">(</span><span class="n">tree</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">depth</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">z2</span><span class="p">):</span>
+    <span class="k">global</span> <span class="n">z1</span>  <span class="c1"># doesn&#39;t work otherwise needs fixing ?</span>
+    <span class="k">while</span> <span class="n">z1</span> <span class="o">&lt;</span> <span class="n">width</span><span class="p">:</span>  <span class="c1"># continue until total number of leaves is reached</span>
+        <span class="k">if</span> <span class="n">tree</span><span class="o">.</span><span class="n">results</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># = if current node is not a leaf</span>
+            <span class="n">path</span><span class="p">[</span><span class="n">z1</span><span class="p">,</span> <span class="n">z2</span><span class="p">]</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">col</span>  <span class="c1"># write split feature of that node into path matrix</span>
+            <span class="n">z2</span> <span class="o">+=</span> <span class="mi">1</span>  <span class="c1"># increase depth counter</span>
+            <span class="n">path_gen2</span><span class="p">(</span><span class="n">tree</span><span class="o">.</span><span class="n">tb</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">depth</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">z2</span><span class="p">)</span>  <span class="c1"># recursively call path_gen function in order to proceed to next deeper node in direction of tb</span>
+            <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">z2</span><span class="p">):</span>
+                <span class="n">path</span><span class="p">[</span><span class="n">z1</span><span class="p">,</span> <span class="n">x</span><span class="p">]</span> <span class="o">=</span> <span class="n">path</span><span class="p">[</span><span class="n">z1</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">x</span><span class="p">]</span>  <span class="c1"># assign the former columns the same value as the leaf above</span>
+            <span class="n">path_gen2</span><span class="p">(</span><span class="n">tree</span><span class="o">.</span><span class="n">fb</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">depth</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">z2</span><span class="p">)</span>  <span class="c1"># recursively call path_gen function in order to proceed to next deeper node in direction of fb</span>
+            <span class="n">z2</span> <span class="o">-=</span> <span class="mi">1</span>  <span class="c1"># after reaching the deepest fb leaf move up one level in depth</span>
+            <span class="k">break</span>
+        <span class="k">else</span><span class="p">:</span>  <span class="c1"># = if current node is a leaf</span>
+            <span class="n">path</span><span class="p">[</span><span class="n">z1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">tree</span><span class="o">.</span><span class="n">results</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>  <span class="c1"># put the average MSE in the last column of path</span>
+            <span class="n">z1</span> <span class="o">+=</span> <span class="mi">1</span>  <span class="c1"># current leaf is completely written into path, proceeding to next leaf</span>
+            <span class="k">break</span>
+    <span class="k">return</span> <span class="n">path</span>  <span class="c1"># return the path matrix</span>
+
+
+<span class="c1"># Check if a tree contains MSE_min (= True) or not (= False)</span>
+<span class="k">def</span> <span class="nf">check_path</span><span class="p">(</span><span class="n">tree</span><span class="p">,</span> <span class="n">MSE_min</span><span class="p">):</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="n">path_gen</span><span class="p">(</span><span class="n">tree</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">MSE_min</span> <span class="ow">in</span> <span class="n">path</span><span class="p">[:,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="kc">True</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">False</span>
+
+<span class="c1"># for each tree, the features that lead to the leaf with the lowest MSE will get rewarded/punished</span>
+<span class="c1"># depending on whether the leaf lies on positive or negative side of the node feature</span>
+<span class="c1"># RF gets updated after a new tree is built and thus contains the cummulation of all</span>
+<span class="c1"># feature appearences in the whole forest</span>
+
+
+<span class="k">def</span> <span class="nf">update_RF</span><span class="p">(</span><span class="n">RF</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">tree</span><span class="p">,</span> <span class="n">rand_feat</span><span class="p">):</span>
+    <span class="n">current_depth</span> <span class="o">=</span> <span class="n">getdepth</span><span class="p">(</span><span class="n">tree</span><span class="p">)</span>
+    <span class="c1"># print &quot;current path: &quot; + str(path)</span>
+    <span class="c1"># print  &quot;current depth = &quot; + str(getdepth(tree))</span>
+    <span class="c1"># print &quot;current col: &quot; + str(tree.col)</span>
+    <span class="k">if</span> <span class="n">current_depth</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">RF</span>
+    <span class="n">MSE_min</span> <span class="o">=</span> <span class="n">path</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="c1"># print &quot;MSE_min: &quot; + str(MSE_min)</span>
+    <span class="c1"># print &quot;Checking if MSE_min is in True branch&quot;</span>
+    <span class="k">if</span> <span class="n">check_path</span><span class="p">(</span><span class="n">tree</span><span class="o">.</span><span class="n">tb</span><span class="p">,</span> <span class="n">MSE_min</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="c1"># print &quot;MSE_min is in True Branch&quot;</span>
+        <span class="k">if</span> <span class="n">rand_feat</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">tree</span><span class="o">.</span><span class="n">col</span><span class="p">)]</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">RF</span><span class="p">:</span>  <span class="c1"># initialize the feature in dictionary RF if it appears for the first time</span>
+            <span class="c1"># print rand_feat</span>
+            <span class="c1"># print tree.col</span>
+            <span class="c1"># print rand_feat[int(tree.col)]</span>
+            <span class="n">RF</span><span class="p">[</span><span class="n">rand_feat</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">tree</span><span class="o">.</span><span class="n">col</span><span class="p">)]]</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">current_depth</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>  <span class="c1"># if the feature is already present in dictionary RF, increase counter</span>
+            <span class="n">RF</span><span class="p">[</span><span class="n">rand_feat</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">tree</span><span class="o">.</span><span class="n">col</span><span class="p">)]]</span> <span class="o">+=</span> <span class="nb">float</span><span class="p">(</span><span class="n">current_depth</span><span class="p">)</span>
+        <span class="c1"># print &quot;added &quot; + str(current_depth) + &quot; to feature  &quot; + str(tree.col)</span>
+        <span class="c1"># print &quot;current RF: &quot; + str(RF)</span>
+        <span class="n">update_RF</span><span class="p">(</span><span class="n">RF</span><span class="p">,</span> <span class="n">path</span><span class="p">[</span><span class="mi">1</span><span class="p">:],</span> <span class="n">tree</span><span class="o">.</span><span class="n">tb</span><span class="p">,</span> <span class="n">rand_feat</span><span class="p">)</span>  <span class="c1"># recursively jump into update_RF again with shortened path at next level in true branch</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># print &quot;MSE_min is not in True Branch&quot;</span>
+        <span class="c1"># print &quot;Checking if MSE_min is in False Branch&quot;</span>
+        <span class="k">if</span> <span class="n">check_path</span><span class="p">(</span><span class="n">tree</span><span class="o">.</span><span class="n">fb</span><span class="p">,</span> <span class="n">MSE_min</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="c1"># print &quot;MSE_min is in False Branch&quot;</span>
+            <span class="k">if</span> <span class="n">rand_feat</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">tree</span><span class="o">.</span><span class="n">col</span><span class="p">)]</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">RF</span><span class="p">:</span>  <span class="c1"># initialize the feature in dictionary RF if it appears for the first time</span>
+                <span class="n">RF</span><span class="p">[</span><span class="n">rand_feat</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">tree</span><span class="o">.</span><span class="n">col</span><span class="p">)]]</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.2</span> <span class="o">*</span> <span class="nb">float</span><span class="p">(</span><span class="n">current_depth</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>  <span class="c1"># if the feature is already present in dictionary RF, decrease counter</span>
+                <span class="n">RF</span><span class="p">[</span><span class="n">rand_feat</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">tree</span><span class="o">.</span><span class="n">col</span><span class="p">)]]</span> <span class="o">-=</span> <span class="nb">float</span><span class="p">(</span><span class="n">current_depth</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.2</span>
+            <span class="c1"># print &quot;subtracted &quot; + str(current_depth*0.2) + &quot; from feature &quot; + str(tree.col)</span>
+            <span class="c1"># print &quot;current RF: &quot; + str(RF)</span>
+            <span class="n">update_RF</span><span class="p">(</span><span class="n">RF</span><span class="p">,</span> <span class="n">path</span><span class="p">[</span><span class="mi">1</span><span class="p">:],</span> <span class="n">tree</span><span class="o">.</span><span class="n">fb</span><span class="p">,</span> <span class="n">rand_feat</span><span class="p">)</span>  <span class="c1"># recursively jump into update_RF again with shortened path at next level in false branch</span>
+
+
+<span class="c1"># Growing the Random Forest</span>
+
+<span class="c1"># The Random Forest consists of n_trees. Each tree sees only a subset of the data and a subset of the features.</span>
+<span class="c1"># Important: a tree never sees the original data set, only the performance of the classifying algorithm</span>
+<span class="c1"># For significant conclusions enough trees must be generated in order to gain the statistical benefits that overcome bad outputs</span>
+<span class="c1"># from a single tree</span>
+<span class="k">def</span> <span class="nf">buildforest</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">n_trees</span><span class="p">,</span> <span class="n">scoref</span><span class="p">,</span> <span class="n">n_feat</span><span class="p">,</span> <span class="n">min_data</span><span class="p">,</span> <span class="n">pruning</span><span class="p">):</span>
+    <span class="c1"># print data</span>
+    <span class="n">prob_current</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">RF</span> <span class="o">=</span> <span class="p">{}</span>  <span class="c1"># Prelocate dictionary for prioritizing important features</span>
+    <span class="n">trees</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># Prelocate list that will contain the trees that stand in the currently built forest</span>
+    <span class="n">MSE_min_total</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1"># Prelocate Memory</span>
+    <span class="n">MSE_min_current</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1"># Prelocate Memory</span>
+    <span class="n">path_min_current</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># Prelocate Memory</span>
+    <span class="c1"># print RF</span>
+    <span class="n">wrongs</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># initialize number of (useless) trees that have only one node</span>
+    <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_trees</span><span class="p">):</span>  <span class="c1"># n_trees is number of trees in the forest</span>
+
+        <span class="c1"># select only subset of available datasets</span>
+        <span class="c1"># create mask for randomly choosing subset of available datasets</span>
+        <span class="n">mask_sub_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>  <span class="c1"># Prelocate Memory</span>
+        <span class="c1"># print mask_sub_data</span>
+        <span class="n">rand_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="n">size</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">amax</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">around</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="o">*</span> <span class="n">min_data</span><span class="p">,</span> <span class="n">decimals</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span>
+                                                                             <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="kc">None</span><span class="p">)),</span> <span class="n">replace</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>  <span class="c1"># choose the random datasets</span>
+        <span class="c1"># print rand_data</span>
+        <span class="n">mask_sub_data</span><span class="p">[</span><span class="n">rand_data</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="c1"># print mask_sub_data</span>
+        <span class="n">sub_data</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">mask_sub_data</span><span class="p">,</span> <span class="p">:]</span>  <span class="c1"># random subset of datasets still including all features</span>
+        <span class="c1"># print sub_data</span>
+        <span class="c1"># y_sub = sub_data[:, -1]</span>
+        <span class="c1"># print y_sub</span>
+
+        <span class="c1"># select only subset of features</span>
+        <span class="c1"># create mask for randomly choosing subset of available features</span>
+        <span class="n">mask_sub_features</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>  <span class="c1"># Prelocate Memory</span>
+        <span class="c1"># print mask_sub_features</span>
+        <span class="n">rand_feat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">),</span> <span class="n">size</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+        <span class="c1"># print rand_feat</span>
+        <span class="n">rand_feat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">rand_feat</span><span class="p">)</span>  <span class="c1"># sort ascending</span>
+        <span class="n">rand_feat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">rand_feat</span><span class="p">,</span> <span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>  <span class="c1"># append last column with MSE</span>
+        <span class="c1"># print rand_feat</span>
+        <span class="n">mask_sub_features</span><span class="p">[</span><span class="n">rand_feat</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="c1"># print mask_sub_features</span>
+
+        <span class="n">sub_data</span> <span class="o">=</span> <span class="n">sub_data</span><span class="p">[:,</span> <span class="n">mask_sub_features</span><span class="p">]</span>  <span class="c1"># random subset of datasets and random subset of features</span>
+        <span class="c1"># print &quot;sub_data = &quot; + str(sub_data)</span>
+
+        <span class="c1"># build the tree from the subset data, last column must be MSE</span>
+        <span class="c1"># print &quot;building tree&quot;</span>
+        <span class="n">tree</span> <span class="o">=</span> <span class="n">buildtree</span><span class="p">(</span><span class="n">sub_data</span><span class="p">,</span> <span class="n">scoref</span><span class="p">)</span>
+        <span class="c1"># print getwidth(tree)</span>
+        <span class="n">prune</span><span class="p">(</span><span class="n">tree</span><span class="p">,</span> <span class="n">pruning</span><span class="p">)</span>  <span class="c1"># not neccessary in RF ?</span>
+        <span class="c1"># print getwidth(tree)</span>
+
+        <span class="c1"># draw the tree and create path matrix</span>
+        <span class="c1"># drawtree(tree, jpeg=&#39;treeview_RF.jpg&#39;)</span>
+
+        <span class="k">if</span> <span class="n">getdepth</span><span class="p">(</span><span class="n">tree</span><span class="p">)</span> <span class="ow">is</span> <span class="mi">0</span><span class="p">:</span>  <span class="c1"># if tree sees only subset of features that are all 0 (svm has not seen them) only base node will be created, tree is useless</span>
+            <span class="n">wrongs</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="c1"># print &quot;wrongs: &quot; + str(wrongs)</span>
+        <span class="k">else</span><span class="p">:</span>  <span class="c1"># only increment feature counter if tree has more than one leaf</span>
+            <span class="n">path</span> <span class="o">=</span> <span class="n">path_gen</span><span class="p">(</span><span class="n">tree</span><span class="p">)</span>
+            <span class="c1"># print path</span>
+            <span class="c1"># print np.max(path[:, -1])</span>
+            <span class="n">MSE_min_current</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">path</span><span class="p">[:,</span> <span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+            <span class="n">path_min_current</span> <span class="o">=</span> <span class="n">path</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">path</span><span class="p">[:,</span> <span class="o">-</span><span class="mi">1</span><span class="p">])]</span>
+
+            <span class="c1"># update best MSE and corresponding path</span>
+            <span class="k">if</span> <span class="n">MSE_min_total</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">MSE_min_current</span> <span class="o">&gt;</span> <span class="n">MSE_min_total</span><span class="p">:</span>  <span class="c1"># update best MSE and corresponding path</span>
+                <span class="n">MSE_min_total</span> <span class="o">=</span> <span class="n">MSE_min_current</span>
+                <span class="c1"># path_min_total = path_min_current</span>
+                <span class="c1"># print path_min</span>
+            <span class="c1"># print MSE_min</span>
+            <span class="c1"># print path_min</span>
+
+            <span class="n">update_RF</span><span class="p">(</span><span class="n">RF</span><span class="p">,</span> <span class="n">path_min_current</span><span class="p">,</span> <span class="n">tree</span><span class="p">,</span> <span class="n">rand_feat</span><span class="p">)</span>
+            <span class="n">trees</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tree</span><span class="p">)</span>
+    <span class="c1"># print &quot;RF: &quot; + str(RF)</span>
+    <span class="c1"># print &quot;Returning RF&quot;</span>
+
+    <span class="c1"># set up scaler that projects accumulated values of RF in a scale between 0 and 1 ? better between 1 and 100 ?</span>
+    <span class="n">min_max_scaler</span> <span class="o">=</span> <span class="n">preprocessing</span><span class="o">.</span><span class="n">MinMaxScaler</span><span class="p">(</span><span class="n">feature_range</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+    <span class="c1"># take only values of RF, reshape them (otherwise deprecation warning), make them numpy array, and scale them between 0 and 1</span>
+    <span class="c1"># print np.array(RF.values()).reshape(-1, 1)</span>
+    <span class="n">temp</span> <span class="o">=</span> <span class="n">min_max_scaler</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nan_to_num</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">RF</span><span class="o">.</span><span class="n">values</span><span class="p">()))</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+    <span class="c1"># sum up values of RF, divide each value of RF by sum to get percentage, must sum up to 1</span>
+    <span class="n">temp_sum</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">temp</span><span class="p">)</span>
+    <span class="n">temp_percent</span> <span class="o">=</span> <span class="n">temp</span> <span class="o">*</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">/</span> <span class="n">temp_sum</span><span class="p">)</span>
+    <span class="c1"># print temp_percent</span>
+    <span class="c1"># update values in RF with scaled percentage values</span>
+    <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">RF</span><span class="p">:</span>
+        <span class="n">RF</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">temp_percent</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># [0] because otherwise there would be an array inside the dictionary RF</span>
+        <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="c1"># print RF</span>
+
+    <span class="c1"># a wrong tree is a tree with only one node that has no power to gain additional insight and therefore is useless...</span>
+    <span class="nb">print</span> <span class="s2">&quot;wrongs: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">wrongs</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;/&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">n_trees</span><span class="p">)</span>
+
+    <span class="c1"># build up dictionary of most important features in a tree and how often they were chosen</span>
+    <span class="c1"># create weights of features</span>
+    <span class="n">weights</span> <span class="o">=</span> <span class="p">{}</span>  <span class="c1"># Prelocate</span>
+    <span class="n">weights_sorted</span> <span class="o">=</span> <span class="p">{}</span>  <span class="c1"># Prelocate</span>
+    <span class="c1"># transfer values from dictionary into list</span>
+    <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">RF</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">weights</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>  <span class="c1"># create relative weight</span>
+    <span class="c1"># some features might not get picked once, so their probability must be set to zero</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">weights</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">n_feat</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_feat</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">weights</span><span class="p">:</span>
+                <span class="n">weights</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="c1"># print &quot;weights = &quot; + str(weights)</span>
+    <span class="n">weights_sorted</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">weights</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">value</span><span class="p">:</span> <span class="n">value</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>  <span class="c1"># sort by frequency = importance</span>
+    <span class="c1"># print &quot;importance of features in random forest: &quot; + str(weights_sorted)</span>
+    <span class="n">prob_current</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">weights_sorted</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>  <span class="c1"># extract only values of feature importance</span>
+    <span class="c1"># print prob_current</span>
+    <span class="k">return</span> <span class="n">RF</span><span class="p">,</span> <span class="n">prob_current</span><span class="p">,</span> <span class="n">trees</span>
+
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">predict new feature sets</span>
+<span class="sd">data: array containing all previous computational runs;  trees: array with all the different trees of the current forest</span>
+<span class="sd">prob: frequency distribution for the single features;  n_configs: number of new feature sets that are to be predicted</span>
+<span class="sd">biased: boolean variable, if true prob will be taken into account, if false uniform distribution is used</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+
+<span class="k">def</span> <span class="nf">forest_predict</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">trees</span><span class="p">,</span> <span class="n">prob</span><span class="p">,</span> <span class="n">n_configs</span><span class="p">,</span> <span class="n">biased</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">biased</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="n">prob</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="c1"># print &quot;prob: &quot; + str(prob)</span>
+
+    <span class="c1"># Prelocate variables</span>
+    <span class="n">mean</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">n_configs</span><span class="p">)</span>
+    <span class="n">var</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">n_configs</span><span class="p">)</span>
+    <span class="n">best_mean</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">best_var</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">best_featureset_mean</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">best_featureset_var</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">])</span>
+
+    <span class="c1"># new config (=feature set) is generated</span>
+    <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_configs</span><span class="p">):</span>  <span class="c1"># n_configs_biased is hyperparameter</span>
+        <span class="c1"># create mask for choosing subfeatures</span>
+        <span class="n">mask_sub_features</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>  <span class="c1"># Prelocate Memory</span>
+        <span class="c1"># print mask_sub_features</span>
+        <span class="k">if</span> <span class="n">prob</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">rand_feat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">),</span> <span class="n">size</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nonzero</span><span class="p">(</span><span class="n">prob</span><span class="p">)[</span><span class="mi">0</span><span class="p">])))),</span>
+                                         <span class="n">replace</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="n">prob</span><span class="p">)</span>  <span class="c1"># size must be &lt;= nonzero values of p, otherwise one feature gets selected twice</span>
+        <span class="k">if</span> <span class="n">prob</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">rand_feat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">),</span> <span class="n">size</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span> <span class="n">replace</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>  <span class="c1"># size must be &lt;= nonzero values of p, otherwise one feature gets selected twice</span>
+
+        <span class="c1"># print rand_feat</span>
+        <span class="n">rand_feat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">rand_feat</span><span class="p">)</span>  <span class="c1"># sort ascending</span>
+        <span class="c1"># print rand_feat</span>
+        <span class="n">mask_sub_features</span><span class="p">[</span><span class="n">rand_feat</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="c1"># print mask_sub_features</span>
+        <span class="c1"># print &quot;current feature set: &quot; + str(mask_sub_features)</span>
+
+        <span class="c1"># Predict the new feature set</span>
+        <span class="n">predictions</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">trees</span><span class="p">))</span>  <span class="c1"># Prelocate Memory</span>
+        <span class="c1"># print predictions</span>
+        <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># set counter for going through all trees</span>
+        <span class="c1"># classify the randomly chosen feature sets in each tree</span>
+        <span class="k">for</span> <span class="n">tree</span> <span class="ow">in</span> <span class="n">trees</span><span class="p">:</span>
+            <span class="n">predictions</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">classify</span><span class="p">(</span><span class="n">mask_sub_features</span><span class="p">,</span> <span class="n">tree</span><span class="p">)</span><span class="o">.</span><span class="n">keys</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="c1"># print &quot;predictions: &quot; + str(predictions)</span>
+        <span class="c1"># print &quot;best_mean = &quot; + str(best_mean)</span>
+        <span class="c1"># calculate mean an std for all predictions in a tree</span>
+        <span class="n">mean</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">predictions</span><span class="p">)</span>
+        <span class="n">var</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">var</span><span class="p">(</span><span class="n">predictions</span><span class="p">)</span> <span class="o">/</span> <span class="nb">abs</span><span class="p">(</span><span class="n">mean</span><span class="p">[</span><span class="n">x</span><span class="p">])</span>  <span class="c1"># ? correct?</span>
+        <span class="c1"># check if current mean and var are better than best mean and var</span>
+        <span class="c1"># calculation: best_mean = 1.0*mean + 0.1*var and vice versa</span>
+        <span class="k">if</span> <span class="n">best_mean</span> <span class="o">==</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">or</span> <span class="n">mean</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">+</span> <span class="n">var</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">*</span> <span class="mf">0.0</span> <span class="o">&gt;</span> <span class="n">best_mean</span><span class="p">:</span>
+            <span class="n">best_mean</span> <span class="o">=</span> <span class="n">mean</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">+</span> <span class="n">var</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">*</span> <span class="mf">0.0</span>
+            <span class="c1"># print &quot;best_mean updated: &quot; + str(best_mean)</span>
+            <span class="n">best_featureset_mean</span> <span class="o">=</span> <span class="n">mask_sub_features</span>
+            <span class="c1"># print &quot;best_featureset_mean = &quot; + str(best_featureset_mean)</span>
+        <span class="k">if</span> <span class="n">best_var</span> <span class="o">==</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">or</span> <span class="n">var</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">+</span> <span class="n">mean</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">*</span> <span class="mf">0.1</span> <span class="o">&gt;</span> <span class="n">best_var</span><span class="p">:</span>
+            <span class="n">best_var</span> <span class="o">=</span> <span class="n">var</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">+</span> <span class="n">mean</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">*</span> <span class="mf">0.1</span>
+            <span class="c1"># print &quot;best_var updated: &quot; + str(best_var)</span>
+            <span class="n">best_featureset_var</span> <span class="o">=</span> <span class="n">mask_sub_features</span>
+            <span class="c1"># print &quot;best_featureset_var = &quot; + str(best_featureset_var)</span>
+    <span class="c1"># print &quot;best mean for current forest: &quot; + str(best_mean)</span>
+    <span class="c1"># print &quot;best feature set for best mean: &quot; + str(best_featureset_mean)</span>
+    <span class="c1"># print &quot;best var for current forest: &quot; + str(best_var)</span>
+    <span class="c1"># print &quot;best feature set for best var&quot; + str(best_featureset_var)</span>
+    <span class="k">return</span> <span class="n">best_mean</span><span class="p">,</span> <span class="n">best_var</span><span class="p">,</span> <span class="n">best_featureset_mean</span><span class="p">,</span> <span class="n">best_featureset_var</span>
+
+
+<span class="c1"># based on the probabilities of each feature in past Forests, a new current_prob is calculated that takes into</span>
+<span class="c1"># account the mean and the gradient of the prior feature importances</span>
+<span class="k">def</span> <span class="nf">update_prob</span><span class="p">(</span><span class="n">Probability</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">weight_mean</span><span class="p">,</span> <span class="n">weight_gradient</span><span class="p">,</span> <span class="n">multiplier</span><span class="p">,</span> <span class="n">seen_forests</span><span class="p">):</span>
+    <span class="c1"># print &quot;Probability: &quot; + str(Probability[0:i + 1])</span>
+
+    <span class="c1"># if only one or two calculations of prob has been done so far, leave prob empty</span>
+    <span class="c1"># (np.gradient need 3 points and 3 random Forests provide better statistical insurance than only 1 Random Forest)</span>
+    <span class="k">if</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">prob_current</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># gradients contains the current gradient for each feature</span>
+        <span class="c1"># map: function list ist applied to all zip(transposed(a)) (without list: zip generatets tuple instead of list)</span>
+        <span class="k">if</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">seen_forests</span><span class="p">:</span>
+            <span class="n">gradients</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="n">Probability</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">])),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">mean</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="n">Probability</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">])),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="c1"># only the last seen_forests values will be taken into account</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># print &quot;consider only last &quot; + str(seen_forests) + &quot; forests for calculation of probability&quot;</span>
+            <span class="n">gradients</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="n">Probability</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="n">seen_forests</span><span class="p">:</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">])),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">mean</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="n">Probability</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="n">seen_forests</span><span class="p">:</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">])),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+        <span class="c1"># print &quot;gradients: &quot; + str(gradients)</span>
+
+        <span class="c1"># calculate the mean of the gradient for each feature</span>
+        <span class="n">gradients_mean</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">,</span> <span class="n">gradients</span><span class="p">)</span>
+        <span class="c1"># print &quot;gradients_mean: &quot; + str(gradients_mean)</span>
+
+        <span class="c1"># calculate the norm of the gradient for each feature</span>
+        <span class="n">gradients_norm</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">,</span> <span class="n">gradients</span><span class="p">)</span>
+        <span class="c1"># print &quot;gradients_norm: &quot; + str(gradients_norm)</span>
+
+        <span class="c1"># divide the mean by the norm(=length)</span>
+        <span class="c1"># (to punish strongly fluctuating values and to reward values that change only slightly over time)</span>
+        <span class="n">gradients</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan_to_num</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">divide</span><span class="p">(</span><span class="n">gradients_mean</span><span class="p">,</span> <span class="n">gradients_norm</span><span class="p">))</span>  <span class="c1"># nan_to_num: because division by zero leaves NaN</span>
+        <span class="c1"># print &quot;gradients mean / norm: &quot; + str(gradients)</span>
+
+        <span class="c1"># scale values</span>
+        <span class="n">min_max_scaler</span> <span class="o">=</span> <span class="n">preprocessing</span><span class="o">.</span><span class="n">MinMaxScaler</span><span class="p">(</span><span class="n">feature_range</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">100</span><span class="p">))</span>
+        <span class="n">gradients</span> <span class="o">=</span> <span class="n">min_max_scaler</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">gradients</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>  <span class="c1"># reshape: otherwise deprecation warning</span>
+        <span class="n">mean</span> <span class="o">=</span> <span class="n">min_max_scaler</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">mean</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>  <span class="c1"># reshape: otherwise deprecation warning</span>
+        <span class="c1"># print &quot;gradients rescaled: &quot; + str(gradients)</span>
+        <span class="c1"># print &quot;mean rescaled: &quot; + str(mean)</span>
+
+        <span class="c1"># calculate new probability for selection of new feature sets</span>
+        <span class="c1"># weight_mean, weight_gradient and multiplier are hyperparameters</span>
+        <span class="n">prob_current</span> <span class="o">=</span> <span class="p">(</span><span class="n">mean</span> <span class="o">*</span> <span class="n">weight_mean</span> <span class="o">+</span> <span class="n">gradients</span> <span class="o">*</span> <span class="n">weight_gradient</span><span class="p">)</span><span class="o">**</span><span class="n">multiplier</span>
+        <span class="c1"># print &quot;prob_current: &quot; + str(prob_current)</span>
+        <span class="c1"># print &quot;gradients + mean: &quot; + str(gradients)</span>
+
+        <span class="c1"># express values as percentage (because sum(prob) must equal 1)</span>
+        <span class="n">prob_current</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">divide</span><span class="p">(</span><span class="n">prob_current</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">prob_current</span><span class="p">))</span>
+        <span class="c1"># print &quot;gradients percent: &quot; + str(gradients)</span>
+        <span class="n">prob_current</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">item</span> <span class="k">for</span> <span class="n">sublist</span> <span class="ow">in</span> <span class="n">prob_current</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">sublist</span><span class="p">])</span>  <span class="c1"># convert nested list into usual list</span>
+        <span class="c1"># print &quot;prob_current: &quot; + str(prob_current)</span>
+
+        <span class="c1"># in the last run print out the gradients</span>
+        <span class="k">if</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">Probability</span><span class="p">):</span>
+            <span class="nb">print</span> <span class="s2">&quot; &quot;</span>
+            <span class="c1"># print &quot;gradients mean: &quot; + str(gradients_mean)</span>
+            <span class="c1"># print &quot; &quot;</span>
+            <span class="c1"># print &quot;prob_current: &quot; + str(prob_current)</span>
+    <span class="k">return</span> <span class="n">prob_current</span>
+
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">appends newly tested feature sets and their result to the already calculated feature sets</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+
+<span class="k">def</span> <span class="nf">update_database</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">mask_best_featureset_mean</span><span class="p">,</span> <span class="n">mask_best_featureset_var</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">):</span>
+    <span class="c1"># print mask_best_featureset_mean</span>
+    <span class="c1"># print data[0][mask_best_featureset_mean]</span>
+    <span class="c1"># print X[:][mask_best_featureset_mean]</span>
+
+    <span class="c1"># create the best mean feature set</span>
+    <span class="n">X_sub_mean</span> <span class="o">=</span> <span class="n">X</span><span class="p">[:,</span> <span class="n">mask_best_featureset_mean</span><span class="p">]</span>
+    <span class="c1"># print X_sub_mean</span>
+    <span class="c1"># compute the corresponding y values</span>
+    <span class="n">y_new_mean</span> <span class="o">=</span> <span class="n">compute</span><span class="p">(</span><span class="n">X_sub_mean</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">mask_best_featureset_mean</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>
+    <span class="c1"># print mask_best_featureset_mean, y_new_mean</span>
+    <span class="c1"># put feature set and new y value together</span>
+    <span class="n">new_dataset_mean</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mask_best_featureset_mean</span><span class="p">,</span> <span class="n">y_new_mean</span><span class="p">)</span>
+    <span class="c1"># print &quot;new_dataset_mean: &quot; + str(new_dataset_mean)</span>
+    <span class="c1"># print new_dataset_mean.shape</span>
+
+    <span class="c1"># create the best var feature set</span>
+    <span class="n">X_sub_var</span> <span class="o">=</span> <span class="n">X</span><span class="p">[:,</span> <span class="n">mask_best_featureset_var</span><span class="p">]</span>
+    <span class="c1"># print X_sub_var</span>
+    <span class="c1"># compute the corresponding y values</span>
+    <span class="n">y_new_var</span> <span class="o">=</span> <span class="n">compute</span><span class="p">(</span><span class="n">X_sub_var</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">mask_best_featureset_var</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>
+    <span class="c1"># put feature set and new y value together</span>
+    <span class="n">new_dataset_var</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mask_best_featureset_var</span><span class="p">,</span> <span class="n">y_new_var</span><span class="p">)</span>
+    <span class="c1"># print &quot;new dataset var: &quot; + str(new_dataset_var)</span>
+    <span class="c1"># print data.shape</span>
+
+    <span class="c1"># append new feature sets and according MSE to dataset</span>
+    <span class="c1"># print len(data)</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="p">[</span><span class="n">new_dataset_mean</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="p">[</span><span class="n">new_dataset_var</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="c1"># print len(data)</span>
+    <span class="c1"># print data.shape</span>
+    <span class="k">return</span> <span class="n">data</span>
+
+<span class="c1"># This is the main part of the program which uses the above made definitions</span>
+
+
+<div class="viewcode-block" id="main_loop"><a class="viewcode-back" href="../../execution.html#ForestFire.Main.main_loop">[docs]</a><span class="k">def</span> <span class="nf">main_loop</span><span class="p">(</span><span class="n">n_runs</span><span class="p">,</span> <span class="n">pruning</span><span class="p">,</span> <span class="n">min_data</span><span class="p">,</span> <span class="n">n_forests</span><span class="p">,</span> <span class="n">n_trees</span><span class="p">,</span> <span class="n">n_configs_biased</span><span class="p">,</span> <span class="n">n_configs_unbiased</span><span class="p">,</span> <span class="n">multiplier_stepup</span><span class="p">,</span> <span class="n">seen_forests</span><span class="p">,</span>
+              <span class="n">weight_mean</span><span class="p">,</span> <span class="n">weight_gradient</span><span class="p">,</span> <span class="n">scoref</span><span class="p">,</span> <span class="n">demo_mode</span><span class="p">,</span> <span class="n">plot_enable</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Load raw data and Generate database for Random Forest. Iteratively build and burn down new Random Forests, predict the performance of new feature sets and compute two new feature sets per round.</span>
+
+<span class="sd">    Arguments:</span>
+
+<span class="sd">        * n_runs {int} -- number of runs before building first RF = number of data points in first RF; minimum = 4, default = 50</span>
+<span class="sd">        * pruning {float} -- if greater than zero, branches of a Decision Tree will be pruned proportional to pruning value; default = 0</span>
+<span class="sd">        * min_data {float} -- minimum percentage of Datasets that is used in RF generation; default = 0.2</span>
+<span class="sd">        * n_forests {int} -- number of forests; minimum=1;  default = 25</span>
+<span class="sd">        * n_trees {int} -- # number of trees that stand in a forest; min = 3; default = number of features x 3 x</span>
+<span class="sd">        * n_configs_biased {int} -- # number of deliberately chosen feature sets that get predicted in each forest; default = n_trees x 5</span>
+<span class="sd">        * n_configs_unbiased {int} -- # number of randomly chosen feature sets that get predicted in each forest; default = n_configs_biased x0.2</span>
+<span class="sd">        * multiplier_stepup {float} -- # sets how aggressively the feature importance changes; default = 0.25</span>
+<span class="sd">        * seen_forests {int} -- # number of recent forests that are taken into acount for generating probability of the chosen feature sets default = 4</span>
+<span class="sd">        * weight_mean {float} -- # weight of the mean in calculating the new probability for selecting future feature sets; default = 0.2</span>
+<span class="sd">        * weight_gradient {bool} -- # weight of the gradient in calculating the new probability for selecting future feature sets; default = 0.8</span>
+<span class="sd">        * scoref {function} -- # which scoring metric should be used in the Decision Tree (available: entropy and giniimpurity); default = entropy</span>
+<span class="sd">        * demo_mode bool -- # if true a comparison between the Random Forest driven Search and a random search is done</span>
+<span class="sd">        * plot_enable bool -- # decide if at the end a plot should be generated , only possible in demo mode</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="nb">print</span> <span class="s2">&quot;Starting ForestFire&quot;</span>
+    <span class="c1"># Generate Test Data</span>
+    <span class="nb">print</span> <span class="s2">&quot;Loading Raw Data&quot;</span>
+    <span class="n">X_test</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y_test</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">n_feat</span> <span class="o">=</span> <span class="n">import_data</span><span class="p">()</span>
+    <span class="c1"># set default hyperparameters</span>
+    <span class="nb">print</span> <span class="s2">&quot;setting Hyperparameters&quot;</span>
+    <span class="k">if</span> <span class="n">n_trees</span> <span class="ow">is</span> <span class="s1">&#39;default&#39;</span><span class="p">:</span>
+        <span class="n">n_trees</span> <span class="o">=</span> <span class="n">n_feat</span> <span class="o">*</span> <span class="mi">3</span>
+    <span class="k">if</span> <span class="n">seen_forests</span> <span class="ow">is</span> <span class="s1">&#39;default&#39;</span><span class="p">:</span>
+        <span class="n">seen_forests</span> <span class="o">=</span> <span class="mi">4</span>
+    <span class="k">if</span> <span class="n">n_configs_biased</span> <span class="ow">is</span> <span class="s1">&#39;default&#39;</span><span class="p">:</span>
+        <span class="n">n_configs_biased</span> <span class="o">=</span> <span class="n">n_trees</span> <span class="o">*</span> <span class="mi">5</span>  <span class="c1"># number of biased configs that get predicted in each forest</span>
+    <span class="k">if</span> <span class="n">n_configs_unbiased</span> <span class="ow">is</span> <span class="s1">&#39;default&#39;</span><span class="p">:</span>
+        <span class="n">n_configs_unbiased</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">n_configs_biased</span> <span class="o">*</span> <span class="mf">0.2</span><span class="p">))</span>  <span class="c1"># number of unbiased configs that get predicted in each forest</span>
+    <span class="k">if</span> <span class="n">multiplier_stepup</span> <span class="ow">is</span> <span class="s1">&#39;default&#39;</span><span class="p">:</span>
+        <span class="n">multiplier_stepup</span> <span class="o">=</span> <span class="mf">0.01</span>
+    <span class="k">if</span> <span class="n">weight_mean</span> <span class="ow">is</span> <span class="s1">&#39;default&#39;</span><span class="p">:</span>
+        <span class="n">weight_mean</span> <span class="o">=</span> <span class="mf">0.1</span>
+    <span class="k">if</span> <span class="n">weight_gradient</span> <span class="ow">is</span> <span class="s1">&#39;default&#39;</span><span class="p">:</span>
+        <span class="n">weight_gradient</span> <span class="o">=</span> <span class="mf">0.9</span>
+    <span class="k">if</span> <span class="n">scoref</span> <span class="ow">is</span> <span class="s1">&#39;default&#39;</span><span class="p">:</span>
+        <span class="n">scoref</span> <span class="o">=</span> <span class="n">entropy</span>
+    <span class="k">elif</span> <span class="n">scoref</span> <span class="ow">is</span> <span class="s1">&#39;entropy&#39;</span><span class="p">:</span>
+        <span class="n">scoref</span> <span class="o">=</span> <span class="n">entropy</span>
+    <span class="k">elif</span> <span class="n">scoref</span> <span class="ow">is</span> <span class="s1">&#39;giniimpurity&#39;</span><span class="p">:</span>
+        <span class="n">scoref</span> <span class="o">=</span> <span class="n">giniimpurity</span>
+
+    <span class="n">multiplier</span> <span class="o">=</span> <span class="mi">1</span>  <span class="c1"># initialize value for multiplier</span>
+
+    <span class="n">Probability</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">[</span><span class="n">n_forests</span><span class="p">,</span> <span class="n">n_feat</span><span class="p">])</span>  <span class="c1"># Prelocate Memory: probabilites for selecting features in svm</span>
+
+    <span class="c1"># Generate database for RF</span>
+    <span class="nb">print</span> <span class="s2">&quot;Generate Data Base for Random Forest&quot;</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">gen_database</span><span class="p">(</span><span class="n">n_runs</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>
+    <span class="n">data_start</span> <span class="o">=</span> <span class="n">data</span>  <span class="c1"># save starting data for later comparison with random feature set selection</span>
+    <span class="c1"># print &quot;len(data): &quot; + str(len(data))</span>
+
+    <span class="c1"># ### Start of ForestFire ###</span>
+    <span class="nb">print</span> <span class="s2">&quot;Starting ForestFire&quot;</span>
+
+    <span class="c1"># Creating Random Forests: build n_trees, each sees only subs#et of data points and subset of features of data</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_forests</span><span class="p">):</span>
+
+        <span class="c1"># create the forest</span>
+        <span class="nb">print</span> <span class="s2">&quot; &quot;</span>
+        <span class="nb">print</span> <span class="s2">&quot;Building Random Forest Nr. &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">RF</span><span class="p">,</span> <span class="n">Probability</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">trees</span> <span class="o">=</span> <span class="n">buildforest</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">n_trees</span><span class="p">,</span> <span class="n">scoref</span><span class="p">,</span> <span class="n">n_feat</span><span class="p">,</span> <span class="n">min_data</span><span class="p">,</span> <span class="n">pruning</span><span class="p">)</span>
+        <span class="c1"># print &quot;RF: &quot; + str(RF)</span>
+
+        <span class="c1"># Update probability</span>
+        <span class="n">prob_current</span> <span class="o">=</span> <span class="n">update_prob</span><span class="p">(</span><span class="n">Probability</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">weight_mean</span><span class="p">,</span> <span class="n">weight_gradient</span><span class="p">,</span> <span class="n">multiplier</span><span class="p">,</span> <span class="n">seen_forests</span><span class="p">)</span>
+        <span class="nb">print</span> <span class="s2">&quot;max Probability: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">prob_current</span><span class="p">))</span>
+        <span class="c1"># print np.multiply(np.divide(1.0, n_feat), 2)</span>
+        <span class="k">if</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">prob_current</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">np</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">divide</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">n_feat</span><span class="p">),</span> <span class="mi">2</span><span class="p">):</span>
+            <span class="n">multiplier</span> <span class="o">+=</span> <span class="n">multiplier_stepup</span>
+            <span class="nb">print</span> <span class="s2">&quot;raised multiplier to &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">multiplier</span><span class="p">)</span>
+        <span class="c1"># print RF</span>
+        <span class="c1"># print &quot; &quot;</span>
+        <span class="c1"># print &quot;Predicting new possible configs&quot;</span>
+        <span class="c1"># print &quot;biased configs&quot;</span>
+
+        <span class="c1"># test new biased and unbiased feature sets and extract the best feature sets</span>
+        <span class="n">best_mean_biased</span><span class="p">,</span> <span class="n">best_var_biased</span><span class="p">,</span> <span class="n">best_featureset_mean_biased</span><span class="p">,</span> <span class="n">best_featureset_var_biased</span> <span class="o">=</span> <span class="n">forest_predict</span><span class="p">(</span>
+            <span class="n">data</span><span class="p">,</span> <span class="n">trees</span><span class="p">,</span> <span class="n">prob_current</span><span class="p">,</span> <span class="n">n_configs_biased</span><span class="p">,</span> <span class="n">biased</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="c1"># print &quot; &quot;</span>
+        <span class="c1"># print &quot;unbiased configs&quot;</span>
+        <span class="n">best_mean_unbiased</span><span class="p">,</span> <span class="n">best_var_unbiased</span><span class="p">,</span> <span class="n">best_featureset_mean_unbiased</span><span class="p">,</span> <span class="n">best_featureset_var_unbiased</span> <span class="o">=</span> <span class="n">forest_predict</span><span class="p">(</span>
+            <span class="n">data</span><span class="p">,</span> <span class="n">trees</span><span class="p">,</span> <span class="n">prob_current</span><span class="p">,</span> <span class="n">n_configs_unbiased</span><span class="p">,</span> <span class="n">biased</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="c1"># print &quot;best mean_biased: &quot; + str(best_mean_biased)</span>
+        <span class="c1"># print &quot;best mean_unbiased: &quot; + str(best_mean_unbiased)</span>
+        <span class="c1"># print &quot; &quot;</span>
+        <span class="n">best_mean</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">((</span><span class="n">best_mean_biased</span><span class="p">,</span> <span class="n">best_mean_unbiased</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">best_mean</span> <span class="o">==</span> <span class="n">best_mean_biased</span><span class="p">:</span>
+            <span class="n">best_featureset_mean</span> <span class="o">=</span> <span class="n">best_featureset_mean_biased</span>
+            <span class="nb">print</span> <span class="s2">&quot;picked biased feature set for mean&quot;</span>
+        <span class="k">elif</span> <span class="n">best_mean</span> <span class="o">==</span> <span class="n">best_mean_unbiased</span><span class="p">:</span>
+            <span class="n">best_featureset_mean</span> <span class="o">=</span> <span class="n">best_featureset_mean_unbiased</span>
+            <span class="nb">print</span> <span class="s2">&quot;picked unbiased feature set for mean&quot;</span>
+        <span class="c1"># print best_mean</span>
+        <span class="c1"># print best_featureset_mean</span>
+        <span class="c1"># print &quot;best_var_biased: &quot; + str(best_var_biased)</span>
+        <span class="c1"># print &quot;best_var_unbiased: &quot; + str(best_var_unbiased)</span>
+        <span class="n">best_var</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">((</span><span class="n">best_var_biased</span><span class="p">,</span> <span class="n">best_var_unbiased</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">best_var</span> <span class="o">==</span> <span class="n">best_var_biased</span><span class="p">:</span>
+            <span class="n">best_featureset_var</span> <span class="o">=</span> <span class="n">best_featureset_var_biased</span>
+            <span class="nb">print</span> <span class="s2">&quot;picked biased feature set for var&quot;</span>
+        <span class="k">elif</span> <span class="n">best_var</span> <span class="o">==</span> <span class="n">best_var_unbiased</span><span class="p">:</span>
+            <span class="n">best_featureset_var</span> <span class="o">=</span> <span class="n">best_featureset_var_unbiased</span>
+            <span class="nb">print</span> <span class="s2">&quot;picked unbiased feature set for var&quot;</span>
+
+        <span class="c1"># update database with two new feature sets</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">update_database</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">best_featureset_mean</span><span class="p">,</span> <span class="n">best_featureset_var</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>
+
+        <span class="c1"># check for current best feature sets</span>
+        <span class="n">best_featuresets_sorted</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="o">-</span><span class="n">data</span><span class="p">[:,</span> <span class="o">-</span><span class="mi">1</span><span class="p">])]</span>
+        <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">best_featuresets_sorted_old</span> <span class="o">=</span> <span class="n">best_featuresets_sorted</span>  <span class="c1"># initialize storage value</span>
+        <span class="c1"># if the best 5 feature sets have improved, update the current best feature sets</span>
+        <span class="k">if</span> <span class="nb">sum</span><span class="p">(</span><span class="n">best_featuresets_sorted</span><span class="p">[:</span><span class="mi">5</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="o">&gt;</span> <span class="nb">sum</span><span class="p">(</span><span class="n">best_featuresets_sorted_old</span><span class="p">[:</span><span class="mi">5</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="ow">or</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="nb">print</span> <span class="s2">&quot;found new best 5 feature sets: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">best_featuresets_sorted</span><span class="p">[:</span><span class="mi">5</span><span class="p">])</span>
+        <span class="c1"># store values for comparison to later results</span>
+        <span class="n">best_featuresets_sorted_old</span> <span class="o">=</span> <span class="n">best_featuresets_sorted</span>
+
+    <span class="c1"># ### End of ForestFire ###</span>
+    <span class="nb">print</span> <span class="s2">&quot; &quot;</span>
+    <span class="nb">print</span> <span class="s2">&quot;ForestFire finished&quot;</span>
+    <span class="nb">print</span> <span class="s2">&quot; &quot;</span>
+
+    <span class="k">if</span> <span class="n">demo_mode</span><span class="p">:</span>
+        <span class="c1"># Generate additional data set to compare performance of RF to random selection of feature sets</span>
+        <span class="nb">print</span> <span class="s2">&quot;Generating more randomly selected feature sets for comparison&quot;</span>
+        <span class="n">data_compare</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">data_start</span><span class="p">,</span> <span class="n">gen_database</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">n_forests</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="c1"># print &quot;len(data_compare): &quot; + str(len(data_compare))</span>
+
+        <span class="c1"># sort according to lowest MSE</span>
+        <span class="n">best_featuresets_sorted_compare</span> <span class="o">=</span> <span class="n">data_compare</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="o">-</span><span class="n">data_compare</span><span class="p">[:,</span> <span class="o">-</span><span class="mi">1</span><span class="p">])]</span>
+
+        <span class="c1"># print out some of the results</span>
+        <span class="nb">print</span> <span class="s2">&quot;best 5 feature sets of random selection: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">best_featuresets_sorted_compare</span><span class="p">[:</span><span class="mi">5</span><span class="p">])</span>
+        <span class="nb">print</span> <span class="s2">&quot; &quot;</span>
+        <span class="nb">print</span> <span class="s2">&quot;Lowest MSE after &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">n_runs</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">n_forests</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; random SVM runs: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">best_featuresets_sorted_compare</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+        <span class="nb">print</span> <span class="s2">&quot;Lowest MSE of ForestFire after &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">n_runs</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; initial random runs and &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">n_forests</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; guided runs: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">best_featuresets_sorted</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+        <span class="k">if</span> <span class="n">best_featuresets_sorted</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">best_featuresets_sorted_compare</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+            <span class="nb">print</span> <span class="s2">&quot;Performance with ForestFire improved by &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="o">-</span><span class="mi">100</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">divide</span><span class="p">(</span><span class="n">best_featuresets_sorted</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">best_featuresets_sorted_compare</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">])))</span> <span class="o">+</span> <span class="s2">&quot;%&quot;</span>
+        <span class="k">if</span> <span class="n">best_featuresets_sorted</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="n">best_featuresets_sorted_compare</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+            <span class="nb">print</span> <span class="s2">&quot;Performance could not be improved (same MSE as in random selection)&quot;</span>
+        <span class="k">if</span> <span class="n">best_featuresets_sorted</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">best_featuresets_sorted_compare</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+            <span class="nb">print</span> <span class="s2">&quot;Performance deteriorated, ForestFire is not suitable :(&quot;</span>
+        <span class="nb">print</span> <span class="s2">&quot;Execution finished&quot;</span>
+
+        <span class="c1"># Compare Random Search VS Random Forest Search</span>
+        <span class="nb">print</span> <span class="s2">&quot; &quot;</span>
+        <span class="nb">print</span> <span class="s2">&quot;Found Best value for Random Forest Search after &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">n_runs</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; initial runs and &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">data</span><span class="p">[:,</span> <span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="o">-</span> <span class="n">n_runs</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;/&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="o">-</span> <span class="n">n_runs</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; smart runs&quot;</span>
+        <span class="nb">print</span> <span class="s2">&quot;Best value with RF: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">data</span><span class="p">[:,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]))</span>
+        <span class="nb">print</span> <span class="s2">&quot; &quot;</span>
+        <span class="nb">print</span> <span class="s2">&quot;Found Best value for Random Search after &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">data_compare</span><span class="p">[:,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]))</span> <span class="o">+</span> <span class="s2">&quot; random runs&quot;</span>
+        <span class="nb">print</span> <span class="s2">&quot;Best value with Random Search: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">data_compare</span><span class="p">[:,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]))</span>
+
+        <span class="nb">print</span> <span class="s2">&quot; &quot;</span>
+        <span class="nb">print</span> <span class="s2">&quot;Creating Plots&quot;</span>
+
+        <span class="c1"># plots</span>
+        <span class="k">if</span> <span class="n">plot_enable</span><span class="p">:</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">25</span><span class="p">,</span> <span class="mi">12</span><span class="p">))</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">[:,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]))),</span> <span class="n">data</span><span class="p">[:,</span> <span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;RF&#39;</span><span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data_compare</span><span class="p">[:,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]))),</span> <span class="n">data_compare</span><span class="p">[:,</span> <span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Random Search&#39;</span><span class="p">)</span>
+
+            <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;n_runs&#39;</span><span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Score&#39;</span><span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Results&#39;</span><span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="s1">&#39;Highest Score RF&#39;</span><span class="p">,</span> <span class="n">xycoords</span><span class="o">=</span><span class="s1">&#39;data&#39;</span><span class="p">,</span>
+                         <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">data</span><span class="p">[:,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]),</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">data</span><span class="p">[:,</span> <span class="o">-</span><span class="mi">1</span><span class="p">])),</span>
+                         <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">data</span><span class="p">[:,</span> <span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="o">*</span> <span class="mf">1.05</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">data</span><span class="p">[:,</span> <span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="o">*</span> <span class="mf">1.01</span><span class="p">),</span>
+                         <span class="n">arrowprops</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">shrink</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
+                         <span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="s1">&#39;Highest Score Random Search&#39;</span><span class="p">,</span> <span class="n">xycoords</span><span class="o">=</span><span class="s1">&#39;data&#39;</span><span class="p">,</span>
+                         <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">data_compare</span><span class="p">[:,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]),</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">data_compare</span><span class="p">[:,</span> <span class="o">-</span><span class="mi">1</span><span class="p">])),</span>
+                         <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">data_compare</span><span class="p">[:,</span> <span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="o">*</span> <span class="mf">1.05</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">data_compare</span><span class="p">[:,</span> <span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="o">*</span> <span class="mf">0.95</span><span class="p">),</span>
+                         <span class="n">arrowprops</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">shrink</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
+                         <span class="p">)</span>
+
+            <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span></div>
+
+
+<span class="c1"># # Program call</span>
+<span class="c1"># # initialize conventional parameter to run script from within this file --&gt; turn off to run it from external script (default)</span>
+<span class="c1"># __name__ = &#39;not__main_&#39;</span>
+
+<span class="c1"># if __name__ == &#39;__main_&#39;:</span>
+<span class="c1">#     main_loop(n_runs, pruning, min_data, n_forests, n_trees, n_configs_biased, n_configs_unbiased, multiplier_stepup, seen_forests,</span>
+<span class="c1">#               weight_mean, weight_gradient, scoref, demo_mode, plot_enable)</span>
+</pre></div>
+
+      </div>
+      <div class="bottomnav" role="navigation" aria-label="bottom navigation">
+      
+        <p>
+        <a class="uplink" href="../../index.html">Contents</a>
+        </p>
+
+      </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2017, Marlon Weinert.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.1.
+    </div>
+  </body>
+</html>

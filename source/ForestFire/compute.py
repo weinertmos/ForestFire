@@ -35,7 +35,7 @@ def compute(X_train, y_train, mask_sub_features, X_test, y_test):
 
     ### store the result in score ###
     score = accuracy_score(y_test, y_pred)
-    print score
+    # print score
     return score
     # print grid.cv_results_
     # print (grid.grid_scores_)

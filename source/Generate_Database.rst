@@ -3,7 +3,7 @@
 Generate Database
 =====================
 
-corresponding file: *ForestFire/compute.py*
+corresponding file: `compute.py <https://github.com/weinertmos/ForestFire/blob/master/source/ForestFire/compute.py>`_
 
 In this step the underlying machine learning algorithm can be configured from scratch or inserted from an existing file.
 Required imports can be put at the top of the file.
@@ -17,7 +17,7 @@ The result of the individual algorithm is stored in the variable *score* and ret
 
 
 
-**Functions used in this chapter**
+**Functions used in this chapter** Click [source] to view source code
 
 .. autofunction:: ForestFire.compute.compute
 

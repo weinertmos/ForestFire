@@ -3,7 +3,7 @@
 Import Data
 ===========
 
-corresponding file: *ForestFire/import_data.py*
+corresponding file: `import_data.py <https://github.com/weinertmos/ForestFire/blob/master/source/ForestFire/import_data.py>`_
 
 In this step the raw data is imported. 
 It must consist of two numpy arrays **X** and **y** which are located in the same directory as *import_data.py*.
@@ -24,7 +24,7 @@ After loading the data apply how it should be splitted into train and test data 
     in the next step (:ref:`compute`).
 
 
-**Functions used in this chapter**
+**Functions used in this chapter** Click [source] to view source code
 
 .. autofunction:: ForestFire.import_data.import_data
 

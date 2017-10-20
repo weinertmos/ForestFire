@@ -4,41 +4,46 @@ import numpy as np
 name = '__main__'
 ### Hyperparameters ###
 
-# number of runs before building first RF = number of data points in first RF; minimum = 4, default = 50
-n_runs = 10
+# number of runs before building first Random Forest = number of data points in first RF; minimum = 4, default = 50
+# adjust according to computational capabilities and demands of the underlying machine learning algorithm
+n_runs = 30
 # if pruning is greater than zero, branches of a Decision Tree will be pruned proportional to pruning value; default = 0
+# advanced parameter. If set too high, all trees will be cut down to stumps. Increase carefully.
 pruning = 1.005
 # minimum percentage of Datasets that is used in RF generation; default = 0.2
 min_data = 0.2
 # number of forests; minimum=1;  default = 25
-n_forests = 8
+# adjust according to computational capabilities. For each forest two new computational runs are done.
+n_forests = 10
 
 # number of trees that stand in a forest; min = 3; default = number of features * 3
-n_trees = 'default'  
+n_trees = 'default'
 # number of deliberately chosen feature sets that get predicted in each forest; default = n_trees * 5
-n_configs_biased = 'default'  
-# number of randomly chosen feature sets that get predicted in each forest; default = n_configs_biased *0.2
-n_configs_unbiased = 'default'  
+n_configs_biased = 'default'
+# number of randomly chosen feature sets that get predicted in each forest; default = n_configs_biased * 0.2
+n_configs_unbiased = 'default'
 # sets how aggressively the feature importance changes; default = 0.25
-multiplier_stepup = 'default'  
+# higher values will increase pressure on how often promising features will be selected.
+# advanced parameter, adjust carefully. If set too high the risk of runnning into local extrema rises.
+multiplier_stepup = 'default'
 # number of recent forests that are taken into acount for generating probability of the chosen feature sets default = 4 ? make variable?
-seen_forests = 'default'  
+seen_forests = 'default'
 # the chosen feature sets default = 4 ? make variable?
 
 # weight of the mean in calculating the new probability for selecting future feature sets; default = 0.2
-weight_mean = 'default'  
+weight_mean = 'default'
 # weight of the gradient in calculating the new probability for selecting future feature sets; default = 0.8
-weight_gradient = 'default'  
+weight_gradient = 'default'
 
 # which scoring metric should be used in the Decision Tree (available: entropy and giniimpurity); default = entropy
-scoref = 'default'  
+scoref = 'default'
 # set random seed for repeatabilit; comment out if no repeatability is required; default = 1
-np.random.seed(1)  
+np.random.seed(1)
 
 # if true a comparison between the Random Forest driven Search and a random search is done
-demo_mode = True  
+demo_mode = True
 # decide if at the end a plot should be generated , only possible in demo mode
-plot_enable = True  
+plot_enable = True
 
 if name == '__main__':
     Main.main_loop(n_runs, pruning, min_data, n_forests, n_trees, n_configs_biased, n_configs_unbiased, multiplier_stepup, seen_forests,

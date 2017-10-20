@@ -71,13 +71,13 @@
 </div>
 <dl class="class">
 <dt id="ForestFire.Main.decisionnode">
-<em class="property">class </em><code class="descclassname">ForestFire.Main.</code><code class="descname">decisionnode</code><span class="sig-paren">(</span><em>col=-1</em>, <em>value=None</em>, <em>results=None</em>, <em>tb=None</em>, <em>fb=None</em><span class="sig-paren">)</span><a class="headerlink" href="#ForestFire.Main.decisionnode" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">ForestFire.Main.</code><code class="descname">decisionnode</code><span class="sig-paren">(</span><em>col=-1</em>, <em>value=None</em>, <em>results=None</em>, <em>tb=None</em>, <em>fb=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ForestFire/Main.html#decisionnode"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ForestFire.Main.decisionnode" title="Permalink to this definition">¶</a></dt>
 <dd><p>Allein auf weiter Flur</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="ForestFire.Main.gen_database">
-<code class="descclassname">ForestFire.Main.</code><code class="descname">gen_database</code><span class="sig-paren">(</span><em>n_runs</em>, <em>X</em>, <em>y</em>, <em>X_test</em>, <em>y_test</em><span class="sig-paren">)</span><a class="headerlink" href="#ForestFire.Main.gen_database" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">ForestFire.Main.</code><code class="descname">gen_database</code><span class="sig-paren">(</span><em>n_runs</em>, <em>X</em>, <em>y</em>, <em>X_test</em>, <em>y_test</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ForestFire/Main.html#gen_database"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ForestFire.Main.gen_database" title="Permalink to this definition">¶</a></dt>
 <dd><p>[summary]</p>
 <p>[description]</p>
 <dl class="docutils">
@@ -118,16 +118,7 @@ y_test {[type]} &#8211; [description]</dd>
 <span class="n">np</span><span class="o">.</span><span class="n">seterr</span><span class="p">(</span><span class="n">divide</span><span class="o">=</span><span class="s1">&#39;ignore&#39;</span><span class="p">,</span> <span class="n">invalid</span><span class="o">=</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>  <span class="c1"># ignore warnings if dividing by zero or NaN</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;bmh&#39;</span><span class="p">)</span>
 
-
-<span class="c1"># initialize conventional parameter to run script from within this file --&gt; turn off to run it from external script (default)</span>
-<span class="n">__name__</span> <span class="o">=</span> <span class="s1">&#39;not__main_&#39;</span>
-
-
-<span class="c1"># initialization</span>
-<span class="n">z1</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># counter for path generation --&gt; needs fixing! global variable = bad ?</span>
-
-
-<span class="c1"># Functions for Generating Database for RF</span>
+<span class="c1">### Definitions ###</span>
 
 
 <span class="k">def</span> <span class="nf">gen_database</span><span class="p">(</span><span class="n">n_runs</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">):</span>
@@ -146,7 +137,16 @@ y_test {[type]} &#8211; [description]</dd>
 <span class="sd">        [type] -- [description]</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">X_DT</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n_runs</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="mi">0</span><span class="p">])),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>  <span class="c1"># Prelocate Memory</span>
+    <span class="c1"># print X_DT</span>
+    <span class="n">y_DT</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n_runs</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>  <span class="c1"># Prelocate Memory</span>
+
+    <span class="c1"># create SVMs that can only see subset of features</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_runs</span><span class="p">):</span>
+        <span class="c1"># create random mask to select subgroup of features</span>
+        <span class="n">mask_sub_features</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>  <span class="c1"># Prelocate Memory</span>
+        <span class="c1"># mask_sub_data = np.zeros(len(X), dtype=bool)  # Prelocate Memory</span>
+        <span class="c1"># selecting features: any number between 1 and all features are selected</span>
+        <span class="c1"># Select Train and Test Data for subgroup</span>
 </pre></div>
 </div>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="mi">10</span>
