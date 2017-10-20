@@ -71,7 +71,7 @@
 </pre></div>
 </div>
 <p>These parameters should be chosen according to computational demand of the <a class="reference internal" href="Overview.html#mla"><span class="std std-ref">MLA</span></a>.
-It makes sense to start with a small number of runs and increase them carefully.
+It makes sense to start with a small number of runs and increase it carefully.
 Pruning is an advanced parameter.
 If it is set to high, every single branch will be cut and only a tree stump with a single node is left.
 If this parameter is used at all it should be incremented carefully to find a good balance between merging branches and keeping the tree significant.</p>
@@ -249,9 +249,15 @@ If on the other hand a feature is never included, this indicates that the featur
 </div>
 <p><strong>Interpretation:</strong></p>
 <blockquote>
-<div>In this example ForestFire was able to find the best solution of 76,3% accuracy after 30 random and 11 guided runs.
+<div><p>In this example ForestFire was able to find the best solution of 76,3% accuracy after 30 random and 11 guided runs.
 Compared to the random search accuracy could be improved by ~5%.
-The best <a class="reference internal" href="Overview.html#mla"><span class="std std-ref">MLA</span></a> run did &#8220;see&#8221; all features but the second.</div></blockquote>
+The best <a class="reference internal" href="Overview.html#mla"><span class="std std-ref">MLA</span></a> run did &#8220;see&#8221; all features but the second.</p>
+<p>Since Demo mode was turned on at the end a plot is produced:</p>
+</div></blockquote>
+<div class="figure align-center" id="id2">
+<a class="reference internal image-reference" href="_images/generic_run.png"><img alt="generic_run.png" src="_images/generic_run.png" style="width: 1250.0px; height: 600.0px;" /></a>
+<p class="caption"><span class="caption-text">Caption</span></p>
+</div>
 <div class="admonition-todo admonition" id="index-0">
 <p class="first admonition-title">Todo</p>
 <p class="last">no green highlighting in source code</p>

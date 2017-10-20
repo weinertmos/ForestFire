@@ -14,7 +14,7 @@ There is a number of hyperparameters that can be changed or left at default:
         :lines: 5-17
 
 These parameters should be chosen according to computational demand of the :ref:`MLA <MLA>`.
-It makes sense to start with a small number of runs and increase them carefully.
+It makes sense to start with a small number of runs and increase it carefully.
 Pruning is an advanced parameter. 
 If it is set to high, every single branch will be cut and only a tree stump with a single node is left. 
 If this parameter is used at all it should be incremented carefully to find a good balance between merging branches and keeping the tree significant.
@@ -178,6 +178,16 @@ A generic output (with demo mode on) can look like this::
     In this example ForestFire was able to find the best solution of 76,3% accuracy after 30 random and 11 guided runs. 
     Compared to the random search accuracy could be improved by ~5%. 
     The best :ref:`MLA <MLA>` run did "see" all features but the second.
+
+    Since Demo mode was turned on at the end a plot is produced:
+
+.. figure:: generic_run.png
+    :scale: 25%
+    :alt: generic_run.png
+    :align: center
+
+    Caption
+
     
 
 
