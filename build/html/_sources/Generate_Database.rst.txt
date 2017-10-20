@@ -13,7 +13,7 @@ As inputs the train / test split data from :ref:`import_data` can be used.
 .. note::
     If no train / test split has been configured in :ref:`import_data` it has to be done here.
 
-The result of the individual algorithm is stored in the variable *score* and returned to the main file.
+The result of the :ref:`MLA <MLA>` is stored in the variable *score* and returned to the main file.
 
 
 

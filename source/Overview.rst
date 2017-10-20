@@ -5,9 +5,21 @@ General Overview of the different parts that ForestFire consists of.
 
 Abbreviations
 -------------
-DT = Decision Tree
-RF = Random Fores
-MLA = Machine Learning Algorithm
+
+.. _DT:
+
+DT
+    Decision Tree
+
+.. _RF:
+
+RF
+    Random Fores
+
+.. _MLA:
+
+MLA
+    Machine Learning Algorithm
 
 
 Utilized Modules

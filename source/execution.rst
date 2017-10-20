@@ -13,7 +13,7 @@ There is a number of hyperparameters that can be changed or left at default:
 .. literalinclude:: ForestFire/run_ForestFire.py
         :lines: 5-17
 
-These parameters should be chosen according to computational demand of the MLA.
+These parameters should be chosen according to computational demand of the :ref:`MLA <MLA>`.
 It makes sense to start with a small number of runs and increase them carefully.
 Pruning is an advanced parameter. 
 If it is set to high, every single branch will be cut and only a tree stump with a single node is left. 
@@ -43,14 +43,14 @@ Output
 By Executing `run_ForestFire.py <https://github.com/weinertmos/ForestFire/blob/master/source/ForestFire/run_ForestFire.py>`_ the algorithm starts.
 When a new feature set with good performance (top 5) is found, the current 5 best feature sets and the according performance are printed to the console.
 For each feature either 1 or 0 is displayed.
-1 means that the underlying MLA did "see" the feature, 0 means this feature was left out
+1 means that the underlying :ref:`MLA <MLA>` did "see" the feature, 0 means this feature was left out
 
 Naturally in the first runs there will be more new best feature sets.
 The longer the algorithm continues the harder it gets to find better values.
 
 The importance of a feature can be interpreted by looking at the feature sets that had the best results. 
 If for example a feature is included in all best feature sets it has a high importance. 
-If on the other hand a feature is never included, this indicates that the feature is either not important or is even a distortion to the MLA.
+If on the other hand a feature is never included, this indicates that the feature is either not important or is even a distortion to the :ref:`MLA <MLA>`.
 
 Example
 *******
@@ -177,7 +177,7 @@ A generic output (with demo mode on) can look like this::
 
     In this example ForestFire was able to find the best solution of 76,3% accuracy after 30 random and 11 guided runs. 
     Compared to the random search accuracy could be improved by ~5%. 
-    The best MLA run did "see" all features but the second.
+    The best :ref:`MLA <MLA>` run did "see" all features but the second.
     
 
 

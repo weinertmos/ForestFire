@@ -70,7 +70,7 @@
 <span class="n">n_forests</span> <span class="o">=</span> <span class="mi">10</span>
 </pre></div>
 </div>
-<p>These parameters should be chosen according to computational demand of the MLA.
+<p>These parameters should be chosen according to computational demand of the <a class="reference internal" href="Overview.html#mla"><span class="std std-ref">MLA</span></a>.
 It makes sense to start with a small number of runs and increase them carefully.
 Pruning is an advanced parameter.
 If it is set to high, every single branch will be cut and only a tree stump with a single node is left.
@@ -111,9 +111,9 @@ But changing them can tweak the performance.</p>
 <span class="n">plot_enable</span> <span class="o">=</span> <span class="kc">True</span>
 </pre></div>
 </div>
-<p>This behaviour can be usefull when trying to make sure that ForestFire doesn&#8217;t get caught in a local extremum.
+<p>This mode can be usefull when trying to make sure that ForestFire doesn&#8217;t get caught in a local extremum.
 In general ForestFire should always find solutions that are at least as good as a random search - otherwise there is no sense in using it at all - or better.
-If that&#8217;s not the case it might be &#8220;stuck&#8221; at a dominant feature set that seems to perform good, but there are even better feature sets that never get chosen.</p>
+If that&#8217;s not the case it might be &#8220;stuck&#8221; at a dominant feature set that seems to perform well, but there are even better feature sets that never get chosen.</p>
 </div>
 </div>
 <div class="section" id="output">
@@ -121,12 +121,12 @@ If that&#8217;s not the case it might be &#8220;stuck&#8221; at a dominant featu
 <p>By Executing <a class="reference external" href="https://github.com/weinertmos/ForestFire/blob/master/source/ForestFire/run_ForestFire.py">run_ForestFire.py</a> the algorithm starts.
 When a new feature set with good performance (top 5) is found, the current 5 best feature sets and the according performance are printed to the console.
 For each feature either 1 or 0 is displayed.
-1 means that the underlying MLA did &#8220;see&#8221; the feature, 0 means this feature was left out</p>
+1 means that the underlying <a class="reference internal" href="Overview.html#mla"><span class="std std-ref">MLA</span></a> did &#8220;see&#8221; the feature, 0 means this feature was left out</p>
 <p>Naturally in the first runs there will be more new best feature sets.
 The longer the algorithm continues the harder it gets to find better values.</p>
 <p>The importance of a feature can be interpreted by looking at the feature sets that had the best results.
 If for example a feature is included in all best feature sets it has a high importance.
-If on the other hand a feature is never included, this indicates that the feature is either not important or is even a distortion to the MLA.</p>
+If on the other hand a feature is never included, this indicates that the feature is either not important or is even a distortion to the <a class="reference internal" href="Overview.html#mla"><span class="std std-ref">MLA</span></a>.</p>
 <div class="section" id="example">
 <h3>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h3>
 <p>A generic output (with demo mode on) can look like this:</p>
@@ -251,7 +251,7 @@ If on the other hand a feature is never included, this indicates that the featur
 <blockquote>
 <div>In this example ForestFire was able to find the best solution of 76,3% accuracy after 30 random and 11 guided runs.
 Compared to the random search accuracy could be improved by ~5%.
-The best MLA run did &#8220;see&#8221; all features but the second.</div></blockquote>
+The best <a class="reference internal" href="Overview.html#mla"><span class="std std-ref">MLA</span></a> run did &#8220;see&#8221; all features but the second.</div></blockquote>
 <div class="admonition-todo admonition" id="index-0">
 <p class="first admonition-title">Todo</p>
 <p class="last">no green highlighting in source code</p>
