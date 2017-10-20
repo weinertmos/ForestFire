@@ -31,9 +31,22 @@ z1 = 0  # counter for path generation --> needs fixing! global variable = bad ?
 
 # Functions for Generating Database for RF
 
-# Generate Data Set for RF
+
 def gen_database(n_runs, X, y, X_test, y_test):
-    """description of gen_database"""
+    """[summary]
+
+    [description]
+
+    Arguments:
+        n_runs {[type]} -- [description]
+        X {[type]} -- [description]
+        y {[type]} -- [description]
+        X_test {[type]} -- [description]
+        y_test {[type]} -- [description]
+
+    Returns:
+        [type] -- [description]
+    """
     X_DT = np.zeros((n_runs, len(X[0])), dtype=bool)  # Prelocate Memory
     # print X_DT
     y_DT = np.zeros((n_runs, 1))  # Prelocate Memory

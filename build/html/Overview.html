@@ -78,7 +78,18 @@
 <dl class="function">
 <dt id="ForestFire.Main.gen_database">
 <code class="descclassname">ForestFire.Main.</code><code class="descname">gen_database</code><span class="sig-paren">(</span><em>n_runs</em>, <em>X</em>, <em>y</em>, <em>X_test</em>, <em>y_test</em><span class="sig-paren">)</span><a class="headerlink" href="#ForestFire.Main.gen_database" title="Permalink to this definition">¶</a></dt>
-<dd><p>description of gen_database</p>
+<dd><p>[summary]</p>
+<p>[description]</p>
+<dl class="docutils">
+<dt>Arguments:</dt>
+<dd>n_runs {[type]} &#8211; [description]
+X {[type]} &#8211; [description]
+y {[type]} &#8211; [description]
+X_test {[type]} &#8211; [description]
+y_test {[type]} &#8211; [description]</dd>
+<dt>Returns:</dt>
+<dd>[type] &#8211; [description]</dd>
+</dl>
 </dd></dl>
 
 <div class="literal-block-wrapper docutils container" id="id1">
@@ -118,29 +129,42 @@
 
 <span class="c1"># Functions for Generating Database for RF</span>
 
-<span class="c1"># Generate Data Set for RF</span>
+
 <span class="k">def</span> <span class="nf">gen_database</span><span class="p">(</span><span class="n">n_runs</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;description of gen_database&quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;[summary]</span>
+
+<span class="sd">    [description]</span>
+
+<span class="sd">    Arguments:</span>
+<span class="sd">        n_runs {[type]} -- [description]</span>
+<span class="sd">        X {[type]} -- [description]</span>
+<span class="sd">        y {[type]} -- [description]</span>
+<span class="sd">        X_test {[type]} -- [description]</span>
+<span class="sd">        y_test {[type]} -- [description]</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        [type] -- [description]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">X_DT</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n_runs</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="mi">0</span><span class="p">])),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>  <span class="c1"># Prelocate Memory</span>
-    <span class="c1"># print X_DT</span>
-    <span class="n">y_DT</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n_runs</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>  <span class="c1"># Prelocate Memory</span>
-
-    <span class="c1"># create SVMs that can only see subset of features</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_runs</span><span class="p">):</span>
-        <span class="c1"># create random mask to select subgroup of features</span>
-        <span class="n">mask_sub_features</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>  <span class="c1"># Prelocate Memory</span>
-        <span class="c1"># mask_sub_data = np.zeros(len(X), dtype=bool)  # Prelocate Memory</span>
-        <span class="c1"># selecting features: any number between 1 and all features are selected</span>
-        <span class="n">size</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span> <span class="o">+</span> <span class="mi">1</span>
-        <span class="n">rand_feat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="mi">0</span><span class="p">])),</span> <span class="n">size</span><span class="o">=</span><span class="n">size</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>  <span class="c1"># in first run prob is None --&gt; all features are equally selected, in later runs prob is result of previous RF results</span>
-        <span class="n">mask_sub_features</span><span class="p">[</span><span class="n">rand_feat</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>  <span class="c1"># set chosen features to True</span>
-
-        <span class="c1"># print X_sub[0]</span>
 </pre></div>
 </div>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="mi">10</span>
 <span class="k">def</span> <span class="nf">gen_database</span><span class="p">(</span><span class="n">n_runs</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;description of gen_database&quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;[summary]</span>
+
+<span class="sd">    [description]</span>
+
+<span class="sd">    Arguments:</span>
+<span class="sd">        n_runs {[type]} -- [description]</span>
+<span class="sd">        X {[type]} -- [description]</span>
+<span class="sd">        y {[type]} -- [description]</span>
+<span class="sd">        X_test {[type]} -- [description]</span>
+<span class="sd">        y_test {[type]} -- [description]</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        [type] -- [description]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">X_DT</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n_runs</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="mi">0</span><span class="p">])),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>  <span class="c1"># Prelocate Memory</span>
     <span class="c1"># print X_DT</span>
     <span class="n">y_DT</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n_runs</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>  <span class="c1"># Prelocate Memory</span>

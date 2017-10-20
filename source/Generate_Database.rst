@@ -17,7 +17,7 @@ The result of the individual algorithm is stored in the variable *score* and ret
 
 
 
-**Functions used in this chapter** Click [source] to view source code
+**Functions used in this chapter**
 
 .. autofunction:: ForestFire.compute.compute
 

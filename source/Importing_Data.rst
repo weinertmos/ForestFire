@@ -24,7 +24,7 @@ After loading the data apply how it should be splitted into train and test data 
     in the next step (:ref:`compute`).
 
 
-**Functions used in this chapter** Click [source] to view source code
+**Functions used in this chapter**
 
 .. autofunction:: ForestFire.import_data.import_data
 
