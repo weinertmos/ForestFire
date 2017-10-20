@@ -105,10 +105,8 @@ The results can be plotted.</p>
 <li class="toctree-l1"><a class="reference internal" href="Importing_Data.html">Import Data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Generate_Database.html">Generate Database</a></li>
 <li class="toctree-l1"><a class="reference internal" href="execution.html">Execution</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="execution.html#hyperparameters">Hyperparameters</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="execution.html#demo-mode-plot">Demo Mode &amp; Plot</a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="execution.html#hyperparameters">Hyperparameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="execution.html#demo-mode-plot">Demo Mode &amp; Plot</a></li>
 <li class="toctree-l2"><a class="reference internal" href="execution.html#output">Output</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="execution.html#example">Example</a></li>
 </ul>
@@ -148,14 +146,15 @@ The results can be plotted.</p>
 <p><strong>Remaining Todos:</strong></p>
 <div class="admonition-todo admonition">
 <p class="first admonition-title">Todo</p>
-<p class="last">delete comments</p>
+<p class="last">write a nice Overview
+do it in the end when all references are complete</p>
 </div>
-<p class="todo-source">(The <a class="reference internal" href="Overview.html#index-0"><em>original entry</em></a> is located in /Users/Dandelo/CloudStation_Marlon/Energietechnik/Studienarbeit/Sphinx/ForestFire/source/Overview.rst, line 33.)</p>
+<p class="todo-source">(The <a class="reference internal" href="Overview.html#index-0"><em>original entry</em></a> is located in /Users/Dandelo/CloudStation_Marlon/Energietechnik/Studienarbeit/Sphinx/ForestFire/source/Overview.rst, line 4.)</p>
 <div class="admonition-todo admonition">
 <p class="first admonition-title">Todo</p>
 <p class="last">no green highlighting in source code</p>
 </div>
-<p class="todo-source">(The <a class="reference internal" href="execution.html#index-0"><em>original entry</em></a> is located in /Users/Dandelo/CloudStation_Marlon/Energietechnik/Studienarbeit/Sphinx/ForestFire/source/execution.rst, line 198.)</p>
+<p class="todo-source">(The <a class="reference internal" href="execution.html#index-0"><em>original entry</em></a> is located in /Users/Dandelo/CloudStation_Marlon/Energietechnik/Studienarbeit/Sphinx/ForestFire/source/execution.rst, line 192.)</p>
 <div class="admonition-todo admonition">
 <p class="first admonition-title">Todo</p>
 <p class="last">so so much more...</p>
@@ -187,6 +186,136 @@ The results can be plotted.</p>
 </ul>
 </td></tr></table>
 <p>Wir bauen einen <a class="reference internal" href="Overview.html#dt"><span class="std std-ref">DT</span></a></p>
+<dl class="class">
+<dt id="ForestFire.Main.decisionnode">
+<em class="property">class </em><code class="descclassname">ForestFire.Main.</code><code class="descname">decisionnode</code><span class="sig-paren">(</span><em>col=-1</em>, <em>value=None</em>, <em>results=None</em>, <em>tb=None</em>, <em>fb=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ForestFire/Main.html#decisionnode"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ForestFire.Main.decisionnode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Allein auf weiter Flur</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="ForestFire.Main.gen_database">
+<code class="descclassname">ForestFire.Main.</code><code class="descname">gen_database</code><span class="sig-paren">(</span><em>n_runs</em>, <em>X</em>, <em>y</em>, <em>X_test</em>, <em>y_test</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ForestFire/Main.html#gen_database"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ForestFire.Main.gen_database" title="Permalink to this definition">¶</a></dt>
+<dd><p>[summary]</p>
+<p>[description]</p>
+<dl class="docutils">
+<dt>Arguments:</dt>
+<dd>n_runs {[type]} &#8211; [description]
+X {[type]} &#8211; [description]
+y {[type]} &#8211; [description]
+X_test {[type]} &#8211; [description]
+y_test {[type]} &#8211; [description]</dd>
+<dt>Returns:</dt>
+<dd>[type] &#8211; [description]</dd>
+</dl>
+</dd></dl>
+
+<div class="literal-block-wrapper docutils container" id="id1">
+<div class="code-block-caption"><span class="caption-text">oha</span><a class="headerlink" href="#id1" title="Permalink to this code">¶</a></div>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="mi">5</span>
+</pre></div>
+</td></tr></table></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="kn">from</span> <span class="nn">sklearn</span> <span class="k">import</span> <span class="n">preprocessing</span>
+<span class="kn">from</span> <span class="nn">PIL</span> <span class="k">import</span> <span class="n">Image</span><span class="p">,</span> <span class="n">ImageDraw</span>
+<span class="kn">from</span> <span class="nn">compute</span> <span class="k">import</span> <span class="n">compute</span>
+<span class="kn">from</span> <span class="nn">import_data</span> <span class="k">import</span> <span class="n">import_data</span>
+
+<span class="c1"># matplotlib.use(&#39;TkAgg&#39;)  # set Backend</span>
+
+
+<span class="c1"># change settings</span>
+<span class="n">np</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">threshold</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">)</span>   <span class="c1"># print whole numpy array in console</span>
+<span class="n">np</span><span class="o">.</span><span class="n">seterr</span><span class="p">(</span><span class="n">divide</span><span class="o">=</span><span class="s1">&#39;ignore&#39;</span><span class="p">,</span> <span class="n">invalid</span><span class="o">=</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>  <span class="c1"># ignore warnings if dividing by zero or NaN</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;bmh&#39;</span><span class="p">)</span>
+
+<span class="c1">### Definitions ###</span>
+
+
+<span class="k">def</span> <span class="nf">gen_database</span><span class="p">(</span><span class="n">n_runs</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;[summary]</span>
+
+<span class="sd">    [description]</span>
+
+<span class="sd">    Arguments:</span>
+<span class="sd">        n_runs {[type]} -- [description]</span>
+<span class="sd">        X {[type]} -- [description]</span>
+<span class="sd">        y {[type]} -- [description]</span>
+<span class="sd">        X_test {[type]} -- [description]</span>
+<span class="sd">        y_test {[type]} -- [description]</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        [type] -- [description]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">X_DT</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n_runs</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="mi">0</span><span class="p">])),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>  <span class="c1"># Prelocate Memory</span>
+    <span class="c1"># print X_DT</span>
+    <span class="n">y_DT</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n_runs</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>  <span class="c1"># Prelocate Memory</span>
+
+    <span class="c1"># create SVMs that can only see subset of features</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_runs</span><span class="p">):</span>
+        <span class="c1"># create random mask to select subgroup of features</span>
+        <span class="n">mask_sub_features</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>  <span class="c1"># Prelocate Memory</span>
+        <span class="c1"># mask_sub_data = np.zeros(len(X), dtype=bool)  # Prelocate Memory</span>
+        <span class="c1"># selecting features: any number between 1 and all features are selected</span>
+        <span class="n">size</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="n">rand_feat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="mi">0</span><span class="p">])),</span> <span class="n">size</span><span class="o">=</span><span class="n">size</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>  <span class="c1"># in first run prob is None --&gt; all features are equally selected, in later runs prob is result of previous RF results</span>
+        <span class="n">mask_sub_features</span><span class="p">[</span><span class="n">rand_feat</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>  <span class="c1"># set chosen features to True</span>
+
+        <span class="c1"># Select Train and Test Data for subgroup</span>
+
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="mi">10</span>
+<span class="k">def</span> <span class="nf">gen_database</span><span class="p">(</span><span class="n">n_runs</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;[summary]</span>
+
+<span class="sd">    [description]</span>
+
+<span class="sd">    Arguments:</span>
+<span class="sd">        n_runs {[type]} -- [description]</span>
+<span class="sd">        X {[type]} -- [description]</span>
+<span class="sd">        y {[type]} -- [description]</span>
+<span class="sd">        X_test {[type]} -- [description]</span>
+<span class="sd">        y_test {[type]} -- [description]</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        [type] -- [description]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">X_DT</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n_runs</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="mi">0</span><span class="p">])),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>  <span class="c1"># Prelocate Memory</span>
+    <span class="c1"># print X_DT</span>
+    <span class="n">y_DT</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n_runs</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>  <span class="c1"># Prelocate Memory</span>
+
+    <span class="c1"># create SVMs that can only see subset of features</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_runs</span><span class="p">):</span>
+        <span class="c1"># create random mask to select subgroup of features</span>
+        <span class="n">mask_sub_features</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>  <span class="c1"># Prelocate Memory</span>
+        <span class="c1"># mask_sub_data = np.zeros(len(X), dtype=bool)  # Prelocate Memory</span>
+        <span class="c1"># selecting features: any number between 1 and all features are selected</span>
+        <span class="n">size</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="n">rand_feat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="mi">0</span><span class="p">])),</span> <span class="n">size</span><span class="o">=</span><span class="n">size</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>  <span class="c1"># in first run prob is None --&gt; all features are equally selected, in later runs prob is result of previous RF results</span>
+        <span class="n">mask_sub_features</span><span class="p">[</span><span class="n">rand_feat</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>  <span class="c1"># set chosen features to True</span>
+
+        <span class="c1"># Select Train and Test Data for subgroup</span>
+        <span class="c1"># print X</span>
+        <span class="n">X_sub</span> <span class="o">=</span> <span class="n">X</span><span class="p">[:,</span> <span class="n">mask_sub_features</span><span class="p">]</span>  <span class="c1"># select only chosen features (still all datasets)</span>
+        <span class="c1"># print len(X_sub[0])</span>
+        <span class="c1"># print X_sub[0]</span>
+
+        <span class="c1"># compute subgroup</span>
+        <span class="c1"># print X_sub</span>
+        <span class="n">y_DT</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">compute</span><span class="p">(</span><span class="n">X_sub</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">mask_sub_features</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>
+
+        <span class="c1"># Save Data</span>
+        <span class="n">X_DT</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">mask_sub_features</span>  <span class="c1"># for the Decision Tree / Random Forest the X values are the information about whether an SVM has seen a certain feature or not</span>
+    <span class="c1"># print X_DT</span>
+    <span class="c1"># print y_DT</span>
+
+    <span class="c1"># merge X and y values</span>
+    <span class="n">Data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">X_DT</span><span class="p">,</span> <span class="n">y_DT</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># this Dataset goes into the Decision Tree / Random Forest</span>
+    <span class="k">return</span> <span class="n">Data</span>
+</pre></div>
+</div>
 </div>
 
 

@@ -43,16 +43,11 @@
         
         
   <h1>Source code for ForestFire.Main</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;description Main&quot;&quot;&quot;</span>
-<span class="c1">#  Imports</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span></span><span class="c1">#  Imports</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="c1"># sklearn imports</span>
-<span class="c1"># from sklearn.datasets.samples_generator import make_blobs</span>
-<span class="c1"># from sklearn.metrics import zero_one_loss  # only needed for percentage error</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
 <span class="kn">from</span> <span class="nn">sklearn</span> <span class="k">import</span> <span class="n">preprocessing</span>
-<span class="c1"># from sklearn.model_selection import train_test_split</span>
-<span class="c1"># from sklearn.metrics import mean_squared_error</span>
 <span class="kn">from</span> <span class="nn">PIL</span> <span class="k">import</span> <span class="n">Image</span><span class="p">,</span> <span class="n">ImageDraw</span>
 <span class="kn">from</span> <span class="nn">compute</span> <span class="k">import</span> <span class="n">compute</span>
 <span class="kn">from</span> <span class="nn">import_data</span> <span class="k">import</span> <span class="n">import_data</span>
@@ -68,7 +63,7 @@
 <span class="c1">### Definitions ###</span>
 
 
-<div class="viewcode-block" id="gen_database"><a class="viewcode-back" href="../../Overview.html#ForestFire.Main.gen_database">[docs]</a><span class="k">def</span> <span class="nf">gen_database</span><span class="p">(</span><span class="n">n_runs</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">):</span>
+<div class="viewcode-block" id="gen_database"><a class="viewcode-back" href="../../index.html#ForestFire.Main.gen_database">[docs]</a><span class="k">def</span> <span class="nf">gen_database</span><span class="p">(</span><span class="n">n_runs</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;[summary]</span>
 
 <span class="sd">    [description]</span>
@@ -129,7 +124,7 @@
 
 
 <span class="c1"># class definition</span>
-<div class="viewcode-block" id="decisionnode"><a class="viewcode-back" href="../../Overview.html#ForestFire.Main.decisionnode">[docs]</a><span class="k">class</span> <span class="nc">decisionnode</span><span class="p">:</span>
+<div class="viewcode-block" id="decisionnode"><a class="viewcode-back" href="../../index.html#ForestFire.Main.decisionnode">[docs]</a><span class="k">class</span> <span class="nc">decisionnode</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot; Allein auf weiter Flur&quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">col</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">results</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">tb</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">fb</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>

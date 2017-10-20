@@ -81,3 +81,21 @@ Eine Referenz zu getting started: :ref:`get_started`
 
 Wir bauen einen :ref:`DT <DT>`
 
+
+.. autoclass:: ForestFire.Main.decisionnode
+
+.. autofunction:: ForestFire.Main.gen_database
+
+.. code-block:: python
+    :caption: oha
+    :linenos:
+
+    a = 5
+
+.. literalinclude:: ForestFire/Main.py
+        :lines: 3-50,55
+
+
+.. literalinclude:: ForestFire/Main.py
+    :pyobject: gen_database
+    :prepend: 10

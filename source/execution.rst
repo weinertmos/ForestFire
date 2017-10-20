@@ -26,7 +26,7 @@ But changing them can tweak the performance.
         :lines: 19-41
 
 Demo Mode & Plot
-****************
+----------------
 
 In order to compare and plot the performance of ForestFire vs. a randomized search there are two more hyperparameters that can be used:
 
@@ -182,17 +182,11 @@ A generic output (with demo mode on) can look like this::
     Since Demo mode was turned on at the end a plot is produced:
 
 .. figure:: generic_run.png
-    :scale: 25%
+    :scale: 20%
     :alt: generic_run.png
     :align: center
 
     Caption
-
-    
-
-
-
-
 
 
 .. todo::

@@ -1,13 +1,8 @@
-"""description Main"""
 #  Imports
-import matplotlib.pyplot as plt
 import numpy as np
-# sklearn imports
-# from sklearn.datasets.samples_generator import make_blobs
-# from sklearn.metrics import zero_one_loss  # only needed for percentage error
+import matplotlib.pyplot as plt
+
 from sklearn import preprocessing
-# from sklearn.model_selection import train_test_split
-# from sklearn.metrics import mean_squared_error
 from PIL import Image, ImageDraw
 from compute import compute
 from import_data import import_data
