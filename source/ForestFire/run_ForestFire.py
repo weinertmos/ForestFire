@@ -42,7 +42,7 @@ np.random.seed(1)
 
 # if true a comparison between the Random Forest driven Search and a random search is done
 demo_mode = True
-# decide if at the end a plot should be generated , only possible in demo mode
+# decide if at the end a plot should be generated , only valid in demo mode
 plot_enable = True
 
 if name == '__main__':

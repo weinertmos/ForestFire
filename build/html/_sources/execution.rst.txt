@@ -25,6 +25,18 @@ But changing them can tweak the performance.
 .. literalinclude:: ForestFire/run_ForestFire.py
         :lines: 19-41
 
+Demo Mode & Plot
+****************
+
+In order to compare and plot the performance of ForestFire vs. a randomized search there are two more hyperparameters that can be used:
+
+.. literalinclude:: ForestFire/run_ForestFire.py
+        :lines: 43-46
+
+This behaviour can be usefull when trying to make sure that ForestFire doesn't get caught in a local extremum.
+In general ForestFire should always find solutions that are at least as good as a random search - otherwise there is no sense in using it at all - or better.
+If that's not the case it might be "stuck" at a dominant feature set that seems to perform good, but there are even better feature sets that never get chosen.
+
 Output
 ------
 
@@ -43,7 +55,7 @@ If on the other hand a feature is never included, this indicates that the featur
 Example
 *******
 
-A generic output can look like this::
+A generic output (with demo mode on) can look like this::
     
     Starting ForestFire
     Loading Raw Data
@@ -163,7 +175,9 @@ A generic output can look like this::
 
 **Interpretation:**
 
-    In this case ForestFire was able to find the best solution of 76,3% accuracy after 30 random and 11 guided runs. Compared to the random search accuracy could be improved by ~5%
+    In this example ForestFire was able to find the best solution of 76,3% accuracy after 30 random and 11 guided runs. 
+    Compared to the random search accuracy could be improved by ~5%. 
+    The best MLA run did "see" all features but the second.
     
 
 

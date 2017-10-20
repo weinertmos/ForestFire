@@ -102,6 +102,19 @@ But changing them can tweak the performance.</p>
 <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 </pre></div>
 </div>
+<div class="section" id="demo-mode-plot">
+<h3>Demo Mode &amp; Plot<a class="headerlink" href="#demo-mode-plot" title="Permalink to this headline">¶</a></h3>
+<p>In order to compare and plot the performance of ForestFire vs. a randomized search there are two more hyperparameters that can be used:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># if true a comparison between the Random Forest driven Search and a random search is done</span>
+<span class="n">demo_mode</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="c1"># decide if at the end a plot should be generated , only valid in demo mode</span>
+<span class="n">plot_enable</span> <span class="o">=</span> <span class="kc">True</span>
+</pre></div>
+</div>
+<p>This behaviour can be usefull when trying to make sure that ForestFire doesn&#8217;t get caught in a local extremum.
+In general ForestFire should always find solutions that are at least as good as a random search - otherwise there is no sense in using it at all - or better.
+If that&#8217;s not the case it might be &#8220;stuck&#8221; at a dominant feature set that seems to perform good, but there are even better feature sets that never get chosen.</p>
+</div>
 </div>
 <div class="section" id="output">
 <h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a></h2>
@@ -116,7 +129,7 @@ If for example a feature is included in all best feature sets it has a high impo
 If on the other hand a feature is never included, this indicates that the feature is either not important or is even a distortion to the MLA.</p>
 <div class="section" id="example">
 <h3>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h3>
-<p>A generic output can look like this:</p>
+<p>A generic output (with demo mode on) can look like this:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Starting</span> <span class="n">ForestFire</span>
 <span class="n">Loading</span> <span class="n">Raw</span> <span class="n">Data</span>
 <span class="n">setting</span> <span class="n">Hyperparameters</span>
@@ -236,7 +249,9 @@ If on the other hand a feature is never included, this indicates that the featur
 </div>
 <p><strong>Interpretation:</strong></p>
 <blockquote>
-<div>In this case ForestFire was able to find the best solution of 76,3% accuracy after 30 random and 11 guided runs. Compared to the random search accuracy could be improved by ~5%</div></blockquote>
+<div>In this example ForestFire was able to find the best solution of 76,3% accuracy after 30 random and 11 guided runs.
+Compared to the random search accuracy could be improved by ~5%.
+The best MLA run did &#8220;see&#8221; all features but the second.</div></blockquote>
 <div class="admonition-todo admonition" id="index-0">
 <p class="first admonition-title">Todo</p>
 <p class="last">no green highlighting in source code</p>
