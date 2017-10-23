@@ -1,2 +1,2 @@
-Evaluation Mode
-===============
+Evaluation
+==========

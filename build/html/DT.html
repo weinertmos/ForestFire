@@ -53,9 +53,9 @@
 <p>The basic principle of building decision trees is based on the implementation of decision trees in <a class="reference internal" href="Overview.html#collective-intelligence" id="id1">[Collective_Intelligence]</a> by Toby Segaran.</p>
 <div class="section" id="base-class">
 <h2>Base Class<a class="headerlink" href="#base-class" title="Permalink to this headline">¶</a></h2>
-<p>At the foundation of the ForestFire algorithm stands the <em>decisionnode class</em>.
+<p>At the foundation of the ForestFire algorithm stands the <a class="reference internal" href="#decisionnode"><span class="std std-ref">decisionnode class</span></a>.
 It represents a point in a <a class="reference internal" href="Overview.html#dt"><span class="std std-ref">DT</span></a> at which the decision is made into which branch (true or false) to proceed.
-The whole tree is built of nodes.
+The whole tree is built up of nodes.
 Each node itself can contain two more nodes - the true and false branch - which are themselves decisionnodes.
 In this way a tree is constructed in which a set of data takes a certain path along the tree to get classified.
 At each node it either enters the true or the false branch.
@@ -64,7 +64,6 @@ The leaf node contains the results which represent the classification a data set
 The results can be a single value - in this case the classification is 100% this single value.
 It can also consist of several values, e.g. value1 with 2 instances and value2 with 1 instance.
 The result of this classification is ambiguous, so it is expressed as a probability: the classification is 1/3 value2 and 2/3 value1.</p>
-<p>See <a class="reference internal" href="#decisionnode"><span class="std std-ref">decisionnode</span></a></p>
 </div>
 <div class="section" id="helper-functions">
 <h2>Helper functions<a class="headerlink" href="#helper-functions" title="Permalink to this headline">¶</a></h2>
@@ -72,7 +71,7 @@ The result of this classification is ambiguous, so it is expressed as a probabil
 <ul class="simple">
 <li><dl class="first docutils">
 <dt>By which feature (=column) should the next decision be made?</dt>
-<dd>If a feature is chosen at the first node it should be the one feature that separates the data set in the best possible way</dd>
+<dd>The feature that is chosen at the first node should be the one feature that separates the data set in the best possible way. Latter features are of less importance</dd>
 </dl>
 </li>
 <li>By which value should the decision be made?</li>
@@ -94,26 +93,32 @@ For this three evaluation metrics can be chosen from:</p>
 <dd>&#8220;How mixed is a list&#8221;</dd>
 </dl>
 </li>
-<li><a class="reference internal" href="#variance"><span class="std std-ref">Variance</span></a></li>
+<li><dl class="first docutils">
+<dt><a class="reference internal" href="#variance"><span class="std std-ref">Variance</span></a></dt>
+<dd>&#8220;How far apart do the numbers lie&#8221;</dd>
+</dl>
+</li>
 </ul>
 </div></blockquote>
 <p>The evaluation metric returns the gini coefficient / entropy of the list that it is presented with.
 Both methods need information about how many unique elements are in one list.</p>
 <p>See <a class="reference internal" href="#uniquecounts"><span class="std std-ref">uniquecounts</span></a></p>
-<p>After a tree is built its propert</p>
+<p>After a tree is built its width and depth can be examined by <a class="reference internal" href="#getdepth"><span class="std std-ref">getdepth</span></a> and <a class="reference internal" href="#getwidth"><span class="std std-ref">getwidth</span></a>.
+A tree&#8217;s depth is the maximum number of decisions that can be made before reaching a leaf node plus 1 (A tree stump that has no branches still has a depth of 1).
+A tree&#8217;s width is the number of leaves it contains, i.e. number of nodes that have entries in their results property.</p>
 </div>
 <div class="section" id="build-a-tree">
 <h2>Build a tree<a class="headerlink" href="#build-a-tree" title="Permalink to this headline">¶</a></h2>
 <p>Starting with a root node and the whole provided data set the <a class="reference internal" href="#buildtree"><span class="std std-ref">buildtree</span></a> function recursively
-loops through the following steps:</p>
+loops through the following steps and builds up the tree structure:</p>
 <blockquote>
 <div><ol class="arabic simple">
 <li>create a decisionnode</li>
-<li>calculate score (entropy / gini coefficient) of current list</li>
+<li>calculate score (entropy / gini coefficient / variance) of current list</li>
 <li>divide list into every possible split</li>
 <li>evaluate each split according to evaluation metric</li>
 <li>split the list into true and false branches according to best evaluated split</li>
-<li>If no split is better than the current list no split is performed and results are stored</li>
+<li>If no split is better than the current list no split is performed and results are stored, tree is returned</li>
 <li>If true and false branches are created, start at 1.</li>
 </ol>
 </div></blockquote>
@@ -207,6 +212,16 @@ Entropy = sum of p(i) x log(p(i)) for all outcomes"/></p>
 <dd>integer &#8211; number of unique elements</dd>
 </dl>
 </dd></dl>
+
+<span class="target" id="getdepth"></span><dl class="function">
+<dt id="ForestFire.Main.getdepth">
+<code class="descclassname">ForestFire.Main.</code><code class="descname">getdepth</code><span class="sig-paren">(</span><em>tree</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ForestFire/Main.html#getdepth"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ForestFire.Main.getdepth" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<span class="target" id="getwidth"></span><dl class="function">
+<dt id="ForestFire.Main.getwidth">
+<code class="descclassname">ForestFire.Main.</code><code class="descname">getwidth</code><span class="sig-paren">(</span><em>tree</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ForestFire/Main.html#getwidth"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ForestFire.Main.getwidth" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 <span class="target" id="buildtree"></span><dl class="function">
 <dt id="ForestFire.Main.buildtree">

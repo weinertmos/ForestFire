@@ -33,8 +33,8 @@ Building and Burning Random Forests
 
 .. _demo:
 
-Demo Mode
-------------------
+Evaluation Mode
+---------------
 
 .. toctree::
     :maxdepth: 3
