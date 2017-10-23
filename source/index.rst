@@ -82,8 +82,6 @@ Eine Referenz zu getting started: :ref:`get_started`
 Wir bauen einen :ref:`DT <DT>`
 
 
-.. autoclass:: ForestFire.Main.decisionnode
-
 
 .. code-block:: python
     :caption: oha

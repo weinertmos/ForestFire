@@ -6,7 +6,7 @@ name = '__main__'
 
 # number of runs before building first Random Forest = number of data points in first RF; minimum = 4, default = 50
 # adjust according to computational capabilities and demands of the underlying machine learning algorithm
-n_runs = 30
+n_runs = 5  # default = 30
 # if pruning is greater than zero, branches of a Decision Tree will be pruned proportional to pruning value; default = 0
 # advanced parameter. If set too high, all trees will be cut down to stumps. Increase carefully.
 pruning = 1.005
@@ -14,7 +14,7 @@ pruning = 1.005
 min_data = 0.2
 # number of forests; minimum=1;  default = 25
 # adjust according to computational capabilities. For each forest two new computational runs are done.
-n_forests = 10
+n_forests = 4
 
 # number of trees that stand in a forest; min = 3; default = number of features * 3
 n_trees = 'default'
@@ -35,8 +35,9 @@ weight_mean = 'default'
 # weight of the gradient in calculating the new probability for selecting future feature sets; default = 0.8
 weight_gradient = 'default'
 
-# which scoring metric should be used in the Decision Tree (available: entropy and giniimpurity); default = entropy
-scoref = 'default'
+# which scoring metric should be used in the Decision Tree (available: entropy, giniimpurity and variance); default = entropy
+# select variance for numerical values in y only
+scoref = 'variance'
 # set random seed for repeatabilit; comment out if no repeatability is required; default = 1
 np.random.seed(1)
 

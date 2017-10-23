@@ -51,6 +51,180 @@
   <div class="section" id="growing-a-single-decision-tree">
 <h1>Growing a single Decision Tree<a class="headerlink" href="#growing-a-single-decision-tree" title="Permalink to this headline">¶</a></h1>
 <p>The basic principle of building decision trees is based on the implementation of decision trees in <a class="reference internal" href="Overview.html#collective-intelligence" id="id1">[Collective_Intelligence]</a> by Toby Segaran.</p>
+<div class="section" id="base-class">
+<h2>Base Class<a class="headerlink" href="#base-class" title="Permalink to this headline">¶</a></h2>
+<p>At the foundation of the ForestFire algorithm stands the <em>decisionnode class</em>.
+It represents a point in a <a class="reference internal" href="Overview.html#dt"><span class="std std-ref">DT</span></a> at which the decision is made into which branch (true or false) to proceed.
+The whole tree is built of nodes.
+Each node itself can contain two more nodes - the true and false branch - which are themselves decisionnodes.
+In this way a tree is constructed in which a set of data takes a certain path along the tree to get classified.
+At each node it either enters the true or the false branch.
+When a branch is reached with no further branches below, this is called a leaf node.
+The leaf node contains the results which represent the classification a data set receives.
+The results can be a single value - in this case the classification is 100% this single value.
+It can also consist of several values, e.g. value1 with 2 instances and value2 with 1 instance.
+The result of this classification is ambiguous, so it is expressed as a probability: the classification is 1/3 value2 and 2/3 value1.</p>
+<p>See <a class="reference internal" href="#decisionnode"><span class="std std-ref">decisionnode</span></a></p>
+</div>
+<div class="section" id="helper-functions">
+<h2>Helper functions<a class="headerlink" href="#helper-functions" title="Permalink to this headline">¶</a></h2>
+<p>At each node two questions have to be answered:</p>
+<ul class="simple">
+<li><dl class="first docutils">
+<dt>By which feature (=column) should the next decision be made?</dt>
+<dd>If a feature is chosen at the first node it should be the one feature that separates the data set in the best possible way</dd>
+</dl>
+</li>
+<li>By which value should the decision be made?</li>
+</ul>
+<p>To answer those questions the data is iteratively split in every possible way.
+This means it is split for every feature and within every feature it is split for every single value.</p>
+<p>See <a class="reference internal" href="#divideset"><span class="std std-ref">divideset</span></a></p>
+<p>Each of the resulting splits has to be evaluted with respect to &#8220;how well&#8221; the split separates the big list into two smaller lists.
+For this three evaluation metrics can be chosen from:</p>
+<blockquote>
+<div><ul class="simple">
+<li><dl class="first docutils">
+<dt><a class="reference internal" href="#giniimpurity"><span class="std std-ref">Gini Impurity</span></a></dt>
+<dd>&#8220;Probability that a randomly placed item will be in the wrong category&#8221;</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><a class="reference internal" href="#entropy"><span class="std std-ref">Entropy</span></a></dt>
+<dd>&#8220;How mixed is a list&#8221;</dd>
+</dl>
+</li>
+<li><a class="reference internal" href="#variance"><span class="std std-ref">Variance</span></a></li>
+</ul>
+</div></blockquote>
+<p>The evaluation metric returns the gini coefficient / entropy of the list that it is presented with.
+Both methods need information about how many unique elements are in one list.</p>
+<p>See <a class="reference internal" href="#uniquecounts"><span class="std std-ref">uniquecounts</span></a></p>
+<p>After a tree is built its propert</p>
+</div>
+<div class="section" id="build-a-tree">
+<h2>Build a tree<a class="headerlink" href="#build-a-tree" title="Permalink to this headline">¶</a></h2>
+<p>Starting with a root node and the whole provided data set the <a class="reference internal" href="#buildtree"><span class="std std-ref">buildtree</span></a> function recursively
+loops through the following steps:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li>create a decisionnode</li>
+<li>calculate score (entropy / gini coefficient) of current list</li>
+<li>divide list into every possible split</li>
+<li>evaluate each split according to evaluation metric</li>
+<li>split the list into true and false branches according to best evaluated split</li>
+<li>If no split is better than the current list no split is performed and results are stored</li>
+<li>If true and false branches are created, start at 1.</li>
+</ol>
+</div></blockquote>
+</div>
+<div class="section" id="displaying-a-tree">
+<h2>Displaying a tree<a class="headerlink" href="#displaying-a-tree" title="Permalink to this headline">¶</a></h2>
+<p>The following functions are for debugging purposes only. The <a class="reference internal" href="Overview.html#dt"><span class="std std-ref">DT</span></a></p>
+<p><strong>Functions used in this chapter</strong> Click [source] to view source code</p>
+<span class="target" id="decisionnode"></span><dl class="class">
+<dt id="ForestFire.Main.decisionnode">
+<em class="property">class </em><code class="descclassname">ForestFire.Main.</code><code class="descname">decisionnode</code><span class="sig-paren">(</span><em>col=-1</em>, <em>value=None</em>, <em>results=None</em>, <em>tb=None</em>, <em>fb=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ForestFire/Main.html#decisionnode"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ForestFire.Main.decisionnode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Base class that a decision tree is built of.</p>
+<dl class="docutils">
+<dt>Keyword Arguments:</dt>
+<dd><ul class="first last simple">
+<li>col {integer} &#8211; column number = decision criterium for splitting data (default: {-1})</li>
+<li>value {integer/float/string} &#8211; value by which data gets split (default: {None})</li>
+<li>results {integer/float/string} &#8211; if node is an end node (=leaf) it contains the results (default: {None})</li>
+<li>tb {decisionnode} &#8211; next smaller node containing the true branch (default: {None})</li>
+<li>fb {decisionnode} &#8211; next smaller node containing the false branch (default: {None})</li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<span class="target" id="divideset"></span><dl class="function">
+<dt id="ForestFire.Main.divideset">
+<code class="descclassname">ForestFire.Main.</code><code class="descname">divideset</code><span class="sig-paren">(</span><em>rows</em>, <em>column</em>, <em>value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ForestFire/Main.html#divideset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ForestFire.Main.divideset" title="Permalink to this definition">¶</a></dt>
+<dd><p>splits a data set into two separate sets according to the column and the value that is passed into.</p>
+<p>If value is a number the comparison is done with &lt;= and &gt;=.
+If value is not a number the exact value is compared</p>
+<dl class="docutils">
+<dt>Arguments:</dt>
+<dd><ul class="first last simple">
+<li>rows {list} &#8211; data set that is split</li>
+<li>column{integer} &#8211; column by which data gets split</li>
+<li>value {number/string} &#8211; value by which data gets split</li>
+</ul>
+</dd>
+<dt>Returns:</dt>
+<dd>[list] &#8211; two lists</dd>
+</dl>
+</dd></dl>
+
+<span class="target" id="giniimpurity"></span><dl class="function">
+<dt id="ForestFire.Main.giniimpurity">
+<code class="descclassname">ForestFire.Main.</code><code class="descname">giniimpurity</code><span class="sig-paren">(</span><em>rows</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ForestFire/Main.html#giniimpurity"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ForestFire.Main.giniimpurity" title="Permalink to this definition">¶</a></dt>
+<dd><p>Probability that a randomly placed item will be in the wrong category</p>
+<p>Calculates the probability of each possible outcome by dividing the number of times that outcome occurs
+by the total number of rows in the set. It then adds up the products of all these probabilities. This gives
+the overall chance that a row would be randomly assigned to the wrong outcome. The higher this probability,
+the worse the split</p>
+<dl class="docutils">
+<dt>Returns:</dt>
+<dd>float &#8211; [description]</dd>
+</dl>
+</dd></dl>
+
+<span class="target" id="entropy"></span><dl class="function">
+<dt id="ForestFire.Main.entropy">
+<code class="descclassname">ForestFire.Main.</code><code class="descname">entropy</code><span class="sig-paren">(</span><em>rows</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ForestFire/Main.html#entropy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ForestFire.Main.entropy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Entropy is the sum of p(x)log(p(x)) across all the different possible results &#8211;&gt; how mixed is a list</p>
+<p>Funciton calculates the frequency of each item (the number of times it appears divided by the total number of rows)
+and applies these formulas:</p>
+<div class="math">
+<p><img src="_images/math/85a66e692a0a46b4b508aa8178deba2afd698222.png" alt="p(i) = frequency(outcome) = count(outcome) / count(total rows)
+
+Entropy = sum of p(i) x log(p(i)) for all outcomes"/></p>
+</div><p>The higher the entropy, the worse the split.</p>
+<dl class="docutils">
+<dt>Arguments:</dt>
+<dd>rows {list} &#8211; list to evaluate</dd>
+<dt>Returns:</dt>
+<dd>[float] &#8211; entropy of the list</dd>
+</dl>
+</dd></dl>
+
+<span class="target" id="variance"></span><dl class="function">
+<dt id="ForestFire.Main.variance">
+<code class="descclassname">ForestFire.Main.</code><code class="descname">variance</code><span class="sig-paren">(</span><em>rows</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ForestFire/Main.html#variance"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ForestFire.Main.variance" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<span class="target" id="uniquecounts"></span><dl class="function">
+<dt id="ForestFire.Main.uniquecounts">
+<code class="descclassname">ForestFire.Main.</code><code class="descname">uniquecounts</code><span class="sig-paren">(</span><em>rows</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ForestFire/Main.html#uniquecounts"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ForestFire.Main.uniquecounts" title="Permalink to this definition">¶</a></dt>
+<dd><p>evaluate how many unique elements are in a given list</p>
+<dl class="docutils">
+<dt>Arguments:</dt>
+<dd>rows {list} &#8211; evaluated list</dd>
+<dt>Returns:</dt>
+<dd>integer &#8211; number of unique elements</dd>
+</dl>
+</dd></dl>
+
+<span class="target" id="buildtree"></span><dl class="function">
+<dt id="ForestFire.Main.buildtree">
+<code class="descclassname">ForestFire.Main.</code><code class="descname">buildtree</code><span class="sig-paren">(</span><em>rows</em>, <em>scoref</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ForestFire/Main.html#buildtree"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ForestFire.Main.buildtree" title="Permalink to this definition">¶</a></dt>
+<dd><p>recursively builds decisionnode objects that form a decision tree</p>
+<p>At each node the best possible split is calculated (depending on the evaluation metric).
+If no further split is neccessary the remaining items and their number of occurence 
+are written in the results property.</p>
+<dl class="docutils">
+<dt>Arguments:</dt>
+<dd>rows {list} &#8211; dataset from which to build the tree
+scoref {function} &#8211; evaluation metric (entropy / gini coefficient)</dd>
+<dt>Returns:</dt>
+<dd>decisionnode &#8211; either two decisionnodes for true and false branch or one decisionnode with results (leaf node)</dd>
+</dl>
+</dd></dl>
+
+</div>
 </div>
 
 

@@ -122,8 +122,17 @@
 
 
 <span class="c1"># class definition</span>
-<div class="viewcode-block" id="decisionnode"><a class="viewcode-back" href="../../index.html#ForestFire.Main.decisionnode">[docs]</a><span class="k">class</span> <span class="nc">decisionnode</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot; Allein auf weiter Flur&quot;&quot;&quot;</span>
+<div class="viewcode-block" id="decisionnode"><a class="viewcode-back" href="../../DT.html#ForestFire.Main.decisionnode">[docs]</a><span class="k">class</span> <span class="nc">decisionnode</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Base class that a decision tree is built of.</span>
+
+
+<span class="sd">    Keyword Arguments:</span>
+<span class="sd">        * col {integer} -- column number = decision criterium for splitting data (default: {-1})</span>
+<span class="sd">        * value {integer/float/string} -- value by which data gets split (default: {None})</span>
+<span class="sd">        * results {integer/float/string} -- if node is an end node (=leaf) it contains the results (default: {None})</span>
+<span class="sd">        * tb {decisionnode} -- next smaller node containing the true branch (default: {None})</span>
+<span class="sd">        * fb {decisionnode} -- next smaller node containing the false branch (default: {None})</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">col</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">results</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">tb</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">fb</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">col</span> <span class="o">=</span> <span class="n">col</span>
@@ -137,9 +146,20 @@
 
 <span class="c1"># Divides a set on a specific column. Can handle numeric</span>
 <span class="c1"># or nominal vlaues</span>
-<span class="k">def</span> <span class="nf">divideset</span><span class="p">(</span><span class="n">rows</span><span class="p">,</span> <span class="n">column</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
-    <span class="sd">&#39;&#39;&#39;Make a function that tells us if a row is in</span>
-<span class="sd">    the first group (true) or the second group (false) &#39;&#39;&#39;</span>
+<div class="viewcode-block" id="divideset"><a class="viewcode-back" href="../../DT.html#ForestFire.Main.divideset">[docs]</a><span class="k">def</span> <span class="nf">divideset</span><span class="p">(</span><span class="n">rows</span><span class="p">,</span> <span class="n">column</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; splits a data set into two separate sets according to the column and the value that is passed into.</span>
+
+<span class="sd">    If value is a number the comparison is done with &lt;= and &gt;=.</span>
+<span class="sd">    If value is not a number the exact value is compared</span>
+
+<span class="sd">    Arguments:</span>
+<span class="sd">        * rows {list} -- data set that is split</span>
+<span class="sd">        * column{integer} -- column by which data gets split</span>
+<span class="sd">        * value {number/string} -- value by which data gets split</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        [list] -- two lists</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">split_function</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1"># Prelocate</span>
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">float</span><span class="p">):</span>
         <span class="k">def</span> <span class="nf">split_function</span><span class="p">(</span><span class="n">row</span><span class="p">):</span>
@@ -147,14 +167,22 @@
     <span class="k">else</span><span class="p">:</span>
         <span class="k">def</span> <span class="nf">split_function</span><span class="p">(</span><span class="n">row</span><span class="p">):</span>
             <span class="k">return</span> <span class="n">row</span><span class="p">[</span><span class="n">column</span><span class="p">]</span> <span class="o">==</span> <span class="n">value</span>
-    <span class="sd">&#39;&#39;&#39; divide the rows into two sets and return them &#39;&#39;&#39;</span>
+    <span class="c1"># divide the rows into two sets and return them</span>
     <span class="n">set1</span> <span class="o">=</span> <span class="p">[</span><span class="n">row</span> <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">rows</span> <span class="k">if</span> <span class="n">split_function</span><span class="p">(</span><span class="n">row</span><span class="p">)]</span>  <span class="c1"># positive side &gt;= or ==</span>
     <span class="n">set2</span> <span class="o">=</span> <span class="p">[</span><span class="n">row</span> <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">rows</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">split_function</span><span class="p">(</span><span class="n">row</span><span class="p">)]</span>  <span class="c1"># negative side True or False</span>
-    <span class="k">return</span> <span class="p">(</span><span class="n">set1</span><span class="p">,</span> <span class="n">set2</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">set1</span><span class="p">,</span> <span class="n">set2</span><span class="p">)</span></div>
 
 
 <span class="c1"># Create counts of possible results (the last column of each row is the result) = how many different results are in a list</span>
-<span class="k">def</span> <span class="nf">uniquecounts</span><span class="p">(</span><span class="n">rows</span><span class="p">):</span>
+<div class="viewcode-block" id="uniquecounts"><a class="viewcode-back" href="../../DT.html#ForestFire.Main.uniquecounts">[docs]</a><span class="k">def</span> <span class="nf">uniquecounts</span><span class="p">(</span><span class="n">rows</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;evaluate how many unique elements are in a given list</span>
+
+<span class="sd">    Arguments:</span>
+<span class="sd">        rows {list} -- evaluated list</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        integer -- number of unique elements</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">results</span> <span class="o">=</span> <span class="p">{}</span>
     <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">rows</span><span class="p">:</span>
         <span class="c1"># The result is the last column</span>
@@ -164,10 +192,20 @@
             <span class="n">results</span><span class="p">[</span><span class="n">r</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="c1"># increase count of r by one</span>
         <span class="n">results</span><span class="p">[</span><span class="n">r</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
-    <span class="k">return</span> <span class="n">results</span>
+    <span class="k">return</span> <span class="n">results</span></div>
 
 
-<span class="k">def</span> <span class="nf">giniimpurity</span><span class="p">(</span><span class="n">rows</span><span class="p">):</span>  <span class="c1"># Probability that a randomly placed item will be in the wrong category</span>
+<div class="viewcode-block" id="giniimpurity"><a class="viewcode-back" href="../../DT.html#ForestFire.Main.giniimpurity">[docs]</a><span class="k">def</span> <span class="nf">giniimpurity</span><span class="p">(</span><span class="n">rows</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Probability that a randomly placed item will be in the wrong category</span>
+
+<span class="sd">    Calculates the probability of each possible outcome by dividing the number of times that outcome occurs</span>
+<span class="sd">    by the total number of rows in the set. It then adds up the products of all these probabilities. This gives</span>
+<span class="sd">    the overall chance that a row would be randomly assigned to the wrong outcome. The higher this probability,</span>
+<span class="sd">    the worse the split</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        float -- [description]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">total</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">rows</span><span class="p">)</span>
     <span class="n">counts</span> <span class="o">=</span> <span class="n">uniquecounts</span><span class="p">(</span><span class="n">rows</span><span class="p">)</span>
     <span class="n">imp</span> <span class="o">=</span> <span class="mi">0</span>
@@ -178,11 +216,29 @@
                 <span class="k">continue</span>  <span class="c1"># beendet if</span>
             <span class="n">p2</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">counts</span><span class="p">[</span><span class="n">k2</span><span class="p">])</span> <span class="o">/</span> <span class="n">total</span>
             <span class="n">imp</span> <span class="o">+=</span> <span class="n">p1</span> <span class="o">*</span> <span class="n">p2</span>
-    <span class="k">return</span> <span class="n">imp</span>
+    <span class="k">return</span> <span class="n">imp</span></div>
 
 
-<span class="c1"># Entropy is the sum of p(x)log(p(x)) across all the different possible results --&gt; how mixed is a list</span>
-<span class="k">def</span> <span class="nf">entropy</span><span class="p">(</span><span class="n">rows</span><span class="p">):</span>
+<div class="viewcode-block" id="entropy"><a class="viewcode-back" href="../../DT.html#ForestFire.Main.entropy">[docs]</a><span class="k">def</span> <span class="nf">entropy</span><span class="p">(</span><span class="n">rows</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Entropy is the sum of p(x)log(p(x)) across all the different possible results --&gt; how mixed is a list</span>
+
+<span class="sd">    Funciton calculates the frequency of each item (the number of times it appears divided by the total number of rows)</span>
+<span class="sd">    and applies these formulas:</span>
+
+<span class="sd">    .. math::</span>
+<span class="sd">        p(i) = frequency(outcome) = count(outcome) / count(total rows)</span>
+
+<span class="sd">        Entropy = sum of p(i) x log(p(i)) for all outcomes</span>
+
+
+<span class="sd">    The higher the entropy, the worse the split.</span>
+
+<span class="sd">    Arguments:</span>
+<span class="sd">        rows {list} -- list to evaluate</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        [float] -- entropy of the list</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="kn">from</span> <span class="nn">math</span> <span class="k">import</span> <span class="n">log</span>
 
     <span class="k">def</span> <span class="nf">log2</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
@@ -193,12 +249,24 @@
     <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">results</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
         <span class="n">p</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">results</span><span class="p">[</span><span class="n">r</span><span class="p">])</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">rows</span><span class="p">)</span>
         <span class="n">ent</span> <span class="o">-=</span> <span class="n">p</span> <span class="o">*</span> <span class="n">log2</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
-        <span class="c1"># print ent</span>
-    <span class="k">return</span> <span class="n">ent</span>
+    <span class="k">return</span> <span class="n">ent</span></div>
 
 
 <span class="c1"># building the tree</span>
-<span class="k">def</span> <span class="nf">buildtree</span><span class="p">(</span><span class="n">rows</span><span class="p">,</span> <span class="n">scoref</span><span class="p">):</span>
+<div class="viewcode-block" id="buildtree"><a class="viewcode-back" href="../../DT.html#ForestFire.Main.buildtree">[docs]</a><span class="k">def</span> <span class="nf">buildtree</span><span class="p">(</span><span class="n">rows</span><span class="p">,</span> <span class="n">scoref</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;recursively builds decisionnode objects that form a decision tree</span>
+
+<span class="sd">    At each node the best possible split is calculated (depending on the evaluation metric).</span>
+<span class="sd">    If no further split is neccessary the remaining items and their number of occurence </span>
+<span class="sd">    are written in the results property.</span>
+
+<span class="sd">    Arguments:</span>
+<span class="sd">        rows {list} -- dataset from which to build the tree</span>
+<span class="sd">        scoref {function} -- evaluation metric (entropy / gini coefficient)</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        decisionnode -- either two decisionnodes for true and false branch or one decisionnode with results (leaf node)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">rows</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">decisionnode</span><span class="p">()</span>
     <span class="n">current_score</span> <span class="o">=</span> <span class="n">scoref</span><span class="p">(</span><span class="n">rows</span><span class="p">)</span>
@@ -214,7 +282,6 @@
         <span class="n">column_values</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">rows</span><span class="p">:</span>
             <span class="n">column_values</span><span class="p">[</span><span class="n">row</span><span class="p">[</span><span class="n">col</span><span class="p">]]</span> <span class="o">=</span> <span class="mi">1</span>
-        <span class="c1"># print column_values</span>
         <span class="c1"># Try dividing the rows up for each value in this column</span>
         <span class="k">for</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">column_values</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
             <span class="p">(</span><span class="n">set1</span><span class="p">,</span> <span class="n">set2</span><span class="p">)</span> <span class="o">=</span> <span class="n">divideset</span><span class="p">(</span><span class="n">rows</span><span class="p">,</span> <span class="n">col</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
@@ -222,7 +289,6 @@
             <span class="c1"># Information Gain</span>
             <span class="n">p</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">set1</span><span class="p">))</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">rows</span><span class="p">)</span>  <span class="c1"># = ration(Anteil) of list 1 against whole list (list1+list2)</span>
             <span class="n">gain</span> <span class="o">=</span> <span class="n">current_score</span> <span class="o">-</span> <span class="n">p</span> <span class="o">*</span> <span class="n">scoref</span><span class="p">(</span><span class="n">set1</span><span class="p">)</span> <span class="o">-</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">p</span><span class="p">)</span> <span class="o">*</span> <span class="n">scoref</span><span class="p">(</span><span class="n">set2</span><span class="p">)</span>  <span class="c1"># set1 and set2 can be exchanged</span>
-            <span class="c1"># print gain</span>
             <span class="k">if</span> <span class="n">gain</span> <span class="o">&gt;</span> <span class="n">best_gain</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">set1</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">set2</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
                 <span class="n">best_gain</span> <span class="o">=</span> <span class="n">gain</span>
                 <span class="n">best_criteria</span> <span class="o">=</span> <span class="p">(</span><span class="n">col</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
@@ -236,11 +302,16 @@
         <span class="n">falseBranch</span> <span class="o">=</span> <span class="n">buildtree</span><span class="p">(</span><span class="n">best_sets</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">scoref</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">decisionnode</span><span class="p">(</span><span class="n">col</span><span class="o">=</span><span class="n">best_criteria</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">value</span><span class="o">=</span><span class="n">best_criteria</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">tb</span><span class="o">=</span><span class="n">trueBranch</span><span class="p">,</span> <span class="n">fb</span><span class="o">=</span><span class="n">falseBranch</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">decisionnode</span><span class="p">(</span><span class="n">results</span><span class="o">=</span><span class="n">uniquecounts</span><span class="p">(</span><span class="n">rows</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">decisionnode</span><span class="p">(</span><span class="n">results</span><span class="o">=</span><span class="n">uniquecounts</span><span class="p">(</span><span class="n">rows</span><span class="p">))</span></div>
 
 
-<span class="c1"># prints out the tree on the command line</span>
 <span class="k">def</span> <span class="nf">printtree</span><span class="p">(</span><span class="n">tree</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="s1">&#39; &#39;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;prints out the tree on the command line</span>
+
+<span class="sd">    Arguments:</span>
+<span class="sd">        tree {decisionnode} -- tree that gets printed</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># Is this a leaf node</span>
     <span class="k">if</span> <span class="n">tree</span><span class="o">.</span><span class="n">results</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
         <span class="nb">print</span> <span class="nb">str</span><span class="p">(</span><span class="n">tree</span><span class="o">.</span><span class="n">results</span><span class="p">)</span>
@@ -390,14 +461,14 @@
 
 
 <span class="c1"># compute variance of target values if they are numbers, ? not needed ?</span>
-<span class="k">def</span> <span class="nf">variance</span><span class="p">(</span><span class="n">rows</span><span class="p">):</span>
+<div class="viewcode-block" id="variance"><a class="viewcode-back" href="../../DT.html#ForestFire.Main.variance">[docs]</a><span class="k">def</span> <span class="nf">variance</span><span class="p">(</span><span class="n">rows</span><span class="p">):</span>
     <span class="c1"># if y consists of values, change scoref in buildtree!</span>
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">rows</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
         <span class="k">return</span> <span class="mi">0</span>
     <span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="nb">float</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">row</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">])</span> <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">rows</span><span class="p">]</span>
     <span class="n">mean</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
     <span class="n">variance</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">([(</span><span class="n">d</span> <span class="o">-</span> <span class="n">mean</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">data</span><span class="p">])</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>  <span class="c1"># normalize by dividing by mean ?</span>
-    <span class="k">return</span> <span class="n">variance</span>
+    <span class="k">return</span> <span class="n">variance</span></div>
 
 
 <span class="c1"># Create Matrix path which contains the structure of the tree</span>
@@ -828,6 +899,8 @@
         <span class="n">scoref</span> <span class="o">=</span> <span class="n">entropy</span>
     <span class="k">elif</span> <span class="n">scoref</span> <span class="ow">is</span> <span class="s1">&#39;giniimpurity&#39;</span><span class="p">:</span>
         <span class="n">scoref</span> <span class="o">=</span> <span class="n">giniimpurity</span>
+    <span class="k">elif</span> <span class="n">scoref</span> <span class="ow">is</span> <span class="s1">&#39;variance&#39;</span><span class="p">:</span>
+        <span class="n">scoref</span> <span class="o">=</span> <span class="n">variance</span>
 
     <span class="n">multiplier</span> <span class="o">=</span> <span class="mi">1</span>  <span class="c1"># initialize value for multiplier</span>
 

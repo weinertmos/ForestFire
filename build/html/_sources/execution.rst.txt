@@ -23,7 +23,7 @@ The following parameters can be left at default since they adapt to the raw data
 But changing them can tweak the performance.
 
 .. literalinclude:: ForestFire/run_ForestFire.py
-        :lines: 19-41
+        :lines: 19-42
 
 Demo Mode & Plot
 ----------------

@@ -78,7 +78,16 @@ z1 = 0  # counter for path generation --> needs fixing! global variable = bad ?
 
 # class definition
 class decisionnode:
-    """ Allein auf weiter Flur"""
+    """Base class that a decision tree is built of.
+
+
+    Keyword Arguments:
+        * col {integer} -- column number = decision criterium for splitting data (default: {-1})
+        * value {integer/float/string} -- value by which data gets split (default: {None})
+        * results {integer/float/string} -- if node is an end node (=leaf) it contains the results (default: {None})
+        * tb {decisionnode} -- next smaller node containing the true branch (default: {None})
+        * fb {decisionnode} -- next smaller node containing the false branch (default: {None})
+    """
 
     def __init__(self, col=-1, value=None, results=None, tb=None, fb=None):
         self.col = col
@@ -93,8 +102,19 @@ class decisionnode:
 # Divides a set on a specific column. Can handle numeric
 # or nominal vlaues
 def divideset(rows, column, value):
-    '''Make a function that tells us if a row is in
-    the first group (true) or the second group (false) '''
+    """ splits a data set into two separate sets according to the column and the value that is passed into.
+
+    If value is a number the comparison is done with <= and >=.
+    If value is not a number the exact value is compared
+
+    Arguments:
+        * rows {list} -- data set that is split
+        * column{integer} -- column by which data gets split
+        * value {number/string} -- value by which data gets split
+
+    Returns:
+        [list] -- two lists
+    """
     split_function = None  # Prelocate
     if isinstance(value, int) or isinstance(value, float):
         def split_function(row):
@@ -102,7 +122,7 @@ def divideset(rows, column, value):
     else:
         def split_function(row):
             return row[column] == value
-    ''' divide the rows into two sets and return them '''
+    # divide the rows into two sets and return them
     set1 = [row for row in rows if split_function(row)]  # positive side >= or ==
     set2 = [row for row in rows if not split_function(row)]  # negative side True or False
     return (set1, set2)
@@ -110,6 +130,14 @@ def divideset(rows, column, value):
 
 # Create counts of possible results (the last column of each row is the result) = how many different results are in a list
 def uniquecounts(rows):
+    """evaluate how many unique elements are in a given list
+
+    Arguments:
+        rows {list} -- evaluated list
+
+    Returns:
+        integer -- number of unique elements
+    """
     results = {}
     for row in rows:
         # The result is the last column
@@ -122,7 +150,17 @@ def uniquecounts(rows):
     return results
 
 
-def giniimpurity(rows):  # Probability that a randomly placed item will be in the wrong category
+def giniimpurity(rows):
+    """ Probability that a randomly placed item will be in the wrong category
+
+    Calculates the probability of each possible outcome by dividing the number of times that outcome occurs
+    by the total number of rows in the set. It then adds up the products of all these probabilities. This gives
+    the overall chance that a row would be randomly assigned to the wrong outcome. The higher this probability,
+    the worse the split
+
+    Returns:
+        float -- [description]
+    """
     total = len(rows)
     counts = uniquecounts(rows)
     imp = 0
@@ -136,8 +174,26 @@ def giniimpurity(rows):  # Probability that a randomly placed item will be in th
     return imp
 
 
-# Entropy is the sum of p(x)log(p(x)) across all the different possible results --> how mixed is a list
 def entropy(rows):
+    """Entropy is the sum of p(x)log(p(x)) across all the different possible results --> how mixed is a list
+
+    Funciton calculates the frequency of each item (the number of times it appears divided by the total number of rows)
+    and applies these formulas:
+
+    .. math::
+        p(i) = frequency(outcome) = count(outcome) / count(total rows)
+
+        Entropy = sum of p(i) x log(p(i)) for all outcomes
+
+
+    The higher the entropy, the worse the split.
+
+    Arguments:
+        rows {list} -- list to evaluate
+
+    Returns:
+        [float] -- entropy of the list
+    """
     from math import log
 
     def log2(x):
@@ -148,12 +204,36 @@ def entropy(rows):
     for r in results.keys():
         p = float(results[r]) / len(rows)
         ent -= p * log2(p)
-        # print ent
     return ent
+
+# compute variance of target values if they are numbers, ? not needed ?
+
+
+def variance(rows):
+    # if y consists of values, change scoref in buildtree!
+    if len(rows) == 0:
+        return 0
+    data = [float(row[len(row) - 1]) for row in rows]
+    mean = sum(data) / len(data)
+    variance = sum([(d - mean) ** 2 for d in data]) / len(data)  # normalize by dividing by mean ?
+    return variance
 
 
 # building the tree
 def buildtree(rows, scoref):
+    """recursively builds decisionnode objects that form a decision tree
+
+    At each node the best possible split is calculated (depending on the evaluation metric).
+    If no further split is neccessary the remaining items and their number of occurence 
+    are written in the results property.
+
+    Arguments:
+        rows {list} -- dataset from which to build the tree
+        scoref {function} -- evaluation metric (entropy / gini coefficient)
+
+    Returns:
+        decisionnode -- either two decisionnodes for true and false branch or one decisionnode with results (leaf node)
+    """
     if len(rows) == 0:
         return decisionnode()
     current_score = scoref(rows)
@@ -169,7 +249,6 @@ def buildtree(rows, scoref):
         column_values = {}
         for row in rows:
             column_values[row[col]] = 1
-        # print column_values
         # Try dividing the rows up for each value in this column
         for value in column_values.keys():
             (set1, set2) = divideset(rows, col, value)
@@ -177,7 +256,6 @@ def buildtree(rows, scoref):
             # Information Gain
             p = float(len(set1)) / len(rows)  # = ration(Anteil) of list 1 against whole list (list1+list2)
             gain = current_score - p * scoref(set1) - (1 - p) * scoref(set2)  # set1 and set2 can be exchanged
-            # print gain
             if gain > best_gain and len(set1) > 0 and len(set2) > 0:
                 best_gain = gain
                 best_criteria = (col, value)
@@ -194,8 +272,13 @@ def buildtree(rows, scoref):
         return decisionnode(results=uniquecounts(rows))
 
 
-# prints out the tree on the command line
 def printtree(tree, indent=' '):
+    """prints out the tree on the command line
+
+    Arguments:
+        tree {decisionnode} -- tree that gets printed
+
+    """
     # Is this a leaf node
     if tree.results is not None:
         print str(tree.results)
@@ -342,17 +425,6 @@ def prune(tree, mingain):
             # Merge the branches
             tree.tb, tree.fb = None, None
             tree.results = uniquecounts(tb + fb)
-
-
-# compute variance of target values if they are numbers, ? not needed ?
-def variance(rows):
-    # if y consists of values, change scoref in buildtree!
-    if len(rows) == 0:
-        return 0
-    data = [float(row[len(row) - 1]) for row in rows]
-    mean = sum(data) / len(data)
-    variance = sum([(d - mean) ** 2 for d in data]) / len(data)  # normalize by dividing by mean ?
-    return variance
 
 
 # Create Matrix path which contains the structure of the tree
@@ -783,6 +855,8 @@ def main_loop(n_runs, pruning, min_data, n_forests, n_trees, n_configs_biased, n
         scoref = entropy
     elif scoref is 'giniimpurity':
         scoref = giniimpurity
+    elif scoref is 'variance':
+        scoref = variance
 
     multiplier = 1  # initialize value for multiplier
 
