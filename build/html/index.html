@@ -99,6 +99,7 @@ The results can be plotted.</p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="Overview.html">Overview</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="Overview.html#abbreviations">Abbreviations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Overview.html#references">References</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Overview.html#utilized-modules">Utilized Modules</a></li>
 </ul>
 </li>
@@ -122,7 +123,7 @@ The results can be plotted.</p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="DT.html">Growing a single Decision Tree</a></li>
 <li class="toctree-l1"><a class="reference internal" href="RF.html">Growing a Random Forest</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Update_Database.html">Update ForestFire Database</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Update_Database.html">Update Database</a></li>
 </ul>
 </div>
 </div>
@@ -130,7 +131,7 @@ The results can be plotted.</p>
 <span id="demo"></span><h2>Demo Mode<a class="headerlink" href="#demo-mode" title="Permalink to this headline">¶</a></h2>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="Demo.html">Demo Mode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Evaluation.html">Evaluation Mode</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Plot.html">Plot</a></li>
 </ul>
 </div>
@@ -192,23 +193,6 @@ do it in the end when all references are complete</p>
 <dd><p>Allein auf weiter Flur</p>
 </dd></dl>
 
-<dl class="function">
-<dt id="ForestFire.Main.gen_database">
-<code class="descclassname">ForestFire.Main.</code><code class="descname">gen_database</code><span class="sig-paren">(</span><em>n_runs</em>, <em>X</em>, <em>y</em>, <em>X_test</em>, <em>y_test</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ForestFire/Main.html#gen_database"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ForestFire.Main.gen_database" title="Permalink to this definition">¶</a></dt>
-<dd><p>[summary]</p>
-<p>[description]</p>
-<dl class="docutils">
-<dt>Arguments:</dt>
-<dd>n_runs {[type]} &#8211; [description]
-X {[type]} &#8211; [description]
-y {[type]} &#8211; [description]
-X_test {[type]} &#8211; [description]
-y_test {[type]} &#8211; [description]</dd>
-<dt>Returns:</dt>
-<dd>[type] &#8211; [description]</dd>
-</dl>
-</dd></dl>
-
 <div class="literal-block-wrapper docutils container" id="id1">
 <div class="code-block-caption"><span class="caption-text">oha</span><a class="headerlink" href="#id1" title="Permalink to this code">¶</a></div>
 <div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="mi">5</span>
@@ -234,19 +218,17 @@ y_test {[type]} &#8211; [description]</dd>
 
 
 <span class="k">def</span> <span class="nf">gen_database</span><span class="p">(</span><span class="n">n_runs</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;[summary]</span>
-
-<span class="sd">    [description]</span>
+    <span class="sd">&quot;&quot;&quot;Runs the underlying :ref:`MLA &lt;MLA&gt;` *n_runs* times to generate a database from which Random Forests can be built.</span>
 
 <span class="sd">    Arguments:</span>
-<span class="sd">        n_runs {[type]} -- [description]</span>
-<span class="sd">        X {[type]} -- [description]</span>
-<span class="sd">        y {[type]} -- [description]</span>
-<span class="sd">        X_test {[type]} -- [description]</span>
-<span class="sd">        y_test {[type]} -- [description]</span>
+<span class="sd">        * n_runs {int} -- number of times the underlying :ref:`MLA &lt;MLA&gt;` is executed</span>
+<span class="sd">        * X {numpy.array} -- raw data</span>
+<span class="sd">        * y {numpy.array} -- raw data</span>
+<span class="sd">        * X_test {numpy.array} -- test data</span>
+<span class="sd">        * y_test {numpy.array} -- test data</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        [type] -- [description]</span>
+<span class="sd">        [numpy.array] -- data set containing feature sets and corresponding results</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">X_DT</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n_runs</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="mi">0</span><span class="p">])),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>  <span class="c1"># Prelocate Memory</span>
     <span class="c1"># print X_DT</span>
@@ -263,24 +245,24 @@ y_test {[type]} &#8211; [description]</dd>
         <span class="n">mask_sub_features</span><span class="p">[</span><span class="n">rand_feat</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>  <span class="c1"># set chosen features to True</span>
 
         <span class="c1"># Select Train and Test Data for subgroup</span>
-
+        <span class="c1"># print X</span>
+        <span class="n">X_sub</span> <span class="o">=</span> <span class="n">X</span><span class="p">[:,</span> <span class="n">mask_sub_features</span><span class="p">]</span>  <span class="c1"># select only chosen features (still all datasets)</span>
+        <span class="c1"># print X_sub</span>
 </pre></div>
 </div>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="mi">10</span>
 <span class="k">def</span> <span class="nf">gen_database</span><span class="p">(</span><span class="n">n_runs</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;[summary]</span>
-
-<span class="sd">    [description]</span>
+    <span class="sd">&quot;&quot;&quot;Runs the underlying :ref:`MLA &lt;MLA&gt;` *n_runs* times to generate a database from which Random Forests can be built.</span>
 
 <span class="sd">    Arguments:</span>
-<span class="sd">        n_runs {[type]} -- [description]</span>
-<span class="sd">        X {[type]} -- [description]</span>
-<span class="sd">        y {[type]} -- [description]</span>
-<span class="sd">        X_test {[type]} -- [description]</span>
-<span class="sd">        y_test {[type]} -- [description]</span>
+<span class="sd">        * n_runs {int} -- number of times the underlying :ref:`MLA &lt;MLA&gt;` is executed</span>
+<span class="sd">        * X {numpy.array} -- raw data</span>
+<span class="sd">        * y {numpy.array} -- raw data</span>
+<span class="sd">        * X_test {numpy.array} -- test data</span>
+<span class="sd">        * y_test {numpy.array} -- test data</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        [type] -- [description]</span>
+<span class="sd">        [numpy.array] -- data set containing feature sets and corresponding results</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">X_DT</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n_runs</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="mi">0</span><span class="p">])),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>  <span class="c1"># Prelocate Memory</span>
     <span class="c1"># print X_DT</span>

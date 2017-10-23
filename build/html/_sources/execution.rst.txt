@@ -176,7 +176,7 @@ A generic output (with demo mode on) can look like this::
 **Interpretation:**
 
     In this example ForestFire was able to find the best solution of 76,3% accuracy after 30 random and 11 guided runs. 
-    Compared to the random search accuracy could be improved by ~5%. 
+    Compared to random search accuracy could be improved by ~5%. 
     The best :ref:`MLA <MLA>` run did "see" all features but the second.
 
     Since Demo mode was turned on at the end a plot is produced:

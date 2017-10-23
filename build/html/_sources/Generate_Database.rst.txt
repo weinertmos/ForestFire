@@ -17,8 +17,11 @@ The result of the :ref:`MLA <MLA>` is stored in the variable *score* and returne
 
 
 
+
 **Functions used in this chapter** Click [source] to view source code
 
 .. autofunction:: ForestFire.compute.compute
+
+.. autofunction:: ForestFire.Main.gen_database
 
 

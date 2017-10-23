@@ -23,6 +23,12 @@ RF
 MLA
     Machine Learning Algorithm
 
+References
+----------
+
+.. [Collective_Intelligence] Collective Intelligence, O'Reilly, ISBN: 978-0-596-52932-1
+
+
 
 Utilized Modules
 ----------------

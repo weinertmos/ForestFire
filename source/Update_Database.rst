@@ -1,2 +1,2 @@
-Update ForestFire Database
-==============================
+Update Database
+===============

@@ -19,19 +19,17 @@ plt.style.use('bmh')
 
 
 def gen_database(n_runs, X, y, X_test, y_test):
-    """[summary]
-
-    [description]
+    """Runs the underlying :ref:`MLA <MLA>` *n_runs* times to generate a database from which Random Forests can be built.
 
     Arguments:
-        n_runs {[type]} -- [description]
-        X {[type]} -- [description]
-        y {[type]} -- [description]
-        X_test {[type]} -- [description]
-        y_test {[type]} -- [description]
+        * n_runs {int} -- number of times the underlying :ref:`MLA <MLA>` is executed
+        * X {numpy.array} -- raw data
+        * y {numpy.array} -- raw data
+        * X_test {numpy.array} -- test data
+        * y_test {numpy.array} -- test data
 
     Returns:
-        [type] -- [description]
+        [numpy.array] -- data set containing feature sets and corresponding results
     """
     X_DT = np.zeros((n_runs, len(X[0])), dtype=bool)  # Prelocate Memory
     # print X_DT

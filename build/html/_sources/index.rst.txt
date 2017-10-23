@@ -39,7 +39,7 @@ Demo Mode
 .. toctree::
     :maxdepth: 3
 
-    Demo
+    Evaluation
     Plot
 
 Indices and tables
@@ -84,7 +84,6 @@ Wir bauen einen :ref:`DT <DT>`
 
 .. autoclass:: ForestFire.Main.decisionnode
 
-.. autofunction:: ForestFire.Main.gen_database
 
 .. code-block:: python
     :caption: oha

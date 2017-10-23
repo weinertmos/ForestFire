@@ -83,6 +83,25 @@ Make imports at the top of the file.</p>
 </dl>
 </dd></dl>
 
+<dl class="function">
+<dt id="ForestFire.Main.gen_database">
+<code class="descclassname">ForestFire.Main.</code><code class="descname">gen_database</code><span class="sig-paren">(</span><em>n_runs</em>, <em>X</em>, <em>y</em>, <em>X_test</em>, <em>y_test</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ForestFire/Main.html#gen_database"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ForestFire.Main.gen_database" title="Permalink to this definition">¶</a></dt>
+<dd><p>Runs the underlying <a class="reference internal" href="Overview.html#mla"><span class="std std-ref">MLA</span></a> <em>n_runs</em> times to generate a database from which Random Forests can be built.</p>
+<dl class="docutils">
+<dt>Arguments:</dt>
+<dd><ul class="first last simple">
+<li>n_runs {int} &#8211; number of times the underlying <a class="reference internal" href="Overview.html#mla"><span class="std std-ref">MLA</span></a> is executed</li>
+<li>X {numpy.array} &#8211; raw data</li>
+<li>y {numpy.array} &#8211; raw data</li>
+<li>X_test {numpy.array} &#8211; test data</li>
+<li>y_test {numpy.array} &#8211; test data</li>
+</ul>
+</dd>
+<dt>Returns:</dt>
+<dd>[numpy.array] &#8211; data set containing feature sets and corresponding results</dd>
+</dl>
+</dd></dl>
+
 </div>
 
 

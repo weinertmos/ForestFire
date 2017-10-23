@@ -63,20 +63,18 @@
 <span class="c1">### Definitions ###</span>
 
 
-<div class="viewcode-block" id="gen_database"><a class="viewcode-back" href="../../index.html#ForestFire.Main.gen_database">[docs]</a><span class="k">def</span> <span class="nf">gen_database</span><span class="p">(</span><span class="n">n_runs</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;[summary]</span>
-
-<span class="sd">    [description]</span>
+<div class="viewcode-block" id="gen_database"><a class="viewcode-back" href="../../Generate_Database.html#ForestFire.Main.gen_database">[docs]</a><span class="k">def</span> <span class="nf">gen_database</span><span class="p">(</span><span class="n">n_runs</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Runs the underlying :ref:`MLA &lt;MLA&gt;` *n_runs* times to generate a database from which Random Forests can be built.</span>
 
 <span class="sd">    Arguments:</span>
-<span class="sd">        n_runs {[type]} -- [description]</span>
-<span class="sd">        X {[type]} -- [description]</span>
-<span class="sd">        y {[type]} -- [description]</span>
-<span class="sd">        X_test {[type]} -- [description]</span>
-<span class="sd">        y_test {[type]} -- [description]</span>
+<span class="sd">        * n_runs {int} -- number of times the underlying :ref:`MLA &lt;MLA&gt;` is executed</span>
+<span class="sd">        * X {numpy.array} -- raw data</span>
+<span class="sd">        * y {numpy.array} -- raw data</span>
+<span class="sd">        * X_test {numpy.array} -- test data</span>
+<span class="sd">        * y_test {numpy.array} -- test data</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        [type] -- [description]</span>
+<span class="sd">        [numpy.array] -- data set containing feature sets and corresponding results</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">X_DT</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n_runs</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="mi">0</span><span class="p">])),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>  <span class="c1"># Prelocate Memory</span>
     <span class="c1"># print X_DT</span>
