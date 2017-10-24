@@ -110,11 +110,6 @@
     <span class="k">return</span> <span class="n">Data</span></div>
 
 
-
-<span class="c1"># initialization</span>
-<span class="n">z1</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># counter for path generation --&gt; needs fixing! global variable = bad ?</span>
-
-
 <span class="c1"># Functions for Generating Database for RF</span>
 
 
@@ -451,7 +446,7 @@
 
 
 <span class="c1"># classify new observation</span>
-<span class="k">def</span> <span class="nf">classify</span><span class="p">(</span><span class="n">observation</span><span class="p">,</span> <span class="n">tree</span><span class="p">):</span>
+<div class="viewcode-block" id="classify"><a class="viewcode-back" href="../../DT.html#ForestFire.Main.classify">[docs]</a><span class="k">def</span> <span class="nf">classify</span><span class="p">(</span><span class="n">observation</span><span class="p">,</span> <span class="n">tree</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">tree</span><span class="o">.</span><span class="n">results</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">tree</span><span class="o">.</span><span class="n">results</span>
     <span class="k">else</span><span class="p">:</span>
@@ -467,7 +462,7 @@
                 <span class="n">branch</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">tb</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">branch</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">fb</span>
-            <span class="k">return</span> <span class="n">classify</span><span class="p">(</span><span class="n">observation</span><span class="p">,</span> <span class="n">branch</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">classify</span><span class="p">(</span><span class="n">observation</span><span class="p">,</span> <span class="n">branch</span><span class="p">)</span></div>
 
 
 <span class="c1"># classify an observation that has missing entries</span>
@@ -524,36 +519,35 @@
 
 <span class="c1"># Create Matrix path which contains the structure of the tree</span>
 <span class="k">def</span> <span class="nf">path_gen</span><span class="p">(</span><span class="n">tree</span><span class="p">):</span>
-    <span class="k">global</span> <span class="n">z1</span>  <span class="c1"># doesn&#39;t work otherwise needs fixing ?</span>
-    <span class="n">z1</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># equals number of leafs, must increase during creation of path</span>
+    <span class="n">z1</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># equals number of leafs, increases during creation of path</span>
     <span class="n">z2</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># equals depth, fluctuates during creation of path</span>
     <span class="n">width</span> <span class="o">=</span> <span class="n">getwidth</span><span class="p">(</span><span class="n">tree</span><span class="p">)</span>
     <span class="n">depth</span> <span class="o">=</span> <span class="n">getdepth</span><span class="p">(</span><span class="n">tree</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>  <span class="c1"># +1 for target values</span>
     <span class="n">path</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">width</span><span class="p">,</span> <span class="n">depth</span><span class="p">))</span>  <span class="c1"># Prelocate Memory</span>
     <span class="n">path</span><span class="p">[::]</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1"># NaN in final result means branch is shorter than total depth</span>
-    <span class="k">return</span> <span class="n">path_gen2</span><span class="p">(</span><span class="n">tree</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">depth</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">z2</span><span class="p">)</span>
+    <span class="n">path</span><span class="p">,</span> <span class="n">z1</span> <span class="o">=</span> <span class="n">path_gen2</span><span class="p">(</span><span class="n">tree</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">depth</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">z2</span><span class="p">,</span> <span class="n">z1</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">path</span>
 
 
 <span class="c1"># create a matrix path that represents the structure of the tree and the decisions made at each node, last column contains the average MSE at that leaf</span>
 <span class="c1"># the sooner a feature gets chosen as a split feature the more important it is (the farther on the left it appears in path matrix)</span>
 <span class="c1"># order that leaves are written in (top to bottom): function will crawl to the rightmost leaf first (positive side), then jump back up one level and move one step to the left (loop)</span>
-<span class="k">def</span> <span class="nf">path_gen2</span><span class="p">(</span><span class="n">tree</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">depth</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">z2</span><span class="p">):</span>
-    <span class="k">global</span> <span class="n">z1</span>  <span class="c1"># doesn&#39;t work otherwise needs fixing ?</span>
+<span class="k">def</span> <span class="nf">path_gen2</span><span class="p">(</span><span class="n">tree</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">depth</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">z2</span><span class="p">,</span> <span class="n">z1</span><span class="p">):</span>
     <span class="k">while</span> <span class="n">z1</span> <span class="o">&lt;</span> <span class="n">width</span><span class="p">:</span>  <span class="c1"># continue until total number of leaves is reached</span>
         <span class="k">if</span> <span class="n">tree</span><span class="o">.</span><span class="n">results</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># = if current node is not a leaf</span>
             <span class="n">path</span><span class="p">[</span><span class="n">z1</span><span class="p">,</span> <span class="n">z2</span><span class="p">]</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">col</span>  <span class="c1"># write split feature of that node into path matrix</span>
             <span class="n">z2</span> <span class="o">+=</span> <span class="mi">1</span>  <span class="c1"># increase depth counter</span>
-            <span class="n">path_gen2</span><span class="p">(</span><span class="n">tree</span><span class="o">.</span><span class="n">tb</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">depth</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">z2</span><span class="p">)</span>  <span class="c1"># recursively call path_gen function in order to proceed to next deeper node in direction of tb</span>
+            <span class="n">path</span><span class="p">,</span> <span class="n">z1</span> <span class="o">=</span> <span class="n">path_gen2</span><span class="p">(</span><span class="n">tree</span><span class="o">.</span><span class="n">tb</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">depth</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">z2</span><span class="p">,</span> <span class="n">z1</span><span class="p">)</span>  <span class="c1"># recursively call path_gen function in order to proceed to next deeper node in direction of tb</span>
             <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">z2</span><span class="p">):</span>
                 <span class="n">path</span><span class="p">[</span><span class="n">z1</span><span class="p">,</span> <span class="n">x</span><span class="p">]</span> <span class="o">=</span> <span class="n">path</span><span class="p">[</span><span class="n">z1</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">x</span><span class="p">]</span>  <span class="c1"># assign the former columns the same value as the leaf above</span>
-            <span class="n">path_gen2</span><span class="p">(</span><span class="n">tree</span><span class="o">.</span><span class="n">fb</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">depth</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">z2</span><span class="p">)</span>  <span class="c1"># recursively call path_gen function in order to proceed to next deeper node in direction of fb</span>
+            <span class="n">path</span><span class="p">,</span> <span class="n">z1</span> <span class="o">=</span> <span class="n">path_gen2</span><span class="p">(</span><span class="n">tree</span><span class="o">.</span><span class="n">fb</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">depth</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">z2</span><span class="p">,</span> <span class="n">z1</span><span class="p">)</span>  <span class="c1"># recursively call path_gen function in order to proceed to next deeper node in direction of fb</span>
             <span class="n">z2</span> <span class="o">-=</span> <span class="mi">1</span>  <span class="c1"># after reaching the deepest fb leaf move up one level in depth</span>
             <span class="k">break</span>
         <span class="k">else</span><span class="p">:</span>  <span class="c1"># = if current node is a leaf</span>
             <span class="n">path</span><span class="p">[</span><span class="n">z1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">tree</span><span class="o">.</span><span class="n">results</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>  <span class="c1"># put the average MSE in the last column of path</span>
             <span class="n">z1</span> <span class="o">+=</span> <span class="mi">1</span>  <span class="c1"># current leaf is completely written into path, proceeding to next leaf</span>
             <span class="k">break</span>
-    <span class="k">return</span> <span class="n">path</span>  <span class="c1"># return the path matrix</span>
+    <span class="k">return</span> <span class="n">path</span><span class="p">,</span> <span class="n">z1</span>  <span class="c1"># return the path matrix and current leaf number</span>
 
 
 <span class="c1"># Check if a tree contains MSE_min (= True) or not (= False)</span>

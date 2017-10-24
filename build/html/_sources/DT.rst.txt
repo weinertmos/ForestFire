@@ -125,6 +125,8 @@ This process can vividly be explained by starting at the top node and asking a s
 If the answer for the new observastion is yes, the path follows the true branch of the node.
 See :ref:`Tree Image <treeview>` as an example.
 
+The classification of new data is done in :ref:`classify <classify>`.
+
 
 
 Displaying a tree
@@ -190,3 +192,7 @@ It makes use of :ref:`drawnode <drawnode>`.
 .. _drawnode:
 
 .. autofunction:: ForestFire.Main.drawnode
+
+.. _classify:
+
+.. autofunction:: ForestFire.Main.classify
