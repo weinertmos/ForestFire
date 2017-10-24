@@ -49,7 +49,7 @@
         
         
   <div class="section" id="growing-a-single-decision-tree">
-<h1>Growing a single Decision Tree<a class="headerlink" href="#growing-a-single-decision-tree" title="Permalink to this headline">¶</a></h1>
+<span id="singletree"></span><h1>Growing a single Decision Tree<a class="headerlink" href="#growing-a-single-decision-tree" title="Permalink to this headline">¶</a></h1>
 <p>The basic principle of building decision trees is based on the implementation of decision trees in <a class="reference internal" href="Overview.html#collective-intelligence" id="id1">[Collective_Intelligence]</a> by Toby Segaran.</p>
 <div class="section" id="base-class">
 <h2>Base Class<a class="headerlink" href="#base-class" title="Permalink to this headline">¶</a></h2>
@@ -66,7 +66,7 @@ It can also consist of several values, e.g. value1 with 2 instances and value2 w
 The result of this classification is ambiguous, so it is expressed as a probability: the classification is 1/3 value2 and 2/3 value1.</p>
 </div>
 <div class="section" id="helper-functions">
-<h2>Helper functions<a class="headerlink" href="#helper-functions" title="Permalink to this headline">¶</a></h2>
+<h2>Helper Functions<a class="headerlink" href="#helper-functions" title="Permalink to this headline">¶</a></h2>
 <p>At each node two questions have to be answered:</p>
 <ul class="simple">
 <li><dl class="first docutils">
@@ -107,8 +107,8 @@ Both methods need information about how many unique elements are in one list.</p
 A tree&#8217;s depth is the maximum number of decisions that can be made before reaching a leaf node plus 1 (A tree stump that has no branches still has a depth of 1).
 A tree&#8217;s width is the number of leaves it contains, i.e. number of nodes that have entries in their results property.</p>
 </div>
-<div class="section" id="build-a-tree">
-<h2>Build a tree<a class="headerlink" href="#build-a-tree" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="building-a-tree">
+<h2>Building a tree<a class="headerlink" href="#building-a-tree" title="Permalink to this headline">¶</a></h2>
 <p>Starting with a root node and the whole provided data set the <a class="reference internal" href="#buildtree"><span class="std std-ref">buildtree</span></a> function recursively
 loops through the following steps and builds up the tree structure:</p>
 <blockquote>
@@ -122,10 +122,37 @@ loops through the following steps and builds up the tree structure:</p>
 <li>If true and false branches are created, start at 1.</li>
 </ol>
 </div></blockquote>
+<div class="section" id="pruning-a-tree">
+<h3>Pruning a tree<a class="headerlink" href="#pruning-a-tree" title="Permalink to this headline">¶</a></h3>
+<p>At the deeper levels of a tree there might be splits that further reduce the entropy / gini coefficient / variance of the data, but only to a minor degree.
+These further splits are not productive since they make the tree more complex but yield only small improvements.
+There are two ways of tackling this problem.</p>
+<p>One is to stop splitting the data if the split does not produce a significant reduction in entropy / gini coefficient / variance.
+The danger in doing this is that there is a possibility that at an even later split there might be a significant reduction, but the algorithm can not forsee this.
+This would lead to an premature stop.</p>
+<p>The better way of dealing with the subject of overly complex trees is <a class="reference internal" href="#prune"><span class="std std-ref">pruning</span></a>.
+The pruning approach builds up the whole complex tree and then starts from its leaves going up.
+It takes a look at the information gain that is made by the preceding split.
+If the gain is lower than a threshold specified by the <em>pruning</em> hyperparameter in <a class="reference internal" href="execution.html#execution"><span class="std std-ref">Execution</span></a> it will reunite the two leaves into one single leaf.
+This way no meaningful splits are abandoned but complexity can be reduced</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p>By default pruning is disabled (set to 0).
+A reasonable value for pruning depends on the raw data.
+Observe the output for &#8220;wrongs&#8221; on the console.
+By default it should be quite small (~10% of the total trees at most).
+Try a value for pruning between 0 and 1 and only increase above 1 if the &#8220;wrongs&#8221; output does not get too big.</p>
+<p class="last">A &#8220;wrong&#8221; tree is a tree &#8220;stump&#8221; consisting of only one node.
+Such a tree has no benefit.</p>
+</div>
+</div>
 </div>
 <div class="section" id="displaying-a-tree">
 <h2>Displaying a tree<a class="headerlink" href="#displaying-a-tree" title="Permalink to this headline">¶</a></h2>
-<p>The following functions are for debugging purposes only. The <a class="reference internal" href="Overview.html#dt"><span class="std std-ref">DT</span></a></p>
+<p>The following functions are for debugging purposes only.</p>
+<p>The structure of the tree can be output to the console with the help of <a class="reference internal" href="#printtree"><span class="std std-ref">printtree</span></a>.</p>
+<p>An image of the tree can be created with the <a class="reference internal" href="#drawtree"><span class="std std-ref">drawtree</span></a> function.
+It makes use of <a class="reference internal" href="#drawnode"><span class="std std-ref">drawnode</span></a>.</p>
 <p><strong>Functions used in this chapter</strong> Click [source] to view source code</p>
 <span class="target" id="decisionnode"></span><dl class="class">
 <dt id="ForestFire.Main.decisionnode">
@@ -168,12 +195,13 @@ If value is not a number the exact value is compared</p>
 <code class="descclassname">ForestFire.Main.</code><code class="descname">giniimpurity</code><span class="sig-paren">(</span><em>rows</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ForestFire/Main.html#giniimpurity"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ForestFire.Main.giniimpurity" title="Permalink to this definition">¶</a></dt>
 <dd><p>Probability that a randomly placed item will be in the wrong category</p>
 <p>Calculates the probability of each possible outcome by dividing the number of times that outcome occurs
-by the total number of rows in the set. It then adds up the products of all these probabilities. This gives
-the overall chance that a row would be randomly assigned to the wrong outcome. The higher this probability,
-the worse the split</p>
+by the total number of rows in the set. 
+It then adds up the products of all these probabilities. 
+This gives the overall chance that a row would be randomly assigned to the wrong outcome. 
+The higher this probability, the worse the split.</p>
 <dl class="docutils">
 <dt>Returns:</dt>
-<dd>float &#8211; [description]</dd>
+<dd>float &#8211; probability of being in the wrong category</dd>
 </dl>
 </dd></dl>
 
@@ -184,9 +212,9 @@ the worse the split</p>
 <p>Funciton calculates the frequency of each item (the number of times it appears divided by the total number of rows)
 and applies these formulas:</p>
 <div class="math">
-<p><img src="_images/math/85a66e692a0a46b4b508aa8178deba2afd698222.png" alt="p(i) = frequency(outcome) = count(outcome) / count(total rows)
+<p><img src="_images/math/7b6055722ebd5c3031c5efae30128b4b769f485c.png" alt="p(i) = frequency(outcome) = \dfrac{count(outcome)}{count(total rows)}
 
-Entropy = sum of p(i) x log(p(i)) for all outcomes"/></p>
+Entropy = \sum(p(i)) \cdot  \log(p(i)) \ for \ all \ outcomes"/></p>
 </div><p>The higher the entropy, the worse the split.</p>
 <dl class="docutils">
 <dt>Arguments:</dt>
@@ -199,7 +227,19 @@ Entropy = sum of p(i) x log(p(i)) for all outcomes"/></p>
 <span class="target" id="variance"></span><dl class="function">
 <dt id="ForestFire.Main.variance">
 <code class="descclassname">ForestFire.Main.</code><code class="descname">variance</code><span class="sig-paren">(</span><em>rows</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ForestFire/Main.html#variance"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ForestFire.Main.variance" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Evaluates how close together numerical values lie</p>
+<p>Calculates mean and variance for given list</p>
+<div class="math">
+<p><img src="_images/math/1d35f35110dc1b81d5f8577eae14f0a384ab2954.png" alt="mean = \dfrac{\sum(entries)}{number \ of \ entries}
+
+variance = \sum(entry - mean) ^ 2"/></p>
+</div><dl class="docutils">
+<dt>Arguments:</dt>
+<dd>rows {list} &#8211; list to evaluate</dd>
+<dt>Returns:</dt>
+<dd>number &#8211; variance of the list</dd>
+</dl>
+</dd></dl>
 
 <span class="target" id="uniquecounts"></span><dl class="function">
 <dt id="ForestFire.Main.uniquecounts">
@@ -216,12 +256,26 @@ Entropy = sum of p(i) x log(p(i)) for all outcomes"/></p>
 <span class="target" id="getdepth"></span><dl class="function">
 <dt id="ForestFire.Main.getdepth">
 <code class="descclassname">ForestFire.Main.</code><code class="descname">getdepth</code><span class="sig-paren">(</span><em>tree</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ForestFire/Main.html#getdepth"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ForestFire.Main.getdepth" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>returns the maximum number of consecutive nodes</p>
+<dl class="docutils">
+<dt>Arguments:</dt>
+<dd>tree {decisionnode} &#8211; tree to examine</dd>
+<dt>Returns:</dt>
+<dd>number &#8211; maximum number of consecutive nodes</dd>
+</dl>
+</dd></dl>
 
 <span class="target" id="getwidth"></span><dl class="function">
 <dt id="ForestFire.Main.getwidth">
 <code class="descclassname">ForestFire.Main.</code><code class="descname">getwidth</code><span class="sig-paren">(</span><em>tree</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ForestFire/Main.html#getwidth"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ForestFire.Main.getwidth" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>returns the number of leaves = endnodes in the tree</p>
+<dl class="docutils">
+<dt>Arguments:</dt>
+<dd>tree {decisionnode} &#8211; tree to examine</dd>
+<dt>Returns:</dt>
+<dd>number &#8211; number of endnodes</dd>
+</dl>
+</dd></dl>
 
 <span class="target" id="buildtree"></span><dl class="function">
 <dt id="ForestFire.Main.buildtree">
@@ -236,6 +290,54 @@ are written in the results property.</p>
 scoref {function} &#8211; evaluation metric (entropy / gini coefficient)</dd>
 <dt>Returns:</dt>
 <dd>decisionnode &#8211; either two decisionnodes for true and false branch or one decisionnode with results (leaf node)</dd>
+</dl>
+</dd></dl>
+
+<span class="target" id="prune"></span><dl class="function">
+<dt id="ForestFire.Main.prune">
+<code class="descclassname">ForestFire.Main.</code><code class="descname">prune</code><span class="sig-paren">(</span><em>tree</em>, <em>mingain</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ForestFire/Main.html#prune"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ForestFire.Main.prune" title="Permalink to this definition">¶</a></dt>
+<dd><p>prunes the leaves of a tree in order to reduce complexity</p>
+<p>By looking at the information gain that is achieved by splitting data further and further and checking if
+it is above the mingain threshold, neighbouring leaves can be collapsed to a single leaf.</p>
+<dl class="docutils">
+<dt>Arguments:</dt>
+<dd>tree {decisionnode} &#8211; tree that gets pruned
+mingain {number} &#8211; threshold for pruning</dd>
+</dl>
+</dd></dl>
+
+<span class="target" id="printtree"></span><dl class="function">
+<dt id="ForestFire.Main.printtree">
+<code class="descclassname">ForestFire.Main.</code><code class="descname">printtree</code><span class="sig-paren">(</span><em>tree</em>, <em>indent=' '</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ForestFire/Main.html#printtree"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ForestFire.Main.printtree" title="Permalink to this definition">¶</a></dt>
+<dd><p>prints out the tree on the command line</p>
+<dl class="docutils">
+<dt>Arguments:</dt>
+<dd>tree {decisionnode} &#8211; tree that gets printed</dd>
+</dl>
+</dd></dl>
+
+<span class="target" id="drawtree"></span><dl class="function">
+<dt id="ForestFire.Main.drawtree">
+<code class="descclassname">ForestFire.Main.</code><code class="descname">drawtree</code><span class="sig-paren">(</span><em>tree</em>, <em>jpeg='tree.jpg'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ForestFire/Main.html#drawtree"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ForestFire.Main.drawtree" title="Permalink to this definition">¶</a></dt>
+<dd><p>visualization of the tree in a jpeg</p>
+<dl class="docutils">
+<dt>Arguments:</dt>
+<dd>tree {decisionnode} &#8211; tree to draw</dd>
+<dt>Keyword Arguments:</dt>
+<dd>jpeg {str} &#8211; Name of the .jpg (default: {&#8216;tree.jpg&#8217;})</dd>
+</dl>
+</dd></dl>
+
+<span class="target" id="drawnode"></span><dl class="function">
+<dt id="ForestFire.Main.drawnode">
+<code class="descclassname">ForestFire.Main.</code><code class="descname">drawnode</code><span class="sig-paren">(</span><em>draw</em>, <em>tree</em>, <em>x</em>, <em>y</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ForestFire/Main.html#drawnode"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ForestFire.Main.drawnode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Helper Function for drawtree, draws a single node</p>
+<dl class="docutils">
+<dt>Arguments:</dt>
+<dd>draw {img} &#8211; node to be drawn
+tree {decisionnode} &#8211; tree that the node belongs to
+x {number} &#8211; x location
+y {number} &#8211; y location</dd>
 </dl>
 </dd></dl>
 

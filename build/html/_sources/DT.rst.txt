@@ -1,3 +1,5 @@
+.. _singleTree:
+
 Growing a single Decision Tree
 ==============================
 
@@ -18,7 +20,7 @@ The results can be a single value - in this case the classification is 100% this
 It can also consist of several values, e.g. value1 with 2 instances and value2 with 1 instance. 
 The result of this classification is ambiguous, so it is expressed as a probability: the classification is 1/3 value2 and 2/3 value1.
 
-Helper functions
+Helper Functions
 ----------------
 
 At each node two questions have to be answered:
@@ -51,8 +53,8 @@ After a tree is built its width and depth can be examined by :ref:`getdepth <get
 A tree's depth is the maximum number of decisions that can be made before reaching a leaf node plus 1 (A tree stump that has no branches still has a depth of 1).
 A tree's width is the number of leaves it contains, i.e. number of nodes that have entries in their results property.
 
-Build a tree
-------------
+Building a tree
+---------------
 
 Starting with a root node and the whole provided data set the :ref:`buildtree <buildtree>` function recursively 
 loops through the following steps and builds up the tree structure:
@@ -65,10 +67,44 @@ loops through the following steps and builds up the tree structure:
     #. If no split is better than the current list no split is performed and results are stored, tree is returned
     #. If true and false branches are created, start at 1.
 
+Pruning a tree
+##############
+
+At the deeper levels of a tree there might be splits that further reduce the entropy / gini coefficient / variance of the data, but only to a minor degree.
+These further splits are not productive since they make the tree more complex but yield only small improvements.
+There are two ways of tackling this problem.
+
+One is to stop splitting the data if the split does not produce a significant reduction in entropy / gini coefficient / variance.
+The danger in doing this is that there is a possibility that at an even later split there might be a significant reduction, but the algorithm can not forsee this. 
+This would lead to an premature stop.
+
+The better way of dealing with the subject of overly complex trees is :ref:`pruning <prune>`.
+The pruning approach builds up the whole complex tree and then starts from its leaves going up.
+It takes a look at the information gain that is made by the preceding split.
+If the gain is lower than a threshold specified by the *pruning* hyperparameter in :ref:`execution` it will reunite the two leaves into one single leaf. 
+This way no meaningful splits are abandoned but complexity can be reduced
+
+.. warning::
+    By default pruning is disabled (set to 0). 
+    A reasonable value for pruning depends on the raw data. 
+    Observe the output for "wrongs" on the console. 
+    By default it should be quite small (~10% of the total trees at most). 
+    Try a value for pruning between 0 and 1 and only increase above 1 if the "wrongs" output does not get too big.
+    
+    A "wrong" tree is a tree "stump" consisting of only one node.
+    Such a tree has no benefit.
+
+
+
 Displaying a tree
 -----------------
 
-The following functions are for debugging purposes only. The :ref:`DT <DT>`
+The following functions are for debugging purposes only. 
+
+The structure of the tree can be output to the console with the help of :ref:`printtree <printtree>`.
+
+An image of the tree can be created with the :ref:`drawtree <drawtree>` function. 
+It makes use of :ref:`drawnode <drawnode>`.
 
 **Functions used in this chapter** Click [source] to view source code
 
@@ -107,3 +143,19 @@ The following functions are for debugging purposes only. The :ref:`DT <DT>`
 .. _buildtree:
 
 .. autofunction:: ForestFire.Main.buildtree
+
+.. _prune:
+
+.. autofunction:: ForestFire.Main.prune
+
+.. _printtree:
+
+.. autofunction:: ForestFire.Main.printtree
+
+.. _drawtree:
+
+.. autofunction:: ForestFire.Main.drawtree
+
+.. _drawnode:
+
+.. autofunction:: ForestFire.Main.drawnode

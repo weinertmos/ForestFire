@@ -154,12 +154,13 @@ def giniimpurity(rows):
     """ Probability that a randomly placed item will be in the wrong category
 
     Calculates the probability of each possible outcome by dividing the number of times that outcome occurs
-    by the total number of rows in the set. It then adds up the products of all these probabilities. This gives
-    the overall chance that a row would be randomly assigned to the wrong outcome. The higher this probability,
-    the worse the split
+    by the total number of rows in the set. 
+    It then adds up the products of all these probabilities. 
+    This gives the overall chance that a row would be randomly assigned to the wrong outcome. 
+    The higher this probability, the worse the split.
 
     Returns:
-        float -- [description]
+        float -- probability of being in the wrong category
     """
     total = len(rows)
     counts = uniquecounts(rows)
@@ -168,7 +169,7 @@ def giniimpurity(rows):
         p1 = float(counts[k1]) / total
         for k2 in counts:
             if k1 == k2:
-                continue  # beendet if
+                continue
             p2 = float(counts[k2]) / total
             imp += p1 * p2
     return imp
@@ -181,9 +182,9 @@ def entropy(rows):
     and applies these formulas:
 
     .. math::
-        p(i) = frequency(outcome) = count(outcome) / count(total rows)
+        p(i) = frequency(outcome) = \dfrac{count(outcome)}{count(total rows)}
 
-        Entropy = sum of p(i) x log(p(i)) for all outcomes
+        Entropy = \sum(p(i)) \cdot  \log(p(i)) \ for \ all \ outcomes
 
 
     The higher the entropy, the worse the split.
@@ -210,12 +211,26 @@ def entropy(rows):
 
 
 def variance(rows):
-    # if y consists of values, change scoref in buildtree!
+    """Evaluates how close together numerical values lie
+
+    Calculates mean and variance for given list
+
+    .. math::
+        mean = \dfrac{\sum(entries)}{number \ of \ entries}
+
+        variance = \sum(entry - mean) ^ 2
+
+    Arguments:
+        rows {list} -- list to evaluate
+
+    Returns:
+        number -- variance of the list
+    """
     if len(rows) == 0:
         return 0
     data = [float(row[len(row) - 1]) for row in rows]
     mean = sum(data) / len(data)
-    variance = sum([(d - mean) ** 2 for d in data]) / len(data)  # normalize by dividing by mean ?
+    variance = sum([(d - mean) ** 2 for d in data]) / len(data)
     return variance
 
 
@@ -279,36 +294,53 @@ def printtree(tree, indent=' '):
         tree {decisionnode} -- tree that gets printed
 
     """
-    # Is this a leaf node
     if tree.results is not None:
         print str(tree.results)
     else:
-        # Print the criteriia
         print str(tree.col) + ': ' + str(tree.value) + '?'
-
-        # Print the branches
         print indent + 'T-->',
         printtree(tree.tb, indent + '   ')
         print indent + 'F-->',
         printtree(tree.fb, indent + '   ')
 
 
-# returns the number of leaves = endnodes in the tree
 def getwidth(tree):
+    """returns the number of leaves = endnodes in the tree
+
+    Arguments:
+        tree {decisionnode} -- tree to examine
+
+    Returns:
+        number -- number of endnodes
+    """
     if tree.tb is None and tree.fb is None:
         return 1
     return getwidth(tree.tb) + getwidth(tree.fb)
 
 
-# returns the maximum number of consecutive nodes
 def getdepth(tree):
+    """returns the maximum number of consecutive nodes
+
+    Arguments:
+        tree {decisionnode} -- tree to examine
+
+    Returns:
+        number -- maximum number of consecutive nodes
+    """
     if tree.tb is None and tree.fb is None:
         return 0
     return max(getdepth(tree.tb), getdepth(tree.fb)) + 1
 
 
-# visualization of the tree in a jpeg
 def drawtree(tree, jpeg='tree.jpg'):
+    """visualization of the tree in a jpeg
+
+    Arguments:
+        tree {decisionnode} -- tree to draw
+
+    Keyword Arguments:
+        jpeg {str} -- Name of the .jpg (default: {'tree.jpg'})
+    """
     w = getwidth(tree) * 100
     h = getdepth(tree) * 100 + 120
 
@@ -320,6 +352,14 @@ def drawtree(tree, jpeg='tree.jpg'):
 
 
 def drawnode(draw, tree, x, y):
+    """Helper Function for drawtree, draws a single node
+
+    Arguments:
+        draw {img} -- node to be drawn
+        tree {decisionnode} -- tree that the node belongs to
+        x {number} -- x location
+        y {number} -- y location
+    """
     if tree.results is None:
         # Get the width of each branch
         w1 = getwidth(tree.fb) * 100
@@ -342,6 +382,27 @@ def drawnode(draw, tree, x, y):
     else:
         txt = ' \n'.join(['%s:%d' % v for v in tree.results.items()])
         draw.text((x - 20, y), txt, (0, 0, 0))
+
+# if pruning parameter (see at top) is > 0 leaves may be cut together if the information gain is < mingain
+
+
+def prune(tree, mingain):
+    """prunes the leaves of a tree in order to reduce complexity
+
+    By looking at the information gain that is achieved by splitting data further and further and checking if
+    it is above the mingain threshold, neighbouring leaves can be collapsed to a single leaf.
+
+    Arguments:
+        tree {decisionnode} -- tree that gets pruned
+        mingain {number} -- threshold for pruning
+    """
+    if getdepth(tree) == 0:
+        return
+    # If the branches aren't leaves, then prune them
+    if tree.tb.results is None:
+        prune(tree.tb, mingain)
+    if tree.fb.results is None:
+        prune(tree.fb, mingain)
 
 
 # classify new observation
@@ -396,17 +457,6 @@ def mdclassify(observation, tree):
                 else:
                     branch = tree.fb
             return mdclassify(observation, branch)
-
-
-# if pruning parameter (see at top) is > 0 leaves may be cut together if the information gain is < mingain
-def prune(tree, mingain):
-    if getdepth(tree) == 0:
-        return
-    # If the branches aren't leaves, then prune them
-    if tree.tb.results is None:
-        prune(tree.tb, mingain)
-    if tree.fb.results is None:
-        prune(tree.fb, mingain)
 
     # If both the subbranches are now leaves, see if they should be merged
     if tree.tb.results is not None and tree.fb.results is not None:
@@ -562,7 +612,8 @@ def buildforest(data, n_trees, scoref, n_feat, min_data, pruning):
         # print "building tree"
         tree = buildtree(sub_data, scoref)
         # print getwidth(tree)
-        prune(tree, pruning)  # not neccessary in RF ?
+        if pruning > 0:
+            prune(tree, pruning)  # not neccessary in RF ?
         # print getwidth(tree)
 
         # draw the tree and create path matrix
@@ -857,6 +908,8 @@ def main_loop(n_runs, pruning, min_data, n_forests, n_trees, n_configs_biased, n
         scoref = giniimpurity
     elif scoref is 'variance':
         scoref = variance
+    if pruning > 0:
+        print "Pruning enabled"
 
     multiplier = 1  # initialize value for multiplier
 
@@ -981,7 +1034,7 @@ def main_loop(n_runs, pruning, min_data, n_forests, n_trees, n_configs_biased, n
             plt.xlabel('n_runs')
             plt.ylabel('Score')
             plt.title('Results')
-            plt.legend()
+            plt.legend(loc=2)
             plt.annotate('Highest Score RF', xycoords='data',
                          xy=(np.argmax(data[:, -1]), np.max(data[:, -1])),
                          xytext=(np.argmax(data[:, -1]) * 1.05, np.max(data[:, -1]) * 1.01),
