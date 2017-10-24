@@ -46,5 +46,5 @@ This can be used to make sure that the algorithm does not only exploit local max
 solution space.
 The results can be plotted.
 
-To get required files download `ForestFire Folder <https://github.com/weinertmos/ForestFire/tree/master/source/ForestFire>`_.
+Quickstart: `Clone Repository <https://github.com/weinertmos/ForestFire>`_ and run ForestFire-master/Source/ForestFire/run_ForestFire.py
 """
