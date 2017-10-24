@@ -65,11 +65,6 @@ def gen_database(n_runs, X, y, X_test, y_test):
     return Data
 
 
-
-# initialization
-z1 = 0  # counter for path generation --> needs fixing! global variable = bad ?
-
-
 # Functions for Generating Database for RF
 
 
@@ -479,36 +474,35 @@ def mdclassify(observation, tree):
 
 # Create Matrix path which contains the structure of the tree
 def path_gen(tree):
-    global z1  # doesn't work otherwise needs fixing ?
-    z1 = 0  # equals number of leafs, must increase during creation of path
+    z1 = 0  # equals number of leafs, increases during creation of path
     z2 = 0  # equals depth, fluctuates during creation of path
     width = getwidth(tree)
     depth = getdepth(tree) + 1  # +1 for target values
     path = np.zeros((width, depth))  # Prelocate Memory
     path[::] = None  # NaN in final result means branch is shorter than total depth
-    return path_gen2(tree, width, depth, path, z2)
+    path, z1 = path_gen2(tree, width, depth, path, z2, z1)
+    return path
 
 
 # create a matrix path that represents the structure of the tree and the decisions made at each node, last column contains the average MSE at that leaf
 # the sooner a feature gets chosen as a split feature the more important it is (the farther on the left it appears in path matrix)
 # order that leaves are written in (top to bottom): function will crawl to the rightmost leaf first (positive side), then jump back up one level and move one step to the left (loop)
-def path_gen2(tree, width, depth, path, z2):
-    global z1  # doesn't work otherwise needs fixing ?
+def path_gen2(tree, width, depth, path, z2, z1):
     while z1 < width:  # continue until total number of leaves is reached
         if tree.results is None:  # = if current node is not a leaf
             path[z1, z2] = tree.col  # write split feature of that node into path matrix
             z2 += 1  # increase depth counter
-            path_gen2(tree.tb, width, depth, path, z2)  # recursively call path_gen function in order to proceed to next deeper node in direction of tb
+            path, z1 = path_gen2(tree.tb, width, depth, path, z2, z1)  # recursively call path_gen function in order to proceed to next deeper node in direction of tb
             for x in range(z2):
                 path[z1, x] = path[z1 - 1, x]  # assign the former columns the same value as the leaf above
-            path_gen2(tree.fb, width, depth, path, z2)  # recursively call path_gen function in order to proceed to next deeper node in direction of fb
+            path, z1 = path_gen2(tree.fb, width, depth, path, z2, z1)  # recursively call path_gen function in order to proceed to next deeper node in direction of fb
             z2 -= 1  # after reaching the deepest fb leaf move up one level in depth
             break
         else:  # = if current node is a leaf
             path[z1, -1] = np.mean(tree.results.keys())  # put the average MSE in the last column of path
             z1 += 1  # current leaf is completely written into path, proceeding to next leaf
             break
-    return path  # return the path matrix
+    return path, z1  # return the path matrix and current leaf number
 
 
 # Check if a tree contains MSE_min (= True) or not (= False)

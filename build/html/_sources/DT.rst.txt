@@ -67,6 +67,23 @@ loops through the following steps and builds up the tree structure:
     #. If no split is better than the current list no split is performed and results are stored, tree is returned
     #. If true and false branches are created, start at 1.
 
+An example tree can look like :ref:`this <treeview>`. 
+The first node checks if the value of the third column is >= 21. 
+If yes it continues to the right and checks column 0 if the value is equal to 'slashdot'. 
+If yes the prediction for the new data set will be 50% None and 50% Premium since both values have appeared 1 time during trainging/building of the tree.
+
+If the value of column 0 is instead not equal to 'slashdot', there is another query for colum 0 wether it is equal to 'google' and so on.
+
+.. _treeview:
+
+.. figure:: pyplots/treeview.jpg
+    :scale: 80%
+    :alt: treeview.jpg
+    :align: center
+
+    Treeview.jpg
+
+
 Pruning a tree
 ##############
 
@@ -84,15 +101,21 @@ It takes a look at the information gain that is made by the preceding split.
 If the gain is lower than a threshold specified by the *pruning* hyperparameter in :ref:`execution` it will reunite the two leaves into one single leaf. 
 This way no meaningful splits are abandoned but complexity can be reduced
 
+In the :ref:`above example tree <treeview>` the rightmost leaf is the only place where pruning might have hapenned. 
+Before pruning 'None' and 'Premium' could have been located in separate leaves.
+If the information gain from splitting the two was below the defined threshold, those two leaves would get pruned into one single leaf.
+Still, only by looking at the finished tree one cannot tell if the tree was pruned or if it has been built this way (meaning that already during building there was no benefit in creating another split). 
+
+
 .. warning::
     By default pruning is disabled (set to 0). 
     A reasonable value for pruning depends on the raw data. 
     Observe the output for "wrongs" on the console. 
-    By default it should be quite small (~10% of the total trees at most). 
+    By default it should be quite small (<10% of the total number of trees at most). 
     Try a value for pruning between 0 and 1 and only increase above 1 if the "wrongs" output does not get too big.
 
     A "wrong" tree is a tree "stump" consisting of only one node.
-    Such a tree has no benefit.
+    Such a tree has no informational benefit.
 
 Classifying new observations
 ----------------------------
@@ -100,7 +123,7 @@ Classifying new observations
 After a :ref:`DT <DT>` is built new observations can be classified. 
 This process can vividly be explained by starting at the top node and asking a simple yes or no question about the corresponding feature and value that is stored in the node.
 If the answer for the new observastion is yes, the path follows the true branch of the node.
-A no 
+See :ref:`Tree Image <treeview>` as an example.
 
 
 

@@ -9,7 +9,7 @@ After :ref:`importing the raw data <import_data>` and :ref:`configuring the MLA 
 
 Hyperparameters
 ---------------
-
+fig
 There is a number of hyperparameters that can be changed or left at default:
 
 .. literalinclude:: ForestFire/run_ForestFire.py
@@ -183,12 +183,11 @@ A generic output (with demo mode on) can look like this::
 
     Since Demo mode was turned on at the end a plot is produced:
 
-.. figure:: generic_run.png
+.. figure:: pyplots/generic_run.png
     :scale: 20%
     :alt: generic_run.png
     :align: center
 
-    Caption
 
 
 .. todo::

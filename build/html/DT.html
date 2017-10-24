@@ -122,6 +122,15 @@ loops through the following steps and builds up the tree structure:</p>
 <li>If true and false branches are created, start at 1.</li>
 </ol>
 </div></blockquote>
+<p>An example tree can look like <a class="reference internal" href="#treeview"><span class="std std-ref">this</span></a>.
+The first node checks if the value of the third column is &gt;= 21.
+If yes it continues to the right and checks column 0 if the value is equal to &#8216;slashdot&#8217;.
+If yes the prediction for the new data set will be 50% None and 50% Premium since both values have appeared 1 time during trainging/building of the tree.</p>
+<p>If the value of column 0 is instead not equal to &#8216;slashdot&#8217;, there is another query for colum 0 wether it is equal to &#8216;google&#8217; and so on.</p>
+<div class="figure align-center" id="id2">
+<span id="treeview"></span><a class="reference internal image-reference" href="_images/treeview.jpg"><img alt="treeview.jpg" src="_images/treeview.jpg" style="width: 640.0px; height: 496.0px;" /></a>
+<p class="caption"><span class="caption-text">Treeview.jpg</span></p>
+</div>
 <div class="section" id="pruning-a-tree">
 <h3>Pruning a tree<a class="headerlink" href="#pruning-a-tree" title="Permalink to this headline">¶</a></h3>
 <p>At the deeper levels of a tree there might be splits that further reduce the entropy / gini coefficient / variance of the data, but only to a minor degree.
@@ -135,15 +144,19 @@ The pruning approach builds up the whole complex tree and then starts from its l
 It takes a look at the information gain that is made by the preceding split.
 If the gain is lower than a threshold specified by the <em>pruning</em> hyperparameter in <a class="reference internal" href="execution.html#execution"><span class="std std-ref">Execution</span></a> it will reunite the two leaves into one single leaf.
 This way no meaningful splits are abandoned but complexity can be reduced</p>
+<p>In the <a class="reference internal" href="#treeview"><span class="std std-ref">above example tree</span></a> the rightmost leaf is the only place where pruning might have hapenned.
+Before pruning &#8216;None&#8217; and &#8216;Premium&#8217; could have been located in separate leaves.
+If the information gain from splitting the two was below the defined threshold, those two leaves would get pruned into one single leaf.
+Still, only by looking at the finished tree one cannot tell if the tree was pruned or if it has been built this way (meaning that already during building there was no benefit in creating another split).</p>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
 <p>By default pruning is disabled (set to 0).
 A reasonable value for pruning depends on the raw data.
 Observe the output for &#8220;wrongs&#8221; on the console.
-By default it should be quite small (~10% of the total trees at most).
+By default it should be quite small (&lt;10% of the total number of trees at most).
 Try a value for pruning between 0 and 1 and only increase above 1 if the &#8220;wrongs&#8221; output does not get too big.</p>
 <p class="last">A &#8220;wrong&#8221; tree is a tree &#8220;stump&#8221; consisting of only one node.
-Such a tree has no benefit.</p>
+Such a tree has no informational benefit.</p>
 </div>
 </div>
 </div>
@@ -152,7 +165,7 @@ Such a tree has no benefit.</p>
 <p>After a <a class="reference internal" href="Overview.html#dt"><span class="std std-ref">DT</span></a> is built new observations can be classified.
 This process can vividly be explained by starting at the top node and asking a simple yes or no question about the corresponding feature and value that is stored in the node.
 If the answer for the new observastion is yes, the path follows the true branch of the node.
-A no</p>
+See <a class="reference internal" href="#treeview"><span class="std std-ref">Tree Image</span></a> as an example.</p>
 </div>
 <div class="section" id="displaying-a-tree">
 <h2>Displaying a tree<a class="headerlink" href="#displaying-a-tree" title="Permalink to this headline">¶</a></h2>
