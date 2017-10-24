@@ -44,7 +44,7 @@ For this three evaluation metrics can be chosen from:
     * :ref:`Variance <variance>`
         "How far apart do the numbers lie"
 
-The evaluation metric returns the gini coefficient / entropy of the list that it is presented with. 
+The evaluation metric returns the gini coefficient / entropy / variance of the list that it is presented with. 
 Both methods need information about how many unique elements are in one list.
 
 See :ref:`uniquecounts <uniquecounts>`
@@ -90,9 +90,17 @@ This way no meaningful splits are abandoned but complexity can be reduced
     Observe the output for "wrongs" on the console. 
     By default it should be quite small (~10% of the total trees at most). 
     Try a value for pruning between 0 and 1 and only increase above 1 if the "wrongs" output does not get too big.
-    
+
     A "wrong" tree is a tree "stump" consisting of only one node.
     Such a tree has no benefit.
+
+Classifying new observations
+----------------------------
+
+After a :ref:`DT <DT>` is built new observations can be classified. 
+This process can vividly be explained by starting at the top node and asking a simple yes or no question about the corresponding feature and value that is stored in the node.
+If the answer for the new observastion is yes, the path follows the true branch of the node.
+A no 
 
 
 

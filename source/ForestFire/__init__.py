@@ -45,4 +45,6 @@ In *Demo mode*, the performance of *ForestFire* is compared to randomly picking 
 This can be used to make sure that the algorithm does not only exploit local maxima, but keeps exploring the 
 solution space.
 The results can be plotted.
+
+To get required files download `ForestFire Folder <https://github.com/weinertmos/ForestFire/tree/master/source/ForestFire>`_.
 """

@@ -44,7 +44,7 @@ For this three evaluation metrics can be chosen from:
     * :ref:`Variance <variance>`
         "How far apart do the numbers lie"
 
-The evaluation metric returns the gini coefficient / entropy of the list that it is presented with. 
+The evaluation metric returns the gini coefficient / entropy / variance of the list that it is presented with. 
 Both methods need information about how many unique elements are in one list.
 
 See :ref:`uniquecounts <uniquecounts>`
@@ -96,6 +96,11 @@ This way no meaningful splits are abandoned but complexity can be reduced
 
 Classifying new observations
 ----------------------------
+
+After a :ref:`DT <DT>` is built new observations can be classified. 
+This process can vividly be explained by starting at the top node and asking a simple yes or no question about the corresponding feature and value that is stored in the node.
+If the answer for the new observastion is yes, the path follows the true branch of the node.
+A no 
 
 
 

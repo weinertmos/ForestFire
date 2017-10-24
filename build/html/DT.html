@@ -100,7 +100,7 @@ For this three evaluation metrics can be chosen from:</p>
 </li>
 </ul>
 </div></blockquote>
-<p>The evaluation metric returns the gini coefficient / entropy of the list that it is presented with.
+<p>The evaluation metric returns the gini coefficient / entropy / variance of the list that it is presented with.
 Both methods need information about how many unique elements are in one list.</p>
 <p>See <a class="reference internal" href="#uniquecounts"><span class="std std-ref">uniquecounts</span></a></p>
 <p>After a tree is built its width and depth can be examined by <a class="reference internal" href="#getdepth"><span class="std std-ref">getdepth</span></a> and <a class="reference internal" href="#getwidth"><span class="std std-ref">getwidth</span></a>.
@@ -146,6 +146,13 @@ Try a value for pruning between 0 and 1 and only increase above 1 if the &#8220;
 Such a tree has no benefit.</p>
 </div>
 </div>
+</div>
+<div class="section" id="classifying-new-observations">
+<h2>Classifying new observations<a class="headerlink" href="#classifying-new-observations" title="Permalink to this headline">¶</a></h2>
+<p>After a <a class="reference internal" href="Overview.html#dt"><span class="std std-ref">DT</span></a> is built new observations can be classified.
+This process can vividly be explained by starting at the top node and asking a simple yes or no question about the corresponding feature and value that is stored in the node.
+If the answer for the new observastion is yes, the path follows the true branch of the node.
+A no</p>
 </div>
 <div class="section" id="displaying-a-tree">
 <h2>Displaying a tree<a class="headerlink" href="#displaying-a-tree" title="Permalink to this headline">¶</a></h2>
