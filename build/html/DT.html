@@ -104,7 +104,7 @@ For this three evaluation metrics can be chosen from:</p>
 Both methods need information about how many unique elements are in one list.
 See <a class="reference internal" href="#uniquecounts"><span class="std std-ref">uniquecounts</span></a>.</p>
 <p>After a tree is built its width and depth can be examined by <a class="reference internal" href="#getdepth"><span class="std std-ref">getdepth</span></a> and <a class="reference internal" href="#getwidth"><span class="std std-ref">getwidth</span></a>.
-A tree&#8217;s depth is the maximum number of decisions that can be made before reaching a leaf node plus 1 (A tree stump that has no branches still has a depth of 1).
+A tree&#8217;s depth is the maximum number of decisions that can be made before reaching a leaf node plus 1 (A tree stump that has no branches by definition still has a depth of 1).
 A tree&#8217;s width is the number of leaves it contains, i.e. number of nodes that have entries in their results property.</p>
 </div>
 <div class="section" id="building-a-tree">
@@ -155,8 +155,10 @@ A reasonable value for pruning depends on the raw data.
 Observe the output for &#8220;wrongs&#8221; on the console.
 By default it should be quite small (&lt;10% of the total number of trees at most).
 Try a value for pruning between 0 and 1 and only increase above 1 if the &#8220;wrongs&#8221; output does not get too big.</p>
-<p class="last">A &#8220;wrong&#8221; tree is a tree &#8220;stump&#8221; consisting of only one node.
+<p>A &#8220;wrong&#8221; tree is a tree &#8220;stump&#8221; consisting of only one node.
 Such a tree has no informational benefit.</p>
+<p class="last">Being an advanced hyperparameter pruning can greatly improve overall results as well as the number of runs it takes to find a good result.
+But it also increases the risk of getting stuck in a local extremum or ending up with a lot of tree &#8216;stumps&#8217; that are useless for further information retrieval.</p>
 </div>
 </div>
 </div>
@@ -175,12 +177,20 @@ In this case both branches are followed and the result is weighted according to 
 Since the ForestFire algorithm produces its own database from the raw data and the underlying <a class="reference internal" href="Overview.html#mla"><span class="std std-ref">MLA</span></a> it is made sure that there are always entries present and the case of missing entries does not come to pass.</p>
 </div>
 </div>
-<div class="section" id="displaying-a-tree">
-<h2>Displaying a tree<a class="headerlink" href="#displaying-a-tree" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="visualizing-a-tree">
+<h2>Visualizing a tree<a class="headerlink" href="#visualizing-a-tree" title="Permalink to this headline">¶</a></h2>
 <p>The following functions are for debugging purposes only.</p>
 <p>The structure of the tree can be output to the console with the help of <a class="reference internal" href="#printtree"><span class="std std-ref">printtree</span></a>.</p>
 <p>An image of the tree can be created with the <a class="reference internal" href="#drawtree"><span class="std std-ref">drawtree</span></a> function.
 It makes use of <a class="reference internal" href="#drawnode"><span class="std std-ref">drawnode</span></a>.</p>
+</div>
+<div class="section" id="storing-the-tree-structure">
+<h2>Storing the tree structure<a class="headerlink" href="#storing-the-tree-structure" title="Permalink to this headline">¶</a></h2>
+<p>To <a class="reference internal" href="RF.html#random-forest"><span class="std std-ref">grow a Random Forest from single Decision Trees</span></a> there must be a way to store whole trees and their structure in an array.
+Unlike <a class="reference internal" href="#printtree"><span class="std std-ref">printtree</span></a> and <a class="reference internal" href="#drawtree"><span class="std std-ref">drawtree</span></a> where the tree is printed / drawn recursively by looping through the nodes.</p>
+<p>This is done with the help of <a class="reference internal" href="#pathgen"><span class="std std-ref">path_gen</span></a> and <a class="reference internal" href="#pathgen2"><span class="std std-ref">path_gen2</span></a>.
+By examining the last column of the path matrix that is returned by <a class="reference internal" href="#pathgen"><span class="std std-ref">path_gen</span></a> all results of the different leaf nodes can be reached.</p>
+<p>Another handy function is <a class="reference internal" href="#checkpath"><span class="std std-ref">check_path</span></a>. It takes as input a tree and a result (typically extracted from a path matrix) and checks wether the result is in that tree. This way it is possible to move along the branches of a tree and at each node check if it still contains a certain result, e.g. the best result of the whole tree.</p>
 <p><strong>Functions used in this chapter</strong> Click [source] to view source code</p>
 <span class="target" id="decisionnode"></span><dl class="class">
 <dt id="ForestFire.Main.decisionnode">
@@ -381,6 +391,43 @@ tree {decisionnode} &#8211; tree that observation gets classified in</dd>
 <dd>data &#8211; expected result</dd>
 </dl>
 </dd></dl>
+
+<span class="target" id="pathgen"></span><dl class="function">
+<dt id="ForestFire.Main.path_gen">
+<code class="descclassname">ForestFire.Main.</code><code class="descname">path_gen</code><span class="sig-paren">(</span><em>tree</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ForestFire/Main.html#path_gen"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ForestFire.Main.path_gen" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a path Matrix which contains the structure of the tree. Calls path_gen2 to do so.</p>
+<dl class="docutils">
+<dt>Arguments:</dt>
+<dd>tree {decisionnode} &#8211; tree of which the data structure is stored</dd>
+<dt>Returns:</dt>
+<dd>numpy.array &#8211; data structure of the tree, NaN means there is no more branch</dd>
+</dl>
+</dd></dl>
+
+<span class="target" id="pathgen2"></span><dl class="function">
+<dt id="ForestFire.Main.path_gen2">
+<code class="descclassname">ForestFire.Main.</code><code class="descname">path_gen2</code><span class="sig-paren">(</span><em>tree</em>, <em>width</em>, <em>depth</em>, <em>path</em>, <em>z2</em>, <em>z1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ForestFire/Main.html#path_gen2"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ForestFire.Main.path_gen2" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a path Matrix which contains the structure of the tree.</p>
+<p>creates a matrix &#8216;path&#8217; that represents the structure of the tree and the decisions made at each node, last column contains the average MSE at that leaf
+the sooner a feature gets chosen as a split feature the more important it is (the farther on the left it appears in path matrix)
+order that leaves are written in (top to bottom): function will crawl to the rightmost leaf first (positive side), then jump back up one level and move one step to the left (loop)</p>
+<dl class="docutils">
+<dt>Arguments:</dt>
+<dd>tree {decisionnode} &#8211; tree of which the data structure is stored 
+width {int} &#8211; width of the tree
+depth {int} &#8211; depth of the tree
+path {[type]} &#8211; current path matrix, gets updated during function calls
+z2 {int} &#8211; control variable for current depth
+z1 {int} &#8211; control variable for current width</dd>
+<dt>Returns:</dt>
+<dd>numpy.array &#8211; the structure of the tree</dd>
+</dl>
+</dd></dl>
+
+<span class="target" id="checkpath"></span><dl class="function">
+<dt id="ForestFire.Main.check_path">
+<code class="descclassname">ForestFire.Main.</code><code class="descname">check_path</code><span class="sig-paren">(</span><em>tree</em>, <em>MSE_min</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ForestFire/Main.html#check_path"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ForestFire.Main.check_path" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 </div>
 </div>

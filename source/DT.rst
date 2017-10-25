@@ -49,7 +49,7 @@ Both methods need information about how many unique elements are in one list.
 See :ref:`uniquecounts <uniquecounts>`.
 
 After a tree is built its width and depth can be examined by :ref:`getdepth <getdepth>` and :ref:`getwidth <getwidth>`.
-A tree's depth is the maximum number of decisions that can be made before reaching a leaf node plus 1 (A tree stump that has no branches still has a depth of 1).
+A tree's depth is the maximum number of decisions that can be made before reaching a leaf node plus 1 (A tree stump that has no branches by definition still has a depth of 1).
 A tree's width is the number of leaves it contains, i.e. number of nodes that have entries in their results property.
 
 Building a tree
@@ -116,6 +116,9 @@ Still, only by looking at the finished tree one cannot tell if the tree was prun
     A "wrong" tree is a tree "stump" consisting of only one node.
     Such a tree has no informational benefit.
 
+    Being an advanced hyperparameter pruning can greatly improve overall results as well as the number of runs it takes to find a good result. 
+    But it also increases the risk of getting stuck in a local extremum or ending up with a lot of tree 'stumps' that are useless for further information retrieval.
+
 Classifying new observations
 ----------------------------
 
@@ -137,8 +140,8 @@ The classification of new data is done with the help of the :ref:`classify funct
 
 
 
-Displaying a tree
------------------
+Visualizing a tree
+------------------
 
 The following functions are for debugging purposes only. 
 
@@ -146,6 +149,19 @@ The structure of the tree can be output to the console with the help of :ref:`pr
 
 An image of the tree can be created with the :ref:`drawtree <drawtree>` function. 
 It makes use of :ref:`drawnode <drawnode>`.
+
+
+Storing the tree structure
+--------------------------
+
+To :ref:`grow a Random Forest from single Decision Trees <Random_Forest>` there must be a way to store whole trees and their structure in an array. 
+Unlike :ref:`printtree <printtree>` and :ref:`drawtree <drawtree>` where the tree is printed / drawn recursively by looping through the nodes.
+
+This is done with the help of :ref:`path_gen <pathgen>` and :ref:`path_gen2 <pathgen2>`. 
+By examining the last column of the path matrix that is returned by :ref:`path_gen <pathgen>` all results of the different leaf nodes can be reached.
+
+Another handy function is :ref:`check_path <checkpath>`. It takes as input a tree and a result (typically extracted from a path matrix) and checks wether the result is in that tree. This way it is possible to move along the branches of a tree and at each node check if it still contains a certain result, e.g. the best result of the whole tree.
+
 
 **Functions used in this chapter** Click [source] to view source code
 
@@ -204,3 +220,15 @@ It makes use of :ref:`drawnode <drawnode>`.
 .. _classify:
 
 .. autofunction:: ForestFire.Main.classify
+
+.. _pathgen:
+
+.. autofunction:: ForestFire.Main.path_gen
+
+.. _pathgen2:
+
+.. autofunction:: ForestFire.Main.path_gen2
+
+.. _checkpath:
+
+.. autofunction:: ForestFire.Main.check_path

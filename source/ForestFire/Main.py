@@ -378,8 +378,6 @@ def drawnode(draw, tree, x, y):
         txt = ' \n'.join(['%s:%d' % v for v in tree.results.items()])
         draw.text((x - 20, y), txt, (0, 0, 0))
 
-# if pruning parameter (see at top) is > 0 leaves may be cut together if the information gain is < mingain
-
 
 def prune(tree, mingain):
     """prunes the leaves of a tree in order to reduce complexity
@@ -459,8 +457,15 @@ def classify(observation, tree):
         return classify(observation, branch)
 
 
-# Create Matrix path which contains the structure of the tree
 def path_gen(tree):
+    """Create a path Matrix which contains the structure of the tree. Calls path_gen2 to do so.
+
+    Arguments:
+        tree {decisionnode} -- tree of which the data structure is stored
+
+    Returns:
+        numpy.array -- data structure of the tree, NaN means there is no more branch
+    """
     z1 = 0  # equals number of leafs, increases during creation of path
     z2 = 0  # equals depth, fluctuates during creation of path
     width = getwidth(tree)
@@ -471,10 +476,24 @@ def path_gen(tree):
     return path
 
 
-# create a matrix path that represents the structure of the tree and the decisions made at each node, last column contains the average MSE at that leaf
-# the sooner a feature gets chosen as a split feature the more important it is (the farther on the left it appears in path matrix)
-# order that leaves are written in (top to bottom): function will crawl to the rightmost leaf first (positive side), then jump back up one level and move one step to the left (loop)
 def path_gen2(tree, width, depth, path, z2, z1):
+    """Create a path Matrix which contains the structure of the tree.
+
+    creates a matrix 'path' that represents the structure of the tree and the decisions made at each node, last column contains the average MSE at that leaf
+    the sooner a feature gets chosen as a split feature the more important it is (the farther on the left it appears in path matrix)
+    order that leaves are written in (top to bottom): function will crawl to the rightmost leaf first (positive side), then jump back up one level and move one step to the left (loop)
+
+    Arguments:
+        tree {decisionnode} -- tree of which the data structure is stored 
+        width {int} -- width of the tree
+        depth {int} -- depth of the tree
+        path {[type]} -- current path matrix, gets updated during function calls
+        z2 {int} -- control variable for current depth
+        z1 {int} -- control variable for current width
+
+    Returns:
+        numpy.array -- the structure of the tree
+    """
     while z1 < width:  # continue until total number of leaves is reached
         if tree.results is None:  # = if current node is not a leaf
             path[z1, z2] = tree.col  # write split feature of that node into path matrix
@@ -1028,12 +1047,3 @@ def main_loop(n_runs, pruning, min_data, n_forests, n_trees, n_configs_biased, n
                          )
 
             plt.show()
-
-
-# # Program call
-# # initialize conventional parameter to run script from within this file --> turn off to run it from external script (default)
-# __name__ = 'not__main_'
-
-# if __name__ == '__main_':
-#     main_loop(n_runs, pruning, min_data, n_forests, n_trees, n_configs_biased, n_configs_unbiased, multiplier_stepup, seen_forests,
-#               weight_mean, weight_gradient, scoref, demo_mode, plot_enable)

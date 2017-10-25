@@ -8,8 +8,8 @@ name = '__main__'
 # adjust according to computational capabilities and demands of the underlying machine learning algorithm
 n_runs = 30  # default = 30
 # if pruning is greater than zero, branches of a Decision Tree will be pruned proportional to pruning value; default = 0
-# advanced parameter. If set too high, all trees will be cut down to stumps. Increase carefully.
-pruning = 0.5
+# advanced parameter. If set too high, all trees will be cut down to stumps. Increase carefully. Start with values between 0 and 1.
+pruning = 0.4
 # minimum percentage of Datasets that is used in RF generation; default = 0.2
 min_data = 0.2
 # number of forests; minimum=1;  default = 25
