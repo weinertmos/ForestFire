@@ -1016,7 +1016,7 @@ def main_loop(n_runs, pruning, min_data, n_forests, n_trees, n_configs_biased, n
 
         # Compare Random Search VS Random Forest Search
         print " "
-        print "Found Best value for Random Forest Search after " + str(n_runs) + " initial runs and " + str(np.argmax(data[:, -1]) - n_runs) + "/" + str(len(data) - n_runs) + " smart runs"
+        print "Found Best value for Random Forest Search after " + str(n_runs) + " initial runs and " + str(np.argmax(data[:, -1] + 1) - n_runs) + "/" + str(len(data) - n_runs) + " smart runs"
         print "Best value with RF: " + str(np.max(data[:, -1]))
         print " "
         print "Found Best value for Random Search after " + str(np.argmax(data_compare[:, -1])) + " random runs"
@@ -1027,8 +1027,9 @@ def main_loop(n_runs, pruning, min_data, n_forests, n_trees, n_configs_biased, n
 
         # plots
         if plot_enable:
+            # first plot
             plt.figure(1, figsize=(25, 12))
-            plt.plot(np.array(range(len(data[:, -1]))), data[:, -1], label='RF')
+            plt.plot(np.array(range(len(data[:, -1]))), data[:, -1], label='ForestFire')
             plt.plot(np.array(range(len(data_compare[:, -1]))), data_compare[:, -1], label='Random Search')
 
             plt.xlabel('n_runs')
@@ -1045,5 +1046,25 @@ def main_loop(n_runs, pruning, min_data, n_forests, n_trees, n_configs_biased, n
                          xytext=(np.argmax(data_compare[:, -1]) * 1.05, np.max(data_compare[:, -1]) * 0.95),
                          arrowprops=dict(facecolor='black', shrink=1),
                          )
+
+            # second plot
+            data_high = data
+            for x in range(len(data_high) - 1):
+                if data_high[x, -1] > data_high[x + 1, -1]:
+                    data_high[x + 1, -1] = data_high[x, -1]
+
+            data_compare_high = data_compare
+            for x in range(len(data_compare_high) - 1):
+                if data_compare_high[x, -1] > data_compare_high[x + 1, -1]:
+                    data_compare_high[x + 1, -1] = data_compare_high[x, -1]
+
+            plt.figure(2, figsize=(25, 12))
+            plt.plot(np.array(range(len(data[:, -1]))), data_high[:, -1], label='ForestFire')
+            plt.plot(np.array(range(len(data_compare[:, -1]))), data_compare[:, -1], label='Random Search')
+
+            plt.xlabel('n_runs')
+            plt.ylabel('Score')
+            plt.title('Results')
+            plt.legend(loc=2)
 
             plt.show()
