@@ -1034,7 +1034,7 @@ def main_loop(n_runs, pruning, min_data, n_forests, n_trees, n_configs_biased, n
 
             plt.xlabel('n_runs')
             plt.ylabel('Score')
-            plt.title('Results')
+            plt.title('Results current best score')
             plt.legend(loc=2)
             plt.annotate('Highest Score RF', xycoords='data',
                          xy=(np.argmax(data[:, -1]), np.max(data[:, -1])),
@@ -1064,7 +1064,7 @@ def main_loop(n_runs, pruning, min_data, n_forests, n_trees, n_configs_biased, n
 
             plt.xlabel('n_runs')
             plt.ylabel('Score')
-            plt.title('Results')
+            plt.title('Results all time best score')
             plt.legend(loc=2)
 
             plt.show()
