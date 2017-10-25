@@ -1,7 +1,10 @@
 """*ForestFire* is a Python tool that aims to enhance the performance of machine learning algorithms. 
 It utilises the Random Forest algorithm - which is itself a machine learning technique - to determine the 
 importance of features in a given set of data and make new predictions which featuresets are most 
-likely to yield the best results.
+likely to yield the best results. 
+After building a Random Forest the most promising feature sets are selected and computed. 
+The Random Forest is burnt down and a new one is grown until the maximum number of forests is reached.
+The results can be compared against random search.
 
 *ForestFire* is most usefull in data sets with a number of features greater than 10 where a single run of
 a :ref:`MLA <MLA>` has a high computational cost. 

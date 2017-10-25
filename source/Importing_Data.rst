@@ -23,8 +23,9 @@ After loading the data apply how it should be splitted into train and test data 
     set **X = X_test = X_train and y= y_test = y_train** and configure the splitting routine
     in the next step (:ref:`compute`).
 
+.. important::
 
-**Functions used in this chapter** Click [source] to view source code
+    **Functions used in this chapter**
 
-.. autofunction:: ForestFire.import_data.import_data
+    .. autofunction:: ForestFire.import_data.import_data
 

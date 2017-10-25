@@ -193,7 +193,8 @@ A generic output (with demo mode on) can look like this::
 .. todo::
     no green highlighting in source code
 
+.. important::
 
-**Functions used in this chapter** Click [source] to view source code
+    **Functions used in this chapter**
 
-.. autofunction:: ForestFire.Main.main_loop
+    .. autofunction:: ForestFire.Main.main_loop

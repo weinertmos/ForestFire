@@ -190,8 +190,10 @@ It makes use of <a class="reference internal" href="#drawnode"><span class="std 
 Unlike <a class="reference internal" href="#printtree"><span class="std std-ref">printtree</span></a> and <a class="reference internal" href="#drawtree"><span class="std std-ref">drawtree</span></a> where the tree is printed / drawn recursively by looping through the nodes.</p>
 <p>This is done with the help of <a class="reference internal" href="#pathgen"><span class="std std-ref">path_gen</span></a> and <a class="reference internal" href="#pathgen2"><span class="std std-ref">path_gen2</span></a>.
 By examining the last column of the path matrix that is returned by <a class="reference internal" href="#pathgen"><span class="std std-ref">path_gen</span></a> all results of the different leaf nodes can be reached.</p>
-<p>Another handy function is <a class="reference internal" href="#checkpath"><span class="std std-ref">check_path</span></a>. It takes as input a tree and a result (typically extracted from a path matrix) and checks wether the result is in that tree. This way it is possible to move along the branches of a tree and at each node check if it still contains a certain result, e.g. the best result of the whole tree.</p>
-<p><strong>Functions used in this chapter</strong> Click [source] to view source code</p>
+<p>Another usefull function is <a class="reference internal" href="#checkpath"><span class="std std-ref">check_path</span></a>. It takes as input a tree and a result (typically extracted from a path matrix) and checks wether the result is in that tree. This way it is possible to move along the branches of a tree and at each node check if it (still) contains a certain result, e.g. the best result of the whole tree. This is used for determining the importance of features in the following chapter about <a class="reference internal" href="RF.html#random-forest"><span class="std std-ref">growing a Random Forest</span></a></p>
+<div class="admonition important">
+<p class="first admonition-title">Important</p>
+<p><strong>Functions used in this chapter</strong></p>
 <span class="target" id="decisionnode"></span><dl class="class">
 <dt id="ForestFire.Main.decisionnode">
 <em class="property">class </em><code class="descclassname">ForestFire.Main.</code><code class="descname">decisionnode</code><span class="sig-paren">(</span><em>col=-1</em>, <em>value=None</em>, <em>results=None</em>, <em>tb=None</em>, <em>fb=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ForestFire/Main.html#decisionnode"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ForestFire.Main.decisionnode" title="Permalink to this definition">¶</a></dt>
@@ -424,11 +426,12 @@ z1 {int} &#8211; control variable for current width</dd>
 </dl>
 </dd></dl>
 
-<span class="target" id="checkpath"></span><dl class="function">
+<span class="target" id="checkpath"></span><dl class="last function">
 <dt id="ForestFire.Main.check_path">
 <code class="descclassname">ForestFire.Main.</code><code class="descname">check_path</code><span class="sig-paren">(</span><em>tree</em>, <em>MSE_min</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ForestFire/Main.html#check_path"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ForestFire.Main.check_path" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
+</div>
 </div>
 </div>
 

@@ -136,10 +136,6 @@ The classification of new data is done with the help of the :ref:`classify funct
     In this case both branches are followed and the result is weighted according to the number of entries they contain. 
     Since the ForestFire algorithm produces its own database from the raw data and the underlying :ref:`MLA <MLA>` it is made sure that there are always entries present and the case of missing entries does not come to pass. 
 
-
-
-
-
 Visualizing a tree
 ------------------
 
@@ -150,7 +146,6 @@ The structure of the tree can be output to the console with the help of :ref:`pr
 An image of the tree can be created with the :ref:`drawtree <drawtree>` function. 
 It makes use of :ref:`drawnode <drawnode>`.
 
-
 Storing the tree structure
 --------------------------
 
@@ -160,75 +155,76 @@ Unlike :ref:`printtree <printtree>` and :ref:`drawtree <drawtree>` where the tre
 This is done with the help of :ref:`path_gen <pathgen>` and :ref:`path_gen2 <pathgen2>`. 
 By examining the last column of the path matrix that is returned by :ref:`path_gen <pathgen>` all results of the different leaf nodes can be reached.
 
-Another handy function is :ref:`check_path <checkpath>`. It takes as input a tree and a result (typically extracted from a path matrix) and checks wether the result is in that tree. This way it is possible to move along the branches of a tree and at each node check if it still contains a certain result, e.g. the best result of the whole tree.
+Another usefull function is :ref:`check_path <checkpath>`. It takes as input a tree and a result (typically extracted from a path matrix) and checks wether the result is in that tree. This way it is possible to move along the branches of a tree and at each node check if it (still) contains a certain result, e.g. the best result of the whole tree. This is used for determining the importance of features in the following chapter about :ref:`growing a Random Forest <Random_Forest>`
 
+.. important::
 
-**Functions used in this chapter** Click [source] to view source code
+    **Functions used in this chapter**
 
-.. _decisionnode:
+    .. _decisionnode:
 
-.. autoclass:: ForestFire.Main.decisionnode
+    .. autoclass:: ForestFire.Main.decisionnode
 
-.. _divideset:
+    .. _divideset:
 
-.. autofunction:: ForestFire.Main.divideset
+    .. autofunction:: ForestFire.Main.divideset
 
-.. _giniimpurity:
+    .. _giniimpurity:
 
-.. autofunction:: ForestFire.Main.giniimpurity
+    .. autofunction:: ForestFire.Main.giniimpurity
 
-.. _entropy:
+    .. _entropy:
 
-.. autofunction:: ForestFire.Main.entropy
+    .. autofunction:: ForestFire.Main.entropy
 
-.. _variance:
+    .. _variance:
 
-.. autofunction:: ForestFire.Main.variance
+    .. autofunction:: ForestFire.Main.variance
 
-.. _uniquecounts:
+    .. _uniquecounts:
 
-.. autofunction:: ForestFire.Main.uniquecounts
+    .. autofunction:: ForestFire.Main.uniquecounts
 
-.. _getdepth:
+    .. _getdepth:
 
-.. autofunction:: ForestFire.Main.getdepth
+    .. autofunction:: ForestFire.Main.getdepth
 
-.. _getwidth:
+    .. _getwidth:
 
-.. autofunction:: ForestFire.Main.getwidth
+    .. autofunction:: ForestFire.Main.getwidth
 
-.. _buildtree:
+    .. _buildtree:
 
-.. autofunction:: ForestFire.Main.buildtree
+    .. autofunction:: ForestFire.Main.buildtree
 
-.. _prune:
+    .. _prune:
 
-.. autofunction:: ForestFire.Main.prune
+    .. autofunction:: ForestFire.Main.prune
 
-.. _printtree:
+    .. _printtree:
 
-.. autofunction:: ForestFire.Main.printtree
+    .. autofunction:: ForestFire.Main.printtree
 
-.. _drawtree:
+    .. _drawtree:
 
-.. autofunction:: ForestFire.Main.drawtree
+    .. autofunction:: ForestFire.Main.drawtree
 
-.. _drawnode:
+    .. _drawnode:
 
-.. autofunction:: ForestFire.Main.drawnode
+    .. autofunction:: ForestFire.Main.drawnode
 
-.. _classify:
+    .. _classify:
 
-.. autofunction:: ForestFire.Main.classify
+    .. autofunction:: ForestFire.Main.classify
 
-.. _pathgen:
+    .. _pathgen:
 
-.. autofunction:: ForestFire.Main.path_gen
+    .. autofunction:: ForestFire.Main.path_gen
 
-.. _pathgen2:
+    .. _pathgen2:
 
-.. autofunction:: ForestFire.Main.path_gen2
+    .. autofunction:: ForestFire.Main.path_gen2
 
-.. _checkpath:
+    .. _checkpath:
 
-.. autofunction:: ForestFire.Main.check_path
+    .. autofunction:: ForestFire.Main.check_path
