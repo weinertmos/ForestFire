@@ -400,28 +400,7 @@ def prune(tree, mingain):
         prune(tree.fb, mingain)
 
 
-# classify new observation
 def classify(observation, tree):
-    if tree.results is not None:
-        return tree.results
-    else:
-        v = observation[tree.col]
-        branch = None
-        if isinstance(v, int) or isinstance(v, float):
-            if v >= tree.value:
-                branch = tree.tb
-            else:
-                branch = tree.fb
-        else:
-            if v == tree.value:
-                branch = tree.tb
-            else:
-                branch = tree.fb
-            return classify(observation, branch)
-
-
-# classify an observation that has missing entries
-def mdclassify(observation, tree):
     if tree.results is not None:
         return tree.results
     else:

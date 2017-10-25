@@ -46,7 +46,6 @@ For this three evaluation metrics can be chosen from:
 
 The evaluation metric returns the gini coefficient / entropy / variance of the list that it is presented with. 
 Both methods need information about how many unique elements are in one list.
-
 See :ref:`uniquecounts <uniquecounts>`
 
 After a tree is built its width and depth can be examined by :ref:`getdepth <getdepth>` and :ref:`getwidth <getwidth>`.
@@ -122,10 +121,14 @@ Classifying new observations
 
 After a :ref:`DT <DT>` is built new observations can be classified. 
 This process can vividly be explained by starting at the top node and asking a simple yes or no question about the corresponding feature and value that is stored in the node.
-If the answer for the new observastion is yes, the path follows the true branch of the node.
-See :ref:`Tree Image <treeview>` as an example.
+If the answer for the new observastion is yes, the path follows the true branch of the node. 
+In case of a negated answer the false branch is pursued.
+
+See :ref:`Tree Image <treeview>` as an example. Visually the true branch is on the right hand side of the parent node, the false branch on the left.
 
 The classification of new data is done in :ref:`classify <classify>`.
+
+
 
 
 

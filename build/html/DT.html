@@ -101,8 +101,8 @@ For this three evaluation metrics can be chosen from:</p>
 </ul>
 </div></blockquote>
 <p>The evaluation metric returns the gini coefficient / entropy / variance of the list that it is presented with.
-Both methods need information about how many unique elements are in one list.</p>
-<p>See <a class="reference internal" href="#uniquecounts"><span class="std std-ref">uniquecounts</span></a></p>
+Both methods need information about how many unique elements are in one list.
+See <a class="reference internal" href="#uniquecounts"><span class="std std-ref">uniquecounts</span></a></p>
 <p>After a tree is built its width and depth can be examined by <a class="reference internal" href="#getdepth"><span class="std std-ref">getdepth</span></a> and <a class="reference internal" href="#getwidth"><span class="std std-ref">getwidth</span></a>.
 A tree&#8217;s depth is the maximum number of decisions that can be made before reaching a leaf node plus 1 (A tree stump that has no branches still has a depth of 1).
 A tree&#8217;s width is the number of leaves it contains, i.e. number of nodes that have entries in their results property.</p>
@@ -165,7 +165,8 @@ Such a tree has no informational benefit.</p>
 <p>After a <a class="reference internal" href="Overview.html#dt"><span class="std std-ref">DT</span></a> is built new observations can be classified.
 This process can vividly be explained by starting at the top node and asking a simple yes or no question about the corresponding feature and value that is stored in the node.
 If the answer for the new observastion is yes, the path follows the true branch of the node.
-See <a class="reference internal" href="#treeview"><span class="std std-ref">Tree Image</span></a> as an example.</p>
+In case of a negated answer the false branch is pursued.</p>
+<p>See <a class="reference internal" href="#treeview"><span class="std std-ref">Tree Image</span></a> as an example. Visually the true branch is on the right hand side of the parent node, the false branch on the left.</p>
 <p>The classification of new data is done in <a class="reference internal" href="#classify"><span class="std std-ref">classify</span></a>.</p>
 </div>
 <div class="section" id="displaying-a-tree">
