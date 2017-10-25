@@ -102,7 +102,7 @@ For this three evaluation metrics can be chosen from:</p>
 </div></blockquote>
 <p>The evaluation metric returns the gini coefficient / entropy / variance of the list that it is presented with.
 Both methods need information about how many unique elements are in one list.
-See <a class="reference internal" href="#uniquecounts"><span class="std std-ref">uniquecounts</span></a></p>
+See <a class="reference internal" href="#uniquecounts"><span class="std std-ref">uniquecounts</span></a>.</p>
 <p>After a tree is built its width and depth can be examined by <a class="reference internal" href="#getdepth"><span class="std std-ref">getdepth</span></a> and <a class="reference internal" href="#getwidth"><span class="std std-ref">getwidth</span></a>.
 A tree&#8217;s depth is the maximum number of decisions that can be made before reaching a leaf node plus 1 (A tree stump that has no branches still has a depth of 1).
 A tree&#8217;s width is the number of leaves it contains, i.e. number of nodes that have entries in their results property.</p>
@@ -126,7 +126,7 @@ loops through the following steps and builds up the tree structure:</p>
 The first node checks if the value of the third column is &gt;= 21.
 If yes it continues to the right and checks column 0 if the value is equal to &#8216;slashdot&#8217;.
 If yes the prediction for the new data set will be 50% None and 50% Premium since both values have appeared 1 time during trainging/building of the tree.</p>
-<p>If the value of column 0 is instead not equal to &#8216;slashdot&#8217;, there is another query for colum 0 wether it is equal to &#8216;google&#8217; and so on.</p>
+<p>If the value of column 0 is instead not equal to &#8216;slashdot&#8217;, there is another query at the next node for colum 0 wether it is equal to &#8216;google&#8217; and so on.</p>
 <div class="figure align-center" id="id2">
 <span id="treeview"></span><a class="reference internal image-reference" href="_images/treeview.jpg"><img alt="treeview.jpg" src="_images/treeview.jpg" style="width: 640.0px; height: 496.0px;" /></a>
 <p class="caption"><span class="caption-text">Treeview.jpg</span></p>
@@ -167,7 +167,13 @@ This process can vividly be explained by starting at the top node and asking a s
 If the answer for the new observastion is yes, the path follows the true branch of the node.
 In case of a negated answer the false branch is pursued.</p>
 <p>See <a class="reference internal" href="#treeview"><span class="std std-ref">Tree Image</span></a> as an example. Visually the true branch is on the right hand side of the parent node, the false branch on the left.</p>
-<p>The classification of new data is done in <a class="reference internal" href="#classify"><span class="std std-ref">classify</span></a>.</p>
+<p>The classification of new data is done with the help of the <a class="reference internal" href="#classify"><span class="std std-ref">classify function</span></a>.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last"><a class="reference internal" href="#classify"><span class="std std-ref">classify</span></a> is also able to handle missing data entries.
+In this case both branches are followed and the result is weighted according to the number of entries they contain.
+Since the ForestFire algorithm produces its own database from the raw data and the underlying <a class="reference internal" href="Overview.html#mla"><span class="std std-ref">MLA</span></a> it is made sure that there are always entries present and the case of missing entries does not come to pass.</p>
+</div>
 </div>
 <div class="section" id="displaying-a-tree">
 <h2>Displaying a tree<a class="headerlink" href="#displaying-a-tree" title="Permalink to this headline">¶</a></h2>
@@ -366,7 +372,15 @@ y {number} &#8211; y location</dd>
 <span class="target" id="classify"></span><dl class="function">
 <dt id="ForestFire.Main.classify">
 <code class="descclassname">ForestFire.Main.</code><code class="descname">classify</code><span class="sig-paren">(</span><em>observation</em>, <em>tree</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ForestFire/Main.html#classify"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ForestFire.Main.classify" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>takes a new data set that gets classified and the tree that determines the classification and returns the estimated result.</p>
+<dl class="docutils">
+<dt>Arguments:</dt>
+<dd>observation {numpy.array} &#8211; the new data set that gets classified, e.g. test data set
+tree {decisionnode} &#8211; tree that observation gets classified in</dd>
+<dt>Returns:</dt>
+<dd>data &#8211; expected result</dd>
+</dl>
+</dd></dl>
 
 </div>
 </div>

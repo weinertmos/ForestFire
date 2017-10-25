@@ -399,8 +399,36 @@ def prune(tree, mingain):
     if tree.fb.results is None:
         prune(tree.fb, mingain)
 
+    # If both the subbranches are now leaves, see if they should be merged
+    if tree.tb.results is not None and tree.fb.results is not None:
+        # Build a combined dataset
+        tb, fb = [], []
+        # v equals key, c equals value, results in a list of the different values each added up
+        for v, c in tree.tb.results.items():
+            tb += [[v]] * c
+        for v, c in tree.fb.results.items():
+            fb += [[v]] * c
+
+        # Test the reduction in entropy
+        delta = entropy(tb + fb) - (entropy(tb) + entropy(fb)) / 2  # different in book?
+        # print delta
+        if delta < mingain:
+            # Merge the branches
+            tree.tb, tree.fb = None, None
+            tree.results = uniquecounts(tb + fb)
+            print "tree pruned"
+
 
 def classify(observation, tree):
+    """takes a new data set that gets classified and the tree that determines the classification and returns the estimated result. 
+
+    Arguments:
+        observation {numpy.array} -- the new data set that gets classified, e.g. test data set
+        tree {decisionnode} -- tree that observation gets classified in
+
+    Returns:
+        data -- expected result
+    """
     if tree.results is not None:
         return tree.results
     else:
@@ -429,24 +457,6 @@ def classify(observation, tree):
                 else:
                     branch = tree.fb
         return classify(observation, branch)
-
-    # If both the subbranches are now leaves, see if they should be merged
-    if tree.tb.results is not None and tree.fb.results is not None:
-        # Build a combined dataset
-        tb, fb = [], []
-        # v equals key, c equals value, results in a list of the different values each added up
-        for v, c in tree.tb.results.items():
-            tb += [[v]] * c
-        for v, c in tree.fb.results.items():
-            fb += [[v]] * c
-
-        # Test the reduction in entropy
-        delta = entropy(tb + fb) - (entropy(tb) + entropy(fb)) / 2  # different in book?
-        # print delta
-        if delta < mingain:
-            # Merge the branches
-            tree.tb, tree.fb = None, None
-            tree.results = uniquecounts(tb + fb)
 
 
 # Create Matrix path which contains the structure of the tree

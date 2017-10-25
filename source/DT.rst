@@ -71,7 +71,7 @@ The first node checks if the value of the third column is >= 21.
 If yes it continues to the right and checks column 0 if the value is equal to 'slashdot'. 
 If yes the prediction for the new data set will be 50% None and 50% Premium since both values have appeared 1 time during trainging/building of the tree.
 
-If the value of column 0 is instead not equal to 'slashdot', there is another query for colum 0 wether it is equal to 'google' and so on.
+If the value of column 0 is instead not equal to 'slashdot', there is another query at the next node for colum 0 wether it is equal to 'google' and so on.
 
 .. _treeview:
 
@@ -126,7 +126,12 @@ In case of a negated answer the false branch is pursued.
 
 See :ref:`Tree Image <treeview>` as an example. Visually the true branch is on the right hand side of the parent node, the false branch on the left.
 
-The classification of new data is done in :ref:`classify <classify>`.
+The classification of new data is done with the help of the :ref:`classify function <classify>`.
+
+.. note::
+    :ref:`classify <classify>` is also able to handle missing data entries. 
+    In this case both branches are followed and the result is weighted according to the number of entries they contain. 
+    Since the ForestFire algorithm produces its own database from the raw data and the underlying :ref:`MLA <MLA>` it is made sure that there are always entries present and the case of missing entries does not come to pass. 
 
 
 
