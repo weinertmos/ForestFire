@@ -406,19 +406,17 @@ def classify(observation, tree):
     else:
         v = observation[tree.col]
         if v is None:
-            tr, fr = mdclassify(observation, tree.tb), mdclassify(observation, tree.fb)
+            tr, fr = classify(observation, tree.tb), classify(observation, tree.fb)
             tcount = sum(tr.values())
             fcount = sum(fr.values())
             tw = float(tcount) / (tcount + fcount)
-            fw = 1 - tw  # different from book !
+            fw = 1 - tw
             result = {}
-            # k is name, v is value
-            for k, v in tr.items():
+            for k, v in tr.items():  # k is name, v is value
                 result[k] = v * tw
             for k, v in fr.items():
-                result[k] = result.setdefault(k, 0) + (v * fw)  # why setdefault and not above
+                result[k] = result.setdefault(k, 0) + (v * fw)
             return result
-        # same as classify from here on
         else:
             if isinstance(v, int) or isinstance(v, float):
                 if v >= tree.value:
@@ -430,7 +428,7 @@ def classify(observation, tree):
                     branch = tree.tb
                 else:
                     branch = tree.fb
-            return mdclassify(observation, branch)
+        return classify(observation, branch)
 
     # If both the subbranches are now leaves, see if they should be merged
     if tree.tb.results is not None and tree.fb.results is not None:
