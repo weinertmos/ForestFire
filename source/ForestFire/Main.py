@@ -511,10 +511,18 @@ def path_gen2(tree, width, depth, path, z2, z1):
     return path, z1  # return the path matrix and current leaf number
 
 
-# Check if a tree contains MSE_min (= True) or not (= False)
-def check_path(tree, MSE_min):
+def check_path(tree, result):
+    """Check if a tree contains MSE_min (= True) or not (= False)
+
+    Arguments:
+        tree {decisionnode} -- tree that gets searched for result
+        result {data} -- result that the tree is searched for
+
+    Returns:
+        bool -- True if result is in the tree, false if not
+    """
     path = path_gen(tree)
-    if MSE_min in path[:, -1]:
+    if result in path[:, -1]:
         return True
     else:
         return False
@@ -880,7 +888,7 @@ def main_loop(n_runs, pruning, min_data, n_forests, n_trees, n_configs_biased, n
         * plot_enable bool -- # decide if at the end a plot should be generated , only possible in demo mode
 
     """
-    print "Starting ForestFire"
+    print "Starting calculations"
     # Generate Test Data
     print "Loading Raw Data"
     X_test, X, y_test, y, n_feat = import_data()
