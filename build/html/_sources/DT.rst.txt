@@ -3,13 +3,13 @@
 Growing a single Decision Tree
 ==============================
 
-The basic principle of building decision trees is based on the implementation of decision trees in [Collective_Intelligence]_ by Toby Segaran.
+The principle of building decision trees is based on the implementation of decision trees in [Collective_Intelligence]_ by Toby Segaran.
 
 Base Class
 ----------
 
 At the foundation of the ForestFire algorithm stands the :ref:`decisionnode class <decisionnode>`. 
-It represents a point in a :ref:`DT <DT>` at which the decision is made into which branch (true or false) to proceed. 
+It represents a node in a :term:`DT <Decision Tree>` at which the decision is made into which branch (true or false) to proceed. 
 The whole tree is built up of nodes. 
 Each node itself can contain two more nodes - the true and false branch - which are themselves decisionnodes. 
 In this way a tree is constructed in which a set of data takes a certain path along the tree to get classified.
@@ -122,7 +122,7 @@ Still, only by looking at the finished tree one cannot tell if the tree was prun
 Classifying new observations
 ----------------------------
 
-After a :ref:`DT <DT>` is built new observations can be classified. 
+After a :term:`DT <Decision Tree>` is built new observations can be classified. 
 This process can vividly be explained by starting at the top node and asking a simple yes or no question about the corresponding feature and value that is stored in the node.
 If the answer for the new observastion is yes, the path follows the true branch of the node. 
 In case of a negated answer the false branch is pursued.

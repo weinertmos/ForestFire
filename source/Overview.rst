@@ -13,12 +13,12 @@ Abbreviations
 .. _DT:
 
 DT
-    Decision Tree
+    :term:`Decision Tree`
 
 .. _RF:
 
 RF
-    Random Fores
+    :term:`Random Forest`
 
 .. _MLA:
 
@@ -29,9 +29,24 @@ Glossary
 --------
 
 .. glossary::
+    :sorted:
 
     node
-        A node is...
+        A point in a :term:`Decision Tree` where a decision is made (either true or false)
+
+    Decision Tree
+        consists of at least one :term:`node` and represents a treelike structure that can be used for classification of new observations
+
+    Random Forest
+        Cumulation of :term:`Decision Trees <Decision Tree>` that can be used for classification of new observations
+
+    branch
+        junction in a :term:`Decision Tree`. Each :term:`node` has a true and a false branch leading away from it.
+
+    leaf
+        Last point of a :term:`branch` in a :term`Decision Tree`
+
+
 
 References
 ----------

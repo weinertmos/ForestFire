@@ -9,7 +9,7 @@ After :ref:`importing the raw data <import_data>` and :ref:`configuring the MLA 
 
 Hyperparameters
 ---------------
-fig
+
 There is a number of hyperparameters that can be changed or left at default:
 
 .. literalinclude:: ForestFire/run_ForestFire.py
