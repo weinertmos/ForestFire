@@ -527,55 +527,27 @@ def check_path(tree, result):
     else:
         return False
 
-# for each tree, the features that lead to the leaf with the lowest MSE will get rewarded/punished
-# depending on whether the leaf lies on positive or negative side of the node feature
-# RF gets updated after a new tree is built and thus contains the cummulation of all
-# feature appearences in the whole forest
 
-
-def update_RF(RF, path, tree, rand_feat):
-    current_depth = getdepth(tree)
-    # print "current path: " + str(path)
-    # print  "current depth = " + str(getdepth(tree))
-    # print "current col: " + str(tree.col)
-    if current_depth == 0:
-        return RF
-    MSE_min = path[-1]
-    # print "MSE_min: " + str(MSE_min)
-    # print "Checking if MSE_min is in True branch"
-    if check_path(tree.tb, MSE_min) is True:
-        # print "MSE_min is in True Branch"
-        if rand_feat[int(tree.col)] not in RF:  # initialize the feature in dictionary RF if it appears for the first time
-            # print rand_feat
-            # print tree.col
-            # print rand_feat[int(tree.col)]
-            RF[rand_feat[int(tree.col)]] = float(current_depth)
-        else:  # if the feature is already present in dictionary RF, increase counter
-            RF[rand_feat[int(tree.col)]] += float(current_depth)
-        # print "added " + str(current_depth) + " to feature  " + str(tree.col)
-        # print "current RF: " + str(RF)
-        update_RF(RF, path[1:], tree.tb, rand_feat)  # recursively jump into update_RF again with shortened path at next level in true branch
-    else:
-        # print "MSE_min is not in True Branch"
-        # print "Checking if MSE_min is in False Branch"
-        if check_path(tree.fb, MSE_min) is True:
-            # print "MSE_min is in False Branch"
-            if rand_feat[int(tree.col)] not in RF:  # initialize the feature in dictionary RF if it appears for the first time
-                RF[rand_feat[int(tree.col)]] = -0.2 * float(current_depth)
-            else:  # if the feature is already present in dictionary RF, decrease counter
-                RF[rand_feat[int(tree.col)]] -= float(current_depth) * 0.2
-            # print "subtracted " + str(current_depth*0.2) + " from feature " + str(tree.col)
-            # print "current RF: " + str(RF)
-            update_RF(RF, path[1:], tree.fb, rand_feat)  # recursively jump into update_RF again with shortened path at next level in false branch
-
-
-# Growing the Random Forest
-
-# The Random Forest consists of n_trees. Each tree sees only a subset of the data and a subset of the features.
-# Important: a tree never sees the original data set, only the performance of the classifying algorithm
-# For significant conclusions enough trees must be generated in order to gain the statistical benefits that overcome bad outputs
-# from a single tree
 def buildforest(data, n_trees, scoref, n_feat, min_data, pruning):
+    """Growing the Random Forest
+
+    The Random Forest consists of n_trees. Each tree sees only a subset of the data and a subset of the features.
+    Important: a tree never sees the original data set, only the performance of the classifying algorithm
+    For significant conclusions enough trees must be generated in order to gain the statistical benefits that overcome bad outputs
+
+    Arguments:
+        * data {numpy.array} -- data set the Forest is built upon
+        * n_trees {int} -- number of trees in a Decision tree
+        * scoref {function} -- scoring metric for finding new nodes
+        * n_feat {int} -- number of features in data
+        * min_data {float} -- minimum percentage of all data sets that a tree will see 
+        * pruning {bool} -- pruning enabled (>0) / disabled(=0)
+
+    Returns:
+        * RF -- importances of single features in the forest
+        * Prob_current -- importance of the features in the forest
+        * trees -- the structure of the single trees the forest consists of
+    """
     # print data
     prob_current = None
     RF = {}  # Prelocate dictionary for prioritizing important features
@@ -621,7 +593,7 @@ def buildforest(data, n_trees, scoref, n_feat, min_data, pruning):
         tree = buildtree(sub_data, scoref)
         # print getwidth(tree)
         if pruning > 0:
-            prune(tree, pruning)  # not neccessary in RF ?
+            prune(tree, pruning)
         # print getwidth(tree)
 
         # draw the tree and create path matrix
@@ -664,7 +636,7 @@ def buildforest(data, n_trees, scoref, n_feat, min_data, pruning):
     for key in RF:
         RF[key] = temp_percent[i][0]  # [0] because otherwise there would be an array inside the dictionary RF
         i += 1
-    # print RF
+    # print "RF: " + str(RF)
 
     # a wrong tree is a tree with only one node that has no power to gain additional insight and therefore is useless...
     print "wrongs: " + str(wrongs) + "/" + str(n_trees)
@@ -687,6 +659,58 @@ def buildforest(data, n_trees, scoref, n_feat, min_data, pruning):
     prob_current = np.array(weights_sorted.values())  # extract only values of feature importance
     # print prob_current
     return RF, prob_current, trees
+
+
+def update_RF(RF, path, tree, rand_feat):
+    """for each tree the features that lead to the leaf with the lowest Error will get rewarded
+    Features that don't lead to the leaf with the lowest Error will get punished (only by 20% of the reward)
+
+
+    RF gets updated after a new tree is built and thus contains the cummulation of all
+    feature appearences in the whole forest
+
+    Arguments:
+        * RF {[type]} -- [description]
+        * path {[type]} -- [description]
+        * tree {[type]} -- [description]
+        * rand_feat {[type]} -- [description]
+
+    Returns:
+        * [type] -- [description]
+    """
+    current_depth = getdepth(tree)
+    # print "current path: " + str(path)
+    # print  "current depth = " + str(getdepth(tree))
+    # print "current col: " + str(tree.col)
+    if current_depth == 0:
+        return RF
+    MSE_min = path[-1]
+    # print "MSE_min: " + str(MSE_min)
+    # print "Checking if MSE_min is in True branch"
+    if check_path(tree.tb, MSE_min) is True:
+        # print "MSE_min is in True Branch"
+        if rand_feat[int(tree.col)] not in RF:  # initialize the feature in dictionary RF if it appears for the first time
+            # print rand_feat
+            # print tree.col
+            # print rand_feat[int(tree.col)]
+            RF[rand_feat[int(tree.col)]] = float(current_depth)
+        else:  # if the feature is already present in dictionary RF, increase counter
+            RF[rand_feat[int(tree.col)]] += float(current_depth)
+        # print "added " + str(current_depth) + " to feature  " + str(tree.col)
+        # print "current RF: " + str(RF)
+        update_RF(RF, path[1:], tree.tb, rand_feat)  # recursively jump into update_RF again with shortened path at next level in true branch
+    else:
+        # print "MSE_min is not in True Branch"
+        # print "Checking if MSE_min is in False Branch"
+        if check_path(tree.fb, MSE_min) is True:
+            # print "MSE_min is in False Branch"
+            if rand_feat[int(tree.col)] not in RF:  # initialize the feature in dictionary RF if it appears for the first time
+                RF[rand_feat[int(tree.col)]] = -0.2 * float(current_depth)
+            else:  # if the feature is already present in dictionary RF, decrease counter
+                RF[rand_feat[int(tree.col)]] -= float(current_depth) * 0.2
+            # print "subtracted " + str(current_depth*0.2) + " from feature " + str(tree.col)
+            # print "current RF: " + str(RF)
+            update_RF(RF, path[1:], tree.fb, rand_feat)  # recursively jump into update_RF again with shortened path at next level in false branch
 
 
 """

@@ -46,6 +46,10 @@ Glossary
     leaf
         Last point of a :term:`branch` in a :term`Decision Tree`
 
+    pruning
+        Cutting back :term:`branches <branch>` of a :term:`Decision Tree` with little information gain.
+        See :ref:`prune <prune>`
+
 
 
 References

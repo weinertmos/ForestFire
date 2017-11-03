@@ -59,7 +59,7 @@
 
 <span class="c1"># number of runs before building first Random Forest = number of data points in first RF; minimum = 4, default = 50</span>
 <span class="c1"># adjust according to computational capabilities and demands of the underlying machine learning algorithm</span>
-<span class="n">n_runs</span> <span class="o">=</span> <span class="mi">10</span>  <span class="c1"># default = 30</span>
+<span class="n">n_runs</span> <span class="o">=</span> <span class="mi">4</span>  <span class="c1"># default = 30</span>
 <span class="c1"># if pruning is greater than zero, branches of a Decision Tree will be pruned proportional to pruning value; default = 0</span>
 <span class="c1"># advanced parameter. If set too high, all trees will be cut down to stumps. Increase carefully. Start with values between 0 and 1.</span>
 <span class="n">pruning</span> <span class="o">=</span> <span class="mf">0.4</span>
@@ -67,7 +67,7 @@
 <span class="n">min_data</span> <span class="o">=</span> <span class="mf">0.2</span>
 <span class="c1"># number of forests; minimum=1;  default = 25</span>
 <span class="c1"># adjust according to computational capabilities. For each forest two new computational runs are done. default = 20</span>
-<span class="n">n_forests</span> <span class="o">=</span> <span class="mi">40</span>
+<span class="n">n_forests</span> <span class="o">=</span> <span class="mi">4</span>
 </pre></div>
 </div>
 <p>These parameters should be chosen according to computational demand of the <a class="reference internal" href="Overview.html#mla"><span class="std std-ref">MLA</span></a>.
@@ -84,7 +84,8 @@ But changing them can tweak the performance.</p>
 <span class="c1"># number of randomly chosen feature sets that get predicted in each forest; default = n_configs_biased * 0.2</span>
 <span class="n">n_configs_unbiased</span> <span class="o">=</span> <span class="s1">&#39;default&#39;</span>
 <span class="c1"># sets how aggressively the feature importance changes; default = 0.25</span>
-<span class="c1"># higher values will increase pressure on how often promising features will be selected.</span>
+<span class="c1"># higher values will increase pressure on how o</span>
+<span class="n">ften</span> <span class="n">promising</span> <span class="n">features</span> <span class="n">will</span> <span class="n">be</span> <span class="n">selected</span><span class="o">.</span>
 <span class="c1"># advanced parameter, adjust carefully. If set too high the risk of runnning into local extrema rises.</span>
 <span class="n">multiplier_stepup</span> <span class="o">=</span> <span class="s1">&#39;default&#39;</span>
 <span class="c1"># number of recent forests that are taken into acount for generating probability of the chosen feature sets default = 4 ? make variable?</span>
@@ -100,17 +101,16 @@ But changing them can tweak the performance.</p>
 <span class="c1"># select variance for numerical values in y only</span>
 <span class="n">scoref</span> <span class="o">=</span> <span class="s1">&#39;variance&#39;</span>
 <span class="c1"># set random seed for repeatabilit; comment out if no repeatability is required; default = 1</span>
-<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="demo-mode-plot">
 <h2>Demo Mode &amp; Plot<a class="headerlink" href="#demo-mode-plot" title="Permalink to this headline">¶</a></h2>
 <p>In order to compare and plot the performance of ForestFire vs. a randomized search there are two more hyperparameters that can be used:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
 <span class="c1"># if true a comparison between the Random Forest driven Search and a random search is done</span>
 <span class="n">demo_mode</span> <span class="o">=</span> <span class="kc">True</span>
-<span class="c1"># decide if at the end a plot should be generated , only valid in demo mode</span>
 </pre></div>
 </div>
 <p>This mode can be usefull when trying to make sure that ForestFire doesn&#8217;t get caught in a local extremum.

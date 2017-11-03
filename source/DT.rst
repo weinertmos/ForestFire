@@ -3,6 +3,8 @@
 Growing a single Decision Tree
 ==============================
 
+corresponding file: `Main.py <https://github.com/weinertmos/ForestFire/blob/master/source/ForestFire/Main.py>`_
+
 The principle of building decision trees is based on the implementation of decision trees in [Collective_Intelligence]_ by Toby Segaran.
 
 Base Class
@@ -19,6 +21,8 @@ The leaf node contains the results which represent the classification a data set
 The results can be a single value - in this case the classification is 100% this single value. 
 It can also consist of several values, e.g. value1 with 2 instances and value2 with 1 instance. 
 The result of this classification is ambiguous, so it is expressed as a probability: the classification is 1/3 value2 and 2/3 value1.
+
+.. _help:
 
 Helper Functions
 ----------------

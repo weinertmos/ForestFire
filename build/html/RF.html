@@ -50,9 +50,99 @@
         
   <div class="section" id="growing-a-random-forest">
 <span id="random-forest"></span><h1>Growing a Random Forest<a class="headerlink" href="#growing-a-random-forest" title="Permalink to this headline">¶</a></h1>
+<p>corresponding file: <a class="reference external" href="https://github.com/weinertmos/ForestFire/blob/master/source/ForestFire/Main.py">Main.py</a></p>
+<div class="section" id="why-is-a-single-decision-tree-not-enough">
+<h2>Why is a single Decision Tree not enough?<a class="headerlink" href="#why-is-a-single-decision-tree-not-enough" title="Permalink to this headline">¶</a></h2>
+<p>A single Decision Tree is already a fully fledged classifier that can be used to determine which features are of more importance than the rest.
+The higher up in the hirarchy of the tree a feature stands the more decisive it is with regard to how well it splits the data in two separate lists.
+The feature at the top node of a tree can be considered the most important one, a feature that appears on the lower levels is not as importnant.
+Consequently a feature that is not at all appearing in the tree is even less important.
+As a consequence it might be reasonable to leave features with little importance out of the <a class="reference internal" href="Overview.html#mla"><span class="std std-ref">MLA</span></a> and only present it with the important ones.</p>
+<p>Applied to a convenient data set this approach can work.
+But there are challenges that arise in most real world data sets.
+The data can be clustered, i.e. a number of subsequent data sets might follow a certain pattern that is overlooked by a single Decision Tree because it is presented with all the data sets combined.
+In addition a single tree that sees all features of the data set tends to be biased towards the most dominant features.</p>
+<p>The logical implication to these two challenges is to introduce randomness:</p>
+<blockquote>
+<div><ul class="simple">
+<li>present a single tree with only a random subset of all data sets</li>
+<li>present a single tree with only a random subset of all features</li>
+</ul>
+</div></blockquote>
+<p>This will reduce the bias of the tree, but increase the variance.
+By building multiple trees and averaging their results the variance can in turn be reduced.
+The name for this construct is <a class="reference internal" href="Overview.html#term-random-forest"><span class="xref std std-term">Random Forest</span></a>.</p>
+</div>
+<div class="section" id="building-a-random-forest">
+<h2>Building a Random Forest<a class="headerlink" href="#building-a-random-forest" title="Permalink to this headline">¶</a></h2>
+<p>In <a class="reference internal" href="#buildforest"><span class="std std-ref">buildforest</span></a> the Random Forest is built according to the following steps:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li>select random data and feature sets</li>
+<li>build a single tree with &#8220;limited view&#8221;</li>
+<li>if enabled, <a class="reference internal" href="Overview.html#term-pruning"><span class="xref std std-term">prune</span></a> the tree</li>
+<li>reward features that lead to the best result</li>
+<li>punish features that don&#8217;t lead to the best result</li>
+</ol>
+</div></blockquote>
+<p>After a new tree is built the feature importance for the whole Forest is <a class="reference internal" href="#update-rf"><span class="std std-ref">updated</span></a> from the number of appearances in the single trees.
+The higher up a feature gets selected in a tree the higher it is rated. The punishment for features that don&#8217;t lead to the best results is weaker than the reward for leading to the best results.</p>
 <div class="admonition important">
 <p class="first admonition-title">Important</p>
-<p class="last"><strong>Functions used in this chapter</strong></p>
+<p><strong>Functions used in this chapter</strong></p>
+<span class="target" id="buildforest"></span><dl class="function">
+<dt id="ForestFire.Main.buildforest">
+<code class="descclassname">ForestFire.Main.</code><code class="descname">buildforest</code><span class="sig-paren">(</span><em>data</em>, <em>n_trees</em>, <em>scoref</em>, <em>n_feat</em>, <em>min_data</em>, <em>pruning</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ForestFire/Main.html#buildforest"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ForestFire.Main.buildforest" title="Permalink to this definition">¶</a></dt>
+<dd><p>Growing the Random Forest</p>
+<p>The Random Forest consists of n_trees. Each tree sees only a subset of the data and a subset of the features.
+Important: a tree never sees the original data set, only the performance of the classifying algorithm
+For significant conclusions enough trees must be generated in order to gain the statistical benefits that overcome bad outputs</p>
+<dl class="docutils">
+<dt>Arguments:</dt>
+<dd><ul class="first last simple">
+<li>data {numpy.array} &#8211; data set the Forest is built upon</li>
+<li>n_trees {int} &#8211; number of trees in a Decision tree</li>
+<li>scoref {function} &#8211; scoring metric for finding new nodes</li>
+<li>n_feat {int} &#8211; number of features in data</li>
+<li>min_data {float} &#8211; minimum percentage of all data sets that a tree will see</li>
+<li>pruning {bool} &#8211; pruning enabled (&gt;0) / disabled(=0)</li>
+</ul>
+</dd>
+<dt>Returns:</dt>
+<dd><ul class="first last simple">
+<li>RF &#8211; importances of single features in the forest</li>
+<li>Prob_current &#8211; importance of the features in the forest</li>
+<li>trees &#8211; the structure of the single trees the forest consists of</li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<span class="target" id="update-rf"></span><dl class="last function">
+<dt id="ForestFire.Main.update_RF">
+<code class="descclassname">ForestFire.Main.</code><code class="descname">update_RF</code><span class="sig-paren">(</span><em>RF</em>, <em>path</em>, <em>tree</em>, <em>rand_feat</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ForestFire/Main.html#update_RF"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ForestFire.Main.update_RF" title="Permalink to this definition">¶</a></dt>
+<dd><p>for each tree, the features that lead to the leaf with the lowest Error will get rewarded/punished
+depending on whether the leaf lies on the positive or negative side of the node feature</p>
+<p>RF gets updated after a new tree is built and thus contains the cummulation of all
+feature appearences in the whole forest</p>
+<dl class="docutils">
+<dt>Arguments:</dt>
+<dd><ul class="first last simple">
+<li>RF {[type]} &#8211; [description]</li>
+<li>path {[type]} &#8211; [description]</li>
+<li>tree {[type]} &#8211; [description]</li>
+<li>rand_feat {[type]} &#8211; [description]</li>
+</ul>
+</dd>
+<dt>Returns:</dt>
+<dd><ul class="first last simple">
+<li>[type] &#8211; [description]</li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
 </div>
 </div>
 

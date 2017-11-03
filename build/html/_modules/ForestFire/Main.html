@@ -572,55 +572,27 @@
     <span class="k">else</span><span class="p">:</span>
         <span class="k">return</span> <span class="kc">False</span></div>
 
-<span class="c1"># for each tree, the features that lead to the leaf with the lowest MSE will get rewarded/punished</span>
-<span class="c1"># depending on whether the leaf lies on positive or negative side of the node feature</span>
-<span class="c1"># RF gets updated after a new tree is built and thus contains the cummulation of all</span>
-<span class="c1"># feature appearences in the whole forest</span>
 
+<div class="viewcode-block" id="buildforest"><a class="viewcode-back" href="../../RF.html#ForestFire.Main.buildforest">[docs]</a><span class="k">def</span> <span class="nf">buildforest</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">n_trees</span><span class="p">,</span> <span class="n">scoref</span><span class="p">,</span> <span class="n">n_feat</span><span class="p">,</span> <span class="n">min_data</span><span class="p">,</span> <span class="n">pruning</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Growing the Random Forest</span>
 
-<span class="k">def</span> <span class="nf">update_RF</span><span class="p">(</span><span class="n">RF</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">tree</span><span class="p">,</span> <span class="n">rand_feat</span><span class="p">):</span>
-    <span class="n">current_depth</span> <span class="o">=</span> <span class="n">getdepth</span><span class="p">(</span><span class="n">tree</span><span class="p">)</span>
-    <span class="c1"># print &quot;current path: &quot; + str(path)</span>
-    <span class="c1"># print  &quot;current depth = &quot; + str(getdepth(tree))</span>
-    <span class="c1"># print &quot;current col: &quot; + str(tree.col)</span>
-    <span class="k">if</span> <span class="n">current_depth</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">RF</span>
-    <span class="n">MSE_min</span> <span class="o">=</span> <span class="n">path</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-    <span class="c1"># print &quot;MSE_min: &quot; + str(MSE_min)</span>
-    <span class="c1"># print &quot;Checking if MSE_min is in True branch&quot;</span>
-    <span class="k">if</span> <span class="n">check_path</span><span class="p">(</span><span class="n">tree</span><span class="o">.</span><span class="n">tb</span><span class="p">,</span> <span class="n">MSE_min</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
-        <span class="c1"># print &quot;MSE_min is in True Branch&quot;</span>
-        <span class="k">if</span> <span class="n">rand_feat</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">tree</span><span class="o">.</span><span class="n">col</span><span class="p">)]</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">RF</span><span class="p">:</span>  <span class="c1"># initialize the feature in dictionary RF if it appears for the first time</span>
-            <span class="c1"># print rand_feat</span>
-            <span class="c1"># print tree.col</span>
-            <span class="c1"># print rand_feat[int(tree.col)]</span>
-            <span class="n">RF</span><span class="p">[</span><span class="n">rand_feat</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">tree</span><span class="o">.</span><span class="n">col</span><span class="p">)]]</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">current_depth</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>  <span class="c1"># if the feature is already present in dictionary RF, increase counter</span>
-            <span class="n">RF</span><span class="p">[</span><span class="n">rand_feat</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">tree</span><span class="o">.</span><span class="n">col</span><span class="p">)]]</span> <span class="o">+=</span> <span class="nb">float</span><span class="p">(</span><span class="n">current_depth</span><span class="p">)</span>
-        <span class="c1"># print &quot;added &quot; + str(current_depth) + &quot; to feature  &quot; + str(tree.col)</span>
-        <span class="c1"># print &quot;current RF: &quot; + str(RF)</span>
-        <span class="n">update_RF</span><span class="p">(</span><span class="n">RF</span><span class="p">,</span> <span class="n">path</span><span class="p">[</span><span class="mi">1</span><span class="p">:],</span> <span class="n">tree</span><span class="o">.</span><span class="n">tb</span><span class="p">,</span> <span class="n">rand_feat</span><span class="p">)</span>  <span class="c1"># recursively jump into update_RF again with shortened path at next level in true branch</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="c1"># print &quot;MSE_min is not in True Branch&quot;</span>
-        <span class="c1"># print &quot;Checking if MSE_min is in False Branch&quot;</span>
-        <span class="k">if</span> <span class="n">check_path</span><span class="p">(</span><span class="n">tree</span><span class="o">.</span><span class="n">fb</span><span class="p">,</span> <span class="n">MSE_min</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
-            <span class="c1"># print &quot;MSE_min is in False Branch&quot;</span>
-            <span class="k">if</span> <span class="n">rand_feat</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">tree</span><span class="o">.</span><span class="n">col</span><span class="p">)]</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">RF</span><span class="p">:</span>  <span class="c1"># initialize the feature in dictionary RF if it appears for the first time</span>
-                <span class="n">RF</span><span class="p">[</span><span class="n">rand_feat</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">tree</span><span class="o">.</span><span class="n">col</span><span class="p">)]]</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.2</span> <span class="o">*</span> <span class="nb">float</span><span class="p">(</span><span class="n">current_depth</span><span class="p">)</span>
-            <span class="k">else</span><span class="p">:</span>  <span class="c1"># if the feature is already present in dictionary RF, decrease counter</span>
-                <span class="n">RF</span><span class="p">[</span><span class="n">rand_feat</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">tree</span><span class="o">.</span><span class="n">col</span><span class="p">)]]</span> <span class="o">-=</span> <span class="nb">float</span><span class="p">(</span><span class="n">current_depth</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.2</span>
-            <span class="c1"># print &quot;subtracted &quot; + str(current_depth*0.2) + &quot; from feature &quot; + str(tree.col)</span>
-            <span class="c1"># print &quot;current RF: &quot; + str(RF)</span>
-            <span class="n">update_RF</span><span class="p">(</span><span class="n">RF</span><span class="p">,</span> <span class="n">path</span><span class="p">[</span><span class="mi">1</span><span class="p">:],</span> <span class="n">tree</span><span class="o">.</span><span class="n">fb</span><span class="p">,</span> <span class="n">rand_feat</span><span class="p">)</span>  <span class="c1"># recursively jump into update_RF again with shortened path at next level in false branch</span>
+<span class="sd">    The Random Forest consists of n_trees. Each tree sees only a subset of the data and a subset of the features.</span>
+<span class="sd">    Important: a tree never sees the original data set, only the performance of the classifying algorithm</span>
+<span class="sd">    For significant conclusions enough trees must be generated in order to gain the statistical benefits that overcome bad outputs</span>
 
+<span class="sd">    Arguments:</span>
+<span class="sd">        * data {numpy.array} -- data set the Forest is built upon</span>
+<span class="sd">        * n_trees {int} -- number of trees in a Decision tree</span>
+<span class="sd">        * scoref {function} -- scoring metric for finding new nodes</span>
+<span class="sd">        * n_feat {int} -- number of features in data</span>
+<span class="sd">        * min_data {float} -- minimum percentage of all data sets that a tree will see </span>
+<span class="sd">        * pruning {bool} -- pruning enabled (&gt;0) / disabled(=0)</span>
 
-<span class="c1"># Growing the Random Forest</span>
-
-<span class="c1"># The Random Forest consists of n_trees. Each tree sees only a subset of the data and a subset of the features.</span>
-<span class="c1"># Important: a tree never sees the original data set, only the performance of the classifying algorithm</span>
-<span class="c1"># For significant conclusions enough trees must be generated in order to gain the statistical benefits that overcome bad outputs</span>
-<span class="c1"># from a single tree</span>
-<span class="k">def</span> <span class="nf">buildforest</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">n_trees</span><span class="p">,</span> <span class="n">scoref</span><span class="p">,</span> <span class="n">n_feat</span><span class="p">,</span> <span class="n">min_data</span><span class="p">,</span> <span class="n">pruning</span><span class="p">):</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        * RF -- importances of single features in the forest</span>
+<span class="sd">        * Prob_current -- importance of the features in the forest</span>
+<span class="sd">        * trees -- the structure of the single trees the forest consists of</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># print data</span>
     <span class="n">prob_current</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">RF</span> <span class="o">=</span> <span class="p">{}</span>  <span class="c1"># Prelocate dictionary for prioritizing important features</span>
@@ -666,7 +638,7 @@
         <span class="n">tree</span> <span class="o">=</span> <span class="n">buildtree</span><span class="p">(</span><span class="n">sub_data</span><span class="p">,</span> <span class="n">scoref</span><span class="p">)</span>
         <span class="c1"># print getwidth(tree)</span>
         <span class="k">if</span> <span class="n">pruning</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="n">prune</span><span class="p">(</span><span class="n">tree</span><span class="p">,</span> <span class="n">pruning</span><span class="p">)</span>  <span class="c1"># not neccessary in RF ?</span>
+            <span class="n">prune</span><span class="p">(</span><span class="n">tree</span><span class="p">,</span> <span class="n">pruning</span><span class="p">)</span>
         <span class="c1"># print getwidth(tree)</span>
 
         <span class="c1"># draw the tree and create path matrix</span>
@@ -709,7 +681,7 @@
     <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">RF</span><span class="p">:</span>
         <span class="n">RF</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">temp_percent</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># [0] because otherwise there would be an array inside the dictionary RF</span>
         <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
-    <span class="c1"># print RF</span>
+    <span class="c1"># print &quot;RF: &quot; + str(RF)</span>
 
     <span class="c1"># a wrong tree is a tree with only one node that has no power to gain additional insight and therefore is useless...</span>
     <span class="nb">print</span> <span class="s2">&quot;wrongs: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">wrongs</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;/&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">n_trees</span><span class="p">)</span>
@@ -731,7 +703,64 @@
     <span class="c1"># print &quot;importance of features in random forest: &quot; + str(weights_sorted)</span>
     <span class="n">prob_current</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">weights_sorted</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>  <span class="c1"># extract only values of feature importance</span>
     <span class="c1"># print prob_current</span>
-    <span class="k">return</span> <span class="n">RF</span><span class="p">,</span> <span class="n">prob_current</span><span class="p">,</span> <span class="n">trees</span>
+    <span class="k">return</span> <span class="n">RF</span><span class="p">,</span> <span class="n">prob_current</span><span class="p">,</span> <span class="n">trees</span></div>
+
+<span class="c1"># for each tree, the features that lead to the leaf with the lowest Error will get rewarded/punished</span>
+<span class="c1"># depending on whether the leaf lies on the positive or negative side of the node feature</span>
+<span class="c1"># RF gets updated after a new tree is built and thus contains the cummulation of all</span>
+<span class="c1"># feature appearences in the whole forest</span>
+
+
+<div class="viewcode-block" id="update_RF"><a class="viewcode-back" href="../../RF.html#ForestFire.Main.update_RF">[docs]</a><span class="k">def</span> <span class="nf">update_RF</span><span class="p">(</span><span class="n">RF</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">tree</span><span class="p">,</span> <span class="n">rand_feat</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;for each tree, the features that lead to the leaf with the lowest Error will get rewarded/punished</span>
+<span class="sd">    depending on whether the leaf lies on the positive or negative side of the node feature</span>
+
+<span class="sd">    </span>
+<span class="sd">    RF gets updated after a new tree is built and thus contains the cummulation of all</span>
+<span class="sd">    feature appearences in the whole forest</span>
+<span class="sd">    </span>
+<span class="sd">    Arguments:</span>
+<span class="sd">        * RF {[type]} -- [description]</span>
+<span class="sd">        * path {[type]} -- [description]</span>
+<span class="sd">        * tree {[type]} -- [description]</span>
+<span class="sd">        * rand_feat {[type]} -- [description]</span>
+<span class="sd">    </span>
+<span class="sd">    Returns:</span>
+<span class="sd">        * [type] -- [description]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">current_depth</span> <span class="o">=</span> <span class="n">getdepth</span><span class="p">(</span><span class="n">tree</span><span class="p">)</span>
+    <span class="c1"># print &quot;current path: &quot; + str(path)</span>
+    <span class="c1"># print  &quot;current depth = &quot; + str(getdepth(tree))</span>
+    <span class="c1"># print &quot;current col: &quot; + str(tree.col)</span>
+    <span class="k">if</span> <span class="n">current_depth</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">RF</span>
+    <span class="n">MSE_min</span> <span class="o">=</span> <span class="n">path</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="c1"># print &quot;MSE_min: &quot; + str(MSE_min)</span>
+    <span class="c1"># print &quot;Checking if MSE_min is in True branch&quot;</span>
+    <span class="k">if</span> <span class="n">check_path</span><span class="p">(</span><span class="n">tree</span><span class="o">.</span><span class="n">tb</span><span class="p">,</span> <span class="n">MSE_min</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="c1"># print &quot;MSE_min is in True Branch&quot;</span>
+        <span class="k">if</span> <span class="n">rand_feat</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">tree</span><span class="o">.</span><span class="n">col</span><span class="p">)]</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">RF</span><span class="p">:</span>  <span class="c1"># initialize the feature in dictionary RF if it appears for the first time</span>
+            <span class="c1"># print rand_feat</span>
+            <span class="c1"># print tree.col</span>
+            <span class="c1"># print rand_feat[int(tree.col)]</span>
+            <span class="n">RF</span><span class="p">[</span><span class="n">rand_feat</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">tree</span><span class="o">.</span><span class="n">col</span><span class="p">)]]</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">current_depth</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>  <span class="c1"># if the feature is already present in dictionary RF, increase counter</span>
+            <span class="n">RF</span><span class="p">[</span><span class="n">rand_feat</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">tree</span><span class="o">.</span><span class="n">col</span><span class="p">)]]</span> <span class="o">+=</span> <span class="nb">float</span><span class="p">(</span><span class="n">current_depth</span><span class="p">)</span>
+        <span class="c1"># print &quot;added &quot; + str(current_depth) + &quot; to feature  &quot; + str(tree.col)</span>
+        <span class="c1"># print &quot;current RF: &quot; + str(RF)</span>
+        <span class="n">update_RF</span><span class="p">(</span><span class="n">RF</span><span class="p">,</span> <span class="n">path</span><span class="p">[</span><span class="mi">1</span><span class="p">:],</span> <span class="n">tree</span><span class="o">.</span><span class="n">tb</span><span class="p">,</span> <span class="n">rand_feat</span><span class="p">)</span>  <span class="c1"># recursively jump into update_RF again with shortened path at next level in true branch</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># print &quot;MSE_min is not in True Branch&quot;</span>
+        <span class="c1"># print &quot;Checking if MSE_min is in False Branch&quot;</span>
+        <span class="k">if</span> <span class="n">check_path</span><span class="p">(</span><span class="n">tree</span><span class="o">.</span><span class="n">fb</span><span class="p">,</span> <span class="n">MSE_min</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="c1"># print &quot;MSE_min is in False Branch&quot;</span>
+            <span class="k">if</span> <span class="n">rand_feat</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">tree</span><span class="o">.</span><span class="n">col</span><span class="p">)]</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">RF</span><span class="p">:</span>  <span class="c1"># initialize the feature in dictionary RF if it appears for the first time</span>
+                <span class="n">RF</span><span class="p">[</span><span class="n">rand_feat</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">tree</span><span class="o">.</span><span class="n">col</span><span class="p">)]]</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.2</span> <span class="o">*</span> <span class="nb">float</span><span class="p">(</span><span class="n">current_depth</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>  <span class="c1"># if the feature is already present in dictionary RF, decrease counter</span>
+                <span class="n">RF</span><span class="p">[</span><span class="n">rand_feat</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">tree</span><span class="o">.</span><span class="n">col</span><span class="p">)]]</span> <span class="o">-=</span> <span class="nb">float</span><span class="p">(</span><span class="n">current_depth</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.2</span>
+            <span class="c1"># print &quot;subtracted &quot; + str(current_depth*0.2) + &quot; from feature &quot; + str(tree.col)</span>
+            <span class="c1"># print &quot;current RF: &quot; + str(RF)</span>
+            <span class="n">update_RF</span><span class="p">(</span><span class="n">RF</span><span class="p">,</span> <span class="n">path</span><span class="p">[</span><span class="mi">1</span><span class="p">:],</span> <span class="n">tree</span><span class="o">.</span><span class="n">fb</span><span class="p">,</span> <span class="n">rand_feat</span><span class="p">)</span>  <span class="c1"># recursively jump into update_RF again with shortened path at next level in false branch</span></div>
 
 
 <span class="sd">&quot;&quot;&quot;</span>
