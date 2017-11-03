@@ -40,3 +40,7 @@ The following Modules are imported during the execution of ForestFire:
 .. literalinclude:: ForestFire/Main.py
     :lines: 1-6
 
+About the author
+----------------
+Information about author
+
