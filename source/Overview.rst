@@ -43,5 +43,5 @@ The following Modules are imported during the execution of ForestFire:
 About the author
 ----------------
 
-Information about author. cool
+Information about author.
 
