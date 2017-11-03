@@ -121,8 +121,8 @@ For significant conclusions enough trees must be generated in order to gain the 
 <span class="target" id="update-rf"></span><dl class="last function">
 <dt id="ForestFire.Main.update_RF">
 <code class="descclassname">ForestFire.Main.</code><code class="descname">update_RF</code><span class="sig-paren">(</span><em>RF</em>, <em>path</em>, <em>tree</em>, <em>rand_feat</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ForestFire/Main.html#update_RF"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ForestFire.Main.update_RF" title="Permalink to this definition">¶</a></dt>
-<dd><p>for each tree, the features that lead to the leaf with the lowest Error will get rewarded/punished
-depending on whether the leaf lies on the positive or negative side of the node feature</p>
+<dd><p>for each tree the features that lead to the leaf with the lowest Error will get rewarded
+Features that don&#8217;t lead to the leaf with the lowest Error will get punished (only by 20% of the reward)</p>
 <p>RF gets updated after a new tree is built and thus contains the cummulation of all
 feature appearences in the whole forest</p>
 <dl class="docutils">

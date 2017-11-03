@@ -705,26 +705,21 @@
     <span class="c1"># print prob_current</span>
     <span class="k">return</span> <span class="n">RF</span><span class="p">,</span> <span class="n">prob_current</span><span class="p">,</span> <span class="n">trees</span></div>
 
-<span class="c1"># for each tree, the features that lead to the leaf with the lowest Error will get rewarded/punished</span>
-<span class="c1"># depending on whether the leaf lies on the positive or negative side of the node feature</span>
-<span class="c1"># RF gets updated after a new tree is built and thus contains the cummulation of all</span>
-<span class="c1"># feature appearences in the whole forest</span>
-
 
 <div class="viewcode-block" id="update_RF"><a class="viewcode-back" href="../../RF.html#ForestFire.Main.update_RF">[docs]</a><span class="k">def</span> <span class="nf">update_RF</span><span class="p">(</span><span class="n">RF</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">tree</span><span class="p">,</span> <span class="n">rand_feat</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;for each tree, the features that lead to the leaf with the lowest Error will get rewarded/punished</span>
-<span class="sd">    depending on whether the leaf lies on the positive or negative side of the node feature</span>
+    <span class="sd">&quot;&quot;&quot;for each tree the features that lead to the leaf with the lowest Error will get rewarded</span>
+<span class="sd">    Features that don&#39;t lead to the leaf with the lowest Error will get punished (only by 20% of the reward)</span>
 
-<span class="sd">    </span>
+
 <span class="sd">    RF gets updated after a new tree is built and thus contains the cummulation of all</span>
 <span class="sd">    feature appearences in the whole forest</span>
-<span class="sd">    </span>
+
 <span class="sd">    Arguments:</span>
 <span class="sd">        * RF {[type]} -- [description]</span>
 <span class="sd">        * path {[type]} -- [description]</span>
 <span class="sd">        * tree {[type]} -- [description]</span>
 <span class="sd">        * rand_feat {[type]} -- [description]</span>
-<span class="sd">    </span>
+
 <span class="sd">    Returns:</span>
 <span class="sd">        * [type] -- [description]</span>
 <span class="sd">    &quot;&quot;&quot;</span>

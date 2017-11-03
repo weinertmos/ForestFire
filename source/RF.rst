@@ -29,7 +29,7 @@ This will reduce the bias of the tree, but increase the variance.
 By building multiple trees and averaging their results the variance can in turn be reduced.
 The name for this construct is :term:`Random Forest`.
 
-Building a Random Forest
+Building the Random Forest
 --------------------------
 
 In :ref:`buildforest <buildforest>` the Random Forest is built according to the following steps:

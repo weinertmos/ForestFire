@@ -84,8 +84,7 @@ But changing them can tweak the performance.</p>
 <span class="c1"># number of randomly chosen feature sets that get predicted in each forest; default = n_configs_biased * 0.2</span>
 <span class="n">n_configs_unbiased</span> <span class="o">=</span> <span class="s1">&#39;default&#39;</span>
 <span class="c1"># sets how aggressively the feature importance changes; default = 0.25</span>
-<span class="c1"># higher values will increase pressure on how o</span>
-<span class="n">ften</span> <span class="n">promising</span> <span class="n">features</span> <span class="n">will</span> <span class="n">be</span> <span class="n">selected</span><span class="o">.</span>
+<span class="c1"># higher values will increase pressure on how often promising features will be selected.</span>
 <span class="c1"># advanced parameter, adjust carefully. If set too high the risk of runnning into local extrema rises.</span>
 <span class="n">multiplier_stepup</span> <span class="o">=</span> <span class="s1">&#39;default&#39;</span>
 <span class="c1"># number of recent forests that are taken into acount for generating probability of the chosen feature sets default = 4 ? make variable?</span>
@@ -101,16 +100,17 @@ But changing them can tweak the performance.</p>
 <span class="c1"># select variance for numerical values in y only</span>
 <span class="n">scoref</span> <span class="o">=</span> <span class="s1">&#39;variance&#39;</span>
 <span class="c1"># set random seed for repeatabilit; comment out if no repeatability is required; default = 1</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="demo-mode-plot">
 <h2>Demo Mode &amp; Plot<a class="headerlink" href="#demo-mode-plot" title="Permalink to this headline">¶</a></h2>
 <p>In order to compare and plot the performance of ForestFire vs. a randomized search there are two more hyperparameters that can be used:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-
+<div class="highlight-default"><div class="highlight"><pre><span></span>
 <span class="c1"># if true a comparison between the Random Forest driven Search and a random search is done</span>
 <span class="n">demo_mode</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="c1"># decide if at the end a plot should be generated , only valid in demo mode</span>
 </pre></div>
 </div>
 <p>This mode can be usefull when trying to make sure that ForestFire doesn&#8217;t get caught in a local extremum.
