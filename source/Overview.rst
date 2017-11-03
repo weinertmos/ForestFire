@@ -25,6 +25,14 @@ RF
 MLA
     Machine Learning Algorithm
 
+Glossary
+--------
+
+.. glossary::
+
+    node
+        A node is...
+
 References
 ----------
 
