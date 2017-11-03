@@ -715,13 +715,13 @@
 <span class="sd">    feature appearences in the whole forest</span>
 
 <span class="sd">    Arguments:</span>
-<span class="sd">        * RF {[type]} -- [description]</span>
-<span class="sd">        * path {[type]} -- [description]</span>
-<span class="sd">        * tree {[type]} -- [description]</span>
-<span class="sd">        * rand_feat {[type]} -- [description]</span>
+<span class="sd">        * RF {dict} -- dictionary that counts occurrence / absence of different features</span>
+<span class="sd">        * path {numpy.array} -- structure of the current tree</span>
+<span class="sd">        * tree {decisionnode} -- tree that gets examined</span>
+<span class="sd">        * rand_feat {list} -- boolean mask of selected features (1 = selected, 0 = not selected)</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        * [type] -- [description]</span>
+<span class="sd">        * RF -- updated dictionary that counts occurrence / absence of different features</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">current_depth</span> <span class="o">=</span> <span class="n">getdepth</span><span class="p">(</span><span class="n">tree</span><span class="p">)</span>
     <span class="c1"># print &quot;current path: &quot; + str(path)</span>
@@ -758,15 +758,25 @@
             <span class="n">update_RF</span><span class="p">(</span><span class="n">RF</span><span class="p">,</span> <span class="n">path</span><span class="p">[</span><span class="mi">1</span><span class="p">:],</span> <span class="n">tree</span><span class="o">.</span><span class="n">fb</span><span class="p">,</span> <span class="n">rand_feat</span><span class="p">)</span>  <span class="c1"># recursively jump into update_RF again with shortened path at next level in false branch</span></div>
 
 
-<span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">predict new feature sets</span>
-<span class="sd">data: array containing all previous computational runs;  trees: array with all the different trees of the current forest</span>
-<span class="sd">prob: frequency distribution for the single features;  n_configs: number of new feature sets that are to be predicted</span>
-<span class="sd">biased: boolean variable, if true prob will be taken into account, if false uniform distribution is used</span>
-<span class="sd">&quot;&quot;&quot;</span>
-
-
 <div class="viewcode-block" id="forest_predict"><a class="viewcode-back" href="../../RF.html#ForestFire.Main.forest_predict">[docs]</a><span class="k">def</span> <span class="nf">forest_predict</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">trees</span><span class="p">,</span> <span class="n">prob</span><span class="p">,</span> <span class="n">n_configs</span><span class="p">,</span> <span class="n">biased</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;predict performance of new feature sets</span>
+
+<span class="sd">    Predicts biased and unbiased feature sets in the before constructed Random Forest.</span>
+
+
+<span class="sd">    Arguments:</span>
+<span class="sd">        * data {numpy.array} -- contains all previous computing runs</span>
+<span class="sd">        * trees {decisionnodes} -- the trees that make up the Random Forest</span>
+<span class="sd">        * prob {array of floats} -- probability that a feature gets chosen into a feature set</span>
+<span class="sd">        * n_configs {int} -- number of feature sets to be generated</span>
+<span class="sd">        * biased {bool} -- true for biased feature selection, false for unbiased feature selection</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        * best mean -- highest average of all predicted feature sets</span>
+<span class="sd">        * best feature set mean -- corresponding boolean list of features (0=feature not chosen, 1=feature chosen)</span>
+<span class="sd">        * best var -- highest variance of all predicted feature sets</span>
+<span class="sd">        * best feature set var -- corresponding boolean list of features (0=feature not chosen, 1=feature chosen)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">biased</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">True</span><span class="p">:</span>
         <span class="n">prob</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="c1"># print &quot;prob: &quot; + str(prob)</span>
@@ -812,8 +822,9 @@
         <span class="n">var</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">var</span><span class="p">(</span><span class="n">predictions</span><span class="p">)</span> <span class="o">/</span> <span class="nb">abs</span><span class="p">(</span><span class="n">mean</span><span class="p">[</span><span class="n">x</span><span class="p">])</span>  <span class="c1"># ? correct?</span>
         <span class="c1"># check if current mean and var are better than best mean and var</span>
         <span class="c1"># calculation: best_mean = 1.0*mean + 0.1*var and vice versa</span>
-        <span class="k">if</span> <span class="n">best_mean</span> <span class="o">==</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">or</span> <span class="n">mean</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">+</span> <span class="n">var</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">*</span> <span class="mf">0.0</span> <span class="o">&gt;</span> <span class="n">best_mean</span><span class="p">:</span>
-            <span class="n">best_mean</span> <span class="o">=</span> <span class="n">mean</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">+</span> <span class="n">var</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">*</span> <span class="mf">0.0</span>
+        <span class="k">if</span> <span class="n">best_mean</span> <span class="o">==</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">or</span> <span class="n">mean</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">+</span> <span class="n">var</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">*</span> <span class="mf">0.1</span> <span class="o">&gt;</span> <span class="n">best_mean</span><span class="p">:</span>
+            <span class="n">best_mean</span> <span class="o">=</span> <span class="n">mean</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">+</span> <span class="n">var</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">*</span> <span class="mf">0.1</span>
+
             <span class="c1"># print &quot;best_mean updated: &quot; + str(best_mean)</span>
             <span class="n">best_featureset_mean</span> <span class="o">=</span> <span class="n">mask_sub_features</span>
             <span class="c1"># print &quot;best_featureset_mean = &quot; + str(best_featureset_mean)</span>

@@ -143,15 +143,15 @@ feature appearences in the whole forest</p>
 <dl class="docutils">
 <dt>Arguments:</dt>
 <dd><ul class="first last simple">
-<li>RF {[type]} &#8211; [description]</li>
-<li>path {[type]} &#8211; [description]</li>
-<li>tree {[type]} &#8211; [description]</li>
-<li>rand_feat {[type]} &#8211; [description]</li>
+<li>RF {dict} &#8211; dictionary that counts occurrence / absence of different features</li>
+<li>path {numpy.array} &#8211; structure of the current tree</li>
+<li>tree {decisionnode} &#8211; tree that gets examined</li>
+<li>rand_feat {list} &#8211; boolean mask of selected features (1 = selected, 0 = not selected)</li>
 </ul>
 </dd>
 <dt>Returns:</dt>
 <dd><ul class="first last simple">
-<li>[type] &#8211; [description]</li>
+<li>RF &#8211; updated dictionary that counts occurrence / absence of different features</li>
 </ul>
 </dd>
 </dl>
@@ -160,7 +160,28 @@ feature appearences in the whole forest</p>
 <span class="target" id="forest-predict"></span><dl class="last function">
 <dt id="ForestFire.Main.forest_predict">
 <code class="descclassname">ForestFire.Main.</code><code class="descname">forest_predict</code><span class="sig-paren">(</span><em>data</em>, <em>trees</em>, <em>prob</em>, <em>n_configs</em>, <em>biased</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ForestFire/Main.html#forest_predict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ForestFire.Main.forest_predict" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>predict performance of new feature sets</p>
+<p>Predicts biased and unbiased feature sets in the before constructed Random Forest.</p>
+<dl class="docutils">
+<dt>Arguments:</dt>
+<dd><ul class="first last simple">
+<li>data {numpy.array} &#8211; contains all previous computing runs</li>
+<li>trees {decisionnodes} &#8211; the trees that make up the Random Forest</li>
+<li>prob {array of floats} &#8211; probability that a feature gets chosen into a feature set</li>
+<li>n_configs {int} &#8211; number of feature sets to be generated</li>
+<li>biased {bool} &#8211; true for biased feature selection, false for unbiased feature selection</li>
+</ul>
+</dd>
+<dt>Returns:</dt>
+<dd><ul class="first last simple">
+<li>best mean &#8211; highest average of all predicted feature sets</li>
+<li>best feature set mean &#8211; corresponding boolean list of features (0=feature not chosen, 1=feature chosen)</li>
+<li>best var &#8211; highest variance of all predicted feature sets</li>
+<li>best feature set var &#8211; corresponding boolean list of features (0=feature not chosen, 1=feature chosen)</li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
 
 </div>
 <div class="figure align-center" id="blank">

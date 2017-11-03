@@ -59,7 +59,7 @@
 
 <span class="c1"># number of runs before building first Random Forest = number of data points in first RF; minimum = 4, default = 50</span>
 <span class="c1"># adjust according to computational capabilities and demands of the underlying machine learning algorithm</span>
-<span class="n">n_runs</span> <span class="o">=</span> <span class="mi">4</span>  <span class="c1"># default = 30</span>
+<span class="n">n_runs</span> <span class="o">=</span> <span class="mi">10</span>  <span class="c1"># default = 30</span>
 <span class="c1"># if pruning is greater than zero, branches of a Decision Tree will be pruned proportional to pruning value; default = 0</span>
 <span class="c1"># advanced parameter. If set too high, all trees will be cut down to stumps. Increase carefully. Start with values between 0 and 1.</span>
 <span class="n">pruning</span> <span class="o">=</span> <span class="mf">0.4</span>
@@ -67,7 +67,7 @@
 <span class="n">min_data</span> <span class="o">=</span> <span class="mf">0.2</span>
 <span class="c1"># number of forests; minimum=1;  default = 25</span>
 <span class="c1"># adjust according to computational capabilities. For each forest two new computational runs are done. default = 20</span>
-<span class="n">n_forests</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="n">n_forests</span> <span class="o">=</span> <span class="mi">10</span>
 </pre></div>
 </div>
 <p>These parameters should be chosen according to computational demand of the <a class="reference internal" href="Overview.html#mla"><span class="std std-ref">MLA</span></a>.

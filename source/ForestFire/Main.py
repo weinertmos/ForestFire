@@ -670,13 +670,13 @@ def update_RF(RF, path, tree, rand_feat):
     feature appearences in the whole forest
 
     Arguments:
-        * RF {[type]} -- [description]
-        * path {[type]} -- [description]
-        * tree {[type]} -- [description]
-        * rand_feat {[type]} -- [description]
+        * RF {dict} -- dictionary that counts occurrence / absence of different features
+        * path {numpy.array} -- structure of the current tree
+        * tree {decisionnode} -- tree that gets examined
+        * rand_feat {list} -- boolean mask of selected features (1 = selected, 0 = not selected)
 
     Returns:
-        * [type] -- [description]
+        * RF -- updated dictionary that counts occurrence / absence of different features
     """
     current_depth = getdepth(tree)
     # print "current path: " + str(path)
@@ -713,19 +713,28 @@ def update_RF(RF, path, tree, rand_feat):
             update_RF(RF, path[1:], tree.fb, rand_feat)  # recursively jump into update_RF again with shortened path at next level in false branch
 
 
-"""
-predict new feature sets
-data: array containing all previous computational runs;  trees: array with all the different trees of the current forest
-prob: frequency distribution for the single features;  n_configs: number of new feature sets that are to be predicted
-biased: boolean variable, if true prob will be taken into account, if false uniform distribution is used
-"""
-
-
 def forest_predict(data, trees, prob, n_configs, biased):
+    """predict performance of new feature sets
+
+    Predicts biased and unbiased feature sets in the before constructed Random Forest.
+
+
+    Arguments:
+        * data {numpy.array} -- contains all previous computing runs
+        * trees {decisionnodes} -- the trees that make up the Random Forest
+        * prob {array of floats} -- probability that a feature gets chosen into a feature set
+        * n_configs {int} -- number of feature sets to be generated
+        * biased {bool} -- true for biased feature selection, false for unbiased feature selection
+
+    Returns:
+        * best mean -- highest average of all predicted feature sets
+        * best feature set mean -- corresponding boolean list of features (0=feature not chosen, 1=feature chosen)
+        * best var -- highest variance of all predicted feature sets
+        * best feature set var -- corresponding boolean list of features (0=feature not chosen, 1=feature chosen)
+    """
     if biased is not True:
         prob = None
     # print "prob: " + str(prob)
-
     # Prelocate variables
     mean = np.zeros(n_configs)
     var = np.zeros(n_configs)
@@ -767,8 +776,9 @@ def forest_predict(data, trees, prob, n_configs, biased):
         var[x] = np.var(predictions) / abs(mean[x])  # ? correct?
         # check if current mean and var are better than best mean and var
         # calculation: best_mean = 1.0*mean + 0.1*var and vice versa
-        if best_mean == [0] or mean[x] + var[x] * 0.0 > best_mean:
-            best_mean = mean[x] + var[x] * 0.0
+        if best_mean == [0] or mean[x] + var[x] * 0.1 > best_mean:
+            best_mean = mean[x] + var[x] * 0.1
+
             # print "best_mean updated: " + str(best_mean)
             best_featureset_mean = mask_sub_features
             # print "best_featureset_mean = " + str(best_featureset_mean)
