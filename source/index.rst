@@ -53,8 +53,9 @@ Indices and tables
 
 .. todolist::
 
-
-es folgt Quatsch mit Sose:
+Kinderspielplatz
+================
+es folgt Quatsch mit Sose
 
 Eine Referenz zu getting started: :ref:`get_started`
 

@@ -3,11 +3,15 @@ It utilises the Random Forest algorithm - which is itself a machine learning tec
 importance of features in a given set of data and make new predictions which featuresets are most 
 likely to yield the best results. 
 After building a Random Forest the most promising feature sets are selected and computed. 
-The Random Forest is burnt down and a new one is grown until the maximum number of forests is reached.
+The Random Forest is burnt down and a new one is grown until the defined maximum number of forests is reached.
 The results can be compared against random search.
 
 *ForestFire* is most usefull in data sets with a number of features greater than 10 where a single run of
-a :ref:`MLA <MLA>` has a high computational cost. 
+a :ref:`MLA <MLA>` has a high computational cost. In such data sets the problem arises that some features are
+more significant than the rest.
+Others may even distort the performance of the underlying :ref:`MLA <MLA>` in a negative fashion. 
+With a rising number of features a nearly indifinite number of possible selections (= feature sets) emerges.
+In those cases ForestFire can help to choose those feature sets that are most promising to yield good results.
 By predicting the performance of new feature sets according to their importance in a Random Forest built 
 from previous runs it is more likely to find a feature set with a higher performance after a shorter period 
 of time than randomly choosing new feature sets.
