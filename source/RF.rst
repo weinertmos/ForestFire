@@ -1,7 +1,7 @@
 .. _Random_Forest:
 
-Growing a Random Forest
-=======================
+Random Forest
+=============
 
 corresponding file: `Main.py <https://github.com/weinertmos/ForestFire/blob/master/source/ForestFire/Main.py>`_
 
@@ -29,7 +29,7 @@ This will reduce the bias of the tree, but increase the variance.
 By building multiple trees and averaging their results the variance can in turn be reduced.
 The name for this construct is :term:`Random Forest`.
 
-Building the Random Forest
+Growing a Random Forest
 --------------------------
 
 In :ref:`buildforest <buildforest>` the Random Forest is built according to the following steps:

@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Growing a Random Forest &#8212; ForestFire 1.0.0 documentation</title>
+    <title>Random Forest &#8212; ForestFire 1.0.0 documentation</title>
     
     <link rel="stylesheet" href="_static/haiku.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -27,17 +27,17 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Update Database" href="Update_Database.html" />
-    <link rel="prev" title="Growing a single Decision Tree" href="DT.html" /> 
+    <link rel="prev" title="Decision Tree" href="DT.html" /> 
   </head>
   <body role="document">
       <div class="header" role="banner"><h1 class="heading"><a href="index.html">
           <span>ForestFire 1.0.0 documentation</span></a></h1>
-        <h2 class="heading"><span>Growing a Random Forest</span></h2>
+        <h2 class="heading"><span>Random Forest</span></h2>
       </div>
       <div class="topnav" role="navigation" aria-label="top navigation">
       
         <p>
-        «&#160;&#160;<a href="DT.html">Growing a single Decision Tree</a>
+        «&#160;&#160;<a href="DT.html">Decision Tree</a>
         &#160;&#160;::&#160;&#160;
         <a class="uplink" href="index.html">Contents</a>
         &#160;&#160;::&#160;&#160;
@@ -48,8 +48,8 @@
       <div class="content">
         
         
-  <div class="section" id="growing-a-random-forest">
-<span id="random-forest"></span><h1>Growing a Random Forest<a class="headerlink" href="#growing-a-random-forest" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="random-forest">
+<span id="id1"></span><h1>Random Forest<a class="headerlink" href="#random-forest" title="Permalink to this headline">¶</a></h1>
 <p>corresponding file: <a class="reference external" href="https://github.com/weinertmos/ForestFire/blob/master/source/ForestFire/Main.py">Main.py</a></p>
 <div class="section" id="why-is-a-single-decision-tree-not-enough">
 <h2>Why is a single Decision Tree not enough?<a class="headerlink" href="#why-is-a-single-decision-tree-not-enough" title="Permalink to this headline">¶</a></h2>
@@ -73,8 +73,8 @@ In addition a single tree that sees all features of the data set tends to be bia
 By building multiple trees and averaging their results the variance can in turn be reduced.
 The name for this construct is <a class="reference internal" href="Overview.html#term-random-forest"><span class="xref std std-term">Random Forest</span></a>.</p>
 </div>
-<div class="section" id="building-a-random-forest">
-<h2>Building a Random Forest<a class="headerlink" href="#building-a-random-forest" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="growing-a-random-forest">
+<h2>Growing a Random Forest<a class="headerlink" href="#growing-a-random-forest" title="Permalink to this headline">¶</a></h2>
 <p>In <a class="reference internal" href="#buildforest"><span class="std std-ref">buildforest</span></a> the Random Forest is built according to the following steps:</p>
 <blockquote>
 <div><ol class="arabic simple">
@@ -151,7 +151,7 @@ feature appearences in the whole forest</p>
       <div class="bottomnav" role="navigation" aria-label="bottom navigation">
       
         <p>
-        «&#160;&#160;<a href="DT.html">Growing a single Decision Tree</a>
+        «&#160;&#160;<a href="DT.html">Decision Tree</a>
         &#160;&#160;::&#160;&#160;
         <a class="uplink" href="index.html">Contents</a>
         &#160;&#160;::&#160;&#160;

@@ -1,7 +1,7 @@
 .. _singleTree:
 
-Growing a single Decision Tree
-==============================
+Decision Tree
+=============
 
 corresponding file: `Main.py <https://github.com/weinertmos/ForestFire/blob/master/source/ForestFire/Main.py>`_
 
