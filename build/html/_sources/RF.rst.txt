@@ -30,7 +30,7 @@ By building multiple trees and averaging their results the variance can in turn 
 The name for this construct is :term:`Random Forest`.
 
 Growing a Random Forest
---------------------------
+-----------------------
 
 In :ref:`buildforest <buildforest>` the Random Forest is built according to the following steps:
 
@@ -42,6 +42,20 @@ In :ref:`buildforest <buildforest>` the Random Forest is built according to the 
 
 After a new tree is built the feature importance for the whole Forest is :ref:`updated <update_RF>` from the number of appearances in the single trees. 
 The higher up a feature gets selected in a tree the higher it is rated. The punishment for features that don't lead to the best results is weaker than the reward for leading to the best results.
+
+Predicting new feature sets
+---------------------------
+
+After the forest is built it can be used to make predictions (see :ref:`forest_predict <forest_predict>`) about the performance of arbitrary feature sets.
+A new feature set candidate gets classified in every single forest.
+The results are averaged.
+From the vast amount of possible feature sets two different groups of feature sets are considered:
+
+    * feature sets biased according to the average importance of each feature
+    * entirely randomly chosen feature sets
+
+The two :ref:`hyperparameters <hyperparameters>` *n_configs_biased* and *n_configs_unbiased* determine the amount of feature sets that get tested. 
+Since predicting takes not much computing capacity this number can safely be set fairly high.
 
 
 
@@ -58,3 +72,18 @@ The higher up a feature gets selected in a tree the higher it is rated. The puni
     .. _update_RF:
 
     .. autofunction:: ForestFire.Main.update_RF
+
+    .. _forest_predict:
+
+    .. autofunction:: ForestFire.Main.forest_predict
+
+
+
+.. _blank:
+
+.. figure:: pyplots/blank.jpg
+    :scale: 80%
+    :alt: treeview.jpg
+    :align: center
+
+

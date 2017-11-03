@@ -72,3 +72,14 @@ About the author
 
 Information about author.
 
+
+
+
+
+
+.. _blank:
+
+.. figure:: pyplots/blank.jpg
+    :scale: 80%
+    :alt: treeview.jpg
+    :align: center

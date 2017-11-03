@@ -7,6 +7,8 @@ corresponding file: `run_ForestFire.py <https://github.com/weinertmos/ForestFire
 
 After :ref:`importing the raw data <import_data>` and :ref:`configuring the MLA <compute>`, ForestFire can be executed.
 
+.. _hyperparameters:
+
 Hyperparameters
 ---------------
 
@@ -198,3 +200,14 @@ A generic output (with demo mode on) can look like this::
     **Functions used in this chapter**
 
     .. autofunction:: ForestFire.Main.main_loop
+
+
+
+
+
+.. _blank:
+
+.. figure:: pyplots/blank.jpg
+    :scale: 80%
+    :alt: treeview.jpg
+    :align: center

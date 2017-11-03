@@ -87,6 +87,21 @@ The name for this construct is <a class="reference internal" href="Overview.html
 </div></blockquote>
 <p>After a new tree is built the feature importance for the whole Forest is <a class="reference internal" href="#update-rf"><span class="std std-ref">updated</span></a> from the number of appearances in the single trees.
 The higher up a feature gets selected in a tree the higher it is rated. The punishment for features that don&#8217;t lead to the best results is weaker than the reward for leading to the best results.</p>
+</div>
+<div class="section" id="predicting-new-feature-sets">
+<h2>Predicting new feature sets<a class="headerlink" href="#predicting-new-feature-sets" title="Permalink to this headline">¶</a></h2>
+<p>After the forest is built it can be used to make predictions (see <a class="reference internal" href="#forest-predict"><span class="std std-ref">forest_predict</span></a>) about the performance of arbitrary feature sets.
+A new feature set candidate gets classified in every single forest.
+The results are averaged.
+From the vast amount of possible feature sets two different groups of feature sets are considered:</p>
+<blockquote>
+<div><ul class="simple">
+<li>feature sets biased according to the average importance of each feature</li>
+<li>entirely randomly chosen feature sets</li>
+</ul>
+</div></blockquote>
+<p>The two <a class="reference internal" href="execution.html#hyperparameters"><span class="std std-ref">hyperparameters</span></a> <em>n_configs_biased</em> and <em>n_configs_unbiased</em> determine the amount of feature sets that get tested.
+Since predicting takes not much computing capacity this number can safely be set fairly high.</p>
 <div class="admonition important">
 <p class="first admonition-title">Important</p>
 <p><strong>Functions used in this chapter</strong></p>
@@ -118,7 +133,7 @@ For significant conclusions enough trees must be generated in order to gain the 
 </dl>
 </dd></dl>
 
-<span class="target" id="update-rf"></span><dl class="last function">
+<span class="target" id="update-rf"></span><dl class="function">
 <dt id="ForestFire.Main.update_RF">
 <code class="descclassname">ForestFire.Main.</code><code class="descname">update_RF</code><span class="sig-paren">(</span><em>RF</em>, <em>path</em>, <em>tree</em>, <em>rand_feat</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ForestFire/Main.html#update_RF"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ForestFire.Main.update_RF" title="Permalink to this definition">¶</a></dt>
 <dd><p>for each tree the features that lead to the leaf with the lowest Error will get rewarded
@@ -142,6 +157,14 @@ feature appearences in the whole forest</p>
 </dl>
 </dd></dl>
 
+<span class="target" id="forest-predict"></span><dl class="last function">
+<dt id="ForestFire.Main.forest_predict">
+<code class="descclassname">ForestFire.Main.</code><code class="descname">forest_predict</code><span class="sig-paren">(</span><em>data</em>, <em>trees</em>, <em>prob</em>, <em>n_configs</em>, <em>biased</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ForestFire/Main.html#forest_predict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ForestFire.Main.forest_predict" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="figure align-center" id="blank">
+<a class="reference internal image-reference" href="_images/blank.jpg"><img alt="treeview.jpg" src="_images/blank.jpg" style="width: 1020.0px; height: 1320.0px;" /></a>
 </div>
 </div>
 </div>

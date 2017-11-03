@@ -97,3 +97,15 @@ Wir bauen einen :ref:`DT <DT>`
 .. literalinclude:: ForestFire/Main.py
     :pyobject: gen_database
     :prepend: 10
+
+
+
+
+
+
+.. _blank:
+
+.. figure:: pyplots/blank.jpg
+    :scale: 80%
+    :alt: treeview.jpg
+    :align: center

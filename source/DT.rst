@@ -232,3 +232,16 @@ Another usefull function is :ref:`check_path <checkpath>`. It takes as input a t
     .. _checkpath:
 
     .. autofunction:: ForestFire.Main.check_path
+
+
+
+
+    .. _blank:
+
+.. figure:: pyplots/blank.jpg
+    :scale: 80%
+    :alt: treeview.jpg
+    :align: center
+
+
+    

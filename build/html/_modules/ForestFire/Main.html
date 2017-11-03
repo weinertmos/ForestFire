@@ -766,7 +766,7 @@
 <span class="sd">&quot;&quot;&quot;</span>
 
 
-<span class="k">def</span> <span class="nf">forest_predict</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">trees</span><span class="p">,</span> <span class="n">prob</span><span class="p">,</span> <span class="n">n_configs</span><span class="p">,</span> <span class="n">biased</span><span class="p">):</span>
+<div class="viewcode-block" id="forest_predict"><a class="viewcode-back" href="../../RF.html#ForestFire.Main.forest_predict">[docs]</a><span class="k">def</span> <span class="nf">forest_predict</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">trees</span><span class="p">,</span> <span class="n">prob</span><span class="p">,</span> <span class="n">n_configs</span><span class="p">,</span> <span class="n">biased</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">biased</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">True</span><span class="p">:</span>
         <span class="n">prob</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="c1"># print &quot;prob: &quot; + str(prob)</span>
@@ -826,7 +826,7 @@
     <span class="c1"># print &quot;best feature set for best mean: &quot; + str(best_featureset_mean)</span>
     <span class="c1"># print &quot;best var for current forest: &quot; + str(best_var)</span>
     <span class="c1"># print &quot;best feature set for best var&quot; + str(best_featureset_var)</span>
-    <span class="k">return</span> <span class="n">best_mean</span><span class="p">,</span> <span class="n">best_var</span><span class="p">,</span> <span class="n">best_featureset_mean</span><span class="p">,</span> <span class="n">best_featureset_var</span>
+    <span class="k">return</span> <span class="n">best_mean</span><span class="p">,</span> <span class="n">best_var</span><span class="p">,</span> <span class="n">best_featureset_mean</span><span class="p">,</span> <span class="n">best_featureset_var</span></div>
 
 
 <span class="c1"># based on the probabilities of each feature in past Forests, a new current_prob is calculated that takes into</span>
