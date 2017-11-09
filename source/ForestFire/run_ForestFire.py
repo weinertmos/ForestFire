@@ -6,7 +6,7 @@ name = '__main__'
 
 # number of runs before building first Random Forest = number of data points in first RF; minimum = 4, default = 50
 # adjust according to computational capabilities and demands of the underlying machine learning algorithm
-n_runs = 10  # default = 30
+n_start = 10  # default = 30
 # if pruning is greater than zero, branches of a Decision Tree will be pruned proportional to pruning value; default = 0
 # advanced parameter. If set too high, all trees will be cut down to stumps. Increase carefully. Start with values between 0 and 1.
 pruning = 0.4
@@ -14,7 +14,7 @@ pruning = 0.4
 min_data = 0.2
 # number of forests; minimum=1;  default = 25
 # adjust according to computational capabilities. For each forest two new computational runs are done. default = 20
-n_forests = 10
+n_forests = 25
 
 # number of trees that stand in a forest; min = 3; default = number of features * 3
 n_trees = 'default'
@@ -47,5 +47,5 @@ demo_mode = True
 plot_enable = True
 
 if name == '__main__':
-    Main.main_loop(n_runs, pruning, min_data, n_forests, n_trees, n_configs_biased, n_configs_unbiased, multiplier_stepup, seen_forests,
+    Main.main_loop(n_start, pruning, min_data, n_forests, n_trees, n_configs_biased, n_configs_unbiased, multiplier_stepup, seen_forests,
                    weight_mean, weight_gradient, scoref, demo_mode, plot_enable)

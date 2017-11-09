@@ -41,7 +41,7 @@ After *ForestFire* is supplied with the raw Data in X.npy and y.npy, the way thi
 and the designated :ref:`MLA <MLA>` (compute.py) the default setup is complete. 
 By executing **run_ForestFire.py** the tool can be started with default or adjusted hyperparameters.  
 
-*ForestFire* will execute an initial n_runs to set up an internal database. 
+*ForestFire* will execute an initial n_start to set up an internal database. 
 From this database single Decision Trees are built and grouped into a Random Forest. 
 The Random Forest is evaluated to determine the importance of each feature.
 *ForestFire* will next predict the performance of possible new feature sets (chosen both randomly and deliberately).

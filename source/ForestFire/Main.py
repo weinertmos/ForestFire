@@ -18,11 +18,11 @@ plt.style.use('bmh')
 ### Definitions ###
 
 
-def gen_database(n_runs, X, y, X_test, y_test):
-    """Runs the underlying :ref:`MLA <MLA>` *n_runs* times to generate a database from which Random Forests can be built.
+def gen_database(n_start, X, y, X_test, y_test):
+    """Runs the underlying :ref:`MLA <MLA>` *n_start* times to generate a database from which Random Forests can be built.
 
     Arguments:
-        * n_runs {int} -- number of times the underlying :ref:`MLA <MLA>` is executed
+        * n_start {int} -- number of times the underlying :ref:`MLA <MLA>` is executed
         * X {numpy.array} -- raw data
         * y {numpy.array} -- raw data
         * X_test {numpy.array} -- test data
@@ -31,12 +31,12 @@ def gen_database(n_runs, X, y, X_test, y_test):
     Returns:
         [numpy.array] -- data set containing feature sets and corresponding results
     """
-    X_DT = np.zeros((n_runs, len(X[0])), dtype=bool)  # Prelocate Memory
+    X_DT = np.zeros((n_start, len(X[0])), dtype=bool)  # Prelocate Memory
     # print X_DT
-    y_DT = np.zeros((n_runs, 1))  # Prelocate Memory
+    y_DT = np.zeros((n_start, 1))  # Prelocate Memory
 
     # create SVMs that can only see subset of features
-    for i in range(n_runs):
+    for i in range(n_start):
         # create random mask to select subgroup of features
         mask_sub_features = np.zeros(len(X[0]), dtype=bool)  # Prelocate Memory
         # mask_sub_data = np.zeros(len(X), dtype=bool)  # Prelocate Memory
@@ -889,13 +889,13 @@ def update_database(X, y, data, mask_best_featureset, X_test, y_test):
 # This is the main part of the program which uses the above made definitions
 
 
-def main_loop(n_runs, pruning, min_data, n_forests, n_trees, n_configs_biased, n_configs_unbiased, multiplier_stepup, seen_forests,
+def main_loop(n_start, pruning, min_data, n_forests, n_trees, n_configs_biased, n_configs_unbiased, multiplier_stepup, seen_forests,
               weight_mean, weight_gradient, scoref, demo_mode, plot_enable):
     """Load raw data and Generate database for Random Forest. Iteratively build and burn down new Random Forests, predict the performance of new feature sets and compute two new feature sets per round.
 
     Arguments:
 
-        * n_runs {int} -- number of runs before building first RF = number of data points in first RF; minimum = 4, default = 50
+        * n_start {int} -- number of runs before building first RF = number of data points in first RF; minimum = 4, default = 50
         * pruning {float} -- if greater than zero, branches of a Decision Tree will be pruned proportional to pruning value; default = 0
         * min_data {float} -- minimum percentage of Datasets that is used in RF generation; default = 0.2
         * n_forests {int} -- number of forests; minimum=1;  default = 25
@@ -948,7 +948,7 @@ def main_loop(n_runs, pruning, min_data, n_forests, n_trees, n_configs_biased, n
 
     # Generate database for RF
     print "Generate Data Base for Random Forest"
-    data = gen_database(n_runs, X, y, X_test, y_test)
+    data = gen_database(n_start, X, y, X_test, y_test)
 
     if demo_mode:
         data_start = data  # save starting data for later comparison with random feature set selection
@@ -1080,8 +1080,8 @@ def main_loop(n_runs, pruning, min_data, n_forests, n_trees, n_configs_biased, n
         # print out some of the results
         print "best 5 feature sets of random selection: " + str(best_featuresets_sorted_compare[:5])
         print " "
-        print "Best result after " + str(n_runs + 2 * n_forests) + " random SVM runs: " + str(best_featuresets_sorted_compare[0, -1])
-        print "Best result of ForestFire after " + str(n_runs) + " initial random runs and " + str(2 * n_forests) + " guided runs: " + str(best_featuresets_sorted[0, -1])
+        print "Best result after " + str(n_start + 2 * n_forests) + " random SVM runs: " + str(best_featuresets_sorted_compare[0, -1])
+        print "Best result of ForestFire after " + str(n_start) + " initial random runs and " + str(2 * n_forests) + " guided runs: " + str(best_featuresets_sorted[0, -1])
         if best_featuresets_sorted[0, -1] > best_featuresets_sorted_compare[0, -1]:
             print "Performance with ForestFire improved by " + str(-100 * (1 - np.divide(best_featuresets_sorted[0, -1], best_featuresets_sorted_compare[0, -1]))) + "%"
         if best_featuresets_sorted[0, -1] == best_featuresets_sorted_compare[0, -1]:
@@ -1092,7 +1092,7 @@ def main_loop(n_runs, pruning, min_data, n_forests, n_trees, n_configs_biased, n
 
         # Compare Random Search VS Random Forest Search
         print " "
-        print "Found Best value for Random Forest Search after " + str(n_runs) + " initial runs and " + str(np.argmax(data[:, -1] + 1) - n_runs) + "/" + str(len(data) - n_runs) + " smart runs"
+        print "Found Best value for Random Forest Search after " + str(n_start) + " initial runs and " + str(np.argmax(data[:, -1] + 1) - n_start) + "/" + str(len(data) - n_start) + " smart runs"
         print "Best value with RF: " + str(np.max(data[:, -1]))
         print " "
         print "Found Best value for Random Search after " + str(np.argmax(data_compare[:, -1])) + " random runs"
@@ -1108,7 +1108,7 @@ def main_loop(n_runs, pruning, min_data, n_forests, n_trees, n_configs_biased, n
             plt.plot(np.array(range(len(data[:, -1]))), data[:, -1], label='ForestFire')
             plt.plot(np.array(range(len(data_compare[:, -1]))), data_compare[:, -1], label='Random Search')
 
-            plt.xlabel('n_runs')
+            plt.xlabel('n_start')
             plt.ylabel('Score')
             plt.title('Results current best score')
             plt.legend(loc=2)
@@ -1138,7 +1138,7 @@ def main_loop(n_runs, pruning, min_data, n_forests, n_trees, n_configs_biased, n
             plt.plot(np.array(range(len(data[:, -1]))), data_high[:, -1], label='ForestFire')
             plt.plot(np.array(range(len(data_compare[:, -1]))), data_compare[:, -1], label='Random Search')
 
-            plt.xlabel('n_runs')
+            plt.xlabel('n_start')
             plt.ylabel('Score')
             plt.title('Results all time best score')
             plt.legend(loc=2)
