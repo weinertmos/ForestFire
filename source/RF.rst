@@ -57,6 +57,8 @@ From the vast amount of possible feature sets two different groups of feature se
 The two :ref:`hyperparameters <hyperparameters>` *n_configs_biased* and *n_configs_unbiased* determine the amount of feature sets that get tested. 
 Since predicting takes not much computing capacity this number can safely be set fairly high.
 
+Of all predicted feature sets two are chosen for the next computing runs with the :ref:`MLA <MLA>`. One with a high average (mean) and one with a high variance. 
+
 
 
 

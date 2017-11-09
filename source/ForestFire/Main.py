@@ -922,7 +922,7 @@ def main_loop(n_runs, pruning, min_data, n_forests, n_trees, n_configs_biased, n
         * plot_enable bool -- # decide if at the end a plot should be generated , only possible in demo mode
 
     """
-    print "Starting calculations"
+    print "Starting script"
     # Generate Test Data
     print "Loading Raw Data"
     X_test, X, y_test, y, n_feat = import_data()
@@ -960,7 +960,9 @@ def main_loop(n_runs, pruning, min_data, n_forests, n_trees, n_configs_biased, n
     # Generate database for RF
     print "Generate Data Base for Random Forest"
     data = gen_database(n_runs, X, y, X_test, y_test)
-    data_start = data  # save starting data for later comparison with random feature set selection
+
+    if demo_mode:
+        data_start = data  # save starting data for later comparison with random feature set selection
     # print "len(data): " + str(len(data))
 
     # ### Start of ForestFire ###
@@ -1017,6 +1019,7 @@ def main_loop(n_runs, pruning, min_data, n_forests, n_trees, n_configs_biased, n
             print "picked unbiased feature set for var"
 
         # update database with two new feature sets
+        print "current data:" + str(data)
         data = update_database(X, y, data, best_featureset_mean, best_featureset_var, X_test, y_test)
 
         # check for current best feature sets
