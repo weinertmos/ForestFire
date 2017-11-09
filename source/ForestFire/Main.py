@@ -108,7 +108,7 @@ def divideset(rows, column, value):
         * value {number/string} -- value by which data gets split
 
     Returns:
-        [list] -- two lists
+        [list] -- two listso
     """
     split_function = None  # Prelocate
     if isinstance(value, int) or isinstance(value, float):
@@ -149,9 +149,9 @@ def giniimpurity(rows):
     """ Probability that a randomly placed item will be in the wrong category
 
     Calculates the probability of each possible outcome by dividing the number of times that outcome occurs
-    by the total number of rows in the set. 
-    It then adds up the products of all these probabilities. 
-    This gives the overall chance that a row would be randomly assigned to the wrong outcome. 
+    by the total number of rows in the set.
+    It then adds up the products of all these probabilities.
+    This gives the overall chance that a row would be randomly assigned to the wrong outcome.
     The higher this probability, the worse the split.
 
     Returns:
@@ -234,7 +234,7 @@ def buildtree(rows, scoref):
     """recursively builds decisionnode objects that form a decision tree
 
     At each node the best possible split is calculated (depending on the evaluation metric).
-    If no further split is neccessary the remaining items and their number of occurence 
+    If no further split is neccessary the remaining items and their number of occurence
     are written in the results property.
 
     Arguments:
@@ -418,7 +418,7 @@ def prune(tree, mingain):
 
 
 def classify(observation, tree):
-    """takes a new data set that gets classified and the tree that determines the classification and returns the estimated result. 
+    """takes a new data set that gets classified and the tree that determines the classification and returns the estimated result.
 
     Arguments:
         observation {numpy.array} -- the new data set that gets classified, e.g. test data set
@@ -484,7 +484,7 @@ def path_gen2(tree, width, depth, path, z2, z1):
     order that leaves are written in (top to bottom): function will crawl to the rightmost leaf first (positive side), then jump back up one level and move one step to the left (loop)
 
     Arguments:
-        tree {decisionnode} -- tree of which the data structure is stored 
+        tree {decisionnode} -- tree of which the data structure is stored
         width {int} -- width of the tree
         depth {int} -- depth of the tree
         path {[type]} -- current path matrix, gets updated during function calls
@@ -540,7 +540,7 @@ def buildforest(data, n_trees, scoref, n_feat, min_data, pruning):
         * n_trees {int} -- number of trees in a Decision tree
         * scoref {function} -- scoring metric for finding new nodes
         * n_feat {int} -- number of features in data
-        * min_data {float} -- minimum percentage of all data sets that a tree will see 
+        * min_data {float} -- minimum percentage of all data sets that a tree will see
         * pruning {bool} -- pruning enabled (>0) / disabled(=0)
 
     Returns:
@@ -863,36 +863,25 @@ appends newly tested feature sets and their result to the already calculated fea
 """
 
 
-def update_database(X, y, data, mask_best_featureset_mean, mask_best_featureset_var, X_test, y_test):
+def update_database(X, y, data, mask_best_featureset, X_test, y_test):
     # print mask_best_featureset_mean
     # print data[0][mask_best_featureset_mean]
     # print X[:][mask_best_featureset_mean]
 
     # create the best mean feature set
-    X_sub_mean = X[:, mask_best_featureset_mean]
+    X_sub = X[:, mask_best_featureset]
     # print X_sub_mean
     # compute the corresponding y values
-    y_new_mean = compute(X_sub_mean, y, mask_best_featureset_mean, X_test, y_test)
+    y_new = compute(X_sub, y, mask_best_featureset, X_test, y_test)
     # print mask_best_featureset_mean, y_new_mean
     # put feature set and new y value together
-    new_dataset_mean = np.append(mask_best_featureset_mean, y_new_mean)
+    new_dataset = np.append(mask_best_featureset, y_new)
     # print "new_dataset_mean: " + str(new_dataset_mean)
     # print new_dataset_mean.shape
 
-    # create the best var feature set
-    X_sub_var = X[:, mask_best_featureset_var]
-    # print X_sub_var
-    # compute the corresponding y values
-    y_new_var = compute(X_sub_var, y, mask_best_featureset_var, X_test, y_test)
-    # put feature set and new y value together
-    new_dataset_var = np.append(mask_best_featureset_var, y_new_var)
-    # print "new dataset var: " + str(new_dataset_var)
-    # print data.shape
-
     # append new feature sets and according MSE to dataset
     # print len(data)
-    data = np.append(data, [new_dataset_mean], axis=0)
-    data = np.append(data, [new_dataset_var], axis=0)
+    data = np.append(data, [new_dataset], axis=0)
     # print len(data)
     # print data.shape
     return data
@@ -1021,8 +1010,48 @@ def main_loop(n_runs, pruning, min_data, n_forests, n_trees, n_configs_biased, n
         # update database with two new feature sets
         print "current feature sets:" + str(data[:, :-1])
         print "best_var feature set:" + str(best_featureset_var)
+        print "best_mean feature set:" + str(best_featureset_mean)
 
-        data = update_database(X, y, data, best_featureset_mean, best_featureset_var, X_test, y_test)
+        # check if newly selected feature sets  are already in data. if so, there is no need to compute again
+        check_mean = any(check for check in (np.array_equal(data[entry, :-1], best_featureset_mean) for entry in range(len(data))))
+        check_var = any(check for check in (np.array_equal(data[entry, :-1], best_featureset_var) for entry in range(len(data))))
+
+        print "data len: " + str(len(data))
+        print check_mean
+        print check_var
+
+        double_var = np.all(np.all(data[x, :-1] == best_featureset_var for x in range(len(data[:, -1]))))
+        double_mean = np.all(np.all(data[x, :-1] == best_featureset_mean for x in range(len(data[:, -1]))))
+
+        if check_var:
+            z = 0
+            stopper = False
+            for x in double_var:
+                print x.all()
+                print z
+                if x.all() == True and stopper == False:
+                    print "Stopper: " + str(stopper)
+                    print "Variance feature set already computed. No need to do it agin"
+                    data = np.append(data, [data[z]], axis=0)
+                    stopper = True
+                z += 1
+        else:
+            data = update_database(X, y, data, best_featureset_var, X_test, y_test)
+
+        if check_mean:
+            z = 0
+            stopper = False
+            for x in double_mean:
+                print x.all()
+                print z
+                if x.all() == True and stopper == False:
+                    print "Stopper: " + str(stopper)
+                    print "Mean feature set already computed. No need to do it agin!"
+                    data = np.append(data, [data[z]], axis=0)
+                    stopper = True
+                z += 1
+        else:
+            data = update_database(X, y, data, best_featureset_mean, X_test, y_test)
 
         # check for current best feature sets
         best_featuresets_sorted = data[np.argsort(-data[:, -1])]
@@ -1051,8 +1080,8 @@ def main_loop(n_runs, pruning, min_data, n_forests, n_trees, n_configs_biased, n
         # print out some of the results
         print "best 5 feature sets of random selection: " + str(best_featuresets_sorted_compare[:5])
         print " "
-        print "Lowest MSE after " + str(n_runs + 2 * n_forests) + " random SVM runs: " + str(best_featuresets_sorted_compare[0, -1])
-        print "Lowest MSE of ForestFire after " + str(n_runs) + " initial random runs and " + str(2 * n_forests) + " guided runs: " + str(best_featuresets_sorted[0, -1])
+        print "Best result after " + str(n_runs + 2 * n_forests) + " random SVM runs: " + str(best_featuresets_sorted_compare[0, -1])
+        print "Best result of ForestFire after " + str(n_runs) + " initial random runs and " + str(2 * n_forests) + " guided runs: " + str(best_featuresets_sorted[0, -1])
         if best_featuresets_sorted[0, -1] > best_featuresets_sorted_compare[0, -1]:
             print "Performance with ForestFire improved by " + str(-100 * (1 - np.divide(best_featuresets_sorted[0, -1], best_featuresets_sorted_compare[0, -1]))) + "%"
         if best_featuresets_sorted[0, -1] == best_featuresets_sorted_compare[0, -1]:
