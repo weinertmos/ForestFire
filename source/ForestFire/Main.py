@@ -1019,7 +1019,9 @@ def main_loop(n_runs, pruning, min_data, n_forests, n_trees, n_configs_biased, n
             print "picked unbiased feature set for var"
 
         # update database with two new feature sets
-        print "current data:" + str(data)
+        print "current feature sets:" + str(data[:, :-1])
+        print "best_var feature set:" + str(best_featureset_var)
+
         data = update_database(X, y, data, best_featureset_mean, best_featureset_var, X_test, y_test)
 
         # check for current best feature sets
