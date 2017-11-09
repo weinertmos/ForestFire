@@ -14,7 +14,7 @@ pruning = 0.4
 min_data = 0.2
 # number of forests; minimum=1;  default = 25
 # adjust according to computational capabilities. For each forest two new computational runs are done. default = 20
-n_forests = 50
+n_forests = 10
 
 # number of trees that stand in a forest; min = 3; default = number of features * 3
 n_trees = 'default'

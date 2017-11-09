@@ -414,7 +414,7 @@ def prune(tree, mingain):
             # Merge the branches
             tree.tb, tree.fb = None, None
             tree.results = uniquecounts(tb + fb)
-            print "tree pruned"
+            # print "tree pruned"
 
 
 def classify(observation, tree):
@@ -916,7 +916,7 @@ def main_loop(n_runs, pruning, min_data, n_forests, n_trees, n_configs_biased, n
     print "Loading Raw Data"
     X_test, X, y_test, y, n_feat = import_data()
     # set default hyperparameters
-    print "setting Hyperparameters"
+    print "Setting Hyperparameters"
     if n_trees is 'default':
         n_trees = n_feat * 3
     if seen_forests is 'default':
@@ -1008,17 +1008,17 @@ def main_loop(n_runs, pruning, min_data, n_forests, n_trees, n_configs_biased, n
             print "picked unbiased feature set for var"
 
         # update database with two new feature sets
-        print "current feature sets:" + str(data[:, :-1])
-        print "best_var feature set:" + str(best_featureset_var)
-        print "best_mean feature set:" + str(best_featureset_mean)
+        # print "current feature sets:" + str(data[:, :-1])
+        # print "best_var feature set:" + str(best_featureset_var)
+        # print "best_mean feature set:" + str(best_featureset_mean)
 
         # check if newly selected feature sets  are already in data. if so, there is no need to compute again
         check_mean = any(check for check in (np.array_equal(data[entry, :-1], best_featureset_mean) for entry in range(len(data))))
         check_var = any(check for check in (np.array_equal(data[entry, :-1], best_featureset_var) for entry in range(len(data))))
 
         print "data len: " + str(len(data))
-        print check_mean
-        print check_var
+        # print check_mean
+        # print check_var
 
         double_var = np.all(np.all(data[x, :-1] == best_featureset_var for x in range(len(data[:, -1]))))
         double_mean = np.all(np.all(data[x, :-1] == best_featureset_mean for x in range(len(data[:, -1]))))
@@ -1027,10 +1027,10 @@ def main_loop(n_runs, pruning, min_data, n_forests, n_trees, n_configs_biased, n
             z = 0
             stopper = False
             for x in double_var:
-                print x.all()
-                print z
+                # print x.all()
+                # print z
                 if x.all() == True and stopper == False:
-                    print "Stopper: " + str(stopper)
+                    # print "Stopper: " + str(stopper)
                     print "Variance feature set already computed. No need to do it agin"
                     data = np.append(data, [data[z]], axis=0)
                     stopper = True
@@ -1042,10 +1042,10 @@ def main_loop(n_runs, pruning, min_data, n_forests, n_trees, n_configs_biased, n
             z = 0
             stopper = False
             for x in double_mean:
-                print x.all()
-                print z
+                # print x.all()
+                # print z
                 if x.all() == True and stopper == False:
-                    print "Stopper: " + str(stopper)
+                    # print "Stopper: " + str(stopper)
                     print "Mean feature set already computed. No need to do it agin!"
                     data = np.append(data, [data[z]], axis=0)
                     stopper = True
@@ -1112,7 +1112,7 @@ def main_loop(n_runs, pruning, min_data, n_forests, n_trees, n_configs_biased, n
             plt.ylabel('Score')
             plt.title('Results current best score')
             plt.legend(loc=2)
-            plt.annotate('Highest Score RF', xycoords='data',
+            plt.annotate('Highest Score ForestFire', xycoords='data',
                          xy=(np.argmax(data[:, -1]), np.max(data[:, -1])),
                          xytext=(np.argmax(data[:, -1]) * 1.05, np.max(data[:, -1]) * 1.01),
                          arrowprops=dict(facecolor='black', shrink=1),
