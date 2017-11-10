@@ -615,12 +615,15 @@ def buildforest(data, n_trees, scoref, n_feat, min_data, pruning):
     # print "RF: " + str(RF) # Debugging Line
     # print "Returning RF" # Debugging Line
 
+    # a "wrong" tree is a tree with only one node that has no power to gain additional insight and therefore is useless...
+    print "wrongs: " + str(wrongs) + "/" + str(n_trees)
+
     # Transform the counter for rewarded / punished features from RF dictionary into a proportionate number
     # set up scaler that projects accumulated values of RF onto a scale between 0 and 1
     min_max_scaler = preprocessing.MinMaxScaler(feature_range=(0, 1))
     # take only values of RF, reshape them (otherwise deprecation warning), make them numpy array, and scale them (again) between 0 and 1
     temp = min_max_scaler.fit_transform(np.nan_to_num(np.array(RF.values())).reshape(-1, 1))
-    # sum up values of RF, divide each value of RF by sum to get percentage --> must sum up to 1 
+    # sum up values of RF, divide each value of RF by sum to get percentage --> must sum up to 1
     temp_sum = np.sum(temp)
     temp_percent = temp * (1.0 / temp_sum)
     # print temp_percent
@@ -629,28 +632,27 @@ def buildforest(data, n_trees, scoref, n_feat, min_data, pruning):
     for key in RF:
         RF[key] = temp_percent[i][0]  # [0] because otherwise there would be an array inside the dictionary RF
         i += 1
-    # print "RF: " + str(RF)
+    # print "RF: " + str(RF) # Debugging Line
 
-    # a wrong tree is a tree with only one node that has no power to gain additional insight and therefore is useless...
-    print "wrongs: " + str(wrongs) + "/" + str(n_trees)
-
-    # build up dictionary of most important features in a tree and how often they were chosen
+    # build a dictionary of most important features in a tree and how often they were chosen
     # create weights of features
     weights = {}  # Prelocate
     weights_sorted = {}  # Prelocate
     # transfer values from dictionary into list
     for key, value in RF.items():
         weights[key] = float(value)  # create relative weight
-    # some features might not get picked once, so their probability must be set to zero
+    # some features might not get picked once, so their probability is set to zero
     if len(weights) < n_feat:
         for key in range(n_feat):
             if key not in weights:
                 weights[key] = 0
     # print "weights = " + str(weights)
     weights_sorted = dict(sorted(weights.items(), key=lambda value: value[0], reverse=False))  # sort by frequency = importance
-    # print "importance of features in random forest: " + str(weights_sorted)
+
+    # print "importance of features in random forest: " + str(weights_sorted) # Debugging Line
+
     prob_current = np.array(weights_sorted.values())  # extract only values of feature importance
-    # print prob_current
+
     return RF, prob_current, trees
 
 
