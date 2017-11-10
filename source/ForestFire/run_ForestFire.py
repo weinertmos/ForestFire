@@ -2,7 +2,7 @@ import Main
 import numpy as np
 
 name = '__main__'
-### Hyperparameters ###
+# Hyperparameters #
 
 # number of runs before building first Random Forest = number of data points in first RF; minimum = 4, default = 50
 # adjust according to computational capabilities and demands of the underlying machine learning algorithm

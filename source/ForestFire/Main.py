@@ -15,7 +15,7 @@ np.set_printoptions(threshold=np.inf)   # print whole numpy array in console
 np.seterr(divide='ignore', invalid='ignore')  # ignore warnings if dividing by zero or NaN
 plt.style.use('bmh')
 
-### Definitions ###
+# Definitions #
 
 
 def gen_database(n_start, X, y, X_test, y_test):
@@ -1029,7 +1029,7 @@ def main_loop(n_start, pruning, min_data, n_forests, n_trees, n_configs_biased, 
             for x in double_var:
                 # print x.all()
                 # print z
-                if x.all() == True and stopper == False:
+                if x.all() and not stopper:
                     # print "Stopper: " + str(stopper)
                     print "Variance feature set already computed. No need to do it agin"
                     data = np.append(data, [data[z]], axis=0)
@@ -1044,7 +1044,7 @@ def main_loop(n_start, pruning, min_data, n_forests, n_trees, n_configs_biased, 
             for x in double_mean:
                 # print x.all()
                 # print z
-                if x.all() == True and stopper == False:
+                if x.all() and not stopper:
                     # print "Stopper: " + str(stopper)
                     print "Mean feature set already computed. No need to do it agin!"
                     data = np.append(data, [data[z]], axis=0)
