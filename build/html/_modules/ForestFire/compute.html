@@ -56,14 +56,16 @@
 <div class="viewcode-block" id="compute"><a class="viewcode-back" href="../../Generate_Database.html#ForestFire.compute.compute">[docs]</a><span class="k">def</span> <span class="nf">compute</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">mask_sub_features</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Computes a new dataset for the Random Forest with the underlying machine learning algorithm.</span>
 
-<span class="sd">    Configure your machine learning algorithm here. </span>
-<span class="sd">    Make imports at the top of the file.</span>
+<span class="sd">    Configure your machine learning algorithm here.</span>
+<span class="sd">    Add imports at the top of the file.</span>
+<span class="sd">    If no train / test split is done during import, X_train and X_test are equal (y_train and y_test as well).</span>
+<span class="sd">    In this case define your own splits with your machine learning algorithm.</span>
 
 <span class="sd">    Arguments:</span>
 
 <span class="sd">        * X_train {np.array} -- feature training data</span>
 <span class="sd">        * y_train {np.array} -- result training data</span>
-<span class="sd">        * mask_sub_features {np.array} -- feature set, only part of all features</span>
+<span class="sd">        * mask_sub_features {np.array} -- feature set = dedicated part of all features</span>
 <span class="sd">        * X_test {np.array} -- result training data</span>
 <span class="sd">        * y_test {np.array} -- result test data</span>
 
@@ -71,14 +73,14 @@
 <span class="sd">        score {np.float64} -- score of the selected feature set</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="c1">### insert your own machine learning algorithm ###</span>
+    <span class="c1"># insert your own machine learning algorithm #</span>
     <span class="n">param_grid</span> <span class="o">=</span> <span class="p">[{</span><span class="s1">&#39;C&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">logspace</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span> <span class="s1">&#39;gamma&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">logspace</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">)}]</span>
     <span class="n">clf</span> <span class="o">=</span> <span class="n">svm</span><span class="o">.</span><span class="n">SVC</span><span class="p">()</span>  <span class="c1"># SVR for regression, SVC for classification</span>
     <span class="n">grid</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span><span class="n">clf</span><span class="p">,</span> <span class="n">param_grid</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">scoring</span><span class="o">=</span><span class="s1">&#39;neg_mean_squared_error&#39;</span><span class="p">,</span> <span class="n">pre_dispatch</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
     <span class="n">grid</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
     <span class="n">y_pred</span> <span class="o">=</span> <span class="n">grid</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">[:,</span> <span class="n">mask_sub_features</span><span class="p">])</span>
 
-    <span class="c1">### store the result in score ###</span>
+    <span class="c1"># store the result in score #</span>
     <span class="n">score</span> <span class="o">=</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
     <span class="c1"># print score</span>
     <span class="k">return</span> <span class="n">score</span></div>

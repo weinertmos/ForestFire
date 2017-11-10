@@ -1,0 +1,76 @@
+\begin{theindex}
+\def\bigletter#1{{\Large\sffamily#1}\nopagebreak\vspace{1mm}}
+
+  \bigletter B
+  \item branch, \hyperindexformat{\textbf}{3}
+  \item buildforest() (in module ForestFire.Main), \hyperpage{25}
+  \item buildtree() (in module ForestFire.Main), \hyperpage{22}
+
+  \indexspace
+  \bigletter C
+  \item check\_path() (in module ForestFire.Main), \hyperpage{23}
+  \item classify() (in module ForestFire.Main), \hyperpage{22}
+  \item compute() (in module ForestFire.compute), \hyperpage{7}
+
+  \indexspace
+  \bigletter D
+  \item Decision Tree, \hyperindexformat{\textbf}{3}
+  \item decisionnode (class in ForestFire.Main), \hyperpage{20}
+  \item divideset() (in module ForestFire.Main), \hyperpage{21}
+  \item drawnode() (in module ForestFire.Main), \hyperpage{22}
+  \item drawtree() (in module ForestFire.Main), \hyperpage{22}
+
+  \indexspace
+  \bigletter E
+  \item entropy() (in module ForestFire.Main), \hyperpage{21}
+
+  \indexspace
+  \bigletter F
+  \item forest\_predict() (in module ForestFire.Main), \hyperpage{26}
+  \item ForestFire (module), \hyperpage{1}
+
+  \indexspace
+  \bigletter G
+  \item gen\_database() (in module ForestFire.Main), \hyperpage{7}
+  \item getdepth() (in module ForestFire.Main), \hyperpage{22}
+  \item getwidth() (in module ForestFire.Main), \hyperpage{22}
+  \item giniimpurity() (in module ForestFire.Main), \hyperpage{21}
+
+  \indexspace
+  \bigletter I
+  \item import\_data() (in module ForestFire.import\_data), \hyperpage{4}
+
+  \indexspace
+  \bigletter L
+  \item leaf, \hyperindexformat{\textbf}{3}
+
+  \indexspace
+  \bigletter M
+  \item main\_loop() (in module ForestFire.Main), \hyperpage{13}
+
+  \indexspace
+  \bigletter N
+  \item node, \hyperindexformat{\textbf}{3}
+
+  \indexspace
+  \bigletter P
+  \item path\_gen() (in module ForestFire.Main), \hyperpage{23}
+  \item path\_gen2() (in module ForestFire.Main), \hyperpage{23}
+  \item printtree() (in module ForestFire.Main), \hyperpage{22}
+  \item prune() (in module ForestFire.Main), \hyperpage{22}
+  \item pruning, \hyperindexformat{\textbf}{3}
+
+  \indexspace
+  \bigletter R
+  \item Random Forest, \hyperindexformat{\textbf}{3}
+
+  \indexspace
+  \bigletter U
+  \item uniquecounts() (in module ForestFire.Main), \hyperpage{22}
+  \item update\_RF() (in module ForestFire.Main), \hyperpage{26}
+
+  \indexspace
+  \bigletter V
+  \item variance() (in module ForestFire.Main), \hyperpage{21}
+
+\end{theindex}

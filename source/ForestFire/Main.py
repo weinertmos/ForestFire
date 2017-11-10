@@ -544,90 +544,83 @@ def buildforest(data, n_trees, scoref, n_feat, min_data, pruning):
         * pruning {bool} -- pruning enabled (>0) / disabled(=0)
 
     Returns:
-        * RF -- importances of single features in the forest
-        * Prob_current -- importance of the features in the forest
-        * trees -- the structure of the single trees the forest consists of
+        * RF --  dictionary = importances of single features in the forest
+        * prob_current -- single value for importance, used for generating new biased feature sets 
+        * trees -- contains all single trees that stand in the Forest
     """
-    # print data
-    prob_current = None
+
+    # Initializations
+    prob_current = None  # Prelocate
     RF = {}  # Prelocate dictionary for prioritizing important features
     trees = []  # Prelocate list that will contain the trees that stand in the currently built forest
-    MSE_min_total = None  # Prelocate Memory
-    MSE_min_current = None  # Prelocate Memory
-    path_min_current = []  # Prelocate Memory
-    # print RF
+    total_best_result = None  # Prelocate
+    current_best_result = None  # Prelocate
+    path_min_current = []  # Prelocate
     wrongs = 0  # initialize number of (useless) trees that have only one node
-    for x in range(n_trees):  # n_trees is number of trees in the forest
+
+    # build single trees
+    for x in range(n_trees):  # n_trees is the number of trees in the forest
 
         # select only subset of available datasets
         # create mask for randomly choosing subset of available datasets
-        mask_sub_data = np.zeros(data.shape[0], dtype=bool)  # Prelocate Memory
-        # print mask_sub_data
+        mask_sub_data = np.zeros(data.shape[0], dtype=bool)  # Prelocate
+        # randomly choose the random datasets
         rand_data = np.random.choice(range(data.shape[0]), size=int(np.amax((np.around(len(data) * min_data, decimals=0),
-                                                                             np.random.choice(range(len(data) - 1)) + 1), axis=None)), replace=False, p=None)  # choose the random datasets
-        # print rand_data
+                                                                             np.random.choice(range(len(data) - 1)) + 1), axis=None)), replace=False, p=None)
+        # translate to selected data sets
         mask_sub_data[rand_data] = True
-        # print mask_sub_data
         sub_data = data[mask_sub_data, :]  # random subset of datasets still including all features
-        # print sub_data
-        # y_sub = sub_data[:, -1]
-        # print y_sub
 
         # select only subset of features
         # create mask for randomly choosing subset of available features
-        mask_sub_features = np.zeros(data.shape[1], dtype=bool)  # Prelocate Memory
-        # print mask_sub_features
+        mask_sub_features = np.zeros(data.shape[1], dtype=bool)  # Prelocate
+        # randomly choose the random features
         rand_feat = np.random.choice(range(data.shape[1] - 1), size=np.random.choice(range(len(data[0]) - 1)) + 1, replace=False, p=None)
-        # print rand_feat
-        rand_feat = np.sort(rand_feat)  # sort ascending
-        rand_feat = np.append(rand_feat, data.shape[1] - 1)  # append last column with MSE
-        # print rand_feat
+        # sort ascending
+        rand_feat = np.sort(rand_feat)
+        # append last column with result
+        rand_feat = np.append(rand_feat, data.shape[1] - 1)
+        # translate to selected features
         mask_sub_features[rand_feat] = True
-        # print mask_sub_features
 
         sub_data = sub_data[:, mask_sub_features]  # random subset of datasets and random subset of features
-        # print "sub_data = " + str(sub_data)
+        # print "sub_data = " + str(sub_data) # Debugging line
 
-        # build the tree from the subset data, last column must be MSE
-        # print "building tree"
+        # build the tree from the subset data, last column contains result
+        # print "building tree" # Debugging Line
         tree = buildtree(sub_data, scoref)
-        # print getwidth(tree)
+
+        # pruning the tree (if hyperparameter is enabled)
         if pruning > 0:
             prune(tree, pruning)
-        # print getwidth(tree)
 
         # draw the tree and create path matrix
-        # drawtree(tree, jpeg='treeview_RF.jpg')
+        # drawtree(tree, jpeg='treeview_RF.jpg') # Debbuging Line
 
-        if getdepth(tree) is 0:  # if tree sees only subset of features that are all 0 (svm has not seen them) only base node will be created, tree is useless
+        if getdepth(tree) is 0:  # if the tree contains only a single node --> tree is useless
             wrongs += 1
-            # print "wrongs: " + str(wrongs)
+            # print "wrongs: " + str(wrongs) # Debugging Line
         else:  # only increment feature counter if tree has more than one leaf
-            path = path_gen(tree)
-            # print path
-            # print np.max(path[:, -1])
-            MSE_min_current = np.max(path[:, -1])
+            path = path_gen(tree)  # create path to current tree
+            current_best_result = np.max(path[:, -1])
             path_min_current = path[np.argmax(path[:, -1])]
 
-            # update best MSE and corresponding path
-            if MSE_min_total is None or MSE_min_current > MSE_min_total:  # update best MSE and corresponding path
-                MSE_min_total = MSE_min_current
-                # path_min_total = path_min_current
-                # print path_min
-            # print MSE_min
-            # print path_min
+            # update best result and corresponding path
+            if total_best_result is None or current_best_result > total_best_result:
+                total_best_result = current_best_result
 
+            # update the RF dictionary that rewards / punishes features
             update_RF(RF, path_min_current, tree, rand_feat)
             trees.append(tree)
-    # print "RF: " + str(RF)
-    # print "Returning RF"
+    # print "RF: " + str(RF) # Debugging Line
+    # print "Returning RF" # Debugging Line
 
-    # set up scaler that projects accumulated values of RF in a scale between 0 and 1 ? better between 1 and 100 ?
+    # Transform the counter for rewarded / punished features from RF dictionary into a proportionate number
+    # set up scaler that projects accumulated values of RF onto a scale between 0 and 1
     min_max_scaler = preprocessing.MinMaxScaler(feature_range=(0, 1))
-    # take only values of RF, reshape them (otherwise deprecation warning), make them numpy array, and scale them between 0 and 1
-    # print np.array(RF.values()).reshape(-1, 1)
+    # take only values of RF, reshape them (otherwise deprecation warning), make them numpy array, and scale them (again) between 0 and 1
     temp = min_max_scaler.fit_transform(np.nan_to_num(np.array(RF.values())).reshape(-1, 1))
-    # sum up values of RF, divide each value of RF by sum to get percentage, must sum up to 1
+    # sum up values of RF, divide each value of RF by sum to get percentage --> must sum up to 1 
     temp_sum = np.sum(temp)
     temp_percent = temp * (1.0 / temp_sum)
     # print temp_percent

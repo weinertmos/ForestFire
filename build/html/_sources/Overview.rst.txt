@@ -23,7 +23,7 @@ RF
 .. _MLA:
 
 MLA
-    Machine Learning Algorithm
+    *Machine Learning Algorithm*
 
 Glossary
 --------

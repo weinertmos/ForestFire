@@ -227,7 +227,7 @@ If value is not a number the exact value is compared</p>
 </ul>
 </dd>
 <dt>Returns:</dt>
-<dd>[list] &#8211; two lists</dd>
+<dd>[list] &#8211; two listso</dd>
 </dl>
 </dd></dl>
 
@@ -236,9 +236,9 @@ If value is not a number the exact value is compared</p>
 <code class="descclassname">ForestFire.Main.</code><code class="descname">giniimpurity</code><span class="sig-paren">(</span><em>rows</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ForestFire/Main.html#giniimpurity"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ForestFire.Main.giniimpurity" title="Permalink to this definition">¶</a></dt>
 <dd><p>Probability that a randomly placed item will be in the wrong category</p>
 <p>Calculates the probability of each possible outcome by dividing the number of times that outcome occurs
-by the total number of rows in the set. 
-It then adds up the products of all these probabilities. 
-This gives the overall chance that a row would be randomly assigned to the wrong outcome. 
+by the total number of rows in the set.
+It then adds up the products of all these probabilities.
+This gives the overall chance that a row would be randomly assigned to the wrong outcome.
 The higher this probability, the worse the split.</p>
 <dl class="docutils">
 <dt>Returns:</dt>
@@ -323,7 +323,7 @@ variance = \sum(entry - mean) ^ 2"/></p>
 <code class="descclassname">ForestFire.Main.</code><code class="descname">buildtree</code><span class="sig-paren">(</span><em>rows</em>, <em>scoref</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ForestFire/Main.html#buildtree"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ForestFire.Main.buildtree" title="Permalink to this definition">¶</a></dt>
 <dd><p>recursively builds decisionnode objects that form a decision tree</p>
 <p>At each node the best possible split is calculated (depending on the evaluation metric).
-If no further split is neccessary the remaining items and their number of occurence 
+If no further split is neccessary the remaining items and their number of occurence
 are written in the results property.</p>
 <dl class="docutils">
 <dt>Arguments:</dt>
@@ -416,7 +416,7 @@ the sooner a feature gets chosen as a split feature the more important it is (th
 order that leaves are written in (top to bottom): function will crawl to the rightmost leaf first (positive side), then jump back up one level and move one step to the left (loop)</p>
 <dl class="docutils">
 <dt>Arguments:</dt>
-<dd>tree {decisionnode} &#8211; tree of which the data structure is stored 
+<dd>tree {decisionnode} &#8211; tree of which the data structure is stored
 width {int} &#8211; width of the tree
 depth {int} &#8211; depth of the tree
 path {[type]} &#8211; current path matrix, gets updated during function calls
