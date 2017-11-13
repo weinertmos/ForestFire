@@ -25,7 +25,7 @@
 \contentsline {subsection}{\numberline {3.1.5}Visualizing a tree}{20}{subsection.3.1.5}
 \contentsline {subsection}{\numberline {3.1.6}Storing the tree structure}{20}{subsection.3.1.6}
 \contentsline {section}{\numberline {3.2}Random Forest}{23}{section.3.2}
-\contentsline {subsection}{\numberline {3.2.1}Why is a single Decision Tree not enough?}{23}{subsection.3.2.1}
+\contentsline {subsection}{\numberline {3.2.1}Why a single Decision Tree is not enough}{23}{subsection.3.2.1}
 \contentsline {subsection}{\numberline {3.2.2}Growing a Random Forest}{25}{subsection.3.2.2}
 \contentsline {subsection}{\numberline {3.2.3}Predicting new feature sets}{25}{subsection.3.2.3}
 \contentsline {section}{\numberline {3.3}Update Database}{26}{section.3.3}

@@ -40,7 +40,7 @@
 
 
 \title{ForestFire Documentation}
-\date{Nov 10, 2017}
+\date{Nov 13, 2017}
 \release{1.0.0}
 \author{Marlon Weinert}
 \newcommand{\sphinxlogo}{}
@@ -1204,8 +1204,8 @@ bool -- True if result is in the tree, false if not
 corresponding file: \href{https://github.com/weinertmos/ForestFire/blob/master/source/ForestFire/Main.py}{Main.py}
 
 
-\subsection{Why is a single Decision Tree not enough?}
-\label{\detokenize{RF:why-is-a-single-decision-tree-not-enough}}
+\subsection{Why a single Decision Tree is not enough}
+\label{\detokenize{RF:why-a-single-decision-tree-is-not-enough}}
 A single Decision Tree is already a fully fledged classifier that can be used to determine which features are of more importance than the rest.
 The higher up in the hirarchy of the tree a feature stands the more decisive it is with regard to how well it splits the data in two separate lists.
 The feature at the top node of a tree can be considered the most important one, a feature that appears on the lower levels is not as importnant.
@@ -1279,6 +1279,8 @@ entirely randomly chosen feature sets
 The two {\hyperref[\detokenize{execution:hyperparameters}]{\sphinxcrossref{\DUrole{std,std-ref}{hyperparameters}}}} \sphinxstyleemphasis{n\_configs\_biased} and \sphinxstyleemphasis{n\_configs\_unbiased} determine the amount of feature sets that get tested.
 Since predicting takes not much computing capacity this number can safely be set fairly high.
 
+For the biased feature sets a
+
 Of all predicted feature sets two are chosen for the next computing runs with the {\hyperref[\detokenize{Overview:mla}]{\sphinxcrossref{\DUrole{std,std-ref}{MLA}}}}. One with a high average (mean) and one with a high variance.
 
 \begin{sphinxadmonition}{important}{Important:}
@@ -1316,13 +1318,13 @@ pruning \{bool\} -- pruning enabled (\textgreater{}0) / disabled(=0)
 
 \item[{Returns:}] \leavevmode\begin{itemize}
 \item {} 
-RF -- importances of single features in the forest
+RF --  dictionary = importances of single features in the forest
 
 \item {} 
-Prob\_current -- importance of the features in the forest
+prob\_current -- single value for importance, used for generating new biased feature sets
 
 \item {} 
-trees -- the structure of the single trees the forest consists of
+trees -- contains all single trees that stand in the Forest
 
 \end{itemize}
 

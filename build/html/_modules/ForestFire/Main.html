@@ -589,90 +589,86 @@
 <span class="sd">        * pruning {bool} -- pruning enabled (&gt;0) / disabled(=0)</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        * RF -- importances of single features in the forest</span>
-<span class="sd">        * Prob_current -- importance of the features in the forest</span>
-<span class="sd">        * trees -- the structure of the single trees the forest consists of</span>
+<span class="sd">        * RF --  dictionary = importances of single features in the forest</span>
+<span class="sd">        * prob_current -- single value for importance, used for generating new biased feature sets </span>
+<span class="sd">        * trees -- contains all single trees that stand in the Forest</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="c1"># print data</span>
-    <span class="n">prob_current</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="c1"># Initializations</span>
+    <span class="n">prob_current</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1"># Prelocate</span>
     <span class="n">RF</span> <span class="o">=</span> <span class="p">{}</span>  <span class="c1"># Prelocate dictionary for prioritizing important features</span>
     <span class="n">trees</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># Prelocate list that will contain the trees that stand in the currently built forest</span>
-    <span class="n">MSE_min_total</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1"># Prelocate Memory</span>
-    <span class="n">MSE_min_current</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1"># Prelocate Memory</span>
-    <span class="n">path_min_current</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># Prelocate Memory</span>
-    <span class="c1"># print RF</span>
+    <span class="n">total_best_result</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1"># Prelocate</span>
+    <span class="n">current_best_result</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1"># Prelocate</span>
+    <span class="n">path_min_current</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># Prelocate</span>
     <span class="n">wrongs</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># initialize number of (useless) trees that have only one node</span>
-    <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_trees</span><span class="p">):</span>  <span class="c1"># n_trees is number of trees in the forest</span>
+
+    <span class="c1"># build single trees</span>
+    <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_trees</span><span class="p">):</span>  <span class="c1"># n_trees is the number of trees in the forest</span>
 
         <span class="c1"># select only subset of available datasets</span>
         <span class="c1"># create mask for randomly choosing subset of available datasets</span>
-        <span class="n">mask_sub_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>  <span class="c1"># Prelocate Memory</span>
-        <span class="c1"># print mask_sub_data</span>
+        <span class="n">mask_sub_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>  <span class="c1"># Prelocate</span>
+        <span class="c1"># randomly choose the random datasets</span>
         <span class="n">rand_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="n">size</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">amax</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">around</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="o">*</span> <span class="n">min_data</span><span class="p">,</span> <span class="n">decimals</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span>
-                                                                             <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="kc">None</span><span class="p">)),</span> <span class="n">replace</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>  <span class="c1"># choose the random datasets</span>
-        <span class="c1"># print rand_data</span>
+                                                                             <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="kc">None</span><span class="p">)),</span> <span class="n">replace</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+        <span class="c1"># translate to selected data sets</span>
         <span class="n">mask_sub_data</span><span class="p">[</span><span class="n">rand_data</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
-        <span class="c1"># print mask_sub_data</span>
         <span class="n">sub_data</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">mask_sub_data</span><span class="p">,</span> <span class="p">:]</span>  <span class="c1"># random subset of datasets still including all features</span>
-        <span class="c1"># print sub_data</span>
-        <span class="c1"># y_sub = sub_data[:, -1]</span>
-        <span class="c1"># print y_sub</span>
 
         <span class="c1"># select only subset of features</span>
         <span class="c1"># create mask for randomly choosing subset of available features</span>
-        <span class="n">mask_sub_features</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>  <span class="c1"># Prelocate Memory</span>
-        <span class="c1"># print mask_sub_features</span>
+        <span class="n">mask_sub_features</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>  <span class="c1"># Prelocate</span>
+        <span class="c1"># randomly choose the random features</span>
         <span class="n">rand_feat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">),</span> <span class="n">size</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
-        <span class="c1"># print rand_feat</span>
-        <span class="n">rand_feat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">rand_feat</span><span class="p">)</span>  <span class="c1"># sort ascending</span>
-        <span class="n">rand_feat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">rand_feat</span><span class="p">,</span> <span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>  <span class="c1"># append last column with MSE</span>
-        <span class="c1"># print rand_feat</span>
+        <span class="c1"># sort ascending</span>
+        <span class="n">rand_feat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">rand_feat</span><span class="p">)</span>
+        <span class="c1"># append last column with result</span>
+        <span class="n">rand_feat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">rand_feat</span><span class="p">,</span> <span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="c1"># translate to selected features</span>
         <span class="n">mask_sub_features</span><span class="p">[</span><span class="n">rand_feat</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
-        <span class="c1"># print mask_sub_features</span>
 
         <span class="n">sub_data</span> <span class="o">=</span> <span class="n">sub_data</span><span class="p">[:,</span> <span class="n">mask_sub_features</span><span class="p">]</span>  <span class="c1"># random subset of datasets and random subset of features</span>
-        <span class="c1"># print &quot;sub_data = &quot; + str(sub_data)</span>
+        <span class="c1"># print &quot;sub_data = &quot; + str(sub_data) # Debugging line</span>
 
-        <span class="c1"># build the tree from the subset data, last column must be MSE</span>
-        <span class="c1"># print &quot;building tree&quot;</span>
+        <span class="c1"># build the tree from the subset data, last column contains result</span>
+        <span class="c1"># print &quot;building tree&quot; # Debugging Line</span>
         <span class="n">tree</span> <span class="o">=</span> <span class="n">buildtree</span><span class="p">(</span><span class="n">sub_data</span><span class="p">,</span> <span class="n">scoref</span><span class="p">)</span>
-        <span class="c1"># print getwidth(tree)</span>
+
+        <span class="c1"># pruning the tree (if hyperparameter is enabled)</span>
         <span class="k">if</span> <span class="n">pruning</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
             <span class="n">prune</span><span class="p">(</span><span class="n">tree</span><span class="p">,</span> <span class="n">pruning</span><span class="p">)</span>
-        <span class="c1"># print getwidth(tree)</span>
 
         <span class="c1"># draw the tree and create path matrix</span>
-        <span class="c1"># drawtree(tree, jpeg=&#39;treeview_RF.jpg&#39;)</span>
+        <span class="c1"># drawtree(tree, jpeg=&#39;treeview_RF.jpg&#39;) # Debbuging Line</span>
 
-        <span class="k">if</span> <span class="n">getdepth</span><span class="p">(</span><span class="n">tree</span><span class="p">)</span> <span class="ow">is</span> <span class="mi">0</span><span class="p">:</span>  <span class="c1"># if tree sees only subset of features that are all 0 (svm has not seen them) only base node will be created, tree is useless</span>
+        <span class="k">if</span> <span class="n">getdepth</span><span class="p">(</span><span class="n">tree</span><span class="p">)</span> <span class="ow">is</span> <span class="mi">0</span><span class="p">:</span>  <span class="c1"># if the tree contains only a single node --&gt; tree is useless</span>
             <span class="n">wrongs</span> <span class="o">+=</span> <span class="mi">1</span>
-            <span class="c1"># print &quot;wrongs: &quot; + str(wrongs)</span>
+            <span class="c1"># print &quot;wrongs: &quot; + str(wrongs) # Debugging Line</span>
         <span class="k">else</span><span class="p">:</span>  <span class="c1"># only increment feature counter if tree has more than one leaf</span>
-            <span class="n">path</span> <span class="o">=</span> <span class="n">path_gen</span><span class="p">(</span><span class="n">tree</span><span class="p">)</span>
-            <span class="c1"># print path</span>
-            <span class="c1"># print np.max(path[:, -1])</span>
-            <span class="n">MSE_min_current</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">path</span><span class="p">[:,</span> <span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+            <span class="n">path</span> <span class="o">=</span> <span class="n">path_gen</span><span class="p">(</span><span class="n">tree</span><span class="p">)</span>  <span class="c1"># create path to current tree</span>
+            <span class="n">current_best_result</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">path</span><span class="p">[:,</span> <span class="o">-</span><span class="mi">1</span><span class="p">])</span>
             <span class="n">path_min_current</span> <span class="o">=</span> <span class="n">path</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">path</span><span class="p">[:,</span> <span class="o">-</span><span class="mi">1</span><span class="p">])]</span>
 
-            <span class="c1"># update best MSE and corresponding path</span>
-            <span class="k">if</span> <span class="n">MSE_min_total</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">MSE_min_current</span> <span class="o">&gt;</span> <span class="n">MSE_min_total</span><span class="p">:</span>  <span class="c1"># update best MSE and corresponding path</span>
-                <span class="n">MSE_min_total</span> <span class="o">=</span> <span class="n">MSE_min_current</span>
-                <span class="c1"># path_min_total = path_min_current</span>
-                <span class="c1"># print path_min</span>
-            <span class="c1"># print MSE_min</span>
-            <span class="c1"># print path_min</span>
+            <span class="c1"># update best result and corresponding path</span>
+            <span class="k">if</span> <span class="n">total_best_result</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">current_best_result</span> <span class="o">&gt;</span> <span class="n">total_best_result</span><span class="p">:</span>
+                <span class="n">total_best_result</span> <span class="o">=</span> <span class="n">current_best_result</span>
 
+            <span class="c1"># update the RF dictionary that rewards / punishes features</span>
             <span class="n">update_RF</span><span class="p">(</span><span class="n">RF</span><span class="p">,</span> <span class="n">path_min_current</span><span class="p">,</span> <span class="n">tree</span><span class="p">,</span> <span class="n">rand_feat</span><span class="p">)</span>
             <span class="n">trees</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tree</span><span class="p">)</span>
-    <span class="c1"># print &quot;RF: &quot; + str(RF)</span>
-    <span class="c1"># print &quot;Returning RF&quot;</span>
+    <span class="c1"># print &quot;RF: &quot; + str(RF) # Debugging Line</span>
+    <span class="c1"># print &quot;Returning RF&quot; # Debugging Line</span>
 
-    <span class="c1"># set up scaler that projects accumulated values of RF in a scale between 0 and 1 ? better between 1 and 100 ?</span>
+    <span class="c1"># a &quot;wrong&quot; tree is a tree with only one node that has no power to gain additional insight and therefore is useless...</span>
+    <span class="nb">print</span> <span class="s2">&quot;wrongs: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">wrongs</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;/&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">n_trees</span><span class="p">)</span>
+
+    <span class="c1"># Transform the counter for rewarded / punished features from RF dictionary into a proportionate number</span>
+    <span class="c1"># set up scaler that projects accumulated values of RF onto a scale between 0 and 1</span>
     <span class="n">min_max_scaler</span> <span class="o">=</span> <span class="n">preprocessing</span><span class="o">.</span><span class="n">MinMaxScaler</span><span class="p">(</span><span class="n">feature_range</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
-    <span class="c1"># take only values of RF, reshape them (otherwise deprecation warning), make them numpy array, and scale them between 0 and 1</span>
-    <span class="c1"># print np.array(RF.values()).reshape(-1, 1)</span>
+    <span class="c1"># take only values of RF, reshape them (otherwise deprecation warning), make them numpy array, and scale them (again) between 0 and 1</span>
     <span class="n">temp</span> <span class="o">=</span> <span class="n">min_max_scaler</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nan_to_num</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">RF</span><span class="o">.</span><span class="n">values</span><span class="p">()))</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
-    <span class="c1"># sum up values of RF, divide each value of RF by sum to get percentage, must sum up to 1</span>
+    <span class="c1"># sum up values of RF, divide each value of RF by sum to get percentage --&gt; must sum up to 1</span>
     <span class="n">temp_sum</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">temp</span><span class="p">)</span>
     <span class="n">temp_percent</span> <span class="o">=</span> <span class="n">temp</span> <span class="o">*</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">/</span> <span class="n">temp_sum</span><span class="p">)</span>
     <span class="c1"># print temp_percent</span>
@@ -681,28 +677,27 @@
     <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">RF</span><span class="p">:</span>
         <span class="n">RF</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">temp_percent</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># [0] because otherwise there would be an array inside the dictionary RF</span>
         <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
-    <span class="c1"># print &quot;RF: &quot; + str(RF)</span>
+    <span class="c1"># print &quot;RF: &quot; + str(RF) # Debugging Line</span>
 
-    <span class="c1"># a wrong tree is a tree with only one node that has no power to gain additional insight and therefore is useless...</span>
-    <span class="nb">print</span> <span class="s2">&quot;wrongs: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">wrongs</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;/&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">n_trees</span><span class="p">)</span>
-
-    <span class="c1"># build up dictionary of most important features in a tree and how often they were chosen</span>
+    <span class="c1"># build a dictionary of most important features in a tree and how often they were chosen</span>
     <span class="c1"># create weights of features</span>
     <span class="n">weights</span> <span class="o">=</span> <span class="p">{}</span>  <span class="c1"># Prelocate</span>
     <span class="n">weights_sorted</span> <span class="o">=</span> <span class="p">{}</span>  <span class="c1"># Prelocate</span>
     <span class="c1"># transfer values from dictionary into list</span>
     <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">RF</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
         <span class="n">weights</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>  <span class="c1"># create relative weight</span>
-    <span class="c1"># some features might not get picked once, so their probability must be set to zero</span>
+    <span class="c1"># some features might not get picked once, so their probability is set to zero</span>
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">weights</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">n_feat</span><span class="p">:</span>
         <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_feat</span><span class="p">):</span>
             <span class="k">if</span> <span class="n">key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">weights</span><span class="p">:</span>
                 <span class="n">weights</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="c1"># print &quot;weights = &quot; + str(weights)</span>
     <span class="n">weights_sorted</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">weights</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">value</span><span class="p">:</span> <span class="n">value</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>  <span class="c1"># sort by frequency = importance</span>
-    <span class="c1"># print &quot;importance of features in random forest: &quot; + str(weights_sorted)</span>
+
+    <span class="c1"># print &quot;importance of features in random forest: &quot; + str(weights_sorted) # Debugging Line</span>
+
     <span class="n">prob_current</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">weights_sorted</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>  <span class="c1"># extract only values of feature importance</span>
-    <span class="c1"># print prob_current</span>
+
     <span class="k">return</span> <span class="n">RF</span><span class="p">,</span> <span class="n">prob_current</span><span class="p">,</span> <span class="n">trees</span></div>
 
 

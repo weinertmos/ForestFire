@@ -6,8 +6,8 @@ Random Forest
 corresponding file: `Main.py <https://github.com/weinertmos/ForestFire/blob/master/source/ForestFire/Main.py>`_
 
 
-Why is a single Decision Tree not enough?
------------------------------------------
+Why a single Decision Tree is not enough
+----------------------------------------
 
 A single Decision Tree is already a fully fledged classifier that can be used to determine which features are of more importance than the rest. 
 The higher up in the hirarchy of the tree a feature stands the more decisive it is with regard to how well it splits the data in two separate lists.
@@ -58,6 +58,8 @@ From the vast amount of possible feature sets two different groups of feature se
 
 The two :ref:`hyperparameters <hyperparameters>` *n_configs_biased* and *n_configs_unbiased* determine the amount of feature sets that get tested. 
 Since predicting takes not much computing capacity this number can safely be set fairly high.
+
+For the biased feature sets a 
 
 Of all predicted feature sets two are chosen for the next computing runs with the :ref:`MLA <MLA>`. One with a high average (mean) and one with a high variance. 
 
