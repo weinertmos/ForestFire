@@ -35,13 +35,13 @@ Glossary
         A point in a :term:`Decision Tree` where a decision is made (either true or false)
 
     Decision Tree
-        consists of at least one :term:`node` and represents a treelike structure that can be used for classification of new observations
+        Consists of at least one :term:`node` and represents a treelike structure that can be used for classification of new observations
 
     Random Forest
         Cumulation of :term:`Decision Trees <Decision Tree>` that can be used for classification of new observations
 
     branch
-        junction in a :term:`Decision Tree`. Each :term:`node` has a true and a false branch leading away from it.
+        Junction in a :term:`Decision Tree`. Each :term:`node` has a true and a false branch leading away from it.
 
     leaf
         Last point of a :term:`branch` in a :term`Decision Tree`
@@ -56,11 +56,11 @@ Glossary
         Results can be improved by :term:`ForestFire`
 
     feature
-        unique property of the raw data set. 
+        Unique property of the raw data set. 
         Typically all entries in a specific column of the raw data.
 
     feature set
-        quantity of several single features. At least one, at most all of the available features.
+        Quantity of several single features. At least one, at most all of the available features.
         Used to present the :term:`Machine Learning Algorithm` with a selection of features on which it performs with better results.
         Synonym to :term:`Observation`.
 
@@ -70,6 +70,9 @@ Glossary
 
     Observation
         Synonym to :term:`feature set`.
+
+    Synonyms
+        * Feature Importancce = Feature Probability
 
 References
 ----------

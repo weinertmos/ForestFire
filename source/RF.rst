@@ -44,7 +44,26 @@ In :ref:`buildforest <buildforest>` the Random Forest is built according to the 
 After a new tree is built the feature importance for the whole Forest is :ref:`updated <update_RF>` according to the number of appearances in the single trees. 
 The higher up a feature gets selected in a tree the higher it is rated. The punishment for features that don't lead to the best results is weaker than the reward for leading to the best results.
 Features that are not included in the tree get neither a positive nor a negative rating.
-Instead their probability of getting chosen as a biased feature set in the :ref:`next step <pred_new>` is set to zero.
+Instead their probability of getting chosen as a biased feature set in :ref:`pred_new` is set to zero.
+
+
+Extracting the feature Importance from a Random Forest
+------------------------------------------------------
+
+From the so far completed Random Forests the resulting importance of each single feature can be extracted.
+The terms "importance" and "probability" of a feature are used synonymously, since this value will be used for selecting new feature sets in :ref:`pred_new`.
+
+In :ref:`update_prob <update_prob>` the current feature importance / probability is calculated.
+Therefore several parameters are taken into account:
+
+    * seen_forests: Only a fix number of recent Forest is taken into consideration
+    * weight_mean: From the last seen_forest Forests the mean of each feature is calculated and weighed accordingly
+    * weight_gradient: From the last seen_forest Forests the gradient of each feature is calculated and weighed accordingly
+    * multiplier: each feature probability is potentized by the current multiplier in order to achieve a more distinct distribution of the probabilites
+    * prob_current: the resulting probability for a feature is a combination of its recent trends for both gradient and mean (for details see :ref:`update_prob <update_prob>`)
+
+
+
 
 .. _pred_new:
 
@@ -70,7 +89,10 @@ The unbiased feature sets are chosen randomly.
 
 Every candidate for future computation in the :ref:`MLA <MLA>` gets predicted in every tree that stands in the :term:`Random Forest`. The results are incorporated by their average (mean) and variance.
 
-Of all predicted feature sets two are chosen for the next computing run with the :ref:`MLA <MLA>`. One with a high average (mean) and one with a high variance (respectively a combination of both, for details see :ref:`forest_predict <forest_predict>`)
+Of all predicted feature sets two are chosen for the next computing run with the :ref:`MLA <MLA>`. One with a high average (mean) and one with a high variance (respectively a combination of both, for details see :ref:`forest_predict <forest_predict>`).
+
+If a feature set has already been computed before, it will not be computed again.
+Instead its result is copied to the database.
 
 
 
@@ -87,6 +109,10 @@ Of all predicted feature sets two are chosen for the next computing run with the
     .. _update_RF:
 
     .. autofunction:: ForestFire.Main.update_RF
+
+    .. _update_prob:
+
+    .. autofunction:: ForestFire.Main.update_prob
 
     .. _forest_predict:
 

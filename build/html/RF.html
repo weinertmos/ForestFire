@@ -89,7 +89,23 @@ The term for this construct is <a class="reference internal" href="Overview.html
 <p>After a new tree is built the feature importance for the whole Forest is <a class="reference internal" href="#update-rf"><span class="std std-ref">updated</span></a> according to the number of appearances in the single trees.
 The higher up a feature gets selected in a tree the higher it is rated. The punishment for features that don&#8217;t lead to the best results is weaker than the reward for leading to the best results.
 Features that are not included in the tree get neither a positive nor a negative rating.
-Instead their probability of getting chosen as a biased feature set in the <a class="reference internal" href="#pred-new"><span class="std std-ref">next step</span></a> is set to zero.</p>
+Instead their probability of getting chosen as a biased feature set in <a class="reference internal" href="#pred-new"><span class="std std-ref">Predicting new feature sets</span></a> is set to zero.</p>
+</div>
+<div class="section" id="extracting-the-feature-importance-from-a-random-forest">
+<h2>Extracting the feature Importance from a Random Forest<a class="headerlink" href="#extracting-the-feature-importance-from-a-random-forest" title="Permalink to this headline">¶</a></h2>
+<p>From the so far completed Random Forests the resulting importance of each single feature can be extracted.
+The terms &#8220;importance&#8221; and &#8220;probability&#8221; of a feature are used synonymously, since this value will be used for selecting new feature sets in <a class="reference internal" href="#pred-new"><span class="std std-ref">Predicting new feature sets</span></a>.</p>
+<p>In <a class="reference internal" href="#update-prob"><span class="std std-ref">update_prob</span></a> the current feature importance / probability is calculated.
+Therefore several parameters are taken into account:</p>
+<blockquote>
+<div><ul class="simple">
+<li>seen_forests: Only a fix number of recent Forest is taken into consideration</li>
+<li>weight_mean: From the last seen_forest Forests the mean of each feature is calculated and weighed accordingly</li>
+<li>weight_gradient: From the last seen_forest Forests the gradient of each feature is calculated and weighed accordingly</li>
+<li>multiplier: each feature probability is potentized by the current multiplier in order to achieve a more distinct distribution of the probabilites</li>
+<li>prob_current: the resulting probability for a feature is a combination of its recent trends for both gradient and mean (for details see <a class="reference internal" href="#update-prob"><span class="std std-ref">update_prob</span></a>)</li>
+</ul>
+</div></blockquote>
 </div>
 <div class="section" id="predicting-new-feature-sets">
 <span id="pred-new"></span><h2>Predicting new feature sets<a class="headerlink" href="#predicting-new-feature-sets" title="Permalink to this headline">¶</a></h2>
@@ -111,7 +127,9 @@ From the vast amount of possible feature sets two different groups of feature se
 <p>For selecting the biased feature sets the probability of choosing a particular feature depends on its rating calculated in <a class="reference internal" href="#buildforest"><span class="std std-ref">buildforest</span></a>.
 The unbiased feature sets are chosen randomly.</p>
 <p>Every candidate for future computation in the <a class="reference internal" href="Overview.html#mla"><span class="std std-ref">MLA</span></a> gets predicted in every tree that stands in the <a class="reference internal" href="Overview.html#term-random-forest"><span class="xref std std-term">Random Forest</span></a>. The results are incorporated by their average (mean) and variance.</p>
-<p>Of all predicted feature sets two are chosen for the next computing run with the <a class="reference internal" href="Overview.html#mla"><span class="std std-ref">MLA</span></a>. One with a high average (mean) and one with a high variance (respectively a combination of both, for details see <a class="reference internal" href="#forest-predict"><span class="std std-ref">forest_predict</span></a>)</p>
+<p>Of all predicted feature sets two are chosen for the next computing run with the <a class="reference internal" href="Overview.html#mla"><span class="std std-ref">MLA</span></a>. One with a high average (mean) and one with a high variance (respectively a combination of both, for details see <a class="reference internal" href="#forest-predict"><span class="std std-ref">forest_predict</span></a>).</p>
+<p>If a feature set has already been computed before, it will not be computed again.
+Instead its result is copied to the database.</p>
 <div class="admonition important">
 <p class="first admonition-title">Important</p>
 <p><strong>Functions used in this chapter</strong></p>
@@ -165,6 +183,25 @@ feature appearences in the whole forest.</p>
 <li>RF &#8211; updated dictionary that counts occurrence / absence of different features</li>
 </ul>
 </dd>
+</dl>
+</dd></dl>
+
+<span class="target" id="update-prob"></span><dl class="function">
+<dt id="ForestFire.Main.update_prob">
+<code class="descclassname">ForestFire.Main.</code><code class="descname">update_prob</code><span class="sig-paren">(</span><em>Probability</em>, <em>i</em>, <em>weight_mean</em>, <em>weight_gradient</em>, <em>multiplier</em>, <em>seen_forests</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ForestFire/Main.html#update_prob"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ForestFire.Main.update_prob" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates the current Importance / Probability of the single features</p>
+<p>Based on the probabilities of each feature in past Forests a new current_prob is calculated that takes into
+account the mean and the gradient of the prior feature importances.</p>
+<dl class="docutils">
+<dt>Arguments:</dt>
+<dd>Probability {numpy array} &#8211; contains Importances of single features for all past Random Forests
+i {integer} &#8211; number of current Forest
+weight_mean {float} &#8211; weight of the mean in calculating resulting probability
+weight_gradient {float} &#8211; weight of the var in calculating resulting probability
+multiplier {float} &#8211; exponent for amplifying probabilities
+seen_forests {integer} &#8211; number of before built forest that are considered</dd>
+<dt>Returns:</dt>
+<dd>prob_current &#8211; list of floats representing the calculated aggregation of recent feature importances</dd>
 </dl>
 </dd></dl>
 

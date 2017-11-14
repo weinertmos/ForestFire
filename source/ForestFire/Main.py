@@ -790,15 +790,32 @@ def forest_predict(data, trees, prob, n_configs, biased):
 # based on the probabilities of each feature in past Forests, a new current_prob is calculated that takes into
 # account the mean and the gradient of the prior feature importances
 def update_prob(Probability, i, weight_mean, weight_gradient, multiplier, seen_forests):
-    # print "Probability: " + str(Probability[0:i + 1])
+    """Calculates the current Importance / Probability of the single features
+
+    Based on the probabilities of each feature in past Forests a new current_prob is calculated that takes into
+    account the mean and the gradient of the prior feature importances.
+
+
+    Arguments:
+        Probability {numpy array} -- contains Importances of single features for all past Random Forests
+        i {integer} -- number of current Forest
+        weight_mean {float} -- weight of the mean in calculating resulting probability
+        weight_gradient {float} -- weight of the var in calculating resulting probability
+        multiplier {float} -- exponent for amplifying probabilities
+        seen_forests {integer} -- number of before built forest that are considered
+
+    Returns:
+        prob_current -- list of floats representing the calculated aggregation of recent feature importances
+    """
+    # print "Probability: " + str(Probability[0:i + 1]) # Debugging Line
 
     # if only one or two calculations of prob has been done so far, leave prob empty
-    # (np.gradient need 3 points and 3 random Forests provide better statistical insurance than only 1 Random Forest)
+    # (np.gradient needs 3 points and 3 random Forests to provide better statistical insurance than only 1 Random Forest)
     if i <= 1:
         prob_current = None
     else:
         # gradients contains the current gradient for each feature
-        # map: function list ist applied to all zip(transposed(a)) (without list: zip generatets tuple instead of list)
+        # map: function list is applied to all zip(transposed(a)) (without list: zip generatets tuple instead of list)
         if i < seen_forests:
             gradients = np.gradient(map(list, zip(*Probability[0:i + 1])), axis=1)
             mean = np.mean(map(list, zip(*Probability[0:i + 1])), axis=1)
@@ -808,46 +825,46 @@ def update_prob(Probability, i, weight_mean, weight_gradient, multiplier, seen_f
             gradients = np.gradient(map(list, zip(*Probability[i - seen_forests:i + 1])), axis=1)
             mean = np.mean(map(list, zip(*Probability[i - seen_forests:i + 1])), axis=1)
 
-        # print "gradients: " + str(gradients)
+        # print "gradients: " + str(gradients) # Debugging Line
 
         # calculate the mean of the gradient for each feature
         gradients_mean = map(np.mean, gradients)
-        # print "gradients_mean: " + str(gradients_mean)
+        # print "gradients_mean: " + str(gradients_mean) # Debugging Line
 
         # calculate the norm of the gradient for each feature
         gradients_norm = map(np.linalg.norm, gradients)
-        # print "gradients_norm: " + str(gradients_norm)
+        # print "gradients_norm: " + str(gradients_norm) # Debugging Line
 
         # divide the mean by the norm(=length)
         # (to punish strongly fluctuating values and to reward values that change only slightly over time)
         gradients = np.nan_to_num(np.divide(gradients_mean, gradients_norm))  # nan_to_num: because division by zero leaves NaN
-        # print "gradients mean / norm: " + str(gradients)
+        # print "gradients mean / norm: " + str(gradients) # Debugging Line
 
         # scale values
         min_max_scaler = preprocessing.MinMaxScaler(feature_range=(1, 100))
         gradients = min_max_scaler.fit_transform(gradients.reshape(-1, 1))  # reshape: otherwise deprecation warning
         mean = min_max_scaler.fit_transform(mean.reshape(-1, 1))  # reshape: otherwise deprecation warning
-        # print "gradients rescaled: " + str(gradients)
-        # print "mean rescaled: " + str(mean)
+        # print "gradients rescaled: " + str(gradients) # Debugging Line
+        # print "mean rescaled: " + str(mean) # Debugging Line
 
         # calculate new probability for selection of new feature sets
         # weight_mean, weight_gradient and multiplier are hyperparameters
         prob_current = (mean * weight_mean + gradients * weight_gradient)**multiplier
-        # print "prob_current: " + str(prob_current)
-        # print "gradients + mean: " + str(gradients)
+        # print "prob_current: " + str(prob_current) # Debugging Line
+        # print "gradients + mean: " + str(gradients) # Debugging Line
 
         # express values as percentage (because sum(prob) must equal 1)
         prob_current = np.divide(prob_current, np.sum(prob_current))
         # print "gradients percent: " + str(gradients)
         prob_current = np.array([item for sublist in prob_current for item in sublist])  # convert nested list into usual list
-        # print "prob_current: " + str(prob_current)
+        # print "prob_current: " + str(prob_current) # Debugging Line
 
         # in the last run print out the gradients
         if i + 1 == len(Probability):
             print " "
-            # print "gradients mean: " + str(gradients_mean)
-            # print " "
-            # print "prob_current: " + str(prob_current)
+            # print "gradients mean: " + str(gradients_mean) # Debugging Line
+            # print " " # Debugging Line
+            # print "prob_current: " + str(prob_current) # Debugging Line
     return prob_current
 
 
