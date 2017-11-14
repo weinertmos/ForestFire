@@ -23,7 +23,7 @@ RF
 .. _MLA:
 
 MLA
-    *Machine Learning Algorithm*
+    :term:`Machine Learning Algorithm`
 
 Glossary
 --------
@@ -50,7 +50,26 @@ Glossary
         Cutting back :term:`branches <branch>` of a :term:`Decision Tree` with little information gain.
         See :ref:`prune <prune>`
 
+    Machine Learning Algorithm
+        Specified by the user in :ref:`compute`. 
+        Can basically be any existing algorithm that classifies the raw data.
+        Results can be improved by :term:`ForestFire`
 
+    feature
+        unique property of the raw data set. 
+        Typically all entries in a specific column of the raw data.
+
+    feature set
+        quantity of several single features. At least one, at most all of the available features.
+        Used to present the :term:`Machine Learning Algorithm` with a selection of features on which it performs with better results.
+        Synonym to :term:`Observation`.
+
+    ForestFire
+        Subject of this documentation.
+        Tool that can imporove performance and efficiency of :term:`MLAs <Machine Learning Algorithm>`.
+
+    Observation
+        Synonym to :term:`feature set`.
 
 References
 ----------
@@ -70,7 +89,7 @@ The following Modules are imported during the execution of ForestFire:
 About the author
 ----------------
 
-Information about author.
+Information about the author.
 
 
 

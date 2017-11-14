@@ -23,7 +23,7 @@ In addition a single tree that sees all features of the data set tends to be bia
 A logical implication to these two challenges is to introduce randomness:
 
     * present a single tree with only a random subset of all data sets
-    * present a single tree with only a random subset of all features
+    * present a single tree with only a random subsmet of all features
 
 This will reduce the bias of the tree, but increase its variance.
 By building multiple trees and averaging their results the variance can again be reduced.
@@ -44,6 +44,9 @@ In :ref:`buildforest <buildforest>` the Random Forest is built according to the 
 After a new tree is built the feature importance for the whole Forest is :ref:`updated <update_RF>` according to the number of appearances in the single trees. 
 The higher up a feature gets selected in a tree the higher it is rated. The punishment for features that don't lead to the best results is weaker than the reward for leading to the best results.
 Features that are not included in the tree get neither a positive nor a negative rating.
+Instead their probability of getting chosen as a biased feature set in the :ref:`next step <pred_new>` is set to zero.
+
+.. _pred_new:
 
 Predicting new feature sets
 ---------------------------
@@ -57,11 +60,17 @@ From the vast amount of possible feature sets two different groups of feature se
     * entirely randomly chosen feature sets
 
 The two :ref:`hyperparameters <hyperparameters>` *n_configs_biased* and *n_configs_unbiased* determine the amount of feature sets that get tested. 
-Since predicting takes not much computing capacity this number can safely be set fairly high.
 
-For the biased feature sets a 
+.. note::
 
-Of all predicted feature sets two are chosen for the next computing runs with the :ref:`MLA <MLA>`. One with a high average (mean) and one with a high variance. 
+    Since predicting takes not much computing capacity *n_configs_biased* and *n_configs_unbiased* can safely be set fairly high.
+
+For selecting the biased feature sets the probability of choosing a particular feature depends on its rating calculated in :ref:`buildforest <buildforest>`. 
+The unbiased feature sets are chosen randomly.
+
+Every candidate for future computation in the :ref:`MLA <MLA>` gets predicted in every tree that stands in the :term:`Random Forest`. The results are incorporated by their average (mean) and variance.
+
+Of all predicted feature sets two are chosen for the next computing run with the :ref:`MLA <MLA>`. One with a high average (mean) and one with a high variance (respectively a combination of both, for details see :ref:`forest_predict <forest_predict>`)
 
 
 

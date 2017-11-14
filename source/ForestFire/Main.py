@@ -646,23 +646,24 @@ def buildforest(data, n_trees, scoref, n_feat, min_data, pruning):
         for key in range(n_feat):
             if key not in weights:
                 weights[key] = 0
-    # print "weights = " + str(weights)
+    # print "weights = " + str(weights) # Debugging Line
     weights_sorted = dict(sorted(weights.items(), key=lambda value: value[0], reverse=False))  # sort by frequency = importance
 
     # print "importance of features in random forest: " + str(weights_sorted) # Debugging Line
 
-    prob_current = np.array(weights_sorted.values())  # extract only values of feature importance
+    prob_current = np.array(weights_sorted.values())  # extract only the values of feature importance
 
     return RF, prob_current, trees
 
 
 def update_RF(RF, path, tree, rand_feat):
-    """for each tree the features that lead to the leaf with the lowest Error will get rewarded
-    Features that don't lead to the leaf with the lowest Error will get punished (only by 20% of the reward)
+    """for each tree the features that lead to the leaf with the lowest Error will get rewarded.
+    Features that don't lead to the leaf with the lowest Error will get punished (only by 20% of 
+    the amount the "good" featurtes get rewarded).
 
 
-    RF gets updated after a new tree is built and thus contains the cummulation of all
-    feature appearences in the whole forest
+    RF is a dictionary that gets updated after a new tree is built and thus contains the cummulation of all
+    feature appearences in the whole forest.
 
     Arguments:
         * RF {dict} -- dictionary that counts occurrence / absence of different features
@@ -674,44 +675,46 @@ def update_RF(RF, path, tree, rand_feat):
         * RF -- updated dictionary that counts occurrence / absence of different features
     """
     current_depth = getdepth(tree)
-    # print "current path: " + str(path)
-    # print  "current depth = " + str(getdepth(tree))
-    # print "current col: " + str(tree.col)
+    # print "current path: " + str(path) # Debugging Line
+    # print  "current depth = " + str(getdepth(tree)) # Debugging Line
+    # print "current col: " + str(tree.col) # Debugging Line
     if current_depth == 0:
         return RF
     MSE_min = path[-1]
-    # print "MSE_min: " + str(MSE_min)
-    # print "Checking if MSE_min is in True branch"
+    # print "MSE_min: " + str(MSE_min) # Debugging Line
+    # print "Checking if MSE_min is in True branch" # Debugging Line
     if check_path(tree.tb, MSE_min) is True:
-        # print "MSE_min is in True Branch"
-        if rand_feat[int(tree.col)] not in RF:  # initialize the feature in dictionary RF if it appears for the first time
-            # print rand_feat
-            # print tree.col
-            # print rand_feat[int(tree.col)]
+        # print "MSE_min is in True Branch" # Debugging Line
+
+        # initialize the feature in dictionary RF if it appears for the first time
+        if rand_feat[int(tree.col)] not in RF:
             RF[rand_feat[int(tree.col)]] = float(current_depth)
         else:  # if the feature is already present in dictionary RF, increase counter
             RF[rand_feat[int(tree.col)]] += float(current_depth)
-        # print "added " + str(current_depth) + " to feature  " + str(tree.col)
-        # print "current RF: " + str(RF)
+        # print "added " + str(current_depth) + " to feature  " + str(tree.col) # Debugging Line
+        # print "current RF: " + str(RF) # Debugging Line
         update_RF(RF, path[1:], tree.tb, rand_feat)  # recursively jump into update_RF again with shortened path at next level in true branch
     else:
-        # print "MSE_min is not in True Branch"
-        # print "Checking if MSE_min is in False Branch"
+        # print "MSE_min is not in True Branch" # Debugging Line
+        # print "Checking if MSE_min is in False Branch" # Debugging Line
         if check_path(tree.fb, MSE_min) is True:
-            # print "MSE_min is in False Branch"
+            # print "MSE_min is in False Branch" # Debugging Line
             if rand_feat[int(tree.col)] not in RF:  # initialize the feature in dictionary RF if it appears for the first time
                 RF[rand_feat[int(tree.col)]] = -0.2 * float(current_depth)
             else:  # if the feature is already present in dictionary RF, decrease counter
                 RF[rand_feat[int(tree.col)]] -= float(current_depth) * 0.2
-            # print "subtracted " + str(current_depth*0.2) + " from feature " + str(tree.col)
-            # print "current RF: " + str(RF)
-            update_RF(RF, path[1:], tree.fb, rand_feat)  # recursively jump into update_RF again with shortened path at next level in false branch
+            # print "subtracted " + str(current_depth*0.2) + " from feature " + str(tree.col) # Debugging Line
+            # print "current RF: " + str(RF) # Debugging Line
+            update_RF(RF, path[1:], tree.fb, rand_feat)  # recursively jump into update_RF with shortened path at next level in false branch
 
 
 def forest_predict(data, trees, prob, n_configs, biased):
-    """predict performance of new feature sets
+    """Predict performance of new feature sets
 
     Predicts biased and unbiased feature sets in the before constructed Random Forest.
+    Feature sets are predicted in every single Decision Tree in the Random Forest.
+    Results are represented as (mean+0.1*var) and (variance+0.1*mean) for each feature set.
+    The two best feature sets are selected to be sent into the :ref:`MLA <MLA>`.
 
 
     Arguments:
@@ -729,7 +732,7 @@ def forest_predict(data, trees, prob, n_configs, biased):
     """
     if biased is not True:
         prob = None
-    # print "prob: " + str(prob)
+    # print "prob: " + str(prob) # Debugging Line
     # Prelocate variables
     mean = np.zeros(n_configs)
     var = np.zeros(n_configs)
@@ -742,30 +745,25 @@ def forest_predict(data, trees, prob, n_configs, biased):
     for x in range(n_configs):  # n_configs_biased is hyperparameter
         # create mask for choosing subfeatures
         mask_sub_features = np.zeros(data.shape[1] - 1, dtype=bool)  # Prelocate Memory
-        # print mask_sub_features
         if prob is not None:
             rand_feat = np.random.choice(range(data.shape[1] - 1), size=int(np.min((np.random.choice(range(len(data[0]) - 1)) + 1, len(np.nonzero(prob)[0])))),
                                          replace=False, p=prob)  # size must be <= nonzero values of p, otherwise one feature gets selected twice
         if prob is None:
             rand_feat = np.random.choice(range(data.shape[1] - 1), size=int(np.random.choice(range(len(data[0]) - 1)) + 1), replace=False, p=None)  # size must be <= nonzero values of p, otherwise one feature gets selected twice
 
-        # print rand_feat
         rand_feat = np.sort(rand_feat)  # sort ascending
-        # print rand_feat
         mask_sub_features[rand_feat] = True
-        # print mask_sub_features
-        # print "current feature set: " + str(mask_sub_features)
+        # print "current feature set: " + str(mask_sub_features) # Debugging Line
 
         # Predict the new feature set
         predictions = np.zeros(len(trees))  # Prelocate Memory
-        # print predictions
         i = 0  # set counter for going through all trees
         # classify the randomly chosen feature sets in each tree
         for tree in trees:
             predictions[i] = classify(mask_sub_features, tree).keys()[0]
             i += 1
-        # print "predictions: " + str(predictions)
-        # print "best_mean = " + str(best_mean)
+        # print "predictions: " + str(predictions) # Debugging Line
+        # print "best_mean = " + str(best_mean) # Debugging Line
         # calculate mean an std for all predictions in a tree
         mean[x] = np.mean(predictions)
         var[x] = np.var(predictions) / abs(mean[x])  # ? correct?
@@ -774,18 +772,18 @@ def forest_predict(data, trees, prob, n_configs, biased):
         if best_mean == [0] or mean[x] + var[x] * 0.1 > best_mean:
             best_mean = mean[x] + var[x] * 0.1
 
-            # print "best_mean updated: " + str(best_mean)
+            # print "best_mean updated: " + str(best_mean) # Debugging Line
             best_featureset_mean = mask_sub_features
-            # print "best_featureset_mean = " + str(best_featureset_mean)
+            # print "best_featureset_mean = " + str(best_featureset_mean) # Debugging Line
         if best_var == [0] or var[x] + mean[x] * 0.1 > best_var:
             best_var = var[x] + mean[x] * 0.1
-            # print "best_var updated: " + str(best_var)
+            # print "best_var updated: " + str(best_var) # Debugging Line
             best_featureset_var = mask_sub_features
-            # print "best_featureset_var = " + str(best_featureset_var)
-    # print "best mean for current forest: " + str(best_mean)
-    # print "best feature set for best mean: " + str(best_featureset_mean)
-    # print "best var for current forest: " + str(best_var)
-    # print "best feature set for best var" + str(best_featureset_var)
+            # print "best_featureset_var = " + str(best_featureset_var) # Debugging Line
+    # print "best mean for current forest: " + str(best_mean) # Debugging Line
+    # print "best feature set for best mean: " + str(best_featureset_mean) # Debugging Line
+    # print "best var for current forest: " + str(best_var) # Debugging Line
+    # print "best feature set for best var" + str(best_featureset_var) # Debugging Line
     return best_mean, best_var, best_featureset_mean, best_featureset_var
 
 
@@ -1011,7 +1009,7 @@ def main_loop(n_start, pruning, min_data, n_forests, n_trees, n_configs_biased, 
         check_mean = any(check for check in (np.array_equal(data[entry, :-1], best_featureset_mean) for entry in range(len(data))))
         check_var = any(check for check in (np.array_equal(data[entry, :-1], best_featureset_var) for entry in range(len(data))))
 
-        print "data len: " + str(len(data))
+        # print "data len: " + str(len(data))
         # print check_mean
         # print check_var
 
