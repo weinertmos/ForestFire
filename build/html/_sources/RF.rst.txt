@@ -59,8 +59,17 @@ Therefore several parameters are taken into account:
     * seen_forests: Only a fix number of recent Forest is taken into consideration
     * weight_mean: From the last seen_forest Forests the mean of each feature is calculated and weighed accordingly
     * weight_gradient: From the last seen_forest Forests the gradient of each feature is calculated and weighed accordingly
+
+    .. _multi:
+
     * multiplier: each feature probability is potentized by the current multiplier in order to achieve a more distinct distribution of the probabilites
     * prob_current: the resulting probability for a feature is a combination of its recent trends for both gradient and mean (for details see :ref:`update_prob <update_prob>`)
+
+Multiplier Stepup
+#################
+
+The multiplier that is :ref:`applied <multi>` as an exponent to all single feature probabilities is a quantity that is scaled dynamically. 
+Depending on the :term:`Raw data set`
 
 
 

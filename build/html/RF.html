@@ -102,10 +102,17 @@ Therefore several parameters are taken into account:</p>
 <li>seen_forests: Only a fix number of recent Forest is taken into consideration</li>
 <li>weight_mean: From the last seen_forest Forests the mean of each feature is calculated and weighed accordingly</li>
 <li>weight_gradient: From the last seen_forest Forests the gradient of each feature is calculated and weighed accordingly</li>
+</ul>
+<ul class="simple" id="multi">
 <li>multiplier: each feature probability is potentized by the current multiplier in order to achieve a more distinct distribution of the probabilites</li>
 <li>prob_current: the resulting probability for a feature is a combination of its recent trends for both gradient and mean (for details see <a class="reference internal" href="#update-prob"><span class="std std-ref">update_prob</span></a>)</li>
 </ul>
 </div></blockquote>
+<div class="section" id="multiplier-stepup">
+<h3>Multiplier Stepup<a class="headerlink" href="#multiplier-stepup" title="Permalink to this headline">¶</a></h3>
+<p>The multiplier that is <a class="reference internal" href="#multi"><span class="std std-ref">applied</span></a> as an exponent to all single feature probabilities is a quantity that is scaled dynamically.
+Depending on the <a class="reference internal" href="Overview.html#term-raw-data-set"><span class="xref std std-term">Raw data set</span></a></p>
+</div>
 </div>
 <div class="section" id="predicting-new-feature-sets">
 <span id="pred-new"></span><h2>Predicting new feature sets<a class="headerlink" href="#predicting-new-feature-sets" title="Permalink to this headline">¶</a></h2>

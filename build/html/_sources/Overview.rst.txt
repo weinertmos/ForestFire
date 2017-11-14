@@ -71,6 +71,10 @@ Glossary
     Observation
         Synonym to :term:`feature set`.
 
+    Raw data set
+        Data set that is provided by the user in :ref:`import_data`.
+        The :ref:`MLA <MLA>` will run on this data set.
+
     Synonyms
         * Feature Importancce = Feature Probability
 
