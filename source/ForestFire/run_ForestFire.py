@@ -26,7 +26,7 @@ n_configs_unbiased = 'default'
 # higher values will increase pressure on how often promising features will be selected.
 # advanced parameter, adjust carefully. If set too high the risk of runnning into local extrema rises.
 multiplier_stepup = 'default'
-# number of recent forests that are taken into acount for generating probability of the chosen feature sets default = 4 ? make variable?
+# number of recent forests that are taken into acount for generating probability of the chosen feature sets default = 0.01
 seen_forests = 'default'
 # the chosen feature sets default = 4 ? make variable?
 

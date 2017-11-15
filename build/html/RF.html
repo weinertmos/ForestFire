@@ -111,7 +111,9 @@ Therefore several parameters are taken into account:</p>
 <div class="section" id="multiplier-stepup">
 <h3>Multiplier Stepup<a class="headerlink" href="#multiplier-stepup" title="Permalink to this headline">¶</a></h3>
 <p>The multiplier that is <a class="reference internal" href="#multi"><span class="std std-ref">applied</span></a> as an exponent to all single feature probabilities is a quantity that is scaled dynamically.
-Depending on the <a class="reference internal" href="Overview.html#term-raw-data-set"><span class="xref std std-term">Raw data set</span></a></p>
+Depending on the <a class="reference internal" href="Overview.html#term-raw-data-set"><span class="xref std std-term">Raw data set</span></a> set it is possible that the feature importances in a Random Forest are all very close to the average importance, hence resembling nothing more than a randomly chosen distribution.
+In order to avoid this <a class="reference internal" href="Overview.html#term-forestfire"><span class="xref std std-term">ForestFire</span></a> examines the importances of every single feature after a Random Forest is built.
+If the highest feature importance does not lie above a certain threshold (default: 2 times the average importance) the multiplier is raised by the <a class="reference internal" href="execution.html#hyperparameters"><span class="std std-ref">hyperparameter multiplier_stepup</span></a>.</p>
 </div>
 </div>
 <div class="section" id="predicting-new-feature-sets">
@@ -122,21 +124,18 @@ The results are averaged.
 From the vast amount of possible feature sets two different groups of feature sets are considered:</p>
 <blockquote>
 <div><ul class="simple">
-<li>feature sets biased according to the average importance of each feature</li>
+<li>feature sets biased according to the average importance of each feature (prob_current from <a class="reference internal" href="#update-prob"><span class="std std-ref">update_prob</span></a>)</li>
 <li>entirely randomly chosen feature sets</li>
 </ul>
 </div></blockquote>
 <p>The two <a class="reference internal" href="execution.html#hyperparameters"><span class="std std-ref">hyperparameters</span></a> <em>n_configs_biased</em> and <em>n_configs_unbiased</em> determine the amount of feature sets that get tested.</p>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">Since predicting takes not much computing capacity <em>n_configs_biased</em> and <em>n_configs_unbiased</em> can safely be set fairly high.</p>
-</div>
 <p>For selecting the biased feature sets the probability of choosing a particular feature depends on its rating calculated in <a class="reference internal" href="#buildforest"><span class="std std-ref">buildforest</span></a>.
 The unbiased feature sets are chosen randomly.</p>
 <p>Every candidate for future computation in the <a class="reference internal" href="Overview.html#mla"><span class="std std-ref">MLA</span></a> gets predicted in every tree that stands in the <a class="reference internal" href="Overview.html#term-random-forest"><span class="xref std std-term">Random Forest</span></a>. The results are incorporated by their average (mean) and variance.</p>
 <p>Of all predicted feature sets two are chosen for the next computing run with the <a class="reference internal" href="Overview.html#mla"><span class="std std-ref">MLA</span></a>. One with a high average (mean) and one with a high variance (respectively a combination of both, for details see <a class="reference internal" href="#forest-predict"><span class="std std-ref">forest_predict</span></a>).</p>
 <p>If a feature set has already been computed before, it will not be computed again.
 Instead its result is copied to the database.</p>
+<p>The <a class="reference internal" href="Update_Database.html#update-database"><span class="std std-ref">Updating of the database</span></a> depicts the last step in the ForestFire Loop.</p>
 <div class="admonition important">
 <p class="first admonition-title">Important</p>
 <p><strong>Functions used in this chapter</strong></p>

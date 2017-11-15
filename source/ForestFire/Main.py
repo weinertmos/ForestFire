@@ -962,7 +962,7 @@ def main_loop(n_start, pruning, min_data, n_forests, n_trees, n_configs_biased, 
 
     if demo_mode:
         data_start = data  # save starting data for later comparison with random feature set selection
-    # print "len(data): " + str(len(data))
+    # print "len(data): " + str(len(data)) # Debugging Line
 
     # ### Start of ForestFire ###
     print "Starting ForestFire"
@@ -974,7 +974,7 @@ def main_loop(n_start, pruning, min_data, n_forests, n_trees, n_configs_biased, 
         print " "
         print "Building Random Forest Nr. " + str(i + 1)
         RF, Probability[i], trees = buildforest(data, n_trees, scoref, n_feat, min_data, pruning)
-        # print "RF: " + str(RF)
+        # print "RF: " + str(RF) # Debugging Line
 
         # Update probability
         prob_current = update_prob(Probability, i, weight_mean, weight_gradient, multiplier, seen_forests)
@@ -983,21 +983,21 @@ def main_loop(n_start, pruning, min_data, n_forests, n_trees, n_configs_biased, 
         if i > 1 and np.max(prob_current) < np.multiply(np.divide(1.0, n_feat), 2):
             multiplier += multiplier_stepup
             print "raised multiplier to " + str(multiplier)
-        # print RF
-        # print " "
-        # print "Predicting new possible configs"
-        # print "biased configs"
+        # print RF # Debugging Line
+        # print " " # Debugging Line
+        # print "Predicting new possible configs" # Debugging Line
+        # print "biased configs" # Debugging Line
 
         # test new biased and unbiased feature sets and extract the best feature sets
         best_mean_biased, best_var_biased, best_featureset_mean_biased, best_featureset_var_biased = forest_predict(
             data, trees, prob_current, n_configs_biased, biased=True)
-        # print " "
-        # print "unbiased configs"
+        # print " " # Debugging Line
+        # print "unbiased configs" # Debugging Line
         best_mean_unbiased, best_var_unbiased, best_featureset_mean_unbiased, best_featureset_var_unbiased = forest_predict(
             data, trees, prob_current, n_configs_unbiased, biased=False)
-        # print "best mean_biased: " + str(best_mean_biased)
-        # print "best mean_unbiased: " + str(best_mean_unbiased)
-        # print " "
+        # print "best mean_biased: " + str(best_mean_biased) # Debugging Line
+        # print "best mean_unbiased: " + str(best_mean_unbiased) # Debugging Line
+        # print " " # Debugging Line
         best_mean = np.max((best_mean_biased, best_mean_unbiased))
         if best_mean == best_mean_biased:
             best_featureset_mean = best_featureset_mean_biased
@@ -1005,10 +1005,10 @@ def main_loop(n_start, pruning, min_data, n_forests, n_trees, n_configs_biased, 
         elif best_mean == best_mean_unbiased:
             best_featureset_mean = best_featureset_mean_unbiased
             print "picked unbiased feature set for mean"
-        # print best_mean
-        # print best_featureset_mean
-        # print "best_var_biased: " + str(best_var_biased)
-        # print "best_var_unbiased: " + str(best_var_unbiased)
+        # print best_mean # Debugging Line
+        # print best_featureset_mean # Debugging Line
+        # print "best_var_biased: " + str(best_var_biased) # Debugging Line
+        # print "best_var_unbiased: " + str(best_var_unbiased) # Debugging Line
         best_var = np.max((best_var_biased, best_var_unbiased))
         if best_var == best_var_biased:
             best_featureset_var = best_featureset_var_biased
@@ -1018,17 +1018,15 @@ def main_loop(n_start, pruning, min_data, n_forests, n_trees, n_configs_biased, 
             print "picked unbiased feature set for var"
 
         # update database with two new feature sets
-        # print "current feature sets:" + str(data[:, :-1])
-        # print "best_var feature set:" + str(best_featureset_var)
-        # print "best_mean feature set:" + str(best_featureset_mean)
+        # print "current feature sets:" + str(data[:, :-1]) # Debugging Line
+        # print "best_var feature set:" + str(best_featureset_var) # Debugging Line
+        # print "best_mean feature set:" + str(best_featureset_mean) # Debugging Line
 
         # check if newly selected feature sets  are already in data. if so, there is no need to compute again
         check_mean = any(check for check in (np.array_equal(data[entry, :-1], best_featureset_mean) for entry in range(len(data))))
         check_var = any(check for check in (np.array_equal(data[entry, :-1], best_featureset_var) for entry in range(len(data))))
 
-        # print "data len: " + str(len(data))
-        # print check_mean
-        # print check_var
+        # print "data len: " + str(len(data)) # Debugging Line
 
         double_var = np.all(np.all(data[x, :-1] == best_featureset_var for x in range(len(data[:, -1]))))
         double_mean = np.all(np.all(data[x, :-1] == best_featureset_mean for x in range(len(data[:, -1]))))
@@ -1037,10 +1035,8 @@ def main_loop(n_start, pruning, min_data, n_forests, n_trees, n_configs_biased, 
             z = 0
             stopper = False
             for x in double_var:
-                # print x.all()
-                # print z
                 if x.all() and not stopper:
-                    # print "Stopper: " + str(stopper)
+                    # print "Stopper: " + str(stopper) # Debugging Line
                     print "Variance feature set already computed. No need to do it agin"
                     data = np.append(data, [data[z]], axis=0)
                     stopper = True
@@ -1052,10 +1048,8 @@ def main_loop(n_start, pruning, min_data, n_forests, n_trees, n_configs_biased, 
             z = 0
             stopper = False
             for x in double_mean:
-                # print x.all()
-                # print z
                 if x.all() and not stopper:
-                    # print "Stopper: " + str(stopper)
+                    # print "Stopper: " + str(stopper) # Debugging Line
                     print "Mean feature set already computed. No need to do it agin!"
                     data = np.append(data, [data[z]], axis=0)
                     stopper = True

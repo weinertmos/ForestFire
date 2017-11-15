@@ -1,3 +1,5 @@
+.. _update_database:
+
 Update Database
 ===============
 

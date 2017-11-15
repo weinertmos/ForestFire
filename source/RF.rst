@@ -69,9 +69,9 @@ Multiplier Stepup
 #################
 
 The multiplier that is :ref:`applied <multi>` as an exponent to all single feature probabilities is a quantity that is scaled dynamically. 
-Depending on the :term:`Raw data set`
-
-
+Depending on the :term:`Raw data set` set it is possible that the feature importances in a Random Forest are all very close to the average importance, hence resembling nothing more than a randomly chosen distribution.
+In order to avoid this :term:`ForestFire` examines the importances of every single feature after a Random Forest is built.
+If the highest feature importance does not lie above a certain threshold (default: 2 times the average importance) the multiplier is raised by the :ref:`hyperparameter multiplier_stepup <hyperparameters>`.
 
 
 .. _pred_new:
@@ -84,14 +84,14 @@ A new feature set candidate gets classified in every single forest.
 The results are averaged.
 From the vast amount of possible feature sets two different groups of feature sets are considered:
 
-    * feature sets biased according to the average importance of each feature
+    * feature sets biased according to the average importance of each feature (prob_current from :ref:`update_prob <update_prob>`)
     * entirely randomly chosen feature sets
 
 The two :ref:`hyperparameters <hyperparameters>` *n_configs_biased* and *n_configs_unbiased* determine the amount of feature sets that get tested. 
 
-.. note::
+.. note::2
 
-    Since predicting takes not much computing capacity *n_configs_biased* and *n_configs_unbiased* can safely be set fairly high.
+    Since predicting takes comparatively little computing capacity *n_configs_biased* and *n_configs_unbiased* can safely be set fairly high.
 
 For selecting the biased feature sets the probability of choosing a particular feature depends on its rating calculated in :ref:`buildforest <buildforest>`. 
 The unbiased feature sets are chosen randomly.
@@ -103,6 +103,7 @@ Of all predicted feature sets two are chosen for the next computing run with the
 If a feature set has already been computed before, it will not be computed again.
 Instead its result is copied to the database.
 
+The :ref:`Updating of the database <update_database>` depicts the last step in the ForestFire Loop.
 
 
 

@@ -1007,7 +1007,7 @@
 
     <span class="k">if</span> <span class="n">demo_mode</span><span class="p">:</span>
         <span class="n">data_start</span> <span class="o">=</span> <span class="n">data</span>  <span class="c1"># save starting data for later comparison with random feature set selection</span>
-    <span class="c1"># print &quot;len(data): &quot; + str(len(data))</span>
+    <span class="c1"># print &quot;len(data): &quot; + str(len(data)) # Debugging Line</span>
 
     <span class="c1"># ### Start of ForestFire ###</span>
     <span class="nb">print</span> <span class="s2">&quot;Starting ForestFire&quot;</span>
@@ -1019,7 +1019,7 @@
         <span class="nb">print</span> <span class="s2">&quot; &quot;</span>
         <span class="nb">print</span> <span class="s2">&quot;Building Random Forest Nr. &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
         <span class="n">RF</span><span class="p">,</span> <span class="n">Probability</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">trees</span> <span class="o">=</span> <span class="n">buildforest</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">n_trees</span><span class="p">,</span> <span class="n">scoref</span><span class="p">,</span> <span class="n">n_feat</span><span class="p">,</span> <span class="n">min_data</span><span class="p">,</span> <span class="n">pruning</span><span class="p">)</span>
-        <span class="c1"># print &quot;RF: &quot; + str(RF)</span>
+        <span class="c1"># print &quot;RF: &quot; + str(RF) # Debugging Line</span>
 
         <span class="c1"># Update probability</span>
         <span class="n">prob_current</span> <span class="o">=</span> <span class="n">update_prob</span><span class="p">(</span><span class="n">Probability</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">weight_mean</span><span class="p">,</span> <span class="n">weight_gradient</span><span class="p">,</span> <span class="n">multiplier</span><span class="p">,</span> <span class="n">seen_forests</span><span class="p">)</span>
@@ -1028,21 +1028,21 @@
         <span class="k">if</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">prob_current</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">np</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">divide</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">n_feat</span><span class="p">),</span> <span class="mi">2</span><span class="p">):</span>
             <span class="n">multiplier</span> <span class="o">+=</span> <span class="n">multiplier_stepup</span>
             <span class="nb">print</span> <span class="s2">&quot;raised multiplier to &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">multiplier</span><span class="p">)</span>
-        <span class="c1"># print RF</span>
-        <span class="c1"># print &quot; &quot;</span>
-        <span class="c1"># print &quot;Predicting new possible configs&quot;</span>
-        <span class="c1"># print &quot;biased configs&quot;</span>
+        <span class="c1"># print RF # Debugging Line</span>
+        <span class="c1"># print &quot; &quot; # Debugging Line</span>
+        <span class="c1"># print &quot;Predicting new possible configs&quot; # Debugging Line</span>
+        <span class="c1"># print &quot;biased configs&quot; # Debugging Line</span>
 
         <span class="c1"># test new biased and unbiased feature sets and extract the best feature sets</span>
         <span class="n">best_mean_biased</span><span class="p">,</span> <span class="n">best_var_biased</span><span class="p">,</span> <span class="n">best_featureset_mean_biased</span><span class="p">,</span> <span class="n">best_featureset_var_biased</span> <span class="o">=</span> <span class="n">forest_predict</span><span class="p">(</span>
             <span class="n">data</span><span class="p">,</span> <span class="n">trees</span><span class="p">,</span> <span class="n">prob_current</span><span class="p">,</span> <span class="n">n_configs_biased</span><span class="p">,</span> <span class="n">biased</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-        <span class="c1"># print &quot; &quot;</span>
-        <span class="c1"># print &quot;unbiased configs&quot;</span>
+        <span class="c1"># print &quot; &quot; # Debugging Line</span>
+        <span class="c1"># print &quot;unbiased configs&quot; # Debugging Line</span>
         <span class="n">best_mean_unbiased</span><span class="p">,</span> <span class="n">best_var_unbiased</span><span class="p">,</span> <span class="n">best_featureset_mean_unbiased</span><span class="p">,</span> <span class="n">best_featureset_var_unbiased</span> <span class="o">=</span> <span class="n">forest_predict</span><span class="p">(</span>
             <span class="n">data</span><span class="p">,</span> <span class="n">trees</span><span class="p">,</span> <span class="n">prob_current</span><span class="p">,</span> <span class="n">n_configs_unbiased</span><span class="p">,</span> <span class="n">biased</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-        <span class="c1"># print &quot;best mean_biased: &quot; + str(best_mean_biased)</span>
-        <span class="c1"># print &quot;best mean_unbiased: &quot; + str(best_mean_unbiased)</span>
-        <span class="c1"># print &quot; &quot;</span>
+        <span class="c1"># print &quot;best mean_biased: &quot; + str(best_mean_biased) # Debugging Line</span>
+        <span class="c1"># print &quot;best mean_unbiased: &quot; + str(best_mean_unbiased) # Debugging Line</span>
+        <span class="c1"># print &quot; &quot; # Debugging Line</span>
         <span class="n">best_mean</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">((</span><span class="n">best_mean_biased</span><span class="p">,</span> <span class="n">best_mean_unbiased</span><span class="p">))</span>
         <span class="k">if</span> <span class="n">best_mean</span> <span class="o">==</span> <span class="n">best_mean_biased</span><span class="p">:</span>
             <span class="n">best_featureset_mean</span> <span class="o">=</span> <span class="n">best_featureset_mean_biased</span>
@@ -1050,10 +1050,10 @@
         <span class="k">elif</span> <span class="n">best_mean</span> <span class="o">==</span> <span class="n">best_mean_unbiased</span><span class="p">:</span>
             <span class="n">best_featureset_mean</span> <span class="o">=</span> <span class="n">best_featureset_mean_unbiased</span>
             <span class="nb">print</span> <span class="s2">&quot;picked unbiased feature set for mean&quot;</span>
-        <span class="c1"># print best_mean</span>
-        <span class="c1"># print best_featureset_mean</span>
-        <span class="c1"># print &quot;best_var_biased: &quot; + str(best_var_biased)</span>
-        <span class="c1"># print &quot;best_var_unbiased: &quot; + str(best_var_unbiased)</span>
+        <span class="c1"># print best_mean # Debugging Line</span>
+        <span class="c1"># print best_featureset_mean # Debugging Line</span>
+        <span class="c1"># print &quot;best_var_biased: &quot; + str(best_var_biased) # Debugging Line</span>
+        <span class="c1"># print &quot;best_var_unbiased: &quot; + str(best_var_unbiased) # Debugging Line</span>
         <span class="n">best_var</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">((</span><span class="n">best_var_biased</span><span class="p">,</span> <span class="n">best_var_unbiased</span><span class="p">))</span>
         <span class="k">if</span> <span class="n">best_var</span> <span class="o">==</span> <span class="n">best_var_biased</span><span class="p">:</span>
             <span class="n">best_featureset_var</span> <span class="o">=</span> <span class="n">best_featureset_var_biased</span>
@@ -1063,17 +1063,15 @@
             <span class="nb">print</span> <span class="s2">&quot;picked unbiased feature set for var&quot;</span>
 
         <span class="c1"># update database with two new feature sets</span>
-        <span class="c1"># print &quot;current feature sets:&quot; + str(data[:, :-1])</span>
-        <span class="c1"># print &quot;best_var feature set:&quot; + str(best_featureset_var)</span>
-        <span class="c1"># print &quot;best_mean feature set:&quot; + str(best_featureset_mean)</span>
+        <span class="c1"># print &quot;current feature sets:&quot; + str(data[:, :-1]) # Debugging Line</span>
+        <span class="c1"># print &quot;best_var feature set:&quot; + str(best_featureset_var) # Debugging Line</span>
+        <span class="c1"># print &quot;best_mean feature set:&quot; + str(best_featureset_mean) # Debugging Line</span>
 
         <span class="c1"># check if newly selected feature sets  are already in data. if so, there is no need to compute again</span>
         <span class="n">check_mean</span> <span class="o">=</span> <span class="nb">any</span><span class="p">(</span><span class="n">check</span> <span class="k">for</span> <span class="n">check</span> <span class="ow">in</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array_equal</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">entry</span><span class="p">,</span> <span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">best_featureset_mean</span><span class="p">)</span> <span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">))))</span>
         <span class="n">check_var</span> <span class="o">=</span> <span class="nb">any</span><span class="p">(</span><span class="n">check</span> <span class="k">for</span> <span class="n">check</span> <span class="ow">in</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array_equal</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">entry</span><span class="p">,</span> <span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">best_featureset_var</span><span class="p">)</span> <span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">))))</span>
 
-        <span class="c1"># print &quot;data len: &quot; + str(len(data))</span>
-        <span class="c1"># print check_mean</span>
-        <span class="c1"># print check_var</span>
+        <span class="c1"># print &quot;data len: &quot; + str(len(data)) # Debugging Line</span>
 
         <span class="n">double_var</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="n">best_featureset_var</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">[:,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]))))</span>
         <span class="n">double_mean</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="n">best_featureset_mean</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">[:,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]))))</span>
@@ -1082,10 +1080,8 @@
             <span class="n">z</span> <span class="o">=</span> <span class="mi">0</span>
             <span class="n">stopper</span> <span class="o">=</span> <span class="kc">False</span>
             <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">double_var</span><span class="p">:</span>
-                <span class="c1"># print x.all()</span>
-                <span class="c1"># print z</span>
                 <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">all</span><span class="p">()</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">stopper</span><span class="p">:</span>
-                    <span class="c1"># print &quot;Stopper: &quot; + str(stopper)</span>
+                    <span class="c1"># print &quot;Stopper: &quot; + str(stopper) # Debugging Line</span>
                     <span class="nb">print</span> <span class="s2">&quot;Variance feature set already computed. No need to do it agin&quot;</span>
                     <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="p">[</span><span class="n">data</span><span class="p">[</span><span class="n">z</span><span class="p">]],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
                     <span class="n">stopper</span> <span class="o">=</span> <span class="kc">True</span>
@@ -1097,10 +1093,8 @@
             <span class="n">z</span> <span class="o">=</span> <span class="mi">0</span>
             <span class="n">stopper</span> <span class="o">=</span> <span class="kc">False</span>
             <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">double_mean</span><span class="p">:</span>
-                <span class="c1"># print x.all()</span>
-                <span class="c1"># print z</span>
                 <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">all</span><span class="p">()</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">stopper</span><span class="p">:</span>
-                    <span class="c1"># print &quot;Stopper: &quot; + str(stopper)</span>
+                    <span class="c1"># print &quot;Stopper: &quot; + str(stopper) # Debugging Line</span>
                     <span class="nb">print</span> <span class="s2">&quot;Mean feature set already computed. No need to do it agin!&quot;</span>
                     <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="p">[</span><span class="n">data</span><span class="p">[</span><span class="n">z</span><span class="p">]],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
                     <span class="n">stopper</span> <span class="o">=</span> <span class="kc">True</span>
