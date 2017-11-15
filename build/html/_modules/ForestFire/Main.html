@@ -913,33 +913,32 @@
     <span class="k">return</span> <span class="n">prob_current</span></div>
 
 
-<span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">appends newly tested feature sets and their result to the already calculated feature sets</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<div class="viewcode-block" id="update_database"><a class="viewcode-back" href="../../Update_Database.html#ForestFire.Main.update_database">[docs]</a><span class="k">def</span> <span class="nf">update_database</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">mask_best_featureset</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Appends newly tested feature sets and their result to the already calculated feature sets</span>
 
+<span class="sd">    Arguments:</span>
+<span class="sd">        X {numpy array} -- X rat data sets</span>
+<span class="sd">        y {numpy array} -- y raw data sets</span>
+<span class="sd">        data {[type]} -- data set the Forest is built upon</span>
+<span class="sd">        mask_best_featureset {bool} -- feature set (1: feature contained, 0: feature not contained)</span>
+<span class="sd">        X_test {numpy array} -- test data set</span>
+<span class="sd">        y_test {numpy array} -- test data set</span>
 
-<span class="k">def</span> <span class="nf">update_database</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">mask_best_featureset</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">):</span>
-    <span class="c1"># print mask_best_featureset_mean</span>
-    <span class="c1"># print data[0][mask_best_featureset_mean]</span>
-    <span class="c1"># print X[:][mask_best_featureset_mean]</span>
-
+<span class="sd">    Returns:</span>
+<span class="sd">        data -- updated data base</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># create the best mean feature set</span>
     <span class="n">X_sub</span> <span class="o">=</span> <span class="n">X</span><span class="p">[:,</span> <span class="n">mask_best_featureset</span><span class="p">]</span>
-    <span class="c1"># print X_sub_mean</span>
     <span class="c1"># compute the corresponding y values</span>
     <span class="n">y_new</span> <span class="o">=</span> <span class="n">compute</span><span class="p">(</span><span class="n">X_sub</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">mask_best_featureset</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>
-    <span class="c1"># print mask_best_featureset_mean, y_new_mean</span>
-    <span class="c1"># put feature set and new y value together</span>
+    <span class="c1"># combine feature set and new y (result)</span>
     <span class="n">new_dataset</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mask_best_featureset</span><span class="p">,</span> <span class="n">y_new</span><span class="p">)</span>
-    <span class="c1"># print &quot;new_dataset_mean: &quot; + str(new_dataset_mean)</span>
-    <span class="c1"># print new_dataset_mean.shape</span>
+    <span class="c1"># print &quot;new_dataset_mean: &quot; + str(new_dataset_mean) # Debugging Line</span>
+    <span class="c1"># print new_dataset_mean.shape # Debugging Line</span>
 
-    <span class="c1"># append new feature sets and according MSE to dataset</span>
-    <span class="c1"># print len(data)</span>
+    <span class="c1"># append new feature sets and according result to dataset</span>
     <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="p">[</span><span class="n">new_dataset</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-    <span class="c1"># print len(data)</span>
-    <span class="c1"># print data.shape</span>
-    <span class="k">return</span> <span class="n">data</span>
+    <span class="k">return</span> <span class="n">data</span></div>
 
 
 <span class="c1"># This is the main part of the program which uses the above made definitions</span>

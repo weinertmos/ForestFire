@@ -50,9 +50,29 @@
         
   <div class="section" id="update-database">
 <span id="id1"></span><h1>Update Database<a class="headerlink" href="#update-database" title="Permalink to this headline">¶</a></h1>
+<p>In chapter <a class="reference internal" href="RF.html#random-forest"><span class="std std-ref">Random Forest</span></a> the process of choosing two new feature sets is described.
+Those newly chosen feature sets and their performance are added to the initially <a class="reference internal" href="Generate_Database.html#compute"><span class="std std-ref">generated database</span></a>.</p>
+<p>See <a class="reference internal" href="#update-database-fun"><span class="std std-ref">update_database</span></a> for details.</p>
 <div class="admonition important">
 <p class="first admonition-title">Important</p>
 <p><strong>Functions used in this chapter</strong></p>
+<span class="target" id="update-database-fun"></span><dl class="function">
+<dt id="ForestFire.Main.update_database">
+<code class="descclassname">ForestFire.Main.</code><code class="descname">update_database</code><span class="sig-paren">(</span><em>X</em>, <em>y</em>, <em>data</em>, <em>mask_best_featureset</em>, <em>X_test</em>, <em>y_test</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ForestFire/Main.html#update_database"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ForestFire.Main.update_database" title="Permalink to this definition">¶</a></dt>
+<dd><p>Appends newly tested feature sets and their result to the already calculated feature sets</p>
+<dl class="docutils">
+<dt>Arguments:</dt>
+<dd>X {numpy array} &#8211; X rat data sets
+y {numpy array} &#8211; y raw data sets
+data {[type]} &#8211; data set the Forest is built upon
+mask_best_featureset {bool} &#8211; feature set (1: feature contained, 0: feature not contained)
+X_test {numpy array} &#8211; test data set
+y_test {numpy array} &#8211; test data set</dd>
+<dt>Returns:</dt>
+<dd>data &#8211; updated data base</dd>
+</dl>
+</dd></dl>
+
 <dl class="last function">
 <dt>
 <code class="descclassname">ForestFire.Main.</code><code class="descname">main_loop</code><span class="sig-paren">(</span><em>n_start</em>, <em>pruning</em>, <em>min_data</em>, <em>n_forests</em>, <em>n_trees</em>, <em>n_configs_biased</em>, <em>n_configs_unbiased</em>, <em>multiplier_stepup</em>, <em>seen_forests</em>, <em>weight_mean</em>, <em>weight_gradient</em>, <em>scoref</em>, <em>demo_mode</em>, <em>plot_enable</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ForestFire/Main.html#main_loop"><span class="viewcode-link">[source]</span></a></dt>

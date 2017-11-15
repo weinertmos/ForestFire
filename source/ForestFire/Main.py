@@ -868,32 +868,31 @@ def update_prob(Probability, i, weight_mean, weight_gradient, multiplier, seen_f
     return prob_current
 
 
-"""
-appends newly tested feature sets and their result to the already calculated feature sets
-"""
-
-
 def update_database(X, y, data, mask_best_featureset, X_test, y_test):
-    # print mask_best_featureset_mean
-    # print data[0][mask_best_featureset_mean]
-    # print X[:][mask_best_featureset_mean]
+    """Appends newly tested feature sets and their result to the already calculated feature sets
 
+    Arguments:
+        X {numpy array} -- X rat data sets
+        y {numpy array} -- y raw data sets
+        data {[type]} -- data set the Forest is built upon
+        mask_best_featureset {bool} -- feature set (1: feature contained, 0: feature not contained)
+        X_test {numpy array} -- test data set
+        y_test {numpy array} -- test data set
+
+    Returns:
+        data -- updated data base
+    """
     # create the best mean feature set
     X_sub = X[:, mask_best_featureset]
-    # print X_sub_mean
     # compute the corresponding y values
     y_new = compute(X_sub, y, mask_best_featureset, X_test, y_test)
-    # print mask_best_featureset_mean, y_new_mean
-    # put feature set and new y value together
+    # combine feature set and new y (result)
     new_dataset = np.append(mask_best_featureset, y_new)
-    # print "new_dataset_mean: " + str(new_dataset_mean)
-    # print new_dataset_mean.shape
+    # print "new_dataset_mean: " + str(new_dataset_mean) # Debugging Line
+    # print new_dataset_mean.shape # Debugging Line
 
-    # append new feature sets and according MSE to dataset
-    # print len(data)
+    # append new feature sets and according result to dataset
     data = np.append(data, [new_dataset], axis=0)
-    # print len(data)
-    # print data.shape
     return data
 
 
