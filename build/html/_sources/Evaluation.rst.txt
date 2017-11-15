@@ -1,5 +1,7 @@
-Evaluation
-==========
+Evaluation Mode
+===============
+
+If the :ref:`hyperparameter <hyperparameters>` *demo_mode* is set to *True*
 
 
 .. important::

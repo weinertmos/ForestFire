@@ -46,9 +46,12 @@
 <span></span><span class="c1">#  Imports</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-
 <span class="kn">from</span> <span class="nn">sklearn</span> <span class="k">import</span> <span class="n">preprocessing</span>
+
+<span class="c1"># For Debugging only</span>
 <span class="kn">from</span> <span class="nn">PIL</span> <span class="k">import</span> <span class="n">Image</span><span class="p">,</span> <span class="n">ImageDraw</span>
+
+<span class="c1"># Import files</span>
 <span class="kn">from</span> <span class="nn">compute</span> <span class="k">import</span> <span class="n">compute</span>
 <span class="kn">from</span> <span class="nn">import_data</span> <span class="k">import</span> <span class="n">import_data</span>
 
@@ -842,12 +845,12 @@
 
 
 <span class="sd">    Arguments:</span>
-<span class="sd">        Probability {numpy array} -- contains Importances of single features for all past Random Forests</span>
-<span class="sd">        i {integer} -- number of current Forest</span>
-<span class="sd">        weight_mean {float} -- weight of the mean in calculating resulting probability</span>
-<span class="sd">        weight_gradient {float} -- weight of the var in calculating resulting probability</span>
-<span class="sd">        multiplier {float} -- exponent for amplifying probabilities</span>
-<span class="sd">        seen_forests {integer} -- number of before built forest that are considered</span>
+<span class="sd">        * Probability {numpy array} -- contains Importances of single features for all past Random Forests</span>
+<span class="sd">        * i {integer} -- number of current Forest</span>
+<span class="sd">        * weight_mean {float} -- weight of the mean in calculating resulting probability</span>
+<span class="sd">        * weight_gradient {float} -- weight of the var in calculating resulting probability</span>
+<span class="sd">        * multiplier {float} -- exponent for amplifying probabilities</span>
+<span class="sd">        * seen_forests {integer} -- number of before built forest that are considered</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        prob_current -- list of floats representing the calculated aggregation of recent feature importances</span>
@@ -917,12 +920,12 @@
     <span class="sd">&quot;&quot;&quot;Appends newly tested feature sets and their result to the already calculated feature sets</span>
 
 <span class="sd">    Arguments:</span>
-<span class="sd">        X {numpy array} -- X rat data sets</span>
-<span class="sd">        y {numpy array} -- y raw data sets</span>
-<span class="sd">        data {[type]} -- data set the Forest is built upon</span>
-<span class="sd">        mask_best_featureset {bool} -- feature set (1: feature contained, 0: feature not contained)</span>
-<span class="sd">        X_test {numpy array} -- test data set</span>
-<span class="sd">        y_test {numpy array} -- test data set</span>
+<span class="sd">        * X {numpy array} -- X rat data sets</span>
+<span class="sd">        * y {numpy array} -- y raw data sets</span>
+<span class="sd">        * data {[type]} -- data set the Forest is built upon</span>
+<span class="sd">        * mask_best_featureset {bool} -- feature set (1: feature contained, 0: feature not contained)</span>
+<span class="sd">        * X_test {numpy array} -- test data set</span>
+<span class="sd">        * y_test {numpy array} -- test data set</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        data -- updated data base</span>

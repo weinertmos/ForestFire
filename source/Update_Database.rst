@@ -10,9 +10,6 @@ See :ref:`update_database <update_database_fun>` for details.
 
 
 
-
-
-
 .. important::
 
     **Functions used in this chapter**

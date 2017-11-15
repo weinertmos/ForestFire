@@ -109,10 +109,10 @@ The results can be plotted.</p>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="Overview.html">Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Overview.html#utilized-modules">Utilized Modules</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Overview.html#abbreviations">Abbreviations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Overview.html#glossary">Glossary</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Overview.html#references">References</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Overview.html#utilized-modules">Utilized Modules</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Overview.html#about-the-author">About the author</a></li>
 </ul>
 </li>
@@ -164,7 +164,7 @@ The results can be plotted.</p>
 <span id="demo"></span><h2>Evaluation Mode<a class="headerlink" href="#evaluation-mode" title="Permalink to this headline">¶</a></h2>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="Evaluation.html">Evaluation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Evaluation.html">Evaluation Mode</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Plot.html">Plot</a></li>
 </ul>
 </div>
@@ -180,8 +180,12 @@ The results can be plotted.</p>
 <p><strong>Remaining Todos:</strong></p>
 <div class="admonition-todo admonition">
 <p class="first admonition-title">Todo</p>
-<p class="last">write a nice Overview
-do it in the end when all references are complete</p>
+<ul class="last simple">
+<li>write a nice Overview</li>
+<li>do it in the end when all references are complete</li>
+<li>mention references</li>
+<li>add sklearn as reference</li>
+</ul>
 </div>
 <p class="todo-source">(The <a class="reference internal" href="Overview.html#index-0"><em>original entry</em></a> is located in /Users/Dandelo/CloudStation_Marlon/Energietechnik/Studienarbeit/Sphinx/ForestFire/source/Overview.rst, line 6.)</p>
 <div class="admonition-todo admonition">
@@ -230,9 +234,12 @@ do it in the end when all references are complete</p>
 </td></tr></table></div>
 </div>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-
 <span class="kn">from</span> <span class="nn">sklearn</span> <span class="k">import</span> <span class="n">preprocessing</span>
+
+<span class="c1"># For Debugging only</span>
 <span class="kn">from</span> <span class="nn">PIL</span> <span class="k">import</span> <span class="n">Image</span><span class="p">,</span> <span class="n">ImageDraw</span>
+
+<span class="c1"># Import files</span>
 <span class="kn">from</span> <span class="nn">compute</span> <span class="k">import</span> <span class="n">compute</span>
 <span class="kn">from</span> <span class="nn">import_data</span> <span class="k">import</span> <span class="n">import_data</span>
 
@@ -274,10 +281,7 @@ do it in the end when all references are complete</p>
         <span class="n">rand_feat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="mi">0</span><span class="p">])),</span> <span class="n">size</span><span class="o">=</span><span class="n">size</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>  <span class="c1"># in first run prob is None --&gt; all features are equally selected, in later runs prob is result of previous RF results</span>
         <span class="n">mask_sub_features</span><span class="p">[</span><span class="n">rand_feat</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>  <span class="c1"># set chosen features to True</span>
 
-        <span class="c1"># Select Train and Test Data for subgroup</span>
-        <span class="c1"># print X</span>
-        <span class="n">X_sub</span> <span class="o">=</span> <span class="n">X</span><span class="p">[:,</span> <span class="n">mask_sub_features</span><span class="p">]</span>  <span class="c1"># select only chosen features (still all datasets)</span>
-        <span class="c1"># print X_sub</span>
+        <span class="c1"># print X_sub[0]</span>
 </pre></div>
 </div>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="mi">10</span>

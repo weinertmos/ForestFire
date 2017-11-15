@@ -1,9 +1,12 @@
 #  Imports
 import numpy as np
 import matplotlib.pyplot as plt
-
 from sklearn import preprocessing
+
+# For Debugging only
 from PIL import Image, ImageDraw
+
+# Import files
 from compute import compute
 from import_data import import_data
 
@@ -797,12 +800,12 @@ def update_prob(Probability, i, weight_mean, weight_gradient, multiplier, seen_f
 
 
     Arguments:
-        Probability {numpy array} -- contains Importances of single features for all past Random Forests
-        i {integer} -- number of current Forest
-        weight_mean {float} -- weight of the mean in calculating resulting probability
-        weight_gradient {float} -- weight of the var in calculating resulting probability
-        multiplier {float} -- exponent for amplifying probabilities
-        seen_forests {integer} -- number of before built forest that are considered
+        * Probability {numpy array} -- contains Importances of single features for all past Random Forests
+        * i {integer} -- number of current Forest
+        * weight_mean {float} -- weight of the mean in calculating resulting probability
+        * weight_gradient {float} -- weight of the var in calculating resulting probability
+        * multiplier {float} -- exponent for amplifying probabilities
+        * seen_forests {integer} -- number of before built forest that are considered
 
     Returns:
         prob_current -- list of floats representing the calculated aggregation of recent feature importances
@@ -872,12 +875,12 @@ def update_database(X, y, data, mask_best_featureset, X_test, y_test):
     """Appends newly tested feature sets and their result to the already calculated feature sets
 
     Arguments:
-        X {numpy array} -- X rat data sets
-        y {numpy array} -- y raw data sets
-        data {[type]} -- data set the Forest is built upon
-        mask_best_featureset {bool} -- feature set (1: feature contained, 0: feature not contained)
-        X_test {numpy array} -- test data set
-        y_test {numpy array} -- test data set
+        * X {numpy array} -- X rat data sets
+        * y {numpy array} -- y raw data sets
+        * data {[type]} -- data set the Forest is built upon
+        * mask_best_featureset {bool} -- feature set (1: feature contained, 0: feature not contained)
+        * X_test {numpy array} -- test data set
+        * y_test {numpy array} -- test data set
 
     Returns:
         data -- updated data base
@@ -1104,7 +1107,7 @@ def main_loop(n_start, pruning, min_data, n_forests, n_trees, n_configs_biased, 
         print "Creating Plots"
 
         # plots
-        if plot_enable:
+        if plot_enable and demo_mode:
             # first plot
             plt.figure(1, figsize=(25, 12))
             plt.plot(np.array(range(len(data[:, -1]))), data[:, -1], label='ForestFire')

@@ -200,12 +200,15 @@ feature appearences in the whole forest.</p>
 account the mean and the gradient of the prior feature importances.</p>
 <dl class="docutils">
 <dt>Arguments:</dt>
-<dd>Probability {numpy array} &#8211; contains Importances of single features for all past Random Forests
-i {integer} &#8211; number of current Forest
-weight_mean {float} &#8211; weight of the mean in calculating resulting probability
-weight_gradient {float} &#8211; weight of the var in calculating resulting probability
-multiplier {float} &#8211; exponent for amplifying probabilities
-seen_forests {integer} &#8211; number of before built forest that are considered</dd>
+<dd><ul class="first last simple">
+<li>Probability {numpy array} &#8211; contains Importances of single features for all past Random Forests</li>
+<li>i {integer} &#8211; number of current Forest</li>
+<li>weight_mean {float} &#8211; weight of the mean in calculating resulting probability</li>
+<li>weight_gradient {float} &#8211; weight of the var in calculating resulting probability</li>
+<li>multiplier {float} &#8211; exponent for amplifying probabilities</li>
+<li>seen_forests {integer} &#8211; number of before built forest that are considered</li>
+</ul>
+</dd>
 <dt>Returns:</dt>
 <dd>prob_current &#8211; list of floats representing the calculated aggregation of recent feature importances</dd>
 </dl>

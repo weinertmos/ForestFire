@@ -4,8 +4,20 @@ Overview
 =========
 
 .. todo::
-    write a nice Overview 
-    do it in the end when all references are complete
+    * write a nice Overview 
+    * do it in the end when all references are complete
+    * mention references
+    * add sklearn as reference
+
+
+Utilized Modules
+----------------
+
+The following Modules are imported during the execution of ForestFire:
+
+.. literalinclude:: ForestFire/Main.py
+    :lines: 1-4
+
 
 Abbreviations
 -------------
@@ -85,13 +97,6 @@ References
 
 
 
-Utilized Modules
-----------------
-
-The following Modules are imported during the execution of ForestFire:
-
-.. literalinclude:: ForestFire/Main.py
-    :lines: 1-6
 
 About the author
 ----------------
