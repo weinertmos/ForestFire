@@ -14,7 +14,7 @@ Example Plots may look like this:
 
 .. figure:: pyplots/results_all_time.png
     :scale: 35%
-    :alt: results_current.png
+    :alt: results_all_time.png
     :align: center
 
 

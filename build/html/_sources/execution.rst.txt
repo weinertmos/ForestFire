@@ -183,11 +183,16 @@ A generic output (with demo mode on) can look like this::
     Compared to random search accuracy could be improved by ~5%. 
     The best :ref:`MLA <MLA>` run did "see" all features but the second.
 
-    Since Demo mode was turned on at the end a plot is produced:
+    Since Demo mode was turned on at the end two plots are produced:
 
-.. figure:: pyplots/generic_run.png
-    :scale: 20%
-    :alt: generic_run.png
+.. figure:: pyplots/generic_run_current.png
+    :scale: 35%
+    :alt: generic_run_current.png
+    :align: center
+
+.. figure:: pyplots/generic_run_all_time.png
+    :scale: 35%
+    :alt: generic_run_all_time.png
     :align: center
 
 

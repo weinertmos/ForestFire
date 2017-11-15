@@ -59,7 +59,7 @@
 
 <span class="c1"># number of runs before building first Random Forest = number of data points in first RF; minimum = 4, default = 50</span>
 <span class="c1"># adjust according to computational capabilities and demands of the underlying machine learning algorithm</span>
-<span class="n">n_start</span> <span class="o">=</span> <span class="mi">10</span>  <span class="c1"># default = 30</span>
+<span class="n">n_start</span> <span class="o">=</span> <span class="mi">30</span>  <span class="c1"># default = 30</span>
 <span class="c1"># if pruning is greater than zero, branches of a Decision Tree will be pruned proportional to pruning value; default = 0</span>
 <span class="c1"># advanced parameter. If set too high, all trees will be cut down to stumps. Increase carefully. Start with values between 0 and 1.</span>
 <span class="n">pruning</span> <span class="o">=</span> <span class="mf">0.4</span>
@@ -67,7 +67,7 @@
 <span class="n">min_data</span> <span class="o">=</span> <span class="mf">0.2</span>
 <span class="c1"># number of forests; minimum=1;  default = 25</span>
 <span class="c1"># adjust according to computational capabilities. For each forest two new computational runs are done. default = 20</span>
-<span class="n">n_forests</span> <span class="o">=</span> <span class="mi">25</span>
+<span class="n">n_forests</span> <span class="o">=</span> <span class="mi">10</span>
 </pre></div>
 </div>
 <p>These parameters should be chosen according to computational demand of the <a class="reference internal" href="Overview.html#mla"><span class="std std-ref">MLA</span></a>.
@@ -253,10 +253,13 @@ If on the other hand a feature is never included, this indicates that the featur
 <div><p>In this example ForestFire was able to find the best solution of 76,3% accuracy after 30 random and 11 guided runs.
 Compared to random search accuracy could be improved by ~5%.
 The best <a class="reference internal" href="Overview.html#mla"><span class="std std-ref">MLA</span></a> run did &#8220;see&#8221; all features but the second.</p>
-<p>Since Demo mode was turned on at the end a plot is produced:</p>
+<p>Since Demo mode was turned on at the end two plots are produced:</p>
 </div></blockquote>
 <div class="figure align-center">
-<a class="reference internal image-reference" href="_images/generic_run.png"><img alt="generic_run.png" src="_images/generic_run.png" style="width: 1000.0px; height: 480.0px;" /></a>
+<a class="reference internal image-reference" href="_images/generic_run_current.png"><img alt="generic_run_current.png" src="_images/generic_run_current.png" style="width: 1750.0px; height: 840.0px;" /></a>
+</div>
+<div class="figure align-center">
+<a class="reference internal image-reference" href="_images/generic_run_all_time.png"><img alt="generic_run_all_time.png" src="_images/generic_run_all_time.png" style="width: 1750.0px; height: 840.0px;" /></a>
 </div>
 <div class="admonition-todo admonition" id="index-0">
 <p class="first admonition-title">Todo</p>
