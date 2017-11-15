@@ -193,7 +193,7 @@ A generic output (with demo mode on) can look like this::
 
 
 .. todo::
-    no green highlighting in source code
+    no green highlighting in source code?
 
 .. important::
 

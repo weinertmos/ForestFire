@@ -50,7 +50,16 @@
         
   <div class="section" id="evaluation-mode">
 <h1>Evaluation Mode<a class="headerlink" href="#evaluation-mode" title="Permalink to this headline">¶</a></h1>
-<p>If the <a class="reference internal" href="execution.html#hyperparameters"><span class="std std-ref">hyperparameter</span></a> <em>demo_mode</em> is set to <em>True</em> the performance of ForestFire can be compared to a randomized search of new feature sets.</p>
+<p>If the <a class="reference internal" href="execution.html#hyperparameters"><span class="std std-ref">hyperparameter</span></a> <em>demo_mode</em> is set to <em>True</em> the performance of ForestFire can be compared to a randomized search of new feature sets.
+Information about the performance is printed out after both ForestFire and the randomized search are done.</p>
+<p>If <em>plot_enable</em> is set to <em>True</em>, the performance of both are plotted over the number of generated feature sets.
+Example Plots may look like this:</p>
+<div class="figure align-center">
+<a class="reference internal image-reference" href="_images/results_current.png"><img alt="results_current.png" src="_images/results_current.png" style="width: 1750.0px; height: 840.0px;" /></a>
+</div>
+<div class="figure align-center">
+<a class="reference internal image-reference" href="_images/results_all_time.png"><img alt="results_current.png" src="_images/results_all_time.png" style="width: 1750.0px; height: 840.0px;" /></a>
+</div>
 <p>For every new feature set that gets calculated with ForestFire a randomly generated feature set is calculated.</p>
 <div class="admonition important">
 <p class="first admonition-title">Important</p>
