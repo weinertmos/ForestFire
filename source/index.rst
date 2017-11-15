@@ -40,7 +40,6 @@ Evaluation Mode
     :maxdepth: 3
 
     Evaluation
-    Plot
 
 Indices and tables
 ==================
