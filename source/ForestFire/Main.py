@@ -545,7 +545,7 @@ def buildforest(data, n_trees, scoref, n_feat, min_data, pruning):
 
     Returns:
         * RF --  dictionary = importances of single features in the forest
-        * prob_current -- single value for importance, used for generating new biased feature sets 
+        * prob_current -- single value for importance, used for generating new biased feature sets
         * trees -- contains all single trees that stand in the Forest
     """
 
@@ -658,7 +658,7 @@ def buildforest(data, n_trees, scoref, n_feat, min_data, pruning):
 
 def update_RF(RF, path, tree, rand_feat):
     """for each tree the features that lead to the leaf with the lowest Error will get rewarded.
-    Features that don't lead to the leaf with the lowest Error will get punished (only by 20% of 
+    Features that don't lead to the leaf with the lowest Error will get punished (only by 20% of
     the amount the "good" featurtes get rewarded).
 
 
@@ -896,9 +896,8 @@ def update_database(X, y, data, mask_best_featureset, X_test, y_test):
     # print data.shape
     return data
 
+
 # This is the main part of the program which uses the above made definitions
-
-
 def main_loop(n_start, pruning, min_data, n_forests, n_trees, n_configs_biased, n_configs_unbiased, multiplier_stepup, seen_forests,
               weight_mean, weight_gradient, scoref, demo_mode, plot_enable):
     """Load raw data and Generate database for Random Forest. Iteratively build and burn down new Random Forests, predict the performance of new feature sets and compute two new feature sets per round.

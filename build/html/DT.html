@@ -427,7 +427,7 @@ z1 {int} &#8211; control variable for current width</dd>
 </dl>
 </dd></dl>
 
-<span class="target" id="checkpath"></span><dl class="last function">
+<span class="target" id="checkpath"></span><dl class="function">
 <dt id="ForestFire.Main.check_path">
 <code class="descclassname">ForestFire.Main.</code><code class="descname">check_path</code><span class="sig-paren">(</span><em>tree</em>, <em>result</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ForestFire/Main.html#check_path"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ForestFire.Main.check_path" title="Permalink to this definition">¶</a></dt>
 <dd><p>Check if a tree contains MSE_min (= True) or not (= False)</p>
@@ -438,6 +438,31 @@ result {data} &#8211; result that the tree is searched for</dd>
 <dt>Returns:</dt>
 <dd>bool &#8211; True if result is in the tree, false if not</dd>
 </dl>
+</dd></dl>
+
+<dl class="last function">
+<dt>
+<code class="descclassname">ForestFire.Main.</code><code class="descname">main_loop</code><span class="sig-paren">(</span><em>n_start</em>, <em>pruning</em>, <em>min_data</em>, <em>n_forests</em>, <em>n_trees</em>, <em>n_configs_biased</em>, <em>n_configs_unbiased</em>, <em>multiplier_stepup</em>, <em>seen_forests</em>, <em>weight_mean</em>, <em>weight_gradient</em>, <em>scoref</em>, <em>demo_mode</em>, <em>plot_enable</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ForestFire/Main.html#main_loop"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Load raw data and Generate database for Random Forest. Iteratively build and burn down new Random Forests, predict the performance of new feature sets and compute two new feature sets per round.</p>
+<p>Arguments:</p>
+<blockquote>
+<div><ul class="simple">
+<li>n_start {int} &#8211; number of runs before building first RF = number of data points in first RF; minimum = 4, default = 50</li>
+<li>pruning {float} &#8211; if greater than zero, branches of a Decision Tree will be pruned proportional to pruning value; default = 0</li>
+<li>min_data {float} &#8211; minimum percentage of Datasets that is used in RF generation; default = 0.2</li>
+<li>n_forests {int} &#8211; number of forests; minimum=1;  default = 25</li>
+<li>n_trees {int} &#8211; # number of trees that stand in a forest; min = 3; default = number of features x 3 x</li>
+<li>n_configs_biased {int} &#8211; # number of deliberately chosen feature sets that get predicted in each forest; default = n_trees x 5</li>
+<li>n_configs_unbiased {int} &#8211; # number of randomly chosen feature sets that get predicted in each forest; default = n_configs_biased x0.2</li>
+<li>multiplier_stepup {float} &#8211; # sets how aggressively the feature importance changes; default = 0.25</li>
+<li>seen_forests {int} &#8211; # number of recent forests that are taken into acount for generating probability of the chosen feature sets default = 4</li>
+<li>weight_mean {float} &#8211; # weight of the mean in calculating the new probability for selecting future feature sets; default = 0.2</li>
+<li>weight_gradient {bool} &#8211; # weight of the gradient in calculating the new probability for selecting future feature sets; default = 0.8</li>
+<li>scoref {function} &#8211; # which scoring metric should be used in the Decision Tree (available: entropy and giniimpurity); default = entropy</li>
+<li>demo_mode bool &#8211; # if true a comparison between the Random Forest driven Search and a random search is done</li>
+<li>plot_enable bool &#8211; # decide if at the end a plot should be generated , only possible in demo mode</li>
+</ul>
+</div></blockquote>
 </dd></dl>
 
 </div>

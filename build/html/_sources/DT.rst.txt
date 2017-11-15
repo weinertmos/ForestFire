@@ -233,6 +233,9 @@ Another usefull function is :ref:`check_path <checkpath>`. It takes as input a t
 
     .. autofunction:: ForestFire.Main.check_path
 
+    .. autofunction:: ForestFire.Main.main_loop
+        :noindex:
+
 
 
 

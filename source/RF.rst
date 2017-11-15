@@ -106,8 +106,6 @@ Instead its result is copied to the database.
 The :ref:`Updating of the database <update_database>` depicts the last step in the ForestFire Loop.
 
 
-
-
 .. important::
 
     **Functions used in this chapter**
@@ -127,6 +125,10 @@ The :ref:`Updating of the database <update_database>` depicts the last step in t
     .. _forest_predict:
 
     .. autofunction:: ForestFire.Main.forest_predict
+
+    .. autofunction:: ForestFire.Main.main_loop
+        :noindex:
+
 
 
 

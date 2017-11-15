@@ -8,3 +8,6 @@ Update Database
     **Functions used in this chapter**
 
     
+
+    .. autofunction:: ForestFire.Main.main_loop
+        :noindex:

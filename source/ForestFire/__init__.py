@@ -41,19 +41,19 @@ After *ForestFire* is supplied with the raw Data in X.npy and y.npy, the way thi
 and the designated :ref:`MLA <MLA>` (compute.py) the default setup is complete. 
 By executing **run_ForestFire.py** the tool can be started with default or adjusted hyperparameters.  
 
-*ForestFire* will execute an initial n_start to set up an internal database. 
+*ForestFire* will execute an initial *n_start* number of :ref:`MLA <MLA>` runs to set up an internal database. 
 From this database single Decision Trees are built and grouped into a Random Forest. 
 The Random Forest is evaluated to determine the importance of each feature.
 *ForestFire* will next predict the performance of possible new feature sets (chosen both randomly and deliberately).
-The two feature sets with the highest predicted performance (mean and variance) are selected, computed by the
-original :ref:`MLA <MLA>` and added to the database. 
+The two feature sets with the highest predicted performance (for mean and for variance) are selected, computed by the
+original :ref:`MLA <MLA>` and their result is added to the database. 
 The Random Forest is burnt down and a new one is built, taking into account the two newly generated data points. 
 A total number of n_forests is built.
-*ForestFire* will print the current best 5 feature sets as soon as the list of the top 5 feature sets changes.
+*ForestFire* will print the current best 5 feature sets as soon as a new top 5 feature set emerges.
 
 In *Demo mode*, the performance of *ForestFire* is compared to randomly picking new featuresets.
 This can be used to make sure that the algorithm does not only exploit local maxima, but keeps exploring the 
-solution space.
+whole solution space.
 The results can be plotted.
 
 Quickstart: `Clone Repository <https://github.com/weinertmos/ForestFire>`_ and run ForestFire-master/Source/ForestFire/run_ForestFire.py

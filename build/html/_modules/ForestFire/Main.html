@@ -590,7 +590,7 @@
 
 <span class="sd">    Returns:</span>
 <span class="sd">        * RF --  dictionary = importances of single features in the forest</span>
-<span class="sd">        * prob_current -- single value for importance, used for generating new biased feature sets </span>
+<span class="sd">        * prob_current -- single value for importance, used for generating new biased feature sets</span>
 <span class="sd">        * trees -- contains all single trees that stand in the Forest</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
@@ -703,7 +703,7 @@
 
 <div class="viewcode-block" id="update_RF"><a class="viewcode-back" href="../../RF.html#ForestFire.Main.update_RF">[docs]</a><span class="k">def</span> <span class="nf">update_RF</span><span class="p">(</span><span class="n">RF</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">tree</span><span class="p">,</span> <span class="n">rand_feat</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;for each tree the features that lead to the leaf with the lowest Error will get rewarded.</span>
-<span class="sd">    Features that don&#39;t lead to the leaf with the lowest Error will get punished (only by 20% of </span>
+<span class="sd">    Features that don&#39;t lead to the leaf with the lowest Error will get punished (only by 20% of</span>
 <span class="sd">    the amount the &quot;good&quot; featurtes get rewarded).</span>
 
 
@@ -941,9 +941,8 @@
     <span class="c1"># print data.shape</span>
     <span class="k">return</span> <span class="n">data</span>
 
+
 <span class="c1"># This is the main part of the program which uses the above made definitions</span>
-
-
 <div class="viewcode-block" id="main_loop"><a class="viewcode-back" href="../../execution.html#ForestFire.Main.main_loop">[docs]</a><span class="k">def</span> <span class="nf">main_loop</span><span class="p">(</span><span class="n">n_start</span><span class="p">,</span> <span class="n">pruning</span><span class="p">,</span> <span class="n">min_data</span><span class="p">,</span> <span class="n">n_forests</span><span class="p">,</span> <span class="n">n_trees</span><span class="p">,</span> <span class="n">n_configs_biased</span><span class="p">,</span> <span class="n">n_configs_unbiased</span><span class="p">,</span> <span class="n">multiplier_stepup</span><span class="p">,</span> <span class="n">seen_forests</span><span class="p">,</span>
               <span class="n">weight_mean</span><span class="p">,</span> <span class="n">weight_gradient</span><span class="p">,</span> <span class="n">scoref</span><span class="p">,</span> <span class="n">demo_mode</span><span class="p">,</span> <span class="n">plot_enable</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Load raw data and Generate database for Random Forest. Iteratively build and burn down new Random Forests, predict the performance of new feature sets and compute two new feature sets per round.</span>
