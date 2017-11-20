@@ -72,7 +72,8 @@ Glossary
         Typically all entries in a specific column of the raw data.
 
     feature set
-        Quantity of several single features. At least one, at most all of the available features.
+        Combination of several single features. 
+        At least one, at most all of the available features.
         Used to present the :term:`Machine Learning Algorithm` with a selection of features on which it performs with better results.
         Synonym to :term:`Observation`.
 

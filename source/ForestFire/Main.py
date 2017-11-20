@@ -1069,6 +1069,12 @@ def main_loop(n_start, pruning, min_data, n_forests, n_trees, n_configs_biased, 
         best_featuresets_sorted_old = best_featuresets_sorted
 
     # ### End of ForestFire ###
+
+    # store results
+    print "Storing results"
+    np.savetxt('results.txt', best_featuresets_sorted)
+    np.save('results', best_featuresets_sorted)
+
     print " "
     print "ForestFire finished"
     print " "
