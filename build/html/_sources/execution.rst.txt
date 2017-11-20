@@ -56,6 +56,11 @@ The importance of a feature can be interpreted by looking at the feature sets th
 If for example a feature is included in all best feature sets it has a high importance. 
 If on the other hand a feature is never included, this indicates that the feature is either not important or is even a distortion to the :ref:`MLA <MLA>`.
 
+After all Random Forests are built, the results are stored both as a .txt (human readable) and a .npy (binary, for further use with python) file.
+In the results file the rows contain all feature set combinations calculated by the :ref:`MLA <MLA>`.
+The last column contains the corresponding results to the preceding information wether a feature has been selected in the particular run.
+Example: [1 0 0 1 0.9432] means that feature 1 and 4 were presented to the :ref:`MLA<MLA>` whereas feature 2 and 3 were not. The result corresponding result is 94.32%.
+
 Example
 *******
 

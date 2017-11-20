@@ -2,12 +2,12 @@
 It utilises the Random Forest algorithm - which is itself a machine learning technique - to determine the 
 importance of features in a given set of data and make new predictions which featuresets are most 
 likely to yield the best results. 
-After building a Random Forest the most promising feature sets are selected and computed. 
+After building a Random Forest only the most promising feature sets are presented to the machine learning algorithm to gain a better result. 
 The Random Forest is burnt down and a new one is grown until the defined maximum number of forests is reached.
 The results can be compared against random search.
 
 The value of *ForestFire* lies in the selection of a :term:`feature set` that - when computed by the designated :ref:`MLA <MLA>` - yields
-better results than using all of the features or a random selection.
+better results than using all of the features or a random selection of features.
 
 *ForestFire* is most usefull in data sets with a number of features greater than 10 where a single run of
 a :ref:`MLA <MLA>` has a high computational cost. In such data sets the problem arises that some features are
@@ -22,7 +22,7 @@ of time than randomly choosing new feature sets.
 **Possible benefits:**
 
 * Increase overall precision (higher accuracy / lower Error Rate)
-* Reduce Computational cost (Finding a good solution earlier)
+* Reduce overall computational cost (Finding a good solution earlier)
 * Gain knowledge about importance of single features
 
 How to use
@@ -53,6 +53,7 @@ original :ref:`MLA <MLA>` and their result is added to the database.
 The Random Forest is burnt down and a new one is built, taking into account the two newly generated data points. 
 A total number of n_forests is built.
 *ForestFire* will print the current best 5 feature sets as soon as a new top 5 feature set emerges.
+After all Random Forests are built, the results are stored in descending order both as a .txt file and a .npy file.
 
 In *Demo mode*, the performance of *ForestFire* is compared to randomly picking new featuresets.
 This can be used to make sure that the algorithm does not only exploit local maxima, but keeps exploring the 

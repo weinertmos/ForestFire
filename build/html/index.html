@@ -53,11 +53,11 @@
 It utilises the Random Forest algorithm - which is itself a machine learning technique - to determine the 
 importance of features in a given set of data and make new predictions which featuresets are most 
 likely to yield the best results. 
-After building a Random Forest the most promising feature sets are selected and computed. 
+After building a Random Forest only the most promising feature sets are presented to the machine learning algorithm to gain a better result. 
 The Random Forest is burnt down and a new one is grown until the defined maximum number of forests is reached.
 The results can be compared against random search.</p>
 <p>The value of <em>ForestFire</em> lies in the selection of a <a class="reference internal" href="Overview.html#term-feature-set"><span class="xref std std-term">feature set</span></a> that - when computed by the designated <a class="reference internal" href="Overview.html#mla"><span class="std std-ref">MLA</span></a> - yields
-better results than using all of the features or a random selection.</p>
+better results than using all of the features or a random selection of features.</p>
 <p><em>ForestFire</em> is most usefull in data sets with a number of features greater than 10 where a single run of
 a <a class="reference internal" href="Overview.html#mla"><span class="std std-ref">MLA</span></a> has a high computational cost. In such data sets the problem arises that some features are
 more significant than the rest.
@@ -70,7 +70,7 @@ of time than randomly choosing new feature sets.</p>
 <p><strong>Possible benefits:</strong></p>
 <ul class="simple">
 <li>Increase overall precision (higher accuracy / lower Error Rate)</li>
-<li>Reduce Computational cost (Finding a good solution earlier)</li>
+<li>Reduce overall computational cost (Finding a good solution earlier)</li>
 <li>Gain knowledge about importance of single features</li>
 </ul>
 <div class="section" id="how-to-use">
@@ -98,7 +98,8 @@ The two feature sets with the highest predicted performance (for mean and for va
 original <a class="reference internal" href="Overview.html#mla"><span class="std std-ref">MLA</span></a> and their result is added to the database. 
 The Random Forest is burnt down and a new one is built, taking into account the two newly generated data points. 
 A total number of n_forests is built.
-<em>ForestFire</em> will print the current best 5 feature sets as soon as a new top 5 feature set emerges.</p>
+<em>ForestFire</em> will print the current best 5 feature sets as soon as a new top 5 feature set emerges.
+After all Random Forests are built, the results are stored in descending order both as a .txt file and a .npy file.</p>
 <p>In <em>Demo mode</em>, the performance of <em>ForestFire</em> is compared to randomly picking new featuresets.
 This can be used to make sure that the algorithm does not only exploit local maxima, but keeps exploring the 
 whole solution space.
@@ -196,7 +197,7 @@ The results can be plotted.</p>
 <p class="first admonition-title">Todo</p>
 <p class="last">no green highlighting in source code?</p>
 </div>
-<p class="todo-source">(The <a class="reference internal" href="execution.html#index-0"><em>original entry</em></a> is located in /Users/Dandelo/CloudStation_Marlon/Energietechnik/Studienarbeit/Sphinx/ForestFire/source/execution.rst, line 200.)</p>
+<p class="todo-source">(The <a class="reference internal" href="execution.html#index-0"><em>original entry</em></a> is located in /Users/Dandelo/CloudStation_Marlon/Energietechnik/Studienarbeit/Sphinx/ForestFire/source/execution.rst, line 205.)</p>
 <div class="admonition-todo admonition">
 <p class="first admonition-title">Todo</p>
 <p class="last">so so much more...</p>

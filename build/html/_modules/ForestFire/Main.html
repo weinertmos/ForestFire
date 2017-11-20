@@ -1114,6 +1114,12 @@
         <span class="n">best_featuresets_sorted_old</span> <span class="o">=</span> <span class="n">best_featuresets_sorted</span>
 
     <span class="c1"># ### End of ForestFire ###</span>
+
+    <span class="c1"># store results</span>
+    <span class="nb">print</span> <span class="s2">&quot;Storing results&quot;</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">savetxt</span><span class="p">(</span><span class="s1">&#39;results.txt&#39;</span><span class="p">,</span> <span class="n">best_featuresets_sorted</span><span class="p">)</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s1">&#39;results&#39;</span><span class="p">,</span> <span class="n">best_featuresets_sorted</span><span class="p">)</span>
+
     <span class="nb">print</span> <span class="s2">&quot; &quot;</span>
     <span class="nb">print</span> <span class="s2">&quot;ForestFire finished&quot;</span>
     <span class="nb">print</span> <span class="s2">&quot; &quot;</span>
