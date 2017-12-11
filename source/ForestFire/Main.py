@@ -1038,7 +1038,7 @@ def main_loop(n_start, pruning, min_data, n_forests, n_trees, n_configs_biased, 
             for x in double_var:
                 if x.all() and not stopper:
                     # print "Stopper: " + str(stopper) # Debugging Line
-                    print "Variance feature set already computed. No need to do it agin"
+                    print "Variance feature set already computed. No need to do it again"
                     data = np.append(data, [data[z]], axis=0)
                     stopper = True
                 z += 1
@@ -1103,8 +1103,8 @@ def main_loop(n_start, pruning, min_data, n_forests, n_trees, n_configs_biased, 
 
         # Compare Random Search VS Random Forest Search
         print " "
-        print "Found best value for Random Forest Search after " + str(n_start) + " initial runs and " + str(np.argmax(data[:, -1] + 1) - n_start) + "/" + str(len(data) - n_start) + " smart runs"
-        print "Best value with RF: " + str(np.max(data[:, -1]))
+        print "Found best value for ForestFire Search after " + str(n_start) + " initial runs and " + str(np.argmax(data[:, -1] + 1) - n_start) + "/" + str(len(data) - n_start) + " smart runs"
+        print "Best value with ForestFire: " + str(np.max(data[:, -1]))
         print " "
         print "Found best value for Random Search after " + str(np.argmax(data_compare[:, -1])) + " random runs"
         print "Best value with Random Search: " + str(np.max(data_compare[:, -1]))
