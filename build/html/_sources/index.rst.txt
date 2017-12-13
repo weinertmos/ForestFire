@@ -47,60 +47,6 @@ Indices and tables
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
-    
-**Remaining Todos:**
-
-.. todolist::
-
-Kinderspielplatz
-================
-es folgt Quatsch mit Sose
-
-Eine Referenz zu getting started: :ref:`get_started`
-
-
-
-.. note::
-    Eine Notiz! Ha!
-
-.. warning::
-    ohhh eine Warnung!
-
-.. todo::
-    
-    so so much more...
-
-.. hlist::
-    :columns: 3
-
-    * eintrag 1
-    * eintrag 2
-    * eintrag 3
-    * eintrag 4
-
-
-Wir bauen einen :ref:`DT <DT>`
-
-
-
-.. code-block:: python
-    :caption: oha
-    :linenos:
-
-    a = 5
-
-.. literalinclude:: ForestFire/Main.py
-        :lines: 3-50,55
-
-
-.. literalinclude:: ForestFire/Main.py
-    :pyobject: gen_database
-    :prepend: 10
-
-
-
-
-
 
 .. _blank:
 

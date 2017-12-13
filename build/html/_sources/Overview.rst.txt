@@ -89,7 +89,7 @@ Glossary
         The :ref:`MLA <MLA>` will run on this data set.
 
     Synonyms
-        * Feature Importancce = Feature Probability
+        * Feature Importance = Feature Probability
 
 References
 ----------
