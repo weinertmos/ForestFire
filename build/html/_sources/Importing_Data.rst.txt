@@ -28,16 +28,3 @@ After loading the data apply how it should be splitted into train and test data 
     **Functions used in this chapter**
 
     .. autofunction:: ForestFire.import_data.import_data
-
-
-
-
-
-
-
-.. _blank:
-
-.. figure:: pyplots/blank.jpg
-    :scale: 80%
-    :alt: treeview.jpg
-    :align: center

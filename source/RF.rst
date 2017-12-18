@@ -128,15 +128,3 @@ The :ref:`Updating of the database <update_database>` depicts the last step in t
 
     .. autofunction:: ForestFire.Main.main_loop
         :noindex:
-
-
-
-
-.. _blank:
-
-.. figure:: pyplots/blank.jpg
-    :scale: 80%
-    :alt: treeview.jpg
-    :align: center
-
-

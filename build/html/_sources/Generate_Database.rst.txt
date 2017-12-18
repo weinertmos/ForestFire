@@ -24,16 +24,3 @@ The result of the :ref:`MLA <MLA>` is stored in the variable *score* and returne
     .. autofunction:: ForestFire.compute.compute
 
     .. autofunction:: ForestFire.Main.gen_database
-
-
-
-
-
-
-
-.. _blank:
-
-.. figure:: pyplots/blank.jpg
-    :scale: 80%
-    :alt: treeview.jpg
-    :align: center

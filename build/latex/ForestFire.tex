@@ -40,7 +40,7 @@
 
 
 \title{ForestFire Documentation}
-\date{Dec 13, 2017}
+\date{Dec 18, 2017}
 \release{1.1.5}
 \author{Marlon Weinert}
 \newcommand{\sphinxlogo}{}
@@ -254,11 +254,6 @@ Feature Importance = Feature Probability
 \subsection{About the author}
 \label{\detokenize{Overview:about-the-author}}
 Information about the author.
-\phantomsection\label{\detokenize{Overview:blank}}\begin{figure}[htbp]
-\centering
-
-\noindent\sphinxincludegraphics[scale=0.8]{{blank}.jpg}
-\label{\detokenize{Overview:blank}}\end{figure}
 
 
 \section{Import Data}
@@ -314,11 +309,6 @@ y\_train \{np.array\} -- result training data
 \end{fulllineitems}
 
 \end{sphinxadmonition}
-\phantomsection\label{\detokenize{Importing_Data:blank}}\begin{figure}[htbp]
-\centering
-
-\noindent\sphinxincludegraphics[scale=0.8]{{blank}.jpg}
-\label{\detokenize{Importing_Data:blank}}\end{figure}
 
 
 \section{Generate Database}
@@ -407,11 +397,6 @@ y\_test \{numpy.array\} -- test data
 \end{fulllineitems}
 
 \end{sphinxadmonition}
-\phantomsection\label{\detokenize{Generate_Database:blank}}\begin{figure}[htbp]
-\centering
-
-\noindent\sphinxincludegraphics[scale=0.8]{{blank}.jpg}
-\label{\detokenize{Generate_Database:blank}}\end{figure}
 
 
 \section{Execution}
@@ -718,11 +703,6 @@ plot\_enable bool -- \# decide if at the end a plot should be generated , only p
 \end{fulllineitems}
 
 \end{sphinxadmonition}
-\phantomsection\label{\detokenize{execution:blank}}\begin{figure}[htbp]
-\centering
-
-\noindent\sphinxincludegraphics[scale=0.8]{{blank}.jpg}
-\label{\detokenize{execution:blank}}\end{figure}
 
 
 \chapter{Building and Burning Random Forests}
@@ -1300,12 +1280,7 @@ plot\_enable bool -- \# decide if at the end a plot should be generated , only p
 
 \end{fulllineitems}
 
-\phantomsection\label{\detokenize{DT:blank}}\end{sphinxadmonition}
-\begin{figure}[htbp]
-\centering
-
-\noindent\sphinxincludegraphics[scale=0.8]{{blank}.jpg}
-\label{\detokenize{DT:blank}}\end{figure}
+\end{sphinxadmonition}
 
 
 \section{Random Forest}
@@ -1663,11 +1638,6 @@ plot\_enable bool -- \# decide if at the end a plot should be generated , only p
 \end{fulllineitems}
 
 \end{sphinxadmonition}
-\phantomsection\label{\detokenize{RF:blank}}\begin{figure}[htbp]
-\centering
-
-\noindent\sphinxincludegraphics[scale=0.8]{{blank}.jpg}
-\label{\detokenize{RF:blank}}\end{figure}
 
 
 \section{Update Database}
@@ -1852,6 +1822,1319 @@ plot\_enable bool -- \# decide if at the end a plot should be generated , only p
 \end{fulllineitems}
 
 \end{sphinxadmonition}
+
+
+\chapter{Source Code}
+\label{\detokenize{index:source-code}}
+
+\section{Source Code}
+\label{\detokenize{SourceCode:source-code}}\label{\detokenize{SourceCode::doc}}\label{\detokenize{SourceCode:sourcecode}}
+In this section the complete source Code is presented in html friendly style.
+
+
+\subsection{import\_data.py}
+\label{\detokenize{SourceCode:import-data-py}}
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+\PYG{k+kn}{import} \PYG{n+nn}{numpy} \PYG{k}{as} \PYG{n+nn}{np}
+
+
+\PYG{k}{def} \PYG{n+nf}{import\PYGZus{}data}\PYG{p}{(}\PYG{p}{)}\PYG{p}{:}
+    \PYG{l+s+sd}{\PYGZdq{}\PYGZdq{}\PYGZdq{}import the raw data from two numpy arrays.}
+
+\PYG{l+s+sd}{    Import raw data from two numpy arrays X.npy and y.npy. }
+\PYG{l+s+sd}{    Set how train and test data are to be split for fix splits.}
+\PYG{l+s+sd}{    Returns train/test splits as well as number of features.}
+
+\PYG{l+s+sd}{    Returns:}
+
+\PYG{l+s+sd}{        * X\PYGZus{}test \PYGZob{}np.array\PYGZcb{} \PYGZhy{}\PYGZhy{} result training data}
+\PYG{l+s+sd}{        * X\PYGZus{}train \PYGZob{}np.array\PYGZcb{} \PYGZhy{}\PYGZhy{} feature training data}
+\PYG{l+s+sd}{        * y\PYGZus{}test \PYGZob{}np.array\PYGZcb{} \PYGZhy{}\PYGZhy{} result test data}
+\PYG{l+s+sd}{        * y\PYGZus{}train \PYGZob{}np.array\PYGZcb{} \PYGZhy{}\PYGZhy{} result training data}
+
+\PYG{l+s+sd}{    \PYGZdq{}\PYGZdq{}\PYGZdq{}}
+    \PYG{n}{X} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{load}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{X.npy}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
+    \PYG{n}{X\PYGZus{}train} \PYG{o}{=} \PYG{n}{X}\PYG{p}{[}\PYG{p}{:}\PYG{l+m+mi}{500}\PYG{p}{]}
+    \PYG{n}{X\PYGZus{}test} \PYG{o}{=} \PYG{n}{X}\PYG{p}{[}\PYG{l+m+mi}{500}\PYG{p}{:}\PYG{l+m+mi}{800}\PYG{p}{]}
+    \PYG{n}{y} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{load}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{y.npy}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
+    \PYG{n}{y\PYGZus{}train} \PYG{o}{=} \PYG{n}{y}\PYG{p}{[}\PYG{p}{:}\PYG{l+m+mi}{500}\PYG{p}{]}
+    \PYG{n}{y\PYGZus{}test} \PYG{o}{=} \PYG{n}{y}\PYG{p}{[}\PYG{l+m+mi}{500}\PYG{p}{:}\PYG{l+m+mi}{800}\PYG{p}{]}
+    \PYG{n}{n\PYGZus{}feat} \PYG{o}{=} \PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{X}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]}\PYG{p}{)}
+
+    \PYG{k}{return} \PYG{n}{X\PYGZus{}test}\PYG{p}{,} \PYG{n}{X\PYGZus{}train}\PYG{p}{,} \PYG{n}{y\PYGZus{}test}\PYG{p}{,} \PYG{n}{y\PYGZus{}train}\PYG{p}{,} \PYG{n}{n\PYGZus{}feat}
+\end{sphinxVerbatim}
+
+
+\subsection{compute.py}
+\label{\detokenize{SourceCode:compute-py}}
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{\PYGZsh{} Imports}
+\PYG{k+kn}{import} \PYG{n+nn}{numpy} \PYG{k}{as} \PYG{n+nn}{np}
+\PYG{k+kn}{from} \PYG{n+nn}{sklearn} \PYG{k}{import} \PYG{n}{svm}
+\PYG{k+kn}{from} \PYG{n+nn}{sklearn}\PYG{n+nn}{.}\PYG{n+nn}{metrics} \PYG{k}{import} \PYG{n}{accuracy\PYGZus{}score}
+\PYG{k+kn}{from} \PYG{n+nn}{sklearn}\PYG{n+nn}{.}\PYG{n+nn}{model\PYGZus{}selection} \PYG{k}{import} \PYG{n}{GridSearchCV}
+
+\PYG{c+c1}{\PYGZsh{} make sure that a high score is better than a low score! If you use accuracy, a high accuracy is better than a low}
+\PYG{c+c1}{\PYGZsh{} one. If you use Error (e.g. MSE) make sure it is negative (negative MSE)!}
+
+
+\PYG{k}{def} \PYG{n+nf}{compute}\PYG{p}{(}\PYG{n}{X\PYGZus{}train}\PYG{p}{,} \PYG{n}{y\PYGZus{}train}\PYG{p}{,} \PYG{n}{mask\PYGZus{}sub\PYGZus{}features}\PYG{p}{,} \PYG{n}{X\PYGZus{}test}\PYG{p}{,} \PYG{n}{y\PYGZus{}test}\PYG{p}{)}\PYG{p}{:}
+    \PYG{l+s+sd}{\PYGZdq{}\PYGZdq{}\PYGZdq{}Computes a new dataset for the Random Forest with the underlying machine learning algorithm.}
+
+\PYG{l+s+sd}{    Configure your machine learning algorithm here.}
+\PYG{l+s+sd}{    Add imports at the top of the file.}
+\PYG{l+s+sd}{    If no train / test split is done during import, X\PYGZus{}train and X\PYGZus{}test are equal (y\PYGZus{}train and y\PYGZus{}test as well).}
+\PYG{l+s+sd}{    In this case define your own splits with your machine learning algorithm.}
+
+\PYG{l+s+sd}{    Arguments:}
+
+\PYG{l+s+sd}{        * X\PYGZus{}train \PYGZob{}np.array\PYGZcb{} \PYGZhy{}\PYGZhy{} feature training data}
+\PYG{l+s+sd}{        * y\PYGZus{}train \PYGZob{}np.array\PYGZcb{} \PYGZhy{}\PYGZhy{} result training data}
+\PYG{l+s+sd}{        * mask\PYGZus{}sub\PYGZus{}features \PYGZob{}np.array\PYGZcb{} \PYGZhy{}\PYGZhy{} feature set = dedicated part of all features}
+\PYG{l+s+sd}{        * X\PYGZus{}test \PYGZob{}np.array\PYGZcb{} \PYGZhy{}\PYGZhy{} result training data}
+\PYG{l+s+sd}{        * y\PYGZus{}test \PYGZob{}np.array\PYGZcb{} \PYGZhy{}\PYGZhy{} result test data}
+
+\PYG{l+s+sd}{    Returns:}
+\PYG{l+s+sd}{        score \PYGZob{}np.float64\PYGZcb{} \PYGZhy{}\PYGZhy{} score of the selected feature set}
+\PYG{l+s+sd}{    \PYGZdq{}\PYGZdq{}\PYGZdq{}}
+
+    \PYG{c+c1}{\PYGZsh{} insert your own machine learning algorithm \PYGZsh{}}
+    \PYG{n}{param\PYGZus{}grid} \PYG{o}{=} \PYG{p}{[}\PYG{p}{\PYGZob{}}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{C}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{:} \PYG{n}{np}\PYG{o}{.}\PYG{n}{logspace}\PYG{p}{(}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{,} \PYG{l+m+mi}{1}\PYG{p}{,} \PYG{l+m+mi}{6}\PYG{p}{)}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{gamma}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{:} \PYG{n}{np}\PYG{o}{.}\PYG{n}{logspace}\PYG{p}{(}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{,} \PYG{l+m+mi}{1}\PYG{p}{,} \PYG{l+m+mi}{6}\PYG{p}{)}\PYG{p}{\PYGZcb{}}\PYG{p}{]}
+    \PYG{n}{clf} \PYG{o}{=} \PYG{n}{svm}\PYG{o}{.}\PYG{n}{SVC}\PYG{p}{(}\PYG{p}{)}  \PYG{c+c1}{\PYGZsh{} SVR for regression, SVC for classification}
+    \PYG{n}{grid} \PYG{o}{=} \PYG{n}{GridSearchCV}\PYG{p}{(}\PYG{n}{clf}\PYG{p}{,} \PYG{n}{param\PYGZus{}grid}\PYG{p}{,} \PYG{n}{cv}\PYG{o}{=}\PYG{k+kc}{None}\PYG{p}{,} \PYG{n}{n\PYGZus{}jobs}\PYG{o}{=}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{,} \PYG{n}{scoring}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{neg\PYGZus{}mean\PYGZus{}squared\PYGZus{}error}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{,} \PYG{n}{pre\PYGZus{}dispatch}\PYG{o}{=}\PYG{l+m+mi}{8}\PYG{p}{)}
+    \PYG{n}{grid}\PYG{o}{.}\PYG{n}{fit}\PYG{p}{(}\PYG{n}{X\PYGZus{}train}\PYG{p}{,} \PYG{n}{y\PYGZus{}train}\PYG{p}{)}
+    \PYG{n}{y\PYGZus{}pred} \PYG{o}{=} \PYG{n}{grid}\PYG{o}{.}\PYG{n}{predict}\PYG{p}{(}\PYG{n}{X\PYGZus{}test}\PYG{p}{[}\PYG{p}{:}\PYG{p}{,} \PYG{n}{mask\PYGZus{}sub\PYGZus{}features}\PYG{p}{]}\PYG{p}{)}
+
+    \PYG{c+c1}{\PYGZsh{} store the result in score \PYGZsh{}}
+    \PYG{n}{score} \PYG{o}{=} \PYG{n}{accuracy\PYGZus{}score}\PYG{p}{(}\PYG{n}{y\PYGZus{}test}\PYG{p}{,} \PYG{n}{y\PYGZus{}pred}\PYG{p}{)}
+    \PYG{c+c1}{\PYGZsh{} print score}
+    \PYG{k}{return} \PYG{n}{score}
+    \PYG{c+c1}{\PYGZsh{} print grid.cv\PYGZus{}results\PYGZus{}}
+    \PYG{c+c1}{\PYGZsh{} print (grid.grid\PYGZus{}scores\PYGZus{})}
+    \PYG{c+c1}{\PYGZsh{} print(grid.best\PYGZus{}score\PYGZus{})}
+    \PYG{c+c1}{\PYGZsh{} print(grid.best\PYGZus{}params\PYGZus{})}
+    \PYG{c+c1}{\PYGZsh{} return grid.best\PYGZus{}score\PYGZus{}}
+\end{sphinxVerbatim}
+
+
+\subsection{run\_ForestFire.py}
+\label{\detokenize{SourceCode:run-forestfire-py}}
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+\PYG{k+kn}{import} \PYG{n+nn}{Main}
+\PYG{k+kn}{import} \PYG{n+nn}{numpy} \PYG{k}{as} \PYG{n+nn}{np}
+
+\PYG{n}{name} \PYG{o}{=} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{\PYGZus{}\PYGZus{}main\PYGZus{}\PYGZus{}}\PYG{l+s+s1}{\PYGZsq{}}
+\PYG{c+c1}{\PYGZsh{} Hyperparameters \PYGZsh{}}
+
+\PYG{c+c1}{\PYGZsh{} number of runs before building first Random Forest = number of data points in first RF; minimum = 4, default = 50}
+\PYG{c+c1}{\PYGZsh{} adjust according to computational capabilities and demands of the underlying machine learning algorithm}
+\PYG{n}{n\PYGZus{}start} \PYG{o}{=} \PYG{l+m+mi}{30}  \PYG{c+c1}{\PYGZsh{} default = 30}
+\PYG{c+c1}{\PYGZsh{} if pruning is greater than zero, branches of a Decision Tree will be pruned proportional to pruning value; default = 0}
+\PYG{c+c1}{\PYGZsh{} advanced parameter. If set too high, all trees will be cut down to stumps. Increase carefully. Start with values between 0 and 1.}
+\PYG{n}{pruning} \PYG{o}{=} \PYG{l+m+mf}{0.4}
+\PYG{c+c1}{\PYGZsh{} minimum percentage of Datasets that is used in RF generation; default = 0.2}
+\PYG{n}{min\PYGZus{}data} \PYG{o}{=} \PYG{l+m+mf}{0.2}
+\PYG{c+c1}{\PYGZsh{} number of forests; minimum=1;  default = 25}
+\PYG{c+c1}{\PYGZsh{} adjust according to computational capabilities. For each forest two new computational runs are done. default = 20}
+\PYG{n}{n\PYGZus{}forests} \PYG{o}{=} \PYG{l+m+mi}{10}
+
+\PYG{c+c1}{\PYGZsh{} number of trees that stand in a forest; min = 3; default = number of features * 3}
+\PYG{n}{n\PYGZus{}trees} \PYG{o}{=} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{default}\PYG{l+s+s1}{\PYGZsq{}}
+\PYG{c+c1}{\PYGZsh{} number of deliberately chosen feature sets that get predicted in each forest; default = n\PYGZus{}trees * 5}
+\PYG{n}{n\PYGZus{}configs\PYGZus{}biased} \PYG{o}{=} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{default}\PYG{l+s+s1}{\PYGZsq{}}
+\PYG{c+c1}{\PYGZsh{} number of randomly chosen feature sets that get predicted in each forest; default = n\PYGZus{}configs\PYGZus{}biased * 0.2}
+\PYG{n}{n\PYGZus{}configs\PYGZus{}unbiased} \PYG{o}{=} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{default}\PYG{l+s+s1}{\PYGZsq{}}
+\PYG{c+c1}{\PYGZsh{} sets how aggressively the feature importance changes; default = 0.25}
+\PYG{c+c1}{\PYGZsh{} higher values will increase pressure on how often promising features will be selected.}
+\PYG{c+c1}{\PYGZsh{} advanced parameter, adjust carefully. If set too high the risk of runnning into local extrema rises.}
+\PYG{n}{multiplier\PYGZus{}stepup} \PYG{o}{=} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{default}\PYG{l+s+s1}{\PYGZsq{}}
+\PYG{c+c1}{\PYGZsh{} number of recent forests that are taken into acount for generating probability of the chosen feature sets default = 0.01}
+\PYG{n}{seen\PYGZus{}forests} \PYG{o}{=} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{default}\PYG{l+s+s1}{\PYGZsq{}}
+\PYG{c+c1}{\PYGZsh{} the chosen feature sets default = 4 ? make variable?}
+
+\PYG{c+c1}{\PYGZsh{} weight of the mean in calculating the new probability for selecting future feature sets; default = 0.2}
+\PYG{n}{weight\PYGZus{}mean} \PYG{o}{=} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{default}\PYG{l+s+s1}{\PYGZsq{}}
+\PYG{c+c1}{\PYGZsh{} weight of the gradient in calculating the new probability for selecting future feature sets; default = 0.8}
+\PYG{n}{weight\PYGZus{}gradient} \PYG{o}{=} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{default}\PYG{l+s+s1}{\PYGZsq{}}
+
+\PYG{c+c1}{\PYGZsh{} which scoring metric should be used in the Decision Tree (available: entropy, giniimpurity and variance); default = entropy}
+\PYG{c+c1}{\PYGZsh{} select variance for numerical values in y only}
+\PYG{n}{scoref} \PYG{o}{=} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{variance}\PYG{l+s+s1}{\PYGZsq{}}
+\PYG{c+c1}{\PYGZsh{} set random seed for repeatabilit; comment out if no repeatability is required; default = 1}
+\PYG{n}{np}\PYG{o}{.}\PYG{n}{random}\PYG{o}{.}\PYG{n}{seed}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZsh{} if true a comparison between the Random Forest driven Search and a random search is done}
+\PYG{n}{demo\PYGZus{}mode} \PYG{o}{=} \PYG{k+kc}{True}
+\PYG{c+c1}{\PYGZsh{} decide if at the end a plot should be generated , only valid in demo mode}
+\PYG{n}{plot\PYGZus{}enable} \PYG{o}{=} \PYG{k+kc}{True}
+
+\PYG{k}{if} \PYG{n}{name} \PYG{o}{==} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{\PYGZus{}\PYGZus{}main\PYGZus{}\PYGZus{}}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{:}
+    \PYG{n}{Main}\PYG{o}{.}\PYG{n}{main\PYGZus{}loop}\PYG{p}{(}\PYG{n}{n\PYGZus{}start}\PYG{p}{,} \PYG{n}{pruning}\PYG{p}{,} \PYG{n}{min\PYGZus{}data}\PYG{p}{,} \PYG{n}{n\PYGZus{}forests}\PYG{p}{,} \PYG{n}{n\PYGZus{}trees}\PYG{p}{,} \PYG{n}{n\PYGZus{}configs\PYGZus{}biased}\PYG{p}{,} \PYG{n}{n\PYGZus{}configs\PYGZus{}unbiased}\PYG{p}{,} \PYG{n}{multiplier\PYGZus{}stepup}\PYG{p}{,} \PYG{n}{seen\PYGZus{}forests}\PYG{p}{,}
+                   \PYG{n}{weight\PYGZus{}mean}\PYG{p}{,} \PYG{n}{weight\PYGZus{}gradient}\PYG{p}{,} \PYG{n}{scoref}\PYG{p}{,} \PYG{n}{demo\PYGZus{}mode}\PYG{p}{,} \PYG{n}{plot\PYGZus{}enable}\PYG{p}{)}
+\end{sphinxVerbatim}
+
+
+\subsection{Main.py}
+\label{\detokenize{SourceCode:main-py}}
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{\PYGZsh{}  Imports}
+\PYG{k+kn}{import} \PYG{n+nn}{numpy} \PYG{k}{as} \PYG{n+nn}{np}
+\PYG{k+kn}{import} \PYG{n+nn}{matplotlib}\PYG{n+nn}{.}\PYG{n+nn}{pyplot} \PYG{k}{as} \PYG{n+nn}{plt}
+\PYG{k+kn}{from} \PYG{n+nn}{sklearn} \PYG{k}{import} \PYG{n}{preprocessing}
+
+\PYG{c+c1}{\PYGZsh{} For Debugging only}
+\PYG{k+kn}{from} \PYG{n+nn}{PIL} \PYG{k}{import} \PYG{n}{Image}\PYG{p}{,} \PYG{n}{ImageDraw}
+
+\PYG{c+c1}{\PYGZsh{} Import files}
+\PYG{k+kn}{from} \PYG{n+nn}{compute} \PYG{k}{import} \PYG{n}{compute}
+\PYG{k+kn}{from} \PYG{n+nn}{import\PYGZus{}data} \PYG{k}{import} \PYG{n}{import\PYGZus{}data}
+
+\PYG{c+c1}{\PYGZsh{} matplotlib.use(\PYGZsq{}TkAgg\PYGZsq{})  \PYGZsh{} set Backend}
+
+
+\PYG{c+c1}{\PYGZsh{} change settings}
+\PYG{n}{np}\PYG{o}{.}\PYG{n}{set\PYGZus{}printoptions}\PYG{p}{(}\PYG{n}{threshold}\PYG{o}{=}\PYG{n}{np}\PYG{o}{.}\PYG{n}{inf}\PYG{p}{)}   \PYG{c+c1}{\PYGZsh{} print whole numpy array in console}
+\PYG{n}{np}\PYG{o}{.}\PYG{n}{seterr}\PYG{p}{(}\PYG{n}{divide}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{ignore}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{,} \PYG{n}{invalid}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{ignore}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}  \PYG{c+c1}{\PYGZsh{} ignore warnings if dividing by zero or NaN}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{style}\PYG{o}{.}\PYG{n}{use}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{bmh}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZsh{} Definitions \PYGZsh{}}
+
+
+\PYG{k}{def} \PYG{n+nf}{gen\PYGZus{}database}\PYG{p}{(}\PYG{n}{n\PYGZus{}start}\PYG{p}{,} \PYG{n}{X}\PYG{p}{,} \PYG{n}{y}\PYG{p}{,} \PYG{n}{X\PYGZus{}test}\PYG{p}{,} \PYG{n}{y\PYGZus{}test}\PYG{p}{)}\PYG{p}{:}
+    \PYG{l+s+sd}{\PYGZdq{}\PYGZdq{}\PYGZdq{}Runs the underlying :ref:{}`MLA \PYGZlt{}MLA\PYGZgt{}{}` *n\PYGZus{}start* times to generate a database from which Random Forests can be built.}
+
+\PYG{l+s+sd}{    Arguments:}
+\PYG{l+s+sd}{        * n\PYGZus{}start \PYGZob{}int\PYGZcb{} \PYGZhy{}\PYGZhy{} number of times the underlying :ref:{}`MLA \PYGZlt{}MLA\PYGZgt{}{}` is executed}
+\PYG{l+s+sd}{        * X \PYGZob{}numpy.array\PYGZcb{} \PYGZhy{}\PYGZhy{} raw data}
+\PYG{l+s+sd}{        * y \PYGZob{}numpy.array\PYGZcb{} \PYGZhy{}\PYGZhy{} raw data}
+\PYG{l+s+sd}{        * X\PYGZus{}test \PYGZob{}numpy.array\PYGZcb{} \PYGZhy{}\PYGZhy{} test data}
+\PYG{l+s+sd}{        * y\PYGZus{}test \PYGZob{}numpy.array\PYGZcb{} \PYGZhy{}\PYGZhy{} test data}
+
+\PYG{l+s+sd}{    Returns:}
+\PYG{l+s+sd}{        [numpy.array] \PYGZhy{}\PYGZhy{} data set containing feature sets and corresponding results}
+\PYG{l+s+sd}{    \PYGZdq{}\PYGZdq{}\PYGZdq{}}
+    \PYG{n}{X\PYGZus{}DT} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{zeros}\PYG{p}{(}\PYG{p}{(}\PYG{n}{n\PYGZus{}start}\PYG{p}{,} \PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{X}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]}\PYG{p}{)}\PYG{p}{)}\PYG{p}{,} \PYG{n}{dtype}\PYG{o}{=}\PYG{n+nb}{bool}\PYG{p}{)}  \PYG{c+c1}{\PYGZsh{} Prelocate Memory}
+    \PYG{c+c1}{\PYGZsh{} print X\PYGZus{}DT}
+    \PYG{n}{y\PYGZus{}DT} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{zeros}\PYG{p}{(}\PYG{p}{(}\PYG{n}{n\PYGZus{}start}\PYG{p}{,} \PYG{l+m+mi}{1}\PYG{p}{)}\PYG{p}{)}  \PYG{c+c1}{\PYGZsh{} Prelocate Memory}
+
+    \PYG{c+c1}{\PYGZsh{} create SVMs that can only see subset of features}
+    \PYG{k}{for} \PYG{n}{i} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{n}{n\PYGZus{}start}\PYG{p}{)}\PYG{p}{:}
+        \PYG{c+c1}{\PYGZsh{} create random mask to select subgroup of features}
+        \PYG{n}{mask\PYGZus{}sub\PYGZus{}features} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{zeros}\PYG{p}{(}\PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{X}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]}\PYG{p}{)}\PYG{p}{,} \PYG{n}{dtype}\PYG{o}{=}\PYG{n+nb}{bool}\PYG{p}{)}  \PYG{c+c1}{\PYGZsh{} Prelocate Memory}
+        \PYG{c+c1}{\PYGZsh{} mask\PYGZus{}sub\PYGZus{}data = np.zeros(len(X), dtype=bool)  \PYGZsh{} Prelocate Memory}
+        \PYG{c+c1}{\PYGZsh{} selecting features: any number between 1 and all features are selected}
+        \PYG{n}{size} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{random}\PYG{o}{.}\PYG{n}{choice}\PYG{p}{(}\PYG{n+nb}{range}\PYG{p}{(}\PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{X}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]}\PYG{p}{)} \PYG{o}{\PYGZhy{}} \PYG{l+m+mi}{1}\PYG{p}{)}\PYG{p}{)} \PYG{o}{+} \PYG{l+m+mi}{1}
+        \PYG{n}{rand\PYGZus{}feat} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{random}\PYG{o}{.}\PYG{n}{choice}\PYG{p}{(}\PYG{n+nb}{range}\PYG{p}{(}\PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{X}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]}\PYG{p}{)}\PYG{p}{)}\PYG{p}{,} \PYG{n}{size}\PYG{o}{=}\PYG{n}{size}\PYG{p}{,} \PYG{n}{replace}\PYG{o}{=}\PYG{k+kc}{True}\PYG{p}{,} \PYG{n}{p}\PYG{o}{=}\PYG{k+kc}{None}\PYG{p}{)}  \PYG{c+c1}{\PYGZsh{} in first run prob is None \PYGZhy{}\PYGZhy{}\PYGZgt{} all features are equally selected, in later runs prob is result of previous RF results}
+        \PYG{n}{mask\PYGZus{}sub\PYGZus{}features}\PYG{p}{[}\PYG{n}{rand\PYGZus{}feat}\PYG{p}{]} \PYG{o}{=} \PYG{k+kc}{True}  \PYG{c+c1}{\PYGZsh{} set chosen features to True}
+
+        \PYG{c+c1}{\PYGZsh{} Select Train and Test Data for subgroup}
+        \PYG{c+c1}{\PYGZsh{} print X}
+        \PYG{n}{X\PYGZus{}sub} \PYG{o}{=} \PYG{n}{X}\PYG{p}{[}\PYG{p}{:}\PYG{p}{,} \PYG{n}{mask\PYGZus{}sub\PYGZus{}features}\PYG{p}{]}  \PYG{c+c1}{\PYGZsh{} select only chosen features (still all datasets)}
+        \PYG{c+c1}{\PYGZsh{} print len(X\PYGZus{}sub[0])}
+        \PYG{c+c1}{\PYGZsh{} print X\PYGZus{}sub[0]}
+
+        \PYG{c+c1}{\PYGZsh{} compute subgroup}
+        \PYG{c+c1}{\PYGZsh{} print X\PYGZus{}sub}
+        \PYG{n}{y\PYGZus{}DT}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]} \PYG{o}{=} \PYG{n}{compute}\PYG{p}{(}\PYG{n}{X\PYGZus{}sub}\PYG{p}{,} \PYG{n}{y}\PYG{p}{,} \PYG{n}{mask\PYGZus{}sub\PYGZus{}features}\PYG{p}{,} \PYG{n}{X\PYGZus{}test}\PYG{p}{,} \PYG{n}{y\PYGZus{}test}\PYG{p}{)}
+
+        \PYG{c+c1}{\PYGZsh{} Save Data}
+        \PYG{n}{X\PYGZus{}DT}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]} \PYG{o}{=} \PYG{n}{mask\PYGZus{}sub\PYGZus{}features}  \PYG{c+c1}{\PYGZsh{} for the Decision Tree / Random Forest the X values are the information about whether an SVM has seen a certain feature or not}
+    \PYG{c+c1}{\PYGZsh{} print X\PYGZus{}DT}
+    \PYG{c+c1}{\PYGZsh{} print y\PYGZus{}DT}
+
+    \PYG{c+c1}{\PYGZsh{} merge X and y values}
+    \PYG{n}{Data} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{concatenate}\PYG{p}{(}\PYG{p}{(}\PYG{n}{X\PYGZus{}DT}\PYG{p}{,} \PYG{n}{y\PYGZus{}DT}\PYG{p}{)}\PYG{p}{,} \PYG{n}{axis}\PYG{o}{=}\PYG{l+m+mi}{1}\PYG{p}{)}  \PYG{c+c1}{\PYGZsh{} this Dataset goes into the Decision Tree / Random Forest}
+    \PYG{k}{return} \PYG{n}{Data}
+
+
+\PYG{c+c1}{\PYGZsh{} Functions for Generating Database for RF}
+
+
+\PYG{c+c1}{\PYGZsh{} Decision Tree}
+
+
+\PYG{c+c1}{\PYGZsh{} class definition}
+\PYG{k}{class} \PYG{n+nc}{decisionnode}\PYG{p}{:}
+    \PYG{l+s+sd}{\PYGZdq{}\PYGZdq{}\PYGZdq{}Base class that a decision tree is built of.}
+
+
+\PYG{l+s+sd}{    Keyword Arguments:}
+\PYG{l+s+sd}{        * col \PYGZob{}integer\PYGZcb{} \PYGZhy{}\PYGZhy{} column number = decision criterium for splitting data (default: \PYGZob{}\PYGZhy{}1\PYGZcb{})}
+\PYG{l+s+sd}{        * value \PYGZob{}integer/float/string\PYGZcb{} \PYGZhy{}\PYGZhy{} value by which data gets split (default: \PYGZob{}None\PYGZcb{})}
+\PYG{l+s+sd}{        * results \PYGZob{}integer/float/string\PYGZcb{} \PYGZhy{}\PYGZhy{} if node is an end node (=leaf) it contains the results (default: \PYGZob{}None\PYGZcb{})}
+\PYG{l+s+sd}{        * tb \PYGZob{}decisionnode\PYGZcb{} \PYGZhy{}\PYGZhy{} next smaller node containing the true branch (default: \PYGZob{}None\PYGZcb{})}
+\PYG{l+s+sd}{        * fb \PYGZob{}decisionnode\PYGZcb{} \PYGZhy{}\PYGZhy{} next smaller node containing the false branch (default: \PYGZob{}None\PYGZcb{})}
+\PYG{l+s+sd}{    \PYGZdq{}\PYGZdq{}\PYGZdq{}}
+
+    \PYG{k}{def} \PYG{n+nf}{\PYGZus{}\PYGZus{}init\PYGZus{}\PYGZus{}}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{,} \PYG{n}{col}\PYG{o}{=}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{,} \PYG{n}{value}\PYG{o}{=}\PYG{k+kc}{None}\PYG{p}{,} \PYG{n}{results}\PYG{o}{=}\PYG{k+kc}{None}\PYG{p}{,} \PYG{n}{tb}\PYG{o}{=}\PYG{k+kc}{None}\PYG{p}{,} \PYG{n}{fb}\PYG{o}{=}\PYG{k+kc}{None}\PYG{p}{)}\PYG{p}{:}
+        \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{col} \PYG{o}{=} \PYG{n}{col}
+        \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{value} \PYG{o}{=} \PYG{n}{value}
+        \PYG{n+nb+bp}{self}\PYG{o}{.} \PYG{n}{results} \PYG{o}{=} \PYG{n}{results}
+        \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{tb} \PYG{o}{=} \PYG{n}{tb}
+        \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{fb} \PYG{o}{=} \PYG{n}{fb}
+
+\PYG{c+c1}{\PYGZsh{} Functions for DT}
+
+
+\PYG{c+c1}{\PYGZsh{} Divides a set on a specific column. Can handle numeric}
+\PYG{c+c1}{\PYGZsh{} or nominal vlaues}
+\PYG{k}{def} \PYG{n+nf}{divideset}\PYG{p}{(}\PYG{n}{rows}\PYG{p}{,} \PYG{n}{column}\PYG{p}{,} \PYG{n}{value}\PYG{p}{)}\PYG{p}{:}
+    \PYG{l+s+sd}{\PYGZdq{}\PYGZdq{}\PYGZdq{} splits a data set into two separate sets according to the column and the value that is passed into.}
+
+\PYG{l+s+sd}{    If value is a number the comparison is done with \PYGZlt{}= and \PYGZgt{}=.}
+\PYG{l+s+sd}{    If value is not a number the exact value is compared}
+
+\PYG{l+s+sd}{    Arguments:}
+\PYG{l+s+sd}{        * rows \PYGZob{}list\PYGZcb{} \PYGZhy{}\PYGZhy{} data set that is split}
+\PYG{l+s+sd}{        * column\PYGZob{}integer\PYGZcb{} \PYGZhy{}\PYGZhy{} column by which data gets split}
+\PYG{l+s+sd}{        * value \PYGZob{}number/string\PYGZcb{} \PYGZhy{}\PYGZhy{} value by which data gets split}
+
+\PYG{l+s+sd}{    Returns:}
+\PYG{l+s+sd}{        [list] \PYGZhy{}\PYGZhy{} two listso}
+\PYG{l+s+sd}{    \PYGZdq{}\PYGZdq{}\PYGZdq{}}
+    \PYG{n}{split\PYGZus{}function} \PYG{o}{=} \PYG{k+kc}{None}  \PYG{c+c1}{\PYGZsh{} Prelocate}
+    \PYG{k}{if} \PYG{n+nb}{isinstance}\PYG{p}{(}\PYG{n}{value}\PYG{p}{,} \PYG{n+nb}{int}\PYG{p}{)} \PYG{o+ow}{or} \PYG{n+nb}{isinstance}\PYG{p}{(}\PYG{n}{value}\PYG{p}{,} \PYG{n+nb}{float}\PYG{p}{)}\PYG{p}{:}
+        \PYG{k}{def} \PYG{n+nf}{split\PYGZus{}function}\PYG{p}{(}\PYG{n}{row}\PYG{p}{)}\PYG{p}{:}
+            \PYG{k}{return} \PYG{n}{row}\PYG{p}{[}\PYG{n}{column}\PYG{p}{]} \PYG{o}{\PYGZgt{}}\PYG{o}{=} \PYG{n}{value}  \PYG{c+c1}{\PYGZsh{} quick function definition}
+    \PYG{k}{else}\PYG{p}{:}
+        \PYG{k}{def} \PYG{n+nf}{split\PYGZus{}function}\PYG{p}{(}\PYG{n}{row}\PYG{p}{)}\PYG{p}{:}
+            \PYG{k}{return} \PYG{n}{row}\PYG{p}{[}\PYG{n}{column}\PYG{p}{]} \PYG{o}{==} \PYG{n}{value}
+    \PYG{c+c1}{\PYGZsh{} divide the rows into two sets and return them}
+    \PYG{n}{set1} \PYG{o}{=} \PYG{p}{[}\PYG{n}{row} \PYG{k}{for} \PYG{n}{row} \PYG{o+ow}{in} \PYG{n}{rows} \PYG{k}{if} \PYG{n}{split\PYGZus{}function}\PYG{p}{(}\PYG{n}{row}\PYG{p}{)}\PYG{p}{]}  \PYG{c+c1}{\PYGZsh{} positive side \PYGZgt{}= or ==}
+    \PYG{n}{set2} \PYG{o}{=} \PYG{p}{[}\PYG{n}{row} \PYG{k}{for} \PYG{n}{row} \PYG{o+ow}{in} \PYG{n}{rows} \PYG{k}{if} \PYG{o+ow}{not} \PYG{n}{split\PYGZus{}function}\PYG{p}{(}\PYG{n}{row}\PYG{p}{)}\PYG{p}{]}  \PYG{c+c1}{\PYGZsh{} negative side True or False}
+    \PYG{k}{return} \PYG{p}{(}\PYG{n}{set1}\PYG{p}{,} \PYG{n}{set2}\PYG{p}{)}
+
+
+\PYG{c+c1}{\PYGZsh{} Create counts of possible results (the last column of each row is the result) = how many different results are in a list}
+\PYG{k}{def} \PYG{n+nf}{uniquecounts}\PYG{p}{(}\PYG{n}{rows}\PYG{p}{)}\PYG{p}{:}
+    \PYG{l+s+sd}{\PYGZdq{}\PYGZdq{}\PYGZdq{}evaluate how many unique elements are in a given list}
+
+\PYG{l+s+sd}{    Arguments:}
+\PYG{l+s+sd}{        rows \PYGZob{}list\PYGZcb{} \PYGZhy{}\PYGZhy{} evaluated list}
+
+\PYG{l+s+sd}{    Returns:}
+\PYG{l+s+sd}{        integer \PYGZhy{}\PYGZhy{} number of unique elements}
+\PYG{l+s+sd}{    \PYGZdq{}\PYGZdq{}\PYGZdq{}}
+    \PYG{n}{results} \PYG{o}{=} \PYG{p}{\PYGZob{}}\PYG{p}{\PYGZcb{}}
+    \PYG{k}{for} \PYG{n}{row} \PYG{o+ow}{in} \PYG{n}{rows}\PYG{p}{:}
+        \PYG{c+c1}{\PYGZsh{} The result is the last column}
+        \PYG{n}{r} \PYG{o}{=} \PYG{n}{row}\PYG{p}{[}\PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{row}\PYG{p}{)} \PYG{o}{\PYGZhy{}} \PYG{l+m+mi}{1}\PYG{p}{]}
+        \PYG{c+c1}{\PYGZsh{} if r not already in results, entry will be generated}
+        \PYG{k}{if} \PYG{n}{r} \PYG{o+ow}{not} \PYG{o+ow}{in} \PYG{n}{results}\PYG{p}{:}
+            \PYG{n}{results}\PYG{p}{[}\PYG{n}{r}\PYG{p}{]} \PYG{o}{=} \PYG{l+m+mi}{0}
+        \PYG{c+c1}{\PYGZsh{} increase count of r by one}
+        \PYG{n}{results}\PYG{p}{[}\PYG{n}{r}\PYG{p}{]} \PYG{o}{+}\PYG{o}{=} \PYG{l+m+mi}{1}
+    \PYG{k}{return} \PYG{n}{results}
+
+
+\PYG{k}{def} \PYG{n+nf}{giniimpurity}\PYG{p}{(}\PYG{n}{rows}\PYG{p}{)}\PYG{p}{:}
+    \PYG{l+s+sd}{\PYGZdq{}\PYGZdq{}\PYGZdq{} Probability that a randomly placed item will be in the wrong category}
+
+\PYG{l+s+sd}{    Calculates the probability of each possible outcome by dividing the number of times that outcome occurs}
+\PYG{l+s+sd}{    by the total number of rows in the set.}
+\PYG{l+s+sd}{    It then adds up the products of all these probabilities.}
+\PYG{l+s+sd}{    This gives the overall chance that a row would be randomly assigned to the wrong outcome.}
+\PYG{l+s+sd}{    The higher this probability, the worse the split.}
+
+\PYG{l+s+sd}{    Returns:}
+\PYG{l+s+sd}{        float \PYGZhy{}\PYGZhy{} probability of being in the wrong category}
+\PYG{l+s+sd}{    \PYGZdq{}\PYGZdq{}\PYGZdq{}}
+    \PYG{n}{total} \PYG{o}{=} \PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{rows}\PYG{p}{)}
+    \PYG{n}{counts} \PYG{o}{=} \PYG{n}{uniquecounts}\PYG{p}{(}\PYG{n}{rows}\PYG{p}{)}
+    \PYG{n}{imp} \PYG{o}{=} \PYG{l+m+mi}{0}
+    \PYG{k}{for} \PYG{n}{k1} \PYG{o+ow}{in} \PYG{n}{counts}\PYG{p}{:}
+        \PYG{n}{p1} \PYG{o}{=} \PYG{n+nb}{float}\PYG{p}{(}\PYG{n}{counts}\PYG{p}{[}\PYG{n}{k1}\PYG{p}{]}\PYG{p}{)} \PYG{o}{/} \PYG{n}{total}
+        \PYG{k}{for} \PYG{n}{k2} \PYG{o+ow}{in} \PYG{n}{counts}\PYG{p}{:}
+            \PYG{k}{if} \PYG{n}{k1} \PYG{o}{==} \PYG{n}{k2}\PYG{p}{:}
+                \PYG{k}{continue}
+            \PYG{n}{p2} \PYG{o}{=} \PYG{n+nb}{float}\PYG{p}{(}\PYG{n}{counts}\PYG{p}{[}\PYG{n}{k2}\PYG{p}{]}\PYG{p}{)} \PYG{o}{/} \PYG{n}{total}
+            \PYG{n}{imp} \PYG{o}{+}\PYG{o}{=} \PYG{n}{p1} \PYG{o}{*} \PYG{n}{p2}
+    \PYG{k}{return} \PYG{n}{imp}
+
+
+\PYG{k}{def} \PYG{n+nf}{entropy}\PYG{p}{(}\PYG{n}{rows}\PYG{p}{)}\PYG{p}{:}
+    \PYG{l+s+sd}{\PYGZdq{}\PYGZdq{}\PYGZdq{}Entropy is the sum of p(x)log(p(x)) across all the different possible results \PYGZhy{}\PYGZhy{}\PYGZgt{} how mixed is a list}
+
+\PYG{l+s+sd}{    Funciton calculates the frequency of each item (the number of times it appears divided by the total number of rows)}
+\PYG{l+s+sd}{    and applies these formulas:}
+
+\PYG{l+s+sd}{    .. math::}
+\PYG{l+s+sd}{        p(i) = frequency(outcome) = \PYGZbs{}dfrac\PYGZob{}count(outcome)\PYGZcb{}\PYGZob{}count(total rows)\PYGZcb{}}
+
+\PYG{l+s+sd}{        Entropy = \PYGZbs{}sum(p(i)) \PYGZbs{}cdot  \PYGZbs{}log(p(i)) \PYGZbs{} for \PYGZbs{} all \PYGZbs{} outcomes}
+
+
+\PYG{l+s+sd}{    The higher the entropy, the worse the split.}
+
+\PYG{l+s+sd}{    Arguments:}
+\PYG{l+s+sd}{        rows \PYGZob{}list\PYGZcb{} \PYGZhy{}\PYGZhy{} list to evaluate}
+
+\PYG{l+s+sd}{    Returns:}
+\PYG{l+s+sd}{        [float] \PYGZhy{}\PYGZhy{} entropy of the list}
+\PYG{l+s+sd}{    \PYGZdq{}\PYGZdq{}\PYGZdq{}}
+    \PYG{k+kn}{from} \PYG{n+nn}{math} \PYG{k}{import} \PYG{n}{log}
+
+    \PYG{k}{def} \PYG{n+nf}{log2}\PYG{p}{(}\PYG{n}{x}\PYG{p}{)}\PYG{p}{:}
+        \PYG{k}{return} \PYG{n}{log}\PYG{p}{(}\PYG{n}{x}\PYG{p}{)} \PYG{o}{/} \PYG{n}{log}\PYG{p}{(}\PYG{l+m+mi}{2}\PYG{p}{)}
+    \PYG{n}{results} \PYG{o}{=} \PYG{n}{uniquecounts}\PYG{p}{(}\PYG{n}{rows}\PYG{p}{)}
+    \PYG{c+c1}{\PYGZsh{} calculate Entropy}
+    \PYG{n}{ent} \PYG{o}{=} \PYG{l+m+mf}{0.0}
+    \PYG{k}{for} \PYG{n}{r} \PYG{o+ow}{in} \PYG{n}{results}\PYG{o}{.}\PYG{n}{keys}\PYG{p}{(}\PYG{p}{)}\PYG{p}{:}
+        \PYG{n}{p} \PYG{o}{=} \PYG{n+nb}{float}\PYG{p}{(}\PYG{n}{results}\PYG{p}{[}\PYG{n}{r}\PYG{p}{]}\PYG{p}{)} \PYG{o}{/} \PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{rows}\PYG{p}{)}
+        \PYG{n}{ent} \PYG{o}{\PYGZhy{}}\PYG{o}{=} \PYG{n}{p} \PYG{o}{*} \PYG{n}{log2}\PYG{p}{(}\PYG{n}{p}\PYG{p}{)}
+    \PYG{k}{return} \PYG{n}{ent}
+
+\PYG{c+c1}{\PYGZsh{} compute variance of target values if they are numbers, ? not needed ?}
+
+
+\PYG{k}{def} \PYG{n+nf}{variance}\PYG{p}{(}\PYG{n}{rows}\PYG{p}{)}\PYG{p}{:}
+    \PYG{l+s+sd}{\PYGZdq{}\PYGZdq{}\PYGZdq{}Evaluates how close together numerical values lie}
+
+\PYG{l+s+sd}{    Calculates mean and variance for given list}
+
+\PYG{l+s+sd}{    .. math::}
+\PYG{l+s+sd}{        mean = \PYGZbs{}dfrac\PYGZob{}\PYGZbs{}sum(entries)\PYGZcb{}\PYGZob{}number \PYGZbs{} of \PYGZbs{} entries\PYGZcb{}}
+
+\PYG{l+s+sd}{        variance = \PYGZbs{}sum(entry \PYGZhy{} mean) \PYGZca{} 2}
+
+\PYG{l+s+sd}{    Arguments:}
+\PYG{l+s+sd}{        rows \PYGZob{}list\PYGZcb{} \PYGZhy{}\PYGZhy{} list to evaluate}
+
+\PYG{l+s+sd}{    Returns:}
+\PYG{l+s+sd}{        number \PYGZhy{}\PYGZhy{} variance of the list}
+\PYG{l+s+sd}{    \PYGZdq{}\PYGZdq{}\PYGZdq{}}
+    \PYG{k}{if} \PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{rows}\PYG{p}{)} \PYG{o}{==} \PYG{l+m+mi}{0}\PYG{p}{:}
+        \PYG{k}{return} \PYG{l+m+mi}{0}
+    \PYG{n}{data} \PYG{o}{=} \PYG{p}{[}\PYG{n+nb}{float}\PYG{p}{(}\PYG{n}{row}\PYG{p}{[}\PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{row}\PYG{p}{)} \PYG{o}{\PYGZhy{}} \PYG{l+m+mi}{1}\PYG{p}{]}\PYG{p}{)} \PYG{k}{for} \PYG{n}{row} \PYG{o+ow}{in} \PYG{n}{rows}\PYG{p}{]}
+    \PYG{n}{mean} \PYG{o}{=} \PYG{n+nb}{sum}\PYG{p}{(}\PYG{n}{data}\PYG{p}{)} \PYG{o}{/} \PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{data}\PYG{p}{)}
+    \PYG{n}{variance} \PYG{o}{=} \PYG{n+nb}{sum}\PYG{p}{(}\PYG{p}{[}\PYG{p}{(}\PYG{n}{d} \PYG{o}{\PYGZhy{}} \PYG{n}{mean}\PYG{p}{)} \PYG{o}{*}\PYG{o}{*} \PYG{l+m+mi}{2} \PYG{k}{for} \PYG{n}{d} \PYG{o+ow}{in} \PYG{n}{data}\PYG{p}{]}\PYG{p}{)} \PYG{o}{/} \PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{data}\PYG{p}{)}
+    \PYG{k}{return} \PYG{n}{variance}
+
+
+\PYG{c+c1}{\PYGZsh{} building the tree}
+\PYG{k}{def} \PYG{n+nf}{buildtree}\PYG{p}{(}\PYG{n}{rows}\PYG{p}{,} \PYG{n}{scoref}\PYG{p}{)}\PYG{p}{:}
+    \PYG{l+s+sd}{\PYGZdq{}\PYGZdq{}\PYGZdq{}recursively builds decisionnode objects that form a decision tree}
+
+\PYG{l+s+sd}{    At each node the best possible split is calculated (depending on the evaluation metric).}
+\PYG{l+s+sd}{    If no further split is neccessary the remaining items and their number of occurence}
+\PYG{l+s+sd}{    are written in the results property.}
+
+\PYG{l+s+sd}{    Arguments:}
+\PYG{l+s+sd}{        rows \PYGZob{}list\PYGZcb{} \PYGZhy{}\PYGZhy{} dataset from which to build the tree}
+\PYG{l+s+sd}{        scoref \PYGZob{}function\PYGZcb{} \PYGZhy{}\PYGZhy{} evaluation metric (entropy / gini coefficient)}
+
+\PYG{l+s+sd}{    Returns:}
+\PYG{l+s+sd}{        decisionnode \PYGZhy{}\PYGZhy{} either two decisionnodes for true and false branch or one decisionnode with results (leaf node)}
+\PYG{l+s+sd}{    \PYGZdq{}\PYGZdq{}\PYGZdq{}}
+    \PYG{k}{if} \PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{rows}\PYG{p}{)} \PYG{o}{==} \PYG{l+m+mi}{0}\PYG{p}{:}
+        \PYG{k}{return} \PYG{n}{decisionnode}\PYG{p}{(}\PYG{p}{)}
+    \PYG{n}{current\PYGZus{}score} \PYG{o}{=} \PYG{n}{scoref}\PYG{p}{(}\PYG{n}{rows}\PYG{p}{)}
+
+    \PYG{c+c1}{\PYGZsh{} Set up variables to track the best criteria}
+    \PYG{n}{best\PYGZus{}gain} \PYG{o}{=} \PYG{l+m+mf}{0.0}
+    \PYG{n}{best\PYGZus{}criteria} \PYG{o}{=} \PYG{k+kc}{None}
+    \PYG{n}{best\PYGZus{}sets} \PYG{o}{=} \PYG{k+kc}{None}
+
+    \PYG{n}{column\PYGZus{}count} \PYG{o}{=} \PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{rows}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]}\PYG{p}{)} \PYG{o}{\PYGZhy{}} \PYG{l+m+mi}{1}  \PYG{c+c1}{\PYGZsh{} number of columns minus last one (result)}
+    \PYG{k}{for} \PYG{n}{col} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{l+m+mi}{0}\PYG{p}{,} \PYG{n}{column\PYGZus{}count}\PYG{p}{)}\PYG{p}{:}
+        \PYG{c+c1}{\PYGZsh{} Generate the list of different values in this column}
+        \PYG{n}{column\PYGZus{}values} \PYG{o}{=} \PYG{p}{\PYGZob{}}\PYG{p}{\PYGZcb{}}
+        \PYG{k}{for} \PYG{n}{row} \PYG{o+ow}{in} \PYG{n}{rows}\PYG{p}{:}
+            \PYG{n}{column\PYGZus{}values}\PYG{p}{[}\PYG{n}{row}\PYG{p}{[}\PYG{n}{col}\PYG{p}{]}\PYG{p}{]} \PYG{o}{=} \PYG{l+m+mi}{1}
+        \PYG{c+c1}{\PYGZsh{} Try dividing the rows up for each value in this column}
+        \PYG{k}{for} \PYG{n}{value} \PYG{o+ow}{in} \PYG{n}{column\PYGZus{}values}\PYG{o}{.}\PYG{n}{keys}\PYG{p}{(}\PYG{p}{)}\PYG{p}{:}
+            \PYG{p}{(}\PYG{n}{set1}\PYG{p}{,} \PYG{n}{set2}\PYG{p}{)} \PYG{o}{=} \PYG{n}{divideset}\PYG{p}{(}\PYG{n}{rows}\PYG{p}{,} \PYG{n}{col}\PYG{p}{,} \PYG{n}{value}\PYG{p}{)}
+
+            \PYG{c+c1}{\PYGZsh{} Information Gain}
+            \PYG{n}{p} \PYG{o}{=} \PYG{n+nb}{float}\PYG{p}{(}\PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{set1}\PYG{p}{)}\PYG{p}{)} \PYG{o}{/} \PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{rows}\PYG{p}{)}  \PYG{c+c1}{\PYGZsh{} = ration(Anteil) of list 1 against whole list (list1+list2)}
+            \PYG{n}{gain} \PYG{o}{=} \PYG{n}{current\PYGZus{}score} \PYG{o}{\PYGZhy{}} \PYG{n}{p} \PYG{o}{*} \PYG{n}{scoref}\PYG{p}{(}\PYG{n}{set1}\PYG{p}{)} \PYG{o}{\PYGZhy{}} \PYG{p}{(}\PYG{l+m+mi}{1} \PYG{o}{\PYGZhy{}} \PYG{n}{p}\PYG{p}{)} \PYG{o}{*} \PYG{n}{scoref}\PYG{p}{(}\PYG{n}{set2}\PYG{p}{)}  \PYG{c+c1}{\PYGZsh{} set1 and set2 can be exchanged}
+            \PYG{k}{if} \PYG{n}{gain} \PYG{o}{\PYGZgt{}} \PYG{n}{best\PYGZus{}gain} \PYG{o+ow}{and} \PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{set1}\PYG{p}{)} \PYG{o}{\PYGZgt{}} \PYG{l+m+mi}{0} \PYG{o+ow}{and} \PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{set2}\PYG{p}{)} \PYG{o}{\PYGZgt{}} \PYG{l+m+mi}{0}\PYG{p}{:}
+                \PYG{n}{best\PYGZus{}gain} \PYG{o}{=} \PYG{n}{gain}
+                \PYG{n}{best\PYGZus{}criteria} \PYG{o}{=} \PYG{p}{(}\PYG{n}{col}\PYG{p}{,} \PYG{n}{value}\PYG{p}{)}
+                \PYG{n}{best\PYGZus{}sets} \PYG{o}{=} \PYG{p}{(}\PYG{n}{set1}\PYG{p}{,} \PYG{n}{set2}\PYG{p}{)}
+    \PYG{c+c1}{\PYGZsh{} print \PYGZdq{}Best Gain = \PYGZdq{} + str(best\PYGZus{}gain)}
+    \PYG{c+c1}{\PYGZsh{} print \PYGZdq{}Best criteria = \PYGZdq{} + str(best\PYGZus{}criteria)}
+
+    \PYG{c+c1}{\PYGZsh{} Create subbranches}
+    \PYG{k}{if} \PYG{n}{best\PYGZus{}gain} \PYG{o}{\PYGZgt{}} \PYG{l+m+mi}{0}\PYG{p}{:}
+        \PYG{n}{trueBranch} \PYG{o}{=} \PYG{n}{buildtree}\PYG{p}{(}\PYG{n}{best\PYGZus{}sets}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]}\PYG{p}{,} \PYG{n}{scoref}\PYG{p}{)}
+        \PYG{n}{falseBranch} \PYG{o}{=} \PYG{n}{buildtree}\PYG{p}{(}\PYG{n}{best\PYGZus{}sets}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{]}\PYG{p}{,} \PYG{n}{scoref}\PYG{p}{)}
+        \PYG{k}{return} \PYG{n}{decisionnode}\PYG{p}{(}\PYG{n}{col}\PYG{o}{=}\PYG{n}{best\PYGZus{}criteria}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]}\PYG{p}{,} \PYG{n}{value}\PYG{o}{=}\PYG{n}{best\PYGZus{}criteria}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{]}\PYG{p}{,} \PYG{n}{tb}\PYG{o}{=}\PYG{n}{trueBranch}\PYG{p}{,} \PYG{n}{fb}\PYG{o}{=}\PYG{n}{falseBranch}\PYG{p}{)}
+    \PYG{k}{else}\PYG{p}{:}
+        \PYG{k}{return} \PYG{n}{decisionnode}\PYG{p}{(}\PYG{n}{results}\PYG{o}{=}\PYG{n}{uniquecounts}\PYG{p}{(}\PYG{n}{rows}\PYG{p}{)}\PYG{p}{)}
+
+
+\PYG{k}{def} \PYG{n+nf}{printtree}\PYG{p}{(}\PYG{n}{tree}\PYG{p}{,} \PYG{n}{indent}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{ }\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}\PYG{p}{:}
+    \PYG{l+s+sd}{\PYGZdq{}\PYGZdq{}\PYGZdq{}prints out the tree on the command line}
+
+\PYG{l+s+sd}{    Arguments:}
+\PYG{l+s+sd}{        tree \PYGZob{}decisionnode\PYGZcb{} \PYGZhy{}\PYGZhy{} tree that gets printed}
+
+\PYG{l+s+sd}{    \PYGZdq{}\PYGZdq{}\PYGZdq{}}
+    \PYG{k}{if} \PYG{n}{tree}\PYG{o}{.}\PYG{n}{results} \PYG{o+ow}{is} \PYG{o+ow}{not} \PYG{k+kc}{None}\PYG{p}{:}
+        \PYG{n+nb}{print} \PYG{n+nb}{str}\PYG{p}{(}\PYG{n}{tree}\PYG{o}{.}\PYG{n}{results}\PYG{p}{)}
+    \PYG{k}{else}\PYG{p}{:}
+        \PYG{n+nb}{print} \PYG{n+nb}{str}\PYG{p}{(}\PYG{n}{tree}\PYG{o}{.}\PYG{n}{col}\PYG{p}{)} \PYG{o}{+} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{: }\PYG{l+s+s1}{\PYGZsq{}} \PYG{o}{+} \PYG{n+nb}{str}\PYG{p}{(}\PYG{n}{tree}\PYG{o}{.}\PYG{n}{value}\PYG{p}{)} \PYG{o}{+} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{?}\PYG{l+s+s1}{\PYGZsq{}}
+        \PYG{n+nb}{print} \PYG{n}{indent} \PYG{o}{+} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{T\PYGZhy{}\PYGZhy{}\PYGZgt{}}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{,}
+        \PYG{n}{printtree}\PYG{p}{(}\PYG{n}{tree}\PYG{o}{.}\PYG{n}{tb}\PYG{p}{,} \PYG{n}{indent} \PYG{o}{+} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{   }\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
+        \PYG{n+nb}{print} \PYG{n}{indent} \PYG{o}{+} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{F\PYGZhy{}\PYGZhy{}\PYGZgt{}}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{,}
+        \PYG{n}{printtree}\PYG{p}{(}\PYG{n}{tree}\PYG{o}{.}\PYG{n}{fb}\PYG{p}{,} \PYG{n}{indent} \PYG{o}{+} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{   }\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
+
+
+\PYG{k}{def} \PYG{n+nf}{getwidth}\PYG{p}{(}\PYG{n}{tree}\PYG{p}{)}\PYG{p}{:}
+    \PYG{l+s+sd}{\PYGZdq{}\PYGZdq{}\PYGZdq{}returns the number of leaves = endnodes in the tree}
+
+\PYG{l+s+sd}{    Arguments:}
+\PYG{l+s+sd}{        tree \PYGZob{}decisionnode\PYGZcb{} \PYGZhy{}\PYGZhy{} tree to examine}
+
+\PYG{l+s+sd}{    Returns:}
+\PYG{l+s+sd}{        number \PYGZhy{}\PYGZhy{} number of endnodes}
+\PYG{l+s+sd}{    \PYGZdq{}\PYGZdq{}\PYGZdq{}}
+    \PYG{k}{if} \PYG{n}{tree}\PYG{o}{.}\PYG{n}{tb} \PYG{o+ow}{is} \PYG{k+kc}{None} \PYG{o+ow}{and} \PYG{n}{tree}\PYG{o}{.}\PYG{n}{fb} \PYG{o+ow}{is} \PYG{k+kc}{None}\PYG{p}{:}
+        \PYG{k}{return} \PYG{l+m+mi}{1}
+    \PYG{k}{return} \PYG{n}{getwidth}\PYG{p}{(}\PYG{n}{tree}\PYG{o}{.}\PYG{n}{tb}\PYG{p}{)} \PYG{o}{+} \PYG{n}{getwidth}\PYG{p}{(}\PYG{n}{tree}\PYG{o}{.}\PYG{n}{fb}\PYG{p}{)}
+
+
+\PYG{k}{def} \PYG{n+nf}{getdepth}\PYG{p}{(}\PYG{n}{tree}\PYG{p}{)}\PYG{p}{:}
+    \PYG{l+s+sd}{\PYGZdq{}\PYGZdq{}\PYGZdq{}returns the maximum number of consecutive nodes}
+
+\PYG{l+s+sd}{    Arguments:}
+\PYG{l+s+sd}{        tree \PYGZob{}decisionnode\PYGZcb{} \PYGZhy{}\PYGZhy{} tree to examine}
+
+\PYG{l+s+sd}{    Returns:}
+\PYG{l+s+sd}{        number \PYGZhy{}\PYGZhy{} maximum number of consecutive nodes}
+\PYG{l+s+sd}{    \PYGZdq{}\PYGZdq{}\PYGZdq{}}
+    \PYG{k}{if} \PYG{n}{tree}\PYG{o}{.}\PYG{n}{tb} \PYG{o+ow}{is} \PYG{k+kc}{None} \PYG{o+ow}{and} \PYG{n}{tree}\PYG{o}{.}\PYG{n}{fb} \PYG{o+ow}{is} \PYG{k+kc}{None}\PYG{p}{:}
+        \PYG{k}{return} \PYG{l+m+mi}{0}
+    \PYG{k}{return} \PYG{n+nb}{max}\PYG{p}{(}\PYG{n}{getdepth}\PYG{p}{(}\PYG{n}{tree}\PYG{o}{.}\PYG{n}{tb}\PYG{p}{)}\PYG{p}{,} \PYG{n}{getdepth}\PYG{p}{(}\PYG{n}{tree}\PYG{o}{.}\PYG{n}{fb}\PYG{p}{)}\PYG{p}{)} \PYG{o}{+} \PYG{l+m+mi}{1}
+
+
+\PYG{k}{def} \PYG{n+nf}{drawtree}\PYG{p}{(}\PYG{n}{tree}\PYG{p}{,} \PYG{n}{jpeg}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{tree.jpg}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}\PYG{p}{:}
+    \PYG{l+s+sd}{\PYGZdq{}\PYGZdq{}\PYGZdq{}visualization of the tree in a jpeg}
+
+\PYG{l+s+sd}{    Arguments:}
+\PYG{l+s+sd}{        tree \PYGZob{}decisionnode\PYGZcb{} \PYGZhy{}\PYGZhy{} tree to draw}
+
+\PYG{l+s+sd}{    Keyword Arguments:}
+\PYG{l+s+sd}{        jpeg \PYGZob{}str\PYGZcb{} \PYGZhy{}\PYGZhy{} Name of the .jpg (default: \PYGZob{}\PYGZsq{}tree.jpg\PYGZsq{}\PYGZcb{})}
+\PYG{l+s+sd}{    \PYGZdq{}\PYGZdq{}\PYGZdq{}}
+    \PYG{n}{w} \PYG{o}{=} \PYG{n}{getwidth}\PYG{p}{(}\PYG{n}{tree}\PYG{p}{)} \PYG{o}{*} \PYG{l+m+mi}{100}
+    \PYG{n}{h} \PYG{o}{=} \PYG{n}{getdepth}\PYG{p}{(}\PYG{n}{tree}\PYG{p}{)} \PYG{o}{*} \PYG{l+m+mi}{100} \PYG{o}{+} \PYG{l+m+mi}{120}
+
+    \PYG{n}{img} \PYG{o}{=} \PYG{n}{Image}\PYG{o}{.}\PYG{n}{new}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{RGB}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{,} \PYG{p}{(}\PYG{n}{w}\PYG{p}{,} \PYG{n}{h}\PYG{p}{)}\PYG{p}{,} \PYG{p}{(}\PYG{l+m+mi}{255}\PYG{p}{,} \PYG{l+m+mi}{255}\PYG{p}{,} \PYG{l+m+mi}{255}\PYG{p}{)}\PYG{p}{)}
+    \PYG{n}{draw} \PYG{o}{=} \PYG{n}{ImageDraw}\PYG{o}{.}\PYG{n}{Draw}\PYG{p}{(}\PYG{n}{img}\PYG{p}{)}
+
+    \PYG{n}{drawnode}\PYG{p}{(}\PYG{n}{draw}\PYG{p}{,} \PYG{n}{tree}\PYG{p}{,} \PYG{n}{w} \PYG{o}{/} \PYG{l+m+mi}{2}\PYG{p}{,} \PYG{l+m+mi}{20}\PYG{p}{)}
+    \PYG{n}{img}\PYG{o}{.}\PYG{n}{save}\PYG{p}{(}\PYG{n}{jpeg}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{JPEG}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
+
+
+\PYG{k}{def} \PYG{n+nf}{drawnode}\PYG{p}{(}\PYG{n}{draw}\PYG{p}{,} \PYG{n}{tree}\PYG{p}{,} \PYG{n}{x}\PYG{p}{,} \PYG{n}{y}\PYG{p}{)}\PYG{p}{:}
+    \PYG{l+s+sd}{\PYGZdq{}\PYGZdq{}\PYGZdq{}Helper Function for drawtree, draws a single node}
+
+\PYG{l+s+sd}{    Arguments:}
+\PYG{l+s+sd}{        draw \PYGZob{}img\PYGZcb{} \PYGZhy{}\PYGZhy{} node to be drawn}
+\PYG{l+s+sd}{        tree \PYGZob{}decisionnode\PYGZcb{} \PYGZhy{}\PYGZhy{} tree that the node belongs to}
+\PYG{l+s+sd}{        x \PYGZob{}number\PYGZcb{} \PYGZhy{}\PYGZhy{} x location}
+\PYG{l+s+sd}{        y \PYGZob{}number\PYGZcb{} \PYGZhy{}\PYGZhy{} y location}
+\PYG{l+s+sd}{    \PYGZdq{}\PYGZdq{}\PYGZdq{}}
+    \PYG{k}{if} \PYG{n}{tree}\PYG{o}{.}\PYG{n}{results} \PYG{o+ow}{is} \PYG{k+kc}{None}\PYG{p}{:}
+        \PYG{c+c1}{\PYGZsh{} Get the width of each branch}
+        \PYG{n}{w1} \PYG{o}{=} \PYG{n}{getwidth}\PYG{p}{(}\PYG{n}{tree}\PYG{o}{.}\PYG{n}{fb}\PYG{p}{)} \PYG{o}{*} \PYG{l+m+mi}{100}
+        \PYG{n}{w2} \PYG{o}{=} \PYG{n}{getwidth}\PYG{p}{(}\PYG{n}{tree}\PYG{o}{.}\PYG{n}{tb}\PYG{p}{)} \PYG{o}{*} \PYG{l+m+mi}{100}
+
+        \PYG{c+c1}{\PYGZsh{} Determine the total space required by this node}
+        \PYG{n}{left} \PYG{o}{=} \PYG{n}{x} \PYG{o}{\PYGZhy{}} \PYG{p}{(}\PYG{n}{w1} \PYG{o}{+} \PYG{n}{w2}\PYG{p}{)} \PYG{o}{/} \PYG{l+m+mi}{2}
+        \PYG{n}{right} \PYG{o}{=} \PYG{n}{x} \PYG{o}{+} \PYG{p}{(}\PYG{n}{w1} \PYG{o}{+} \PYG{n}{w2}\PYG{p}{)} \PYG{o}{/} \PYG{l+m+mi}{2}
+
+        \PYG{c+c1}{\PYGZsh{} Draw the condition string}
+        \PYG{n}{draw}\PYG{o}{.}\PYG{n}{text}\PYG{p}{(}\PYG{p}{(}\PYG{n}{x} \PYG{o}{\PYGZhy{}} \PYG{l+m+mi}{20}\PYG{p}{,} \PYG{n}{y} \PYG{o}{\PYGZhy{}} \PYG{l+m+mi}{10}\PYG{p}{)}\PYG{p}{,} \PYG{n+nb}{str}\PYG{p}{(}\PYG{n}{tree}\PYG{o}{.}\PYG{n}{col}\PYG{p}{)} \PYG{o}{+} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{:}\PYG{l+s+s1}{\PYGZsq{}} \PYG{o}{+} \PYG{n+nb}{str}\PYG{p}{(}\PYG{n}{tree}\PYG{o}{.}\PYG{n}{value}\PYG{p}{)}\PYG{p}{,} \PYG{p}{(}\PYG{l+m+mi}{0}\PYG{p}{,} \PYG{l+m+mi}{0}\PYG{p}{,} \PYG{l+m+mi}{0}\PYG{p}{)}\PYG{p}{)}
+
+        \PYG{c+c1}{\PYGZsh{} Draw links to the branches}
+        \PYG{n}{draw}\PYG{o}{.}\PYG{n}{line}\PYG{p}{(}\PYG{p}{(}\PYG{n}{x}\PYG{p}{,} \PYG{n}{y}\PYG{p}{,} \PYG{n}{left} \PYG{o}{+} \PYG{n}{w1} \PYG{o}{/} \PYG{l+m+mi}{2}\PYG{p}{,} \PYG{n}{y} \PYG{o}{+} \PYG{l+m+mi}{100}\PYG{p}{)}\PYG{p}{,} \PYG{n}{fill}\PYG{o}{=}\PYG{p}{(}\PYG{l+m+mi}{255}\PYG{p}{,} \PYG{l+m+mi}{0}\PYG{p}{,} \PYG{l+m+mi}{0}\PYG{p}{)}\PYG{p}{)}
+        \PYG{n}{draw}\PYG{o}{.} \PYG{n}{line}\PYG{p}{(}\PYG{p}{(}\PYG{n}{x}\PYG{p}{,} \PYG{n}{y}\PYG{p}{,} \PYG{n}{right} \PYG{o}{\PYGZhy{}} \PYG{n}{w2} \PYG{o}{/} \PYG{l+m+mi}{2}\PYG{p}{,} \PYG{n}{y} \PYG{o}{+} \PYG{l+m+mi}{100}\PYG{p}{)}\PYG{p}{,} \PYG{n}{fill}\PYG{o}{=}\PYG{p}{(}\PYG{l+m+mi}{255}\PYG{p}{,} \PYG{l+m+mi}{0}\PYG{p}{,} \PYG{l+m+mi}{0}\PYG{p}{)}\PYG{p}{)}
+
+        \PYG{c+c1}{\PYGZsh{} Draw the branch nodes}
+        \PYG{n}{drawnode}\PYG{p}{(}\PYG{n}{draw}\PYG{p}{,} \PYG{n}{tree}\PYG{o}{.}\PYG{n}{fb}\PYG{p}{,} \PYG{n}{left} \PYG{o}{+} \PYG{n}{w1} \PYG{o}{/} \PYG{l+m+mi}{2}\PYG{p}{,} \PYG{n}{y} \PYG{o}{+} \PYG{l+m+mi}{100}\PYG{p}{)}
+        \PYG{n}{drawnode}\PYG{p}{(}\PYG{n}{draw}\PYG{p}{,} \PYG{n}{tree}\PYG{o}{.}\PYG{n}{tb}\PYG{p}{,} \PYG{n}{right} \PYG{o}{\PYGZhy{}} \PYG{n}{w2} \PYG{o}{/} \PYG{l+m+mi}{2}\PYG{p}{,} \PYG{n}{y} \PYG{o}{+} \PYG{l+m+mi}{100}\PYG{p}{)}
+    \PYG{k}{else}\PYG{p}{:}
+        \PYG{n}{txt} \PYG{o}{=} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{ }\PYG{l+s+se}{\PYGZbs{}n}\PYG{l+s+s1}{\PYGZsq{}}\PYG{o}{.}\PYG{n}{join}\PYG{p}{(}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+si}{\PYGZpc{}s}\PYG{l+s+s1}{:}\PYG{l+s+si}{\PYGZpc{}d}\PYG{l+s+s1}{\PYGZsq{}} \PYG{o}{\PYGZpc{}} \PYG{n}{v} \PYG{k}{for} \PYG{n}{v} \PYG{o+ow}{in} \PYG{n}{tree}\PYG{o}{.}\PYG{n}{results}\PYG{o}{.}\PYG{n}{items}\PYG{p}{(}\PYG{p}{)}\PYG{p}{]}\PYG{p}{)}
+        \PYG{n}{draw}\PYG{o}{.}\PYG{n}{text}\PYG{p}{(}\PYG{p}{(}\PYG{n}{x} \PYG{o}{\PYGZhy{}} \PYG{l+m+mi}{20}\PYG{p}{,} \PYG{n}{y}\PYG{p}{)}\PYG{p}{,} \PYG{n}{txt}\PYG{p}{,} \PYG{p}{(}\PYG{l+m+mi}{0}\PYG{p}{,} \PYG{l+m+mi}{0}\PYG{p}{,} \PYG{l+m+mi}{0}\PYG{p}{)}\PYG{p}{)}
+
+
+\PYG{k}{def} \PYG{n+nf}{prune}\PYG{p}{(}\PYG{n}{tree}\PYG{p}{,} \PYG{n}{mingain}\PYG{p}{)}\PYG{p}{:}
+    \PYG{l+s+sd}{\PYGZdq{}\PYGZdq{}\PYGZdq{}prunes the leaves of a tree in order to reduce complexity}
+
+\PYG{l+s+sd}{    By looking at the information gain that is achieved by splitting data further and further and checking if}
+\PYG{l+s+sd}{    it is above the mingain threshold, neighbouring leaves can be collapsed to a single leaf.}
+
+\PYG{l+s+sd}{    Arguments:}
+\PYG{l+s+sd}{        tree \PYGZob{}decisionnode\PYGZcb{} \PYGZhy{}\PYGZhy{} tree that gets pruned}
+\PYG{l+s+sd}{        mingain \PYGZob{}number\PYGZcb{} \PYGZhy{}\PYGZhy{} threshold for pruning}
+\PYG{l+s+sd}{    \PYGZdq{}\PYGZdq{}\PYGZdq{}}
+    \PYG{k}{if} \PYG{n}{getdepth}\PYG{p}{(}\PYG{n}{tree}\PYG{p}{)} \PYG{o}{==} \PYG{l+m+mi}{0}\PYG{p}{:}
+        \PYG{k}{return}
+    \PYG{c+c1}{\PYGZsh{} If the branches aren\PYGZsq{}t leaves, then prune them}
+    \PYG{k}{if} \PYG{n}{tree}\PYG{o}{.}\PYG{n}{tb}\PYG{o}{.}\PYG{n}{results} \PYG{o+ow}{is} \PYG{k+kc}{None}\PYG{p}{:}
+        \PYG{n}{prune}\PYG{p}{(}\PYG{n}{tree}\PYG{o}{.}\PYG{n}{tb}\PYG{p}{,} \PYG{n}{mingain}\PYG{p}{)}
+    \PYG{k}{if} \PYG{n}{tree}\PYG{o}{.}\PYG{n}{fb}\PYG{o}{.}\PYG{n}{results} \PYG{o+ow}{is} \PYG{k+kc}{None}\PYG{p}{:}
+        \PYG{n}{prune}\PYG{p}{(}\PYG{n}{tree}\PYG{o}{.}\PYG{n}{fb}\PYG{p}{,} \PYG{n}{mingain}\PYG{p}{)}
+
+    \PYG{c+c1}{\PYGZsh{} If both the subbranches are now leaves, see if they should be merged}
+    \PYG{k}{if} \PYG{n}{tree}\PYG{o}{.}\PYG{n}{tb}\PYG{o}{.}\PYG{n}{results} \PYG{o+ow}{is} \PYG{o+ow}{not} \PYG{k+kc}{None} \PYG{o+ow}{and} \PYG{n}{tree}\PYG{o}{.}\PYG{n}{fb}\PYG{o}{.}\PYG{n}{results} \PYG{o+ow}{is} \PYG{o+ow}{not} \PYG{k+kc}{None}\PYG{p}{:}
+        \PYG{c+c1}{\PYGZsh{} Build a combined dataset}
+        \PYG{n}{tb}\PYG{p}{,} \PYG{n}{fb} \PYG{o}{=} \PYG{p}{[}\PYG{p}{]}\PYG{p}{,} \PYG{p}{[}\PYG{p}{]}
+        \PYG{c+c1}{\PYGZsh{} v equals key, c equals value, results in a list of the different values each added up}
+        \PYG{k}{for} \PYG{n}{v}\PYG{p}{,} \PYG{n}{c} \PYG{o+ow}{in} \PYG{n}{tree}\PYG{o}{.}\PYG{n}{tb}\PYG{o}{.}\PYG{n}{results}\PYG{o}{.}\PYG{n}{items}\PYG{p}{(}\PYG{p}{)}\PYG{p}{:}
+            \PYG{n}{tb} \PYG{o}{+}\PYG{o}{=} \PYG{p}{[}\PYG{p}{[}\PYG{n}{v}\PYG{p}{]}\PYG{p}{]} \PYG{o}{*} \PYG{n}{c}
+        \PYG{k}{for} \PYG{n}{v}\PYG{p}{,} \PYG{n}{c} \PYG{o+ow}{in} \PYG{n}{tree}\PYG{o}{.}\PYG{n}{fb}\PYG{o}{.}\PYG{n}{results}\PYG{o}{.}\PYG{n}{items}\PYG{p}{(}\PYG{p}{)}\PYG{p}{:}
+            \PYG{n}{fb} \PYG{o}{+}\PYG{o}{=} \PYG{p}{[}\PYG{p}{[}\PYG{n}{v}\PYG{p}{]}\PYG{p}{]} \PYG{o}{*} \PYG{n}{c}
+
+        \PYG{c+c1}{\PYGZsh{} Test the reduction in entropy}
+        \PYG{n}{delta} \PYG{o}{=} \PYG{n}{entropy}\PYG{p}{(}\PYG{n}{tb} \PYG{o}{+} \PYG{n}{fb}\PYG{p}{)} \PYG{o}{\PYGZhy{}} \PYG{p}{(}\PYG{n}{entropy}\PYG{p}{(}\PYG{n}{tb}\PYG{p}{)} \PYG{o}{+} \PYG{n}{entropy}\PYG{p}{(}\PYG{n}{fb}\PYG{p}{)}\PYG{p}{)} \PYG{o}{/} \PYG{l+m+mi}{2}  \PYG{c+c1}{\PYGZsh{} different in book?}
+        \PYG{c+c1}{\PYGZsh{} print delta}
+        \PYG{k}{if} \PYG{n}{delta} \PYG{o}{\PYGZlt{}} \PYG{n}{mingain}\PYG{p}{:}
+            \PYG{c+c1}{\PYGZsh{} Merge the branches}
+            \PYG{n}{tree}\PYG{o}{.}\PYG{n}{tb}\PYG{p}{,} \PYG{n}{tree}\PYG{o}{.}\PYG{n}{fb} \PYG{o}{=} \PYG{k+kc}{None}\PYG{p}{,} \PYG{k+kc}{None}
+            \PYG{n}{tree}\PYG{o}{.}\PYG{n}{results} \PYG{o}{=} \PYG{n}{uniquecounts}\PYG{p}{(}\PYG{n}{tb} \PYG{o}{+} \PYG{n}{fb}\PYG{p}{)}
+            \PYG{c+c1}{\PYGZsh{} print \PYGZdq{}tree pruned\PYGZdq{}}
+
+
+\PYG{k}{def} \PYG{n+nf}{classify}\PYG{p}{(}\PYG{n}{observation}\PYG{p}{,} \PYG{n}{tree}\PYG{p}{)}\PYG{p}{:}
+    \PYG{l+s+sd}{\PYGZdq{}\PYGZdq{}\PYGZdq{}takes a new data set that gets classified and the tree that determines the classification and returns the estimated result.}
+
+\PYG{l+s+sd}{    Arguments:}
+\PYG{l+s+sd}{        observation \PYGZob{}numpy.array\PYGZcb{} \PYGZhy{}\PYGZhy{} the new data set that gets classified, e.g. test data set}
+\PYG{l+s+sd}{        tree \PYGZob{}decisionnode\PYGZcb{} \PYGZhy{}\PYGZhy{} tree that observation gets classified in}
+
+\PYG{l+s+sd}{    Returns:}
+\PYG{l+s+sd}{        data \PYGZhy{}\PYGZhy{} expected result}
+\PYG{l+s+sd}{    \PYGZdq{}\PYGZdq{}\PYGZdq{}}
+    \PYG{k}{if} \PYG{n}{tree}\PYG{o}{.}\PYG{n}{results} \PYG{o+ow}{is} \PYG{o+ow}{not} \PYG{k+kc}{None}\PYG{p}{:}
+        \PYG{k}{return} \PYG{n}{tree}\PYG{o}{.}\PYG{n}{results}
+    \PYG{k}{else}\PYG{p}{:}
+        \PYG{n}{v} \PYG{o}{=} \PYG{n}{observation}\PYG{p}{[}\PYG{n}{tree}\PYG{o}{.}\PYG{n}{col}\PYG{p}{]}
+        \PYG{k}{if} \PYG{n}{v} \PYG{o+ow}{is} \PYG{k+kc}{None}\PYG{p}{:}
+            \PYG{n}{tr}\PYG{p}{,} \PYG{n}{fr} \PYG{o}{=} \PYG{n}{classify}\PYG{p}{(}\PYG{n}{observation}\PYG{p}{,} \PYG{n}{tree}\PYG{o}{.}\PYG{n}{tb}\PYG{p}{)}\PYG{p}{,} \PYG{n}{classify}\PYG{p}{(}\PYG{n}{observation}\PYG{p}{,} \PYG{n}{tree}\PYG{o}{.}\PYG{n}{fb}\PYG{p}{)}
+            \PYG{n}{tcount} \PYG{o}{=} \PYG{n+nb}{sum}\PYG{p}{(}\PYG{n}{tr}\PYG{o}{.}\PYG{n}{values}\PYG{p}{(}\PYG{p}{)}\PYG{p}{)}
+            \PYG{n}{fcount} \PYG{o}{=} \PYG{n+nb}{sum}\PYG{p}{(}\PYG{n}{fr}\PYG{o}{.}\PYG{n}{values}\PYG{p}{(}\PYG{p}{)}\PYG{p}{)}
+            \PYG{n}{tw} \PYG{o}{=} \PYG{n+nb}{float}\PYG{p}{(}\PYG{n}{tcount}\PYG{p}{)} \PYG{o}{/} \PYG{p}{(}\PYG{n}{tcount} \PYG{o}{+} \PYG{n}{fcount}\PYG{p}{)}
+            \PYG{n}{fw} \PYG{o}{=} \PYG{l+m+mi}{1} \PYG{o}{\PYGZhy{}} \PYG{n}{tw}
+            \PYG{n}{result} \PYG{o}{=} \PYG{p}{\PYGZob{}}\PYG{p}{\PYGZcb{}}
+            \PYG{k}{for} \PYG{n}{k}\PYG{p}{,} \PYG{n}{v} \PYG{o+ow}{in} \PYG{n}{tr}\PYG{o}{.}\PYG{n}{items}\PYG{p}{(}\PYG{p}{)}\PYG{p}{:}  \PYG{c+c1}{\PYGZsh{} k is name, v is value}
+                \PYG{n}{result}\PYG{p}{[}\PYG{n}{k}\PYG{p}{]} \PYG{o}{=} \PYG{n}{v} \PYG{o}{*} \PYG{n}{tw}
+            \PYG{k}{for} \PYG{n}{k}\PYG{p}{,} \PYG{n}{v} \PYG{o+ow}{in} \PYG{n}{fr}\PYG{o}{.}\PYG{n}{items}\PYG{p}{(}\PYG{p}{)}\PYG{p}{:}
+                \PYG{n}{result}\PYG{p}{[}\PYG{n}{k}\PYG{p}{]} \PYG{o}{=} \PYG{n}{result}\PYG{o}{.}\PYG{n}{setdefault}\PYG{p}{(}\PYG{n}{k}\PYG{p}{,} \PYG{l+m+mi}{0}\PYG{p}{)} \PYG{o}{+} \PYG{p}{(}\PYG{n}{v} \PYG{o}{*} \PYG{n}{fw}\PYG{p}{)}
+            \PYG{k}{return} \PYG{n}{result}
+        \PYG{k}{else}\PYG{p}{:}
+            \PYG{k}{if} \PYG{n+nb}{isinstance}\PYG{p}{(}\PYG{n}{v}\PYG{p}{,} \PYG{n+nb}{int}\PYG{p}{)} \PYG{o+ow}{or} \PYG{n+nb}{isinstance}\PYG{p}{(}\PYG{n}{v}\PYG{p}{,} \PYG{n+nb}{float}\PYG{p}{)}\PYG{p}{:}
+                \PYG{k}{if} \PYG{n}{v} \PYG{o}{\PYGZgt{}}\PYG{o}{=} \PYG{n}{tree}\PYG{o}{.}\PYG{n}{value}\PYG{p}{:}
+                    \PYG{n}{branch} \PYG{o}{=} \PYG{n}{tree}\PYG{o}{.}\PYG{n}{tb}
+                \PYG{k}{else}\PYG{p}{:}
+                    \PYG{n}{branch} \PYG{o}{=} \PYG{n}{tree}\PYG{o}{.}\PYG{n}{fb}
+            \PYG{k}{else}\PYG{p}{:}
+                \PYG{k}{if} \PYG{n}{v} \PYG{o}{==} \PYG{n}{tree}\PYG{o}{.}\PYG{n}{value}\PYG{p}{:}
+                    \PYG{n}{branch} \PYG{o}{=} \PYG{n}{tree}\PYG{o}{.}\PYG{n}{tb}
+                \PYG{k}{else}\PYG{p}{:}
+                    \PYG{n}{branch} \PYG{o}{=} \PYG{n}{tree}\PYG{o}{.}\PYG{n}{fb}
+        \PYG{k}{return} \PYG{n}{classify}\PYG{p}{(}\PYG{n}{observation}\PYG{p}{,} \PYG{n}{branch}\PYG{p}{)}
+
+
+\PYG{k}{def} \PYG{n+nf}{path\PYGZus{}gen}\PYG{p}{(}\PYG{n}{tree}\PYG{p}{)}\PYG{p}{:}
+    \PYG{l+s+sd}{\PYGZdq{}\PYGZdq{}\PYGZdq{}Create a path Matrix which contains the structure of the tree. Calls path\PYGZus{}gen2 to do so.}
+
+\PYG{l+s+sd}{    Arguments:}
+\PYG{l+s+sd}{        tree \PYGZob{}decisionnode\PYGZcb{} \PYGZhy{}\PYGZhy{} tree of which the data structure is stored}
+
+\PYG{l+s+sd}{    Returns:}
+\PYG{l+s+sd}{        numpy.array \PYGZhy{}\PYGZhy{} data structure of the tree, NaN means there is no more branch}
+\PYG{l+s+sd}{    \PYGZdq{}\PYGZdq{}\PYGZdq{}}
+    \PYG{n}{z1} \PYG{o}{=} \PYG{l+m+mi}{0}  \PYG{c+c1}{\PYGZsh{} equals number of leafs, increases during creation of path}
+    \PYG{n}{z2} \PYG{o}{=} \PYG{l+m+mi}{0}  \PYG{c+c1}{\PYGZsh{} equals depth, fluctuates during creation of path}
+    \PYG{n}{width} \PYG{o}{=} \PYG{n}{getwidth}\PYG{p}{(}\PYG{n}{tree}\PYG{p}{)}
+    \PYG{n}{depth} \PYG{o}{=} \PYG{n}{getdepth}\PYG{p}{(}\PYG{n}{tree}\PYG{p}{)} \PYG{o}{+} \PYG{l+m+mi}{1}  \PYG{c+c1}{\PYGZsh{} +1 for target values}
+    \PYG{n}{path} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{zeros}\PYG{p}{(}\PYG{p}{(}\PYG{n}{width}\PYG{p}{,} \PYG{n}{depth}\PYG{p}{)}\PYG{p}{)}  \PYG{c+c1}{\PYGZsh{} Prelocate Memory}
+    \PYG{n}{path}\PYG{p}{[}\PYG{p}{:}\PYG{p}{:}\PYG{p}{]} \PYG{o}{=} \PYG{k+kc}{None}  \PYG{c+c1}{\PYGZsh{} NaN in final result means branch is shorter than total depth}
+    \PYG{n}{path}\PYG{p}{,} \PYG{n}{z1} \PYG{o}{=} \PYG{n}{path\PYGZus{}gen2}\PYG{p}{(}\PYG{n}{tree}\PYG{p}{,} \PYG{n}{width}\PYG{p}{,} \PYG{n}{depth}\PYG{p}{,} \PYG{n}{path}\PYG{p}{,} \PYG{n}{z2}\PYG{p}{,} \PYG{n}{z1}\PYG{p}{)}
+    \PYG{k}{return} \PYG{n}{path}
+
+
+\PYG{k}{def} \PYG{n+nf}{path\PYGZus{}gen2}\PYG{p}{(}\PYG{n}{tree}\PYG{p}{,} \PYG{n}{width}\PYG{p}{,} \PYG{n}{depth}\PYG{p}{,} \PYG{n}{path}\PYG{p}{,} \PYG{n}{z2}\PYG{p}{,} \PYG{n}{z1}\PYG{p}{)}\PYG{p}{:}
+    \PYG{l+s+sd}{\PYGZdq{}\PYGZdq{}\PYGZdq{}Create a path Matrix which contains the structure of the tree.}
+
+\PYG{l+s+sd}{    creates a matrix \PYGZsq{}path\PYGZsq{} that represents the structure of the tree and the decisions made at each node, last column contains the average MSE at that leaf}
+\PYG{l+s+sd}{    the sooner a feature gets chosen as a split feature the more important it is (the farther on the left it appears in path matrix)}
+\PYG{l+s+sd}{    order that leaves are written in (top to bottom): function will crawl to the rightmost leaf first (positive side), then jump back up one level and move one step to the left (loop)}
+
+\PYG{l+s+sd}{    Arguments:}
+\PYG{l+s+sd}{        tree \PYGZob{}decisionnode\PYGZcb{} \PYGZhy{}\PYGZhy{} tree of which the data structure is stored}
+\PYG{l+s+sd}{        width \PYGZob{}int\PYGZcb{} \PYGZhy{}\PYGZhy{} width of the tree}
+\PYG{l+s+sd}{        depth \PYGZob{}int\PYGZcb{} \PYGZhy{}\PYGZhy{} depth of the tree}
+\PYG{l+s+sd}{        path \PYGZob{}[type]\PYGZcb{} \PYGZhy{}\PYGZhy{} current path matrix, gets updated during function calls}
+\PYG{l+s+sd}{        z2 \PYGZob{}int\PYGZcb{} \PYGZhy{}\PYGZhy{} control variable for current depth}
+\PYG{l+s+sd}{        z1 \PYGZob{}int\PYGZcb{} \PYGZhy{}\PYGZhy{} control variable for current width}
+
+\PYG{l+s+sd}{    Returns:}
+\PYG{l+s+sd}{        numpy.array \PYGZhy{}\PYGZhy{} the structure of the tree}
+\PYG{l+s+sd}{    \PYGZdq{}\PYGZdq{}\PYGZdq{}}
+    \PYG{k}{while} \PYG{n}{z1} \PYG{o}{\PYGZlt{}} \PYG{n}{width}\PYG{p}{:}  \PYG{c+c1}{\PYGZsh{} continue until total number of leaves is reached}
+        \PYG{k}{if} \PYG{n}{tree}\PYG{o}{.}\PYG{n}{results} \PYG{o+ow}{is} \PYG{k+kc}{None}\PYG{p}{:}  \PYG{c+c1}{\PYGZsh{} = if current node is not a leaf}
+            \PYG{n}{path}\PYG{p}{[}\PYG{n}{z1}\PYG{p}{,} \PYG{n}{z2}\PYG{p}{]} \PYG{o}{=} \PYG{n}{tree}\PYG{o}{.}\PYG{n}{col}  \PYG{c+c1}{\PYGZsh{} write split feature of that node into path matrix}
+            \PYG{n}{z2} \PYG{o}{+}\PYG{o}{=} \PYG{l+m+mi}{1}  \PYG{c+c1}{\PYGZsh{} increase depth counter}
+            \PYG{n}{path}\PYG{p}{,} \PYG{n}{z1} \PYG{o}{=} \PYG{n}{path\PYGZus{}gen2}\PYG{p}{(}\PYG{n}{tree}\PYG{o}{.}\PYG{n}{tb}\PYG{p}{,} \PYG{n}{width}\PYG{p}{,} \PYG{n}{depth}\PYG{p}{,} \PYG{n}{path}\PYG{p}{,} \PYG{n}{z2}\PYG{p}{,} \PYG{n}{z1}\PYG{p}{)}  \PYG{c+c1}{\PYGZsh{} recursively call path\PYGZus{}gen function in order to proceed to next deeper node in direction of tb}
+            \PYG{k}{for} \PYG{n}{x} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{n}{z2}\PYG{p}{)}\PYG{p}{:}
+                \PYG{n}{path}\PYG{p}{[}\PYG{n}{z1}\PYG{p}{,} \PYG{n}{x}\PYG{p}{]} \PYG{o}{=} \PYG{n}{path}\PYG{p}{[}\PYG{n}{z1} \PYG{o}{\PYGZhy{}} \PYG{l+m+mi}{1}\PYG{p}{,} \PYG{n}{x}\PYG{p}{]}  \PYG{c+c1}{\PYGZsh{} assign the former columns the same value as the leaf above}
+            \PYG{n}{path}\PYG{p}{,} \PYG{n}{z1} \PYG{o}{=} \PYG{n}{path\PYGZus{}gen2}\PYG{p}{(}\PYG{n}{tree}\PYG{o}{.}\PYG{n}{fb}\PYG{p}{,} \PYG{n}{width}\PYG{p}{,} \PYG{n}{depth}\PYG{p}{,} \PYG{n}{path}\PYG{p}{,} \PYG{n}{z2}\PYG{p}{,} \PYG{n}{z1}\PYG{p}{)}  \PYG{c+c1}{\PYGZsh{} recursively call path\PYGZus{}gen function in order to proceed to next deeper node in direction of fb}
+            \PYG{n}{z2} \PYG{o}{\PYGZhy{}}\PYG{o}{=} \PYG{l+m+mi}{1}  \PYG{c+c1}{\PYGZsh{} after reaching the deepest fb leaf move up one level in depth}
+            \PYG{k}{break}
+        \PYG{k}{else}\PYG{p}{:}  \PYG{c+c1}{\PYGZsh{} = if current node is a leaf}
+            \PYG{n}{path}\PYG{p}{[}\PYG{n}{z1}\PYG{p}{,} \PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{]} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{mean}\PYG{p}{(}\PYG{n}{tree}\PYG{o}{.}\PYG{n}{results}\PYG{o}{.}\PYG{n}{keys}\PYG{p}{(}\PYG{p}{)}\PYG{p}{)}  \PYG{c+c1}{\PYGZsh{} put the average MSE in the last column of path}
+            \PYG{n}{z1} \PYG{o}{+}\PYG{o}{=} \PYG{l+m+mi}{1}  \PYG{c+c1}{\PYGZsh{} current leaf is completely written into path, proceeding to next leaf}
+            \PYG{k}{break}
+    \PYG{k}{return} \PYG{n}{path}\PYG{p}{,} \PYG{n}{z1}  \PYG{c+c1}{\PYGZsh{} return the path matrix and current leaf number}
+
+
+\PYG{k}{def} \PYG{n+nf}{check\PYGZus{}path}\PYG{p}{(}\PYG{n}{tree}\PYG{p}{,} \PYG{n}{result}\PYG{p}{)}\PYG{p}{:}
+    \PYG{l+s+sd}{\PYGZdq{}\PYGZdq{}\PYGZdq{}Check if a tree contains MSE\PYGZus{}min (= True) or not (= False)}
+
+\PYG{l+s+sd}{    Arguments:}
+\PYG{l+s+sd}{        tree \PYGZob{}decisionnode\PYGZcb{} \PYGZhy{}\PYGZhy{} tree that gets searched for result}
+\PYG{l+s+sd}{        result \PYGZob{}data\PYGZcb{} \PYGZhy{}\PYGZhy{} result that the tree is searched for}
+
+\PYG{l+s+sd}{    Returns:}
+\PYG{l+s+sd}{        bool \PYGZhy{}\PYGZhy{} True if result is in the tree, false if not}
+\PYG{l+s+sd}{    \PYGZdq{}\PYGZdq{}\PYGZdq{}}
+    \PYG{n}{path} \PYG{o}{=} \PYG{n}{path\PYGZus{}gen}\PYG{p}{(}\PYG{n}{tree}\PYG{p}{)}
+    \PYG{k}{if} \PYG{n}{result} \PYG{o+ow}{in} \PYG{n}{path}\PYG{p}{[}\PYG{p}{:}\PYG{p}{,} \PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{]}\PYG{p}{:}
+        \PYG{k}{return} \PYG{k+kc}{True}
+    \PYG{k}{else}\PYG{p}{:}
+        \PYG{k}{return} \PYG{k+kc}{False}
+
+
+\PYG{k}{def} \PYG{n+nf}{buildforest}\PYG{p}{(}\PYG{n}{data}\PYG{p}{,} \PYG{n}{n\PYGZus{}trees}\PYG{p}{,} \PYG{n}{scoref}\PYG{p}{,} \PYG{n}{n\PYGZus{}feat}\PYG{p}{,} \PYG{n}{min\PYGZus{}data}\PYG{p}{,} \PYG{n}{pruning}\PYG{p}{)}\PYG{p}{:}
+    \PYG{l+s+sd}{\PYGZdq{}\PYGZdq{}\PYGZdq{}Growing the Random Forest}
+
+\PYG{l+s+sd}{    The Random Forest consists of n\PYGZus{}trees. Each tree sees only a subset of the data and a subset of the features.}
+\PYG{l+s+sd}{    Important: a tree never sees the original data set, only the performance of the classifying algorithm}
+\PYG{l+s+sd}{    For significant conclusions enough trees must be generated in order to gain the statistical benefits that overcome bad outputs}
+
+\PYG{l+s+sd}{    Arguments:}
+\PYG{l+s+sd}{        * data \PYGZob{}numpy.array\PYGZcb{} \PYGZhy{}\PYGZhy{} data set the Forest is built upon}
+\PYG{l+s+sd}{        * n\PYGZus{}trees \PYGZob{}int\PYGZcb{} \PYGZhy{}\PYGZhy{} number of trees in a Decision tree}
+\PYG{l+s+sd}{        * scoref \PYGZob{}function\PYGZcb{} \PYGZhy{}\PYGZhy{} scoring metric for finding new nodes}
+\PYG{l+s+sd}{        * n\PYGZus{}feat \PYGZob{}int\PYGZcb{} \PYGZhy{}\PYGZhy{} number of features in data}
+\PYG{l+s+sd}{        * min\PYGZus{}data \PYGZob{}float\PYGZcb{} \PYGZhy{}\PYGZhy{} minimum percentage of all data sets that a tree will see}
+\PYG{l+s+sd}{        * pruning \PYGZob{}bool\PYGZcb{} \PYGZhy{}\PYGZhy{} pruning enabled (\PYGZgt{}0) / disabled(=0)}
+
+\PYG{l+s+sd}{    Returns:}
+\PYG{l+s+sd}{        * RF \PYGZhy{}\PYGZhy{}  dictionary = importances of single features in the forest}
+\PYG{l+s+sd}{        * prob\PYGZus{}current \PYGZhy{}\PYGZhy{} single value for importance, used for generating new biased feature sets}
+\PYG{l+s+sd}{        * trees \PYGZhy{}\PYGZhy{} contains all single trees that stand in the Forest}
+\PYG{l+s+sd}{    \PYGZdq{}\PYGZdq{}\PYGZdq{}}
+
+    \PYG{c+c1}{\PYGZsh{} Initializations}
+    \PYG{n}{prob\PYGZus{}current} \PYG{o}{=} \PYG{k+kc}{None}  \PYG{c+c1}{\PYGZsh{} Prelocate}
+    \PYG{n}{RF} \PYG{o}{=} \PYG{p}{\PYGZob{}}\PYG{p}{\PYGZcb{}}  \PYG{c+c1}{\PYGZsh{} Prelocate dictionary for prioritizing important features}
+    \PYG{n}{trees} \PYG{o}{=} \PYG{p}{[}\PYG{p}{]}  \PYG{c+c1}{\PYGZsh{} Prelocate list that will contain the trees that stand in the currently built forest}
+    \PYG{n}{total\PYGZus{}best\PYGZus{}result} \PYG{o}{=} \PYG{k+kc}{None}  \PYG{c+c1}{\PYGZsh{} Prelocate}
+    \PYG{n}{current\PYGZus{}best\PYGZus{}result} \PYG{o}{=} \PYG{k+kc}{None}  \PYG{c+c1}{\PYGZsh{} Prelocate}
+    \PYG{n}{path\PYGZus{}min\PYGZus{}current} \PYG{o}{=} \PYG{p}{[}\PYG{p}{]}  \PYG{c+c1}{\PYGZsh{} Prelocate}
+    \PYG{n}{wrongs} \PYG{o}{=} \PYG{l+m+mi}{0}  \PYG{c+c1}{\PYGZsh{} initialize number of (useless) trees that have only one node}
+
+    \PYG{c+c1}{\PYGZsh{} build single trees}
+    \PYG{k}{for} \PYG{n}{x} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{n}{n\PYGZus{}trees}\PYG{p}{)}\PYG{p}{:}  \PYG{c+c1}{\PYGZsh{} n\PYGZus{}trees is the number of trees in the forest}
+
+        \PYG{c+c1}{\PYGZsh{} select only subset of available datasets}
+        \PYG{c+c1}{\PYGZsh{} create mask for randomly choosing subset of available datasets}
+        \PYG{n}{mask\PYGZus{}sub\PYGZus{}data} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{zeros}\PYG{p}{(}\PYG{n}{data}\PYG{o}{.}\PYG{n}{shape}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]}\PYG{p}{,} \PYG{n}{dtype}\PYG{o}{=}\PYG{n+nb}{bool}\PYG{p}{)}  \PYG{c+c1}{\PYGZsh{} Prelocate}
+        \PYG{c+c1}{\PYGZsh{} randomly choose the random datasets}
+        \PYG{n}{rand\PYGZus{}data} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{random}\PYG{o}{.}\PYG{n}{choice}\PYG{p}{(}\PYG{n+nb}{range}\PYG{p}{(}\PYG{n}{data}\PYG{o}{.}\PYG{n}{shape}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]}\PYG{p}{)}\PYG{p}{,} \PYG{n}{size}\PYG{o}{=}\PYG{n+nb}{int}\PYG{p}{(}\PYG{n}{np}\PYG{o}{.}\PYG{n}{amax}\PYG{p}{(}\PYG{p}{(}\PYG{n}{np}\PYG{o}{.}\PYG{n}{around}\PYG{p}{(}\PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{data}\PYG{p}{)} \PYG{o}{*} \PYG{n}{min\PYGZus{}data}\PYG{p}{,} \PYG{n}{decimals}\PYG{o}{=}\PYG{l+m+mi}{0}\PYG{p}{)}\PYG{p}{,}
+                                                                             \PYG{n}{np}\PYG{o}{.}\PYG{n}{random}\PYG{o}{.}\PYG{n}{choice}\PYG{p}{(}\PYG{n+nb}{range}\PYG{p}{(}\PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{data}\PYG{p}{)} \PYG{o}{\PYGZhy{}} \PYG{l+m+mi}{1}\PYG{p}{)}\PYG{p}{)} \PYG{o}{+} \PYG{l+m+mi}{1}\PYG{p}{)}\PYG{p}{,} \PYG{n}{axis}\PYG{o}{=}\PYG{k+kc}{None}\PYG{p}{)}\PYG{p}{)}\PYG{p}{,} \PYG{n}{replace}\PYG{o}{=}\PYG{k+kc}{False}\PYG{p}{,} \PYG{n}{p}\PYG{o}{=}\PYG{k+kc}{None}\PYG{p}{)}
+        \PYG{c+c1}{\PYGZsh{} translate to selected data sets}
+        \PYG{n}{mask\PYGZus{}sub\PYGZus{}data}\PYG{p}{[}\PYG{n}{rand\PYGZus{}data}\PYG{p}{]} \PYG{o}{=} \PYG{k+kc}{True}
+        \PYG{n}{sub\PYGZus{}data} \PYG{o}{=} \PYG{n}{data}\PYG{p}{[}\PYG{n}{mask\PYGZus{}sub\PYGZus{}data}\PYG{p}{,} \PYG{p}{:}\PYG{p}{]}  \PYG{c+c1}{\PYGZsh{} random subset of datasets still including all features}
+
+        \PYG{c+c1}{\PYGZsh{} select only subset of features}
+        \PYG{c+c1}{\PYGZsh{} create mask for randomly choosing subset of available features}
+        \PYG{n}{mask\PYGZus{}sub\PYGZus{}features} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{zeros}\PYG{p}{(}\PYG{n}{data}\PYG{o}{.}\PYG{n}{shape}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{]}\PYG{p}{,} \PYG{n}{dtype}\PYG{o}{=}\PYG{n+nb}{bool}\PYG{p}{)}  \PYG{c+c1}{\PYGZsh{} Prelocate}
+        \PYG{c+c1}{\PYGZsh{} randomly choose the random features}
+        \PYG{n}{rand\PYGZus{}feat} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{random}\PYG{o}{.}\PYG{n}{choice}\PYG{p}{(}\PYG{n+nb}{range}\PYG{p}{(}\PYG{n}{data}\PYG{o}{.}\PYG{n}{shape}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{]} \PYG{o}{\PYGZhy{}} \PYG{l+m+mi}{1}\PYG{p}{)}\PYG{p}{,} \PYG{n}{size}\PYG{o}{=}\PYG{n}{np}\PYG{o}{.}\PYG{n}{random}\PYG{o}{.}\PYG{n}{choice}\PYG{p}{(}\PYG{n+nb}{range}\PYG{p}{(}\PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{data}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]}\PYG{p}{)} \PYG{o}{\PYGZhy{}} \PYG{l+m+mi}{1}\PYG{p}{)}\PYG{p}{)} \PYG{o}{+} \PYG{l+m+mi}{1}\PYG{p}{,} \PYG{n}{replace}\PYG{o}{=}\PYG{k+kc}{False}\PYG{p}{,} \PYG{n}{p}\PYG{o}{=}\PYG{k+kc}{None}\PYG{p}{)}
+        \PYG{c+c1}{\PYGZsh{} sort ascending}
+        \PYG{n}{rand\PYGZus{}feat} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{sort}\PYG{p}{(}\PYG{n}{rand\PYGZus{}feat}\PYG{p}{)}
+        \PYG{c+c1}{\PYGZsh{} append last column with result}
+        \PYG{n}{rand\PYGZus{}feat} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{n}{rand\PYGZus{}feat}\PYG{p}{,} \PYG{n}{data}\PYG{o}{.}\PYG{n}{shape}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{]} \PYG{o}{\PYGZhy{}} \PYG{l+m+mi}{1}\PYG{p}{)}
+        \PYG{c+c1}{\PYGZsh{} translate to selected features}
+        \PYG{n}{mask\PYGZus{}sub\PYGZus{}features}\PYG{p}{[}\PYG{n}{rand\PYGZus{}feat}\PYG{p}{]} \PYG{o}{=} \PYG{k+kc}{True}
+
+        \PYG{n}{sub\PYGZus{}data} \PYG{o}{=} \PYG{n}{sub\PYGZus{}data}\PYG{p}{[}\PYG{p}{:}\PYG{p}{,} \PYG{n}{mask\PYGZus{}sub\PYGZus{}features}\PYG{p}{]}  \PYG{c+c1}{\PYGZsh{} random subset of datasets and random subset of features}
+        \PYG{c+c1}{\PYGZsh{} print \PYGZdq{}sub\PYGZus{}data = \PYGZdq{} + str(sub\PYGZus{}data) \PYGZsh{} Debugging line}
+
+        \PYG{c+c1}{\PYGZsh{} build the tree from the subset data, last column contains result}
+        \PYG{c+c1}{\PYGZsh{} print \PYGZdq{}building tree\PYGZdq{} \PYGZsh{} Debugging Line}
+        \PYG{n}{tree} \PYG{o}{=} \PYG{n}{buildtree}\PYG{p}{(}\PYG{n}{sub\PYGZus{}data}\PYG{p}{,} \PYG{n}{scoref}\PYG{p}{)}
+
+        \PYG{c+c1}{\PYGZsh{} pruning the tree (if hyperparameter is enabled)}
+        \PYG{k}{if} \PYG{n}{pruning} \PYG{o}{\PYGZgt{}} \PYG{l+m+mi}{0}\PYG{p}{:}
+            \PYG{n}{prune}\PYG{p}{(}\PYG{n}{tree}\PYG{p}{,} \PYG{n}{pruning}\PYG{p}{)}
+
+        \PYG{c+c1}{\PYGZsh{} draw the tree and create path matrix}
+        \PYG{c+c1}{\PYGZsh{} drawtree(tree, jpeg=\PYGZsq{}treeview\PYGZus{}RF.jpg\PYGZsq{}) \PYGZsh{} Debbuging Line}
+
+        \PYG{k}{if} \PYG{n}{getdepth}\PYG{p}{(}\PYG{n}{tree}\PYG{p}{)} \PYG{o+ow}{is} \PYG{l+m+mi}{0}\PYG{p}{:}  \PYG{c+c1}{\PYGZsh{} if the tree contains only a single node \PYGZhy{}\PYGZhy{}\PYGZgt{} tree is useless}
+            \PYG{n}{wrongs} \PYG{o}{+}\PYG{o}{=} \PYG{l+m+mi}{1}
+            \PYG{c+c1}{\PYGZsh{} print \PYGZdq{}wrongs: \PYGZdq{} + str(wrongs) \PYGZsh{} Debugging Line}
+        \PYG{k}{else}\PYG{p}{:}  \PYG{c+c1}{\PYGZsh{} only increment feature counter if tree has more than one leaf}
+            \PYG{n}{path} \PYG{o}{=} \PYG{n}{path\PYGZus{}gen}\PYG{p}{(}\PYG{n}{tree}\PYG{p}{)}  \PYG{c+c1}{\PYGZsh{} create path to current tree}
+            \PYG{n}{current\PYGZus{}best\PYGZus{}result} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{max}\PYG{p}{(}\PYG{n}{path}\PYG{p}{[}\PYG{p}{:}\PYG{p}{,} \PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{]}\PYG{p}{)}
+            \PYG{n}{path\PYGZus{}min\PYGZus{}current} \PYG{o}{=} \PYG{n}{path}\PYG{p}{[}\PYG{n}{np}\PYG{o}{.}\PYG{n}{argmax}\PYG{p}{(}\PYG{n}{path}\PYG{p}{[}\PYG{p}{:}\PYG{p}{,} \PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{]}\PYG{p}{)}\PYG{p}{]}
+
+            \PYG{c+c1}{\PYGZsh{} update best result and corresponding path}
+            \PYG{k}{if} \PYG{n}{total\PYGZus{}best\PYGZus{}result} \PYG{o+ow}{is} \PYG{k+kc}{None} \PYG{o+ow}{or} \PYG{n}{current\PYGZus{}best\PYGZus{}result} \PYG{o}{\PYGZgt{}} \PYG{n}{total\PYGZus{}best\PYGZus{}result}\PYG{p}{:}
+                \PYG{n}{total\PYGZus{}best\PYGZus{}result} \PYG{o}{=} \PYG{n}{current\PYGZus{}best\PYGZus{}result}
+
+            \PYG{c+c1}{\PYGZsh{} update the RF dictionary that rewards / punishes features}
+            \PYG{n}{update\PYGZus{}RF}\PYG{p}{(}\PYG{n}{RF}\PYG{p}{,} \PYG{n}{path\PYGZus{}min\PYGZus{}current}\PYG{p}{,} \PYG{n}{tree}\PYG{p}{,} \PYG{n}{rand\PYGZus{}feat}\PYG{p}{)}
+            \PYG{n}{trees}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{n}{tree}\PYG{p}{)}
+    \PYG{c+c1}{\PYGZsh{} print \PYGZdq{}RF: \PYGZdq{} + str(RF) \PYGZsh{} Debugging Line}
+    \PYG{c+c1}{\PYGZsh{} print \PYGZdq{}Returning RF\PYGZdq{} \PYGZsh{} Debugging Line}
+
+    \PYG{c+c1}{\PYGZsh{} a \PYGZdq{}wrong\PYGZdq{} tree is a tree with only one node that has no power to gain additional insight and therefore is useless...}
+    \PYG{n+nb}{print} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{wrongs: }\PYG{l+s+s2}{\PYGZdq{}} \PYG{o}{+} \PYG{n+nb}{str}\PYG{p}{(}\PYG{n}{wrongs}\PYG{p}{)} \PYG{o}{+} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{/}\PYG{l+s+s2}{\PYGZdq{}} \PYG{o}{+} \PYG{n+nb}{str}\PYG{p}{(}\PYG{n}{n\PYGZus{}trees}\PYG{p}{)}
+
+    \PYG{c+c1}{\PYGZsh{} Transform the counter for rewarded / punished features from RF dictionary into a proportionate number}
+    \PYG{c+c1}{\PYGZsh{} set up scaler that projects accumulated values of RF onto a scale between 0 and 1}
+    \PYG{n}{min\PYGZus{}max\PYGZus{}scaler} \PYG{o}{=} \PYG{n}{preprocessing}\PYG{o}{.}\PYG{n}{MinMaxScaler}\PYG{p}{(}\PYG{n}{feature\PYGZus{}range}\PYG{o}{=}\PYG{p}{(}\PYG{l+m+mi}{0}\PYG{p}{,} \PYG{l+m+mi}{1}\PYG{p}{)}\PYG{p}{)}
+    \PYG{c+c1}{\PYGZsh{} take only values of RF, reshape them (otherwise deprecation warning), make them numpy array, and scale them (again) between 0 and 1}
+    \PYG{n}{temp} \PYG{o}{=} \PYG{n}{min\PYGZus{}max\PYGZus{}scaler}\PYG{o}{.}\PYG{n}{fit\PYGZus{}transform}\PYG{p}{(}\PYG{n}{np}\PYG{o}{.}\PYG{n}{nan\PYGZus{}to\PYGZus{}num}\PYG{p}{(}\PYG{n}{np}\PYG{o}{.}\PYG{n}{array}\PYG{p}{(}\PYG{n}{RF}\PYG{o}{.}\PYG{n}{values}\PYG{p}{(}\PYG{p}{)}\PYG{p}{)}\PYG{p}{)}\PYG{o}{.}\PYG{n}{reshape}\PYG{p}{(}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{,} \PYG{l+m+mi}{1}\PYG{p}{)}\PYG{p}{)}
+    \PYG{c+c1}{\PYGZsh{} sum up values of RF, divide each value of RF by sum to get percentage \PYGZhy{}\PYGZhy{}\PYGZgt{} must sum up to 1}
+    \PYG{n}{temp\PYGZus{}sum} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{sum}\PYG{p}{(}\PYG{n}{temp}\PYG{p}{)}
+    \PYG{n}{temp\PYGZus{}percent} \PYG{o}{=} \PYG{n}{temp} \PYG{o}{*} \PYG{p}{(}\PYG{l+m+mf}{1.0} \PYG{o}{/} \PYG{n}{temp\PYGZus{}sum}\PYG{p}{)}
+    \PYG{c+c1}{\PYGZsh{} print temp\PYGZus{}percent}
+    \PYG{c+c1}{\PYGZsh{} update values in RF with scaled percentage values}
+    \PYG{n}{i} \PYG{o}{=} \PYG{l+m+mi}{0}
+    \PYG{k}{for} \PYG{n}{key} \PYG{o+ow}{in} \PYG{n}{RF}\PYG{p}{:}
+        \PYG{n}{RF}\PYG{p}{[}\PYG{n}{key}\PYG{p}{]} \PYG{o}{=} \PYG{n}{temp\PYGZus{}percent}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]}  \PYG{c+c1}{\PYGZsh{} [0] because otherwise there would be an array inside the dictionary RF}
+        \PYG{n}{i} \PYG{o}{+}\PYG{o}{=} \PYG{l+m+mi}{1}
+    \PYG{c+c1}{\PYGZsh{} print \PYGZdq{}RF: \PYGZdq{} + str(RF) \PYGZsh{} Debugging Line}
+
+    \PYG{c+c1}{\PYGZsh{} build a dictionary of most important features in a tree and how often they were chosen}
+    \PYG{c+c1}{\PYGZsh{} create weights of features}
+    \PYG{n}{weights} \PYG{o}{=} \PYG{p}{\PYGZob{}}\PYG{p}{\PYGZcb{}}  \PYG{c+c1}{\PYGZsh{} Prelocate}
+    \PYG{n}{weights\PYGZus{}sorted} \PYG{o}{=} \PYG{p}{\PYGZob{}}\PYG{p}{\PYGZcb{}}  \PYG{c+c1}{\PYGZsh{} Prelocate}
+    \PYG{c+c1}{\PYGZsh{} transfer values from dictionary into list}
+    \PYG{k}{for} \PYG{n}{key}\PYG{p}{,} \PYG{n}{value} \PYG{o+ow}{in} \PYG{n}{RF}\PYG{o}{.}\PYG{n}{items}\PYG{p}{(}\PYG{p}{)}\PYG{p}{:}
+        \PYG{n}{weights}\PYG{p}{[}\PYG{n}{key}\PYG{p}{]} \PYG{o}{=} \PYG{n+nb}{float}\PYG{p}{(}\PYG{n}{value}\PYG{p}{)}  \PYG{c+c1}{\PYGZsh{} create relative weight}
+    \PYG{c+c1}{\PYGZsh{} some features might not get picked once, so their probability is set to zero}
+    \PYG{k}{if} \PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{weights}\PYG{p}{)} \PYG{o}{\PYGZlt{}} \PYG{n}{n\PYGZus{}feat}\PYG{p}{:}
+        \PYG{k}{for} \PYG{n}{key} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{n}{n\PYGZus{}feat}\PYG{p}{)}\PYG{p}{:}
+            \PYG{k}{if} \PYG{n}{key} \PYG{o+ow}{not} \PYG{o+ow}{in} \PYG{n}{weights}\PYG{p}{:}
+                \PYG{n}{weights}\PYG{p}{[}\PYG{n}{key}\PYG{p}{]} \PYG{o}{=} \PYG{l+m+mi}{0}
+    \PYG{c+c1}{\PYGZsh{} print \PYGZdq{}weights = \PYGZdq{} + str(weights) \PYGZsh{} Debugging Line}
+    \PYG{n}{weights\PYGZus{}sorted} \PYG{o}{=} \PYG{n+nb}{dict}\PYG{p}{(}\PYG{n+nb}{sorted}\PYG{p}{(}\PYG{n}{weights}\PYG{o}{.}\PYG{n}{items}\PYG{p}{(}\PYG{p}{)}\PYG{p}{,} \PYG{n}{key}\PYG{o}{=}\PYG{k}{lambda} \PYG{n}{value}\PYG{p}{:} \PYG{n}{value}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]}\PYG{p}{,} \PYG{n}{reverse}\PYG{o}{=}\PYG{k+kc}{False}\PYG{p}{)}\PYG{p}{)}  \PYG{c+c1}{\PYGZsh{} sort by frequency = importance}
+
+    \PYG{c+c1}{\PYGZsh{} print \PYGZdq{}importance of features in random forest: \PYGZdq{} + str(weights\PYGZus{}sorted) \PYGZsh{} Debugging Line}
+
+    \PYG{n}{prob\PYGZus{}current} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{array}\PYG{p}{(}\PYG{n}{weights\PYGZus{}sorted}\PYG{o}{.}\PYG{n}{values}\PYG{p}{(}\PYG{p}{)}\PYG{p}{)}  \PYG{c+c1}{\PYGZsh{} extract only the values of feature importance}
+
+    \PYG{k}{return} \PYG{n}{RF}\PYG{p}{,} \PYG{n}{prob\PYGZus{}current}\PYG{p}{,} \PYG{n}{trees}
+
+
+\PYG{k}{def} \PYG{n+nf}{update\PYGZus{}RF}\PYG{p}{(}\PYG{n}{RF}\PYG{p}{,} \PYG{n}{path}\PYG{p}{,} \PYG{n}{tree}\PYG{p}{,} \PYG{n}{rand\PYGZus{}feat}\PYG{p}{)}\PYG{p}{:}
+    \PYG{l+s+sd}{\PYGZdq{}\PYGZdq{}\PYGZdq{}for each tree the features that lead to the leaf with the lowest Error will get rewarded.}
+\PYG{l+s+sd}{    Features that don\PYGZsq{}t lead to the leaf with the lowest Error will get punished (only by 20\PYGZpc{} of}
+\PYG{l+s+sd}{    the amount the \PYGZdq{}good\PYGZdq{} featurtes get rewarded).}
+
+
+\PYG{l+s+sd}{    RF is a dictionary that gets updated after a new tree is built and thus contains the cummulation of all}
+\PYG{l+s+sd}{    feature appearences in the whole forest.}
+
+\PYG{l+s+sd}{    Arguments:}
+\PYG{l+s+sd}{        * RF \PYGZob{}dict\PYGZcb{} \PYGZhy{}\PYGZhy{} dictionary that counts occurrence / absence of different features}
+\PYG{l+s+sd}{        * path \PYGZob{}numpy.array\PYGZcb{} \PYGZhy{}\PYGZhy{} structure of the current tree}
+\PYG{l+s+sd}{        * tree \PYGZob{}decisionnode\PYGZcb{} \PYGZhy{}\PYGZhy{} tree that gets examined}
+\PYG{l+s+sd}{        * rand\PYGZus{}feat \PYGZob{}list\PYGZcb{} \PYGZhy{}\PYGZhy{} boolean mask of selected features (1 = selected, 0 = not selected)}
+
+\PYG{l+s+sd}{    Returns:}
+\PYG{l+s+sd}{        * RF \PYGZhy{}\PYGZhy{} updated dictionary that counts occurrence / absence of different features}
+\PYG{l+s+sd}{    \PYGZdq{}\PYGZdq{}\PYGZdq{}}
+    \PYG{n}{current\PYGZus{}depth} \PYG{o}{=} \PYG{n}{getdepth}\PYG{p}{(}\PYG{n}{tree}\PYG{p}{)}
+    \PYG{c+c1}{\PYGZsh{} print \PYGZdq{}current path: \PYGZdq{} + str(path) \PYGZsh{} Debugging Line}
+    \PYG{c+c1}{\PYGZsh{} print  \PYGZdq{}current depth = \PYGZdq{} + str(getdepth(tree)) \PYGZsh{} Debugging Line}
+    \PYG{c+c1}{\PYGZsh{} print \PYGZdq{}current col: \PYGZdq{} + str(tree.col) \PYGZsh{} Debugging Line}
+    \PYG{k}{if} \PYG{n}{current\PYGZus{}depth} \PYG{o}{==} \PYG{l+m+mi}{0}\PYG{p}{:}
+        \PYG{k}{return} \PYG{n}{RF}
+    \PYG{n}{MSE\PYGZus{}min} \PYG{o}{=} \PYG{n}{path}\PYG{p}{[}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{]}
+    \PYG{c+c1}{\PYGZsh{} print \PYGZdq{}MSE\PYGZus{}min: \PYGZdq{} + str(MSE\PYGZus{}min) \PYGZsh{} Debugging Line}
+    \PYG{c+c1}{\PYGZsh{} print \PYGZdq{}Checking if MSE\PYGZus{}min is in True branch\PYGZdq{} \PYGZsh{} Debugging Line}
+    \PYG{k}{if} \PYG{n}{check\PYGZus{}path}\PYG{p}{(}\PYG{n}{tree}\PYG{o}{.}\PYG{n}{tb}\PYG{p}{,} \PYG{n}{MSE\PYGZus{}min}\PYG{p}{)} \PYG{o+ow}{is} \PYG{k+kc}{True}\PYG{p}{:}
+        \PYG{c+c1}{\PYGZsh{} print \PYGZdq{}MSE\PYGZus{}min is in True Branch\PYGZdq{} \PYGZsh{} Debugging Line}
+
+        \PYG{c+c1}{\PYGZsh{} initialize the feature in dictionary RF if it appears for the first time}
+        \PYG{k}{if} \PYG{n}{rand\PYGZus{}feat}\PYG{p}{[}\PYG{n+nb}{int}\PYG{p}{(}\PYG{n}{tree}\PYG{o}{.}\PYG{n}{col}\PYG{p}{)}\PYG{p}{]} \PYG{o+ow}{not} \PYG{o+ow}{in} \PYG{n}{RF}\PYG{p}{:}
+            \PYG{n}{RF}\PYG{p}{[}\PYG{n}{rand\PYGZus{}feat}\PYG{p}{[}\PYG{n+nb}{int}\PYG{p}{(}\PYG{n}{tree}\PYG{o}{.}\PYG{n}{col}\PYG{p}{)}\PYG{p}{]}\PYG{p}{]} \PYG{o}{=} \PYG{n+nb}{float}\PYG{p}{(}\PYG{n}{current\PYGZus{}depth}\PYG{p}{)}
+        \PYG{k}{else}\PYG{p}{:}  \PYG{c+c1}{\PYGZsh{} if the feature is already present in dictionary RF, increase counter}
+            \PYG{n}{RF}\PYG{p}{[}\PYG{n}{rand\PYGZus{}feat}\PYG{p}{[}\PYG{n+nb}{int}\PYG{p}{(}\PYG{n}{tree}\PYG{o}{.}\PYG{n}{col}\PYG{p}{)}\PYG{p}{]}\PYG{p}{]} \PYG{o}{+}\PYG{o}{=} \PYG{n+nb}{float}\PYG{p}{(}\PYG{n}{current\PYGZus{}depth}\PYG{p}{)}
+        \PYG{c+c1}{\PYGZsh{} print \PYGZdq{}added \PYGZdq{} + str(current\PYGZus{}depth) + \PYGZdq{} to feature  \PYGZdq{} + str(tree.col) \PYGZsh{} Debugging Line}
+        \PYG{c+c1}{\PYGZsh{} print \PYGZdq{}current RF: \PYGZdq{} + str(RF) \PYGZsh{} Debugging Line}
+        \PYG{n}{update\PYGZus{}RF}\PYG{p}{(}\PYG{n}{RF}\PYG{p}{,} \PYG{n}{path}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{:}\PYG{p}{]}\PYG{p}{,} \PYG{n}{tree}\PYG{o}{.}\PYG{n}{tb}\PYG{p}{,} \PYG{n}{rand\PYGZus{}feat}\PYG{p}{)}  \PYG{c+c1}{\PYGZsh{} recursively jump into update\PYGZus{}RF again with shortened path at next level in true branch}
+    \PYG{k}{else}\PYG{p}{:}
+        \PYG{c+c1}{\PYGZsh{} print \PYGZdq{}MSE\PYGZus{}min is not in True Branch\PYGZdq{} \PYGZsh{} Debugging Line}
+        \PYG{c+c1}{\PYGZsh{} print \PYGZdq{}Checking if MSE\PYGZus{}min is in False Branch\PYGZdq{} \PYGZsh{} Debugging Line}
+        \PYG{k}{if} \PYG{n}{check\PYGZus{}path}\PYG{p}{(}\PYG{n}{tree}\PYG{o}{.}\PYG{n}{fb}\PYG{p}{,} \PYG{n}{MSE\PYGZus{}min}\PYG{p}{)} \PYG{o+ow}{is} \PYG{k+kc}{True}\PYG{p}{:}
+            \PYG{c+c1}{\PYGZsh{} print \PYGZdq{}MSE\PYGZus{}min is in False Branch\PYGZdq{} \PYGZsh{} Debugging Line}
+            \PYG{k}{if} \PYG{n}{rand\PYGZus{}feat}\PYG{p}{[}\PYG{n+nb}{int}\PYG{p}{(}\PYG{n}{tree}\PYG{o}{.}\PYG{n}{col}\PYG{p}{)}\PYG{p}{]} \PYG{o+ow}{not} \PYG{o+ow}{in} \PYG{n}{RF}\PYG{p}{:}  \PYG{c+c1}{\PYGZsh{} initialize the feature in dictionary RF if it appears for the first time}
+                \PYG{n}{RF}\PYG{p}{[}\PYG{n}{rand\PYGZus{}feat}\PYG{p}{[}\PYG{n+nb}{int}\PYG{p}{(}\PYG{n}{tree}\PYG{o}{.}\PYG{n}{col}\PYG{p}{)}\PYG{p}{]}\PYG{p}{]} \PYG{o}{=} \PYG{o}{\PYGZhy{}}\PYG{l+m+mf}{0.2} \PYG{o}{*} \PYG{n+nb}{float}\PYG{p}{(}\PYG{n}{current\PYGZus{}depth}\PYG{p}{)}
+            \PYG{k}{else}\PYG{p}{:}  \PYG{c+c1}{\PYGZsh{} if the feature is already present in dictionary RF, decrease counter}
+                \PYG{n}{RF}\PYG{p}{[}\PYG{n}{rand\PYGZus{}feat}\PYG{p}{[}\PYG{n+nb}{int}\PYG{p}{(}\PYG{n}{tree}\PYG{o}{.}\PYG{n}{col}\PYG{p}{)}\PYG{p}{]}\PYG{p}{]} \PYG{o}{\PYGZhy{}}\PYG{o}{=} \PYG{n+nb}{float}\PYG{p}{(}\PYG{n}{current\PYGZus{}depth}\PYG{p}{)} \PYG{o}{*} \PYG{l+m+mf}{0.2}
+            \PYG{c+c1}{\PYGZsh{} print \PYGZdq{}subtracted \PYGZdq{} + str(current\PYGZus{}depth*0.2) + \PYGZdq{} from feature \PYGZdq{} + str(tree.col) \PYGZsh{} Debugging Line}
+            \PYG{c+c1}{\PYGZsh{} print \PYGZdq{}current RF: \PYGZdq{} + str(RF) \PYGZsh{} Debugging Line}
+            \PYG{n}{update\PYGZus{}RF}\PYG{p}{(}\PYG{n}{RF}\PYG{p}{,} \PYG{n}{path}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{:}\PYG{p}{]}\PYG{p}{,} \PYG{n}{tree}\PYG{o}{.}\PYG{n}{fb}\PYG{p}{,} \PYG{n}{rand\PYGZus{}feat}\PYG{p}{)}  \PYG{c+c1}{\PYGZsh{} recursively jump into update\PYGZus{}RF with shortened path at next level in false branch}
+
+
+\PYG{k}{def} \PYG{n+nf}{forest\PYGZus{}predict}\PYG{p}{(}\PYG{n}{data}\PYG{p}{,} \PYG{n}{trees}\PYG{p}{,} \PYG{n}{prob}\PYG{p}{,} \PYG{n}{n\PYGZus{}configs}\PYG{p}{,} \PYG{n}{biased}\PYG{p}{)}\PYG{p}{:}
+    \PYG{l+s+sd}{\PYGZdq{}\PYGZdq{}\PYGZdq{}Predict performance of new feature sets}
+
+\PYG{l+s+sd}{    Predicts biased and unbiased feature sets in the before constructed Random Forest.}
+\PYG{l+s+sd}{    Feature sets are predicted in every single Decision Tree in the Random Forest.}
+\PYG{l+s+sd}{    Results are represented as (mean+0.1*var) and (variance+0.1*mean) for each feature set.}
+\PYG{l+s+sd}{    The two best feature sets are selected to be sent into the :ref:{}`MLA \PYGZlt{}MLA\PYGZgt{}{}`.}
+
+
+\PYG{l+s+sd}{    Arguments:}
+\PYG{l+s+sd}{        * data \PYGZob{}numpy.array\PYGZcb{} \PYGZhy{}\PYGZhy{} contains all previous computing runs}
+\PYG{l+s+sd}{        * trees \PYGZob{}decisionnodes\PYGZcb{} \PYGZhy{}\PYGZhy{} the trees that make up the Random Forest}
+\PYG{l+s+sd}{        * prob \PYGZob{}array of floats\PYGZcb{} \PYGZhy{}\PYGZhy{} probability that a feature gets chosen into a feature set}
+\PYG{l+s+sd}{        * n\PYGZus{}configs \PYGZob{}int\PYGZcb{} \PYGZhy{}\PYGZhy{} number of feature sets to be generated}
+\PYG{l+s+sd}{        * biased \PYGZob{}bool\PYGZcb{} \PYGZhy{}\PYGZhy{} true for biased feature selection, false for unbiased feature selection}
+
+\PYG{l+s+sd}{    Returns:}
+\PYG{l+s+sd}{        * best mean \PYGZhy{}\PYGZhy{} highest average of all predicted feature sets}
+\PYG{l+s+sd}{        * best feature set mean \PYGZhy{}\PYGZhy{} corresponding boolean list of features (0=feature not chosen, 1=feature chosen)}
+\PYG{l+s+sd}{        * best var \PYGZhy{}\PYGZhy{} highest variance of all predicted feature sets}
+\PYG{l+s+sd}{        * best feature set var \PYGZhy{}\PYGZhy{} corresponding boolean list of features (0=feature not chosen, 1=feature chosen)}
+\PYG{l+s+sd}{    \PYGZdq{}\PYGZdq{}\PYGZdq{}}
+    \PYG{k}{if} \PYG{n}{biased} \PYG{o+ow}{is} \PYG{o+ow}{not} \PYG{k+kc}{True}\PYG{p}{:}
+        \PYG{n}{prob} \PYG{o}{=} \PYG{k+kc}{None}
+    \PYG{c+c1}{\PYGZsh{} print \PYGZdq{}prob: \PYGZdq{} + str(prob) \PYGZsh{} Debugging Line}
+    \PYG{c+c1}{\PYGZsh{} Prelocate variables}
+    \PYG{n}{mean} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{zeros}\PYG{p}{(}\PYG{n}{n\PYGZus{}configs}\PYG{p}{)}
+    \PYG{n}{var} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{zeros}\PYG{p}{(}\PYG{n}{n\PYGZus{}configs}\PYG{p}{)}
+    \PYG{n}{best\PYGZus{}mean} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{array}\PYG{p}{(}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]}\PYG{p}{)}
+    \PYG{n}{best\PYGZus{}var} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{array}\PYG{p}{(}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]}\PYG{p}{)}
+    \PYG{n}{best\PYGZus{}featureset\PYGZus{}mean} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{array}\PYG{p}{(}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]}\PYG{p}{)}
+    \PYG{n}{best\PYGZus{}featureset\PYGZus{}var} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{array}\PYG{p}{(}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]}\PYG{p}{)}
+
+    \PYG{c+c1}{\PYGZsh{} new config (=feature set) is generated}
+    \PYG{k}{for} \PYG{n}{x} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{n}{n\PYGZus{}configs}\PYG{p}{)}\PYG{p}{:}  \PYG{c+c1}{\PYGZsh{} n\PYGZus{}configs\PYGZus{}biased is hyperparameter}
+        \PYG{c+c1}{\PYGZsh{} create mask for choosing subfeatures}
+        \PYG{n}{mask\PYGZus{}sub\PYGZus{}features} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{zeros}\PYG{p}{(}\PYG{n}{data}\PYG{o}{.}\PYG{n}{shape}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{]} \PYG{o}{\PYGZhy{}} \PYG{l+m+mi}{1}\PYG{p}{,} \PYG{n}{dtype}\PYG{o}{=}\PYG{n+nb}{bool}\PYG{p}{)}  \PYG{c+c1}{\PYGZsh{} Prelocate Memory}
+        \PYG{k}{if} \PYG{n}{prob} \PYG{o+ow}{is} \PYG{o+ow}{not} \PYG{k+kc}{None}\PYG{p}{:}
+            \PYG{n}{rand\PYGZus{}feat} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{random}\PYG{o}{.}\PYG{n}{choice}\PYG{p}{(}\PYG{n+nb}{range}\PYG{p}{(}\PYG{n}{data}\PYG{o}{.}\PYG{n}{shape}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{]} \PYG{o}{\PYGZhy{}} \PYG{l+m+mi}{1}\PYG{p}{)}\PYG{p}{,} \PYG{n}{size}\PYG{o}{=}\PYG{n+nb}{int}\PYG{p}{(}\PYG{n}{np}\PYG{o}{.}\PYG{n}{min}\PYG{p}{(}\PYG{p}{(}\PYG{n}{np}\PYG{o}{.}\PYG{n}{random}\PYG{o}{.}\PYG{n}{choice}\PYG{p}{(}\PYG{n+nb}{range}\PYG{p}{(}\PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{data}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]}\PYG{p}{)} \PYG{o}{\PYGZhy{}} \PYG{l+m+mi}{1}\PYG{p}{)}\PYG{p}{)} \PYG{o}{+} \PYG{l+m+mi}{1}\PYG{p}{,} \PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{np}\PYG{o}{.}\PYG{n}{nonzero}\PYG{p}{(}\PYG{n}{prob}\PYG{p}{)}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]}\PYG{p}{)}\PYG{p}{)}\PYG{p}{)}\PYG{p}{)}\PYG{p}{,}
+                                         \PYG{n}{replace}\PYG{o}{=}\PYG{k+kc}{False}\PYG{p}{,} \PYG{n}{p}\PYG{o}{=}\PYG{n}{prob}\PYG{p}{)}  \PYG{c+c1}{\PYGZsh{} size must be \PYGZlt{}= nonzero values of p, otherwise one feature gets selected twice}
+        \PYG{k}{if} \PYG{n}{prob} \PYG{o+ow}{is} \PYG{k+kc}{None}\PYG{p}{:}
+            \PYG{n}{rand\PYGZus{}feat} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{random}\PYG{o}{.}\PYG{n}{choice}\PYG{p}{(}\PYG{n+nb}{range}\PYG{p}{(}\PYG{n}{data}\PYG{o}{.}\PYG{n}{shape}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{]} \PYG{o}{\PYGZhy{}} \PYG{l+m+mi}{1}\PYG{p}{)}\PYG{p}{,} \PYG{n}{size}\PYG{o}{=}\PYG{n+nb}{int}\PYG{p}{(}\PYG{n}{np}\PYG{o}{.}\PYG{n}{random}\PYG{o}{.}\PYG{n}{choice}\PYG{p}{(}\PYG{n+nb}{range}\PYG{p}{(}\PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{data}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]}\PYG{p}{)} \PYG{o}{\PYGZhy{}} \PYG{l+m+mi}{1}\PYG{p}{)}\PYG{p}{)} \PYG{o}{+} \PYG{l+m+mi}{1}\PYG{p}{)}\PYG{p}{,} \PYG{n}{replace}\PYG{o}{=}\PYG{k+kc}{False}\PYG{p}{,} \PYG{n}{p}\PYG{o}{=}\PYG{k+kc}{None}\PYG{p}{)}  \PYG{c+c1}{\PYGZsh{} size must be \PYGZlt{}= nonzero values of p, otherwise one feature gets selected twice}
+
+        \PYG{n}{rand\PYGZus{}feat} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{sort}\PYG{p}{(}\PYG{n}{rand\PYGZus{}feat}\PYG{p}{)}  \PYG{c+c1}{\PYGZsh{} sort ascending}
+        \PYG{n}{mask\PYGZus{}sub\PYGZus{}features}\PYG{p}{[}\PYG{n}{rand\PYGZus{}feat}\PYG{p}{]} \PYG{o}{=} \PYG{k+kc}{True}
+        \PYG{c+c1}{\PYGZsh{} print \PYGZdq{}current feature set: \PYGZdq{} + str(mask\PYGZus{}sub\PYGZus{}features) \PYGZsh{} Debugging Line}
+
+        \PYG{c+c1}{\PYGZsh{} Predict the new feature set}
+        \PYG{n}{predictions} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{zeros}\PYG{p}{(}\PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{trees}\PYG{p}{)}\PYG{p}{)}  \PYG{c+c1}{\PYGZsh{} Prelocate Memory}
+        \PYG{n}{i} \PYG{o}{=} \PYG{l+m+mi}{0}  \PYG{c+c1}{\PYGZsh{} set counter for going through all trees}
+        \PYG{c+c1}{\PYGZsh{} classify the randomly chosen feature sets in each tree}
+        \PYG{k}{for} \PYG{n}{tree} \PYG{o+ow}{in} \PYG{n}{trees}\PYG{p}{:}
+            \PYG{n}{predictions}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]} \PYG{o}{=} \PYG{n}{classify}\PYG{p}{(}\PYG{n}{mask\PYGZus{}sub\PYGZus{}features}\PYG{p}{,} \PYG{n}{tree}\PYG{p}{)}\PYG{o}{.}\PYG{n}{keys}\PYG{p}{(}\PYG{p}{)}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]}
+            \PYG{n}{i} \PYG{o}{+}\PYG{o}{=} \PYG{l+m+mi}{1}
+        \PYG{c+c1}{\PYGZsh{} print \PYGZdq{}predictions: \PYGZdq{} + str(predictions) \PYGZsh{} Debugging Line}
+        \PYG{c+c1}{\PYGZsh{} print \PYGZdq{}best\PYGZus{}mean = \PYGZdq{} + str(best\PYGZus{}mean) \PYGZsh{} Debugging Line}
+        \PYG{c+c1}{\PYGZsh{} calculate mean an std for all predictions in a tree}
+        \PYG{n}{mean}\PYG{p}{[}\PYG{n}{x}\PYG{p}{]} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{mean}\PYG{p}{(}\PYG{n}{predictions}\PYG{p}{)}
+        \PYG{n}{var}\PYG{p}{[}\PYG{n}{x}\PYG{p}{]} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{var}\PYG{p}{(}\PYG{n}{predictions}\PYG{p}{)} \PYG{o}{/} \PYG{n+nb}{abs}\PYG{p}{(}\PYG{n}{mean}\PYG{p}{[}\PYG{n}{x}\PYG{p}{]}\PYG{p}{)}  \PYG{c+c1}{\PYGZsh{} ? correct?}
+        \PYG{c+c1}{\PYGZsh{} check if current mean and var are better than best mean and var}
+        \PYG{c+c1}{\PYGZsh{} calculation: best\PYGZus{}mean = 1.0*mean + 0.1*var and vice versa}
+        \PYG{k}{if} \PYG{n}{best\PYGZus{}mean} \PYG{o}{==} \PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]} \PYG{o+ow}{or} \PYG{n}{mean}\PYG{p}{[}\PYG{n}{x}\PYG{p}{]} \PYG{o}{+} \PYG{n}{var}\PYG{p}{[}\PYG{n}{x}\PYG{p}{]} \PYG{o}{*} \PYG{l+m+mf}{0.1} \PYG{o}{\PYGZgt{}} \PYG{n}{best\PYGZus{}mean}\PYG{p}{:}
+            \PYG{n}{best\PYGZus{}mean} \PYG{o}{=} \PYG{n}{mean}\PYG{p}{[}\PYG{n}{x}\PYG{p}{]} \PYG{o}{+} \PYG{n}{var}\PYG{p}{[}\PYG{n}{x}\PYG{p}{]} \PYG{o}{*} \PYG{l+m+mf}{0.1}
+
+            \PYG{c+c1}{\PYGZsh{} print \PYGZdq{}best\PYGZus{}mean updated: \PYGZdq{} + str(best\PYGZus{}mean) \PYGZsh{} Debugging Line}
+            \PYG{n}{best\PYGZus{}featureset\PYGZus{}mean} \PYG{o}{=} \PYG{n}{mask\PYGZus{}sub\PYGZus{}features}
+            \PYG{c+c1}{\PYGZsh{} print \PYGZdq{}best\PYGZus{}featureset\PYGZus{}mean = \PYGZdq{} + str(best\PYGZus{}featureset\PYGZus{}mean) \PYGZsh{} Debugging Line}
+        \PYG{k}{if} \PYG{n}{best\PYGZus{}var} \PYG{o}{==} \PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]} \PYG{o+ow}{or} \PYG{n}{var}\PYG{p}{[}\PYG{n}{x}\PYG{p}{]} \PYG{o}{+} \PYG{n}{mean}\PYG{p}{[}\PYG{n}{x}\PYG{p}{]} \PYG{o}{*} \PYG{l+m+mf}{0.1} \PYG{o}{\PYGZgt{}} \PYG{n}{best\PYGZus{}var}\PYG{p}{:}
+            \PYG{n}{best\PYGZus{}var} \PYG{o}{=} \PYG{n}{var}\PYG{p}{[}\PYG{n}{x}\PYG{p}{]} \PYG{o}{+} \PYG{n}{mean}\PYG{p}{[}\PYG{n}{x}\PYG{p}{]} \PYG{o}{*} \PYG{l+m+mf}{0.1}
+            \PYG{c+c1}{\PYGZsh{} print \PYGZdq{}best\PYGZus{}var updated: \PYGZdq{} + str(best\PYGZus{}var) \PYGZsh{} Debugging Line}
+            \PYG{n}{best\PYGZus{}featureset\PYGZus{}var} \PYG{o}{=} \PYG{n}{mask\PYGZus{}sub\PYGZus{}features}
+            \PYG{c+c1}{\PYGZsh{} print \PYGZdq{}best\PYGZus{}featureset\PYGZus{}var = \PYGZdq{} + str(best\PYGZus{}featureset\PYGZus{}var) \PYGZsh{} Debugging Line}
+    \PYG{c+c1}{\PYGZsh{} print \PYGZdq{}best mean for current forest: \PYGZdq{} + str(best\PYGZus{}mean) \PYGZsh{} Debugging Line}
+    \PYG{c+c1}{\PYGZsh{} print \PYGZdq{}best feature set for best mean: \PYGZdq{} + str(best\PYGZus{}featureset\PYGZus{}mean) \PYGZsh{} Debugging Line}
+    \PYG{c+c1}{\PYGZsh{} print \PYGZdq{}best var for current forest: \PYGZdq{} + str(best\PYGZus{}var) \PYGZsh{} Debugging Line}
+    \PYG{c+c1}{\PYGZsh{} print \PYGZdq{}best feature set for best var\PYGZdq{} + str(best\PYGZus{}featureset\PYGZus{}var) \PYGZsh{} Debugging Line}
+    \PYG{k}{return} \PYG{n}{best\PYGZus{}mean}\PYG{p}{,} \PYG{n}{best\PYGZus{}var}\PYG{p}{,} \PYG{n}{best\PYGZus{}featureset\PYGZus{}mean}\PYG{p}{,} \PYG{n}{best\PYGZus{}featureset\PYGZus{}var}
+
+
+\PYG{c+c1}{\PYGZsh{} based on the probabilities of each feature in past Forests, a new current\PYGZus{}prob is calculated that takes into}
+\PYG{c+c1}{\PYGZsh{} account the mean and the gradient of the prior feature importances}
+\PYG{k}{def} \PYG{n+nf}{update\PYGZus{}prob}\PYG{p}{(}\PYG{n}{Probability}\PYG{p}{,} \PYG{n}{i}\PYG{p}{,} \PYG{n}{weight\PYGZus{}mean}\PYG{p}{,} \PYG{n}{weight\PYGZus{}gradient}\PYG{p}{,} \PYG{n}{multiplier}\PYG{p}{,} \PYG{n}{seen\PYGZus{}forests}\PYG{p}{)}\PYG{p}{:}
+    \PYG{l+s+sd}{\PYGZdq{}\PYGZdq{}\PYGZdq{}Calculates the current Importance / Probability of the single features}
+
+\PYG{l+s+sd}{    Based on the probabilities of each feature in past Forests a new current\PYGZus{}prob is calculated that takes into}
+\PYG{l+s+sd}{    account the mean and the gradient of the prior feature importances.}
+
+
+\PYG{l+s+sd}{    Arguments:}
+\PYG{l+s+sd}{        * Probability \PYGZob{}numpy array\PYGZcb{} \PYGZhy{}\PYGZhy{} contains Importances of single features for all past Random Forests}
+\PYG{l+s+sd}{        * i \PYGZob{}integer\PYGZcb{} \PYGZhy{}\PYGZhy{} number of current Forest}
+\PYG{l+s+sd}{        * weight\PYGZus{}mean \PYGZob{}float\PYGZcb{} \PYGZhy{}\PYGZhy{} weight of the mean in calculating resulting probability}
+\PYG{l+s+sd}{        * weight\PYGZus{}gradient \PYGZob{}float\PYGZcb{} \PYGZhy{}\PYGZhy{} weight of the var in calculating resulting probability}
+\PYG{l+s+sd}{        * multiplier \PYGZob{}float\PYGZcb{} \PYGZhy{}\PYGZhy{} exponent for amplifying probabilities}
+\PYG{l+s+sd}{        * seen\PYGZus{}forests \PYGZob{}integer\PYGZcb{} \PYGZhy{}\PYGZhy{} number of before built forest that are considered}
+
+\PYG{l+s+sd}{    Returns:}
+\PYG{l+s+sd}{        prob\PYGZus{}current \PYGZhy{}\PYGZhy{} list of floats representing the calculated aggregation of recent feature importances}
+\PYG{l+s+sd}{    \PYGZdq{}\PYGZdq{}\PYGZdq{}}
+    \PYG{c+c1}{\PYGZsh{} print \PYGZdq{}Probability: \PYGZdq{} + str(Probability[0:i + 1]) \PYGZsh{} Debugging Line}
+
+    \PYG{c+c1}{\PYGZsh{} if only one or two calculations of prob has been done so far, leave prob empty}
+    \PYG{c+c1}{\PYGZsh{} (np.gradient needs 3 points and 3 random Forests to provide better statistical insurance than only 1 Random Forest)}
+    \PYG{k}{if} \PYG{n}{i} \PYG{o}{\PYGZlt{}}\PYG{o}{=} \PYG{l+m+mi}{1}\PYG{p}{:}
+        \PYG{n}{prob\PYGZus{}current} \PYG{o}{=} \PYG{k+kc}{None}
+    \PYG{k}{else}\PYG{p}{:}
+        \PYG{c+c1}{\PYGZsh{} gradients contains the current gradient for each feature}
+        \PYG{c+c1}{\PYGZsh{} map: function list is applied to all zip(transposed(a)) (without list: zip generatets tuple instead of list)}
+        \PYG{k}{if} \PYG{n}{i} \PYG{o}{\PYGZlt{}} \PYG{n}{seen\PYGZus{}forests}\PYG{p}{:}
+            \PYG{n}{gradients} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{gradient}\PYG{p}{(}\PYG{n+nb}{map}\PYG{p}{(}\PYG{n+nb}{list}\PYG{p}{,} \PYG{n+nb}{zip}\PYG{p}{(}\PYG{o}{*}\PYG{n}{Probability}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{:}\PYG{n}{i} \PYG{o}{+} \PYG{l+m+mi}{1}\PYG{p}{]}\PYG{p}{)}\PYG{p}{)}\PYG{p}{,} \PYG{n}{axis}\PYG{o}{=}\PYG{l+m+mi}{1}\PYG{p}{)}
+            \PYG{n}{mean} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{mean}\PYG{p}{(}\PYG{n+nb}{map}\PYG{p}{(}\PYG{n+nb}{list}\PYG{p}{,} \PYG{n+nb}{zip}\PYG{p}{(}\PYG{o}{*}\PYG{n}{Probability}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{:}\PYG{n}{i} \PYG{o}{+} \PYG{l+m+mi}{1}\PYG{p}{]}\PYG{p}{)}\PYG{p}{)}\PYG{p}{,} \PYG{n}{axis}\PYG{o}{=}\PYG{l+m+mi}{1}\PYG{p}{)}
+        \PYG{c+c1}{\PYGZsh{} only the last seen\PYGZus{}forests values will be taken into account}
+        \PYG{k}{else}\PYG{p}{:}
+            \PYG{c+c1}{\PYGZsh{} print \PYGZdq{}consider only last \PYGZdq{} + str(seen\PYGZus{}forests) + \PYGZdq{} forests for calculation of probability\PYGZdq{}}
+            \PYG{n}{gradients} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{gradient}\PYG{p}{(}\PYG{n+nb}{map}\PYG{p}{(}\PYG{n+nb}{list}\PYG{p}{,} \PYG{n+nb}{zip}\PYG{p}{(}\PYG{o}{*}\PYG{n}{Probability}\PYG{p}{[}\PYG{n}{i} \PYG{o}{\PYGZhy{}} \PYG{n}{seen\PYGZus{}forests}\PYG{p}{:}\PYG{n}{i} \PYG{o}{+} \PYG{l+m+mi}{1}\PYG{p}{]}\PYG{p}{)}\PYG{p}{)}\PYG{p}{,} \PYG{n}{axis}\PYG{o}{=}\PYG{l+m+mi}{1}\PYG{p}{)}
+            \PYG{n}{mean} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{mean}\PYG{p}{(}\PYG{n+nb}{map}\PYG{p}{(}\PYG{n+nb}{list}\PYG{p}{,} \PYG{n+nb}{zip}\PYG{p}{(}\PYG{o}{*}\PYG{n}{Probability}\PYG{p}{[}\PYG{n}{i} \PYG{o}{\PYGZhy{}} \PYG{n}{seen\PYGZus{}forests}\PYG{p}{:}\PYG{n}{i} \PYG{o}{+} \PYG{l+m+mi}{1}\PYG{p}{]}\PYG{p}{)}\PYG{p}{)}\PYG{p}{,} \PYG{n}{axis}\PYG{o}{=}\PYG{l+m+mi}{1}\PYG{p}{)}
+
+        \PYG{c+c1}{\PYGZsh{} print \PYGZdq{}gradients: \PYGZdq{} + str(gradients) \PYGZsh{} Debugging Line}
+
+        \PYG{c+c1}{\PYGZsh{} calculate the mean of the gradient for each feature}
+        \PYG{n}{gradients\PYGZus{}mean} \PYG{o}{=} \PYG{n+nb}{map}\PYG{p}{(}\PYG{n}{np}\PYG{o}{.}\PYG{n}{mean}\PYG{p}{,} \PYG{n}{gradients}\PYG{p}{)}
+        \PYG{c+c1}{\PYGZsh{} print \PYGZdq{}gradients\PYGZus{}mean: \PYGZdq{} + str(gradients\PYGZus{}mean) \PYGZsh{} Debugging Line}
+
+        \PYG{c+c1}{\PYGZsh{} calculate the norm of the gradient for each feature}
+        \PYG{n}{gradients\PYGZus{}norm} \PYG{o}{=} \PYG{n+nb}{map}\PYG{p}{(}\PYG{n}{np}\PYG{o}{.}\PYG{n}{linalg}\PYG{o}{.}\PYG{n}{norm}\PYG{p}{,} \PYG{n}{gradients}\PYG{p}{)}
+        \PYG{c+c1}{\PYGZsh{} print \PYGZdq{}gradients\PYGZus{}norm: \PYGZdq{} + str(gradients\PYGZus{}norm) \PYGZsh{} Debugging Line}
+
+        \PYG{c+c1}{\PYGZsh{} divide the mean by the norm(=length)}
+        \PYG{c+c1}{\PYGZsh{} (to punish strongly fluctuating values and to reward values that change only slightly over time)}
+        \PYG{n}{gradients} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{nan\PYGZus{}to\PYGZus{}num}\PYG{p}{(}\PYG{n}{np}\PYG{o}{.}\PYG{n}{divide}\PYG{p}{(}\PYG{n}{gradients\PYGZus{}mean}\PYG{p}{,} \PYG{n}{gradients\PYGZus{}norm}\PYG{p}{)}\PYG{p}{)}  \PYG{c+c1}{\PYGZsh{} nan\PYGZus{}to\PYGZus{}num: because division by zero leaves NaN}
+        \PYG{c+c1}{\PYGZsh{} print \PYGZdq{}gradients mean / norm: \PYGZdq{} + str(gradients) \PYGZsh{} Debugging Line}
+
+        \PYG{c+c1}{\PYGZsh{} scale values}
+        \PYG{n}{min\PYGZus{}max\PYGZus{}scaler} \PYG{o}{=} \PYG{n}{preprocessing}\PYG{o}{.}\PYG{n}{MinMaxScaler}\PYG{p}{(}\PYG{n}{feature\PYGZus{}range}\PYG{o}{=}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{,} \PYG{l+m+mi}{100}\PYG{p}{)}\PYG{p}{)}
+        \PYG{n}{gradients} \PYG{o}{=} \PYG{n}{min\PYGZus{}max\PYGZus{}scaler}\PYG{o}{.}\PYG{n}{fit\PYGZus{}transform}\PYG{p}{(}\PYG{n}{gradients}\PYG{o}{.}\PYG{n}{reshape}\PYG{p}{(}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{,} \PYG{l+m+mi}{1}\PYG{p}{)}\PYG{p}{)}  \PYG{c+c1}{\PYGZsh{} reshape: otherwise deprecation warning}
+        \PYG{n}{mean} \PYG{o}{=} \PYG{n}{min\PYGZus{}max\PYGZus{}scaler}\PYG{o}{.}\PYG{n}{fit\PYGZus{}transform}\PYG{p}{(}\PYG{n}{mean}\PYG{o}{.}\PYG{n}{reshape}\PYG{p}{(}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{,} \PYG{l+m+mi}{1}\PYG{p}{)}\PYG{p}{)}  \PYG{c+c1}{\PYGZsh{} reshape: otherwise deprecation warning}
+        \PYG{c+c1}{\PYGZsh{} print \PYGZdq{}gradients rescaled: \PYGZdq{} + str(gradients) \PYGZsh{} Debugging Line}
+        \PYG{c+c1}{\PYGZsh{} print \PYGZdq{}mean rescaled: \PYGZdq{} + str(mean) \PYGZsh{} Debugging Line}
+
+        \PYG{c+c1}{\PYGZsh{} calculate new probability for selection of new feature sets}
+        \PYG{c+c1}{\PYGZsh{} weight\PYGZus{}mean, weight\PYGZus{}gradient and multiplier are hyperparameters}
+        \PYG{n}{prob\PYGZus{}current} \PYG{o}{=} \PYG{p}{(}\PYG{n}{mean} \PYG{o}{*} \PYG{n}{weight\PYGZus{}mean} \PYG{o}{+} \PYG{n}{gradients} \PYG{o}{*} \PYG{n}{weight\PYGZus{}gradient}\PYG{p}{)}\PYG{o}{*}\PYG{o}{*}\PYG{n}{multiplier}
+        \PYG{c+c1}{\PYGZsh{} print \PYGZdq{}prob\PYGZus{}current: \PYGZdq{} + str(prob\PYGZus{}current) \PYGZsh{} Debugging Line}
+        \PYG{c+c1}{\PYGZsh{} print \PYGZdq{}gradients + mean: \PYGZdq{} + str(gradients) \PYGZsh{} Debugging Line}
+
+        \PYG{c+c1}{\PYGZsh{} express values as percentage (because sum(prob) must equal 1)}
+        \PYG{n}{prob\PYGZus{}current} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{divide}\PYG{p}{(}\PYG{n}{prob\PYGZus{}current}\PYG{p}{,} \PYG{n}{np}\PYG{o}{.}\PYG{n}{sum}\PYG{p}{(}\PYG{n}{prob\PYGZus{}current}\PYG{p}{)}\PYG{p}{)}
+        \PYG{c+c1}{\PYGZsh{} print \PYGZdq{}gradients percent: \PYGZdq{} + str(gradients)}
+        \PYG{n}{prob\PYGZus{}current} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{array}\PYG{p}{(}\PYG{p}{[}\PYG{n}{item} \PYG{k}{for} \PYG{n}{sublist} \PYG{o+ow}{in} \PYG{n}{prob\PYGZus{}current} \PYG{k}{for} \PYG{n}{item} \PYG{o+ow}{in} \PYG{n}{sublist}\PYG{p}{]}\PYG{p}{)}  \PYG{c+c1}{\PYGZsh{} convert nested list into usual list}
+        \PYG{c+c1}{\PYGZsh{} print \PYGZdq{}prob\PYGZus{}current: \PYGZdq{} + str(prob\PYGZus{}current) \PYGZsh{} Debugging Line}
+
+        \PYG{c+c1}{\PYGZsh{} in the last run print out the gradients}
+        \PYG{k}{if} \PYG{n}{i} \PYG{o}{+} \PYG{l+m+mi}{1} \PYG{o}{==} \PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{Probability}\PYG{p}{)}\PYG{p}{:}
+            \PYG{n+nb}{print} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{ }\PYG{l+s+s2}{\PYGZdq{}}
+            \PYG{c+c1}{\PYGZsh{} print \PYGZdq{}gradients mean: \PYGZdq{} + str(gradients\PYGZus{}mean) \PYGZsh{} Debugging Line}
+            \PYG{c+c1}{\PYGZsh{} print \PYGZdq{} \PYGZdq{} \PYGZsh{} Debugging Line}
+            \PYG{c+c1}{\PYGZsh{} print \PYGZdq{}prob\PYGZus{}current: \PYGZdq{} + str(prob\PYGZus{}current) \PYGZsh{} Debugging Line}
+    \PYG{k}{return} \PYG{n}{prob\PYGZus{}current}
+
+
+\PYG{k}{def} \PYG{n+nf}{update\PYGZus{}database}\PYG{p}{(}\PYG{n}{X}\PYG{p}{,} \PYG{n}{y}\PYG{p}{,} \PYG{n}{data}\PYG{p}{,} \PYG{n}{mask\PYGZus{}best\PYGZus{}featureset}\PYG{p}{,} \PYG{n}{X\PYGZus{}test}\PYG{p}{,} \PYG{n}{y\PYGZus{}test}\PYG{p}{)}\PYG{p}{:}
+    \PYG{l+s+sd}{\PYGZdq{}\PYGZdq{}\PYGZdq{}Appends newly tested feature sets and their result to the already calculated feature sets}
+
+\PYG{l+s+sd}{    Arguments:}
+\PYG{l+s+sd}{        * X \PYGZob{}numpy array\PYGZcb{} \PYGZhy{}\PYGZhy{} X rat data sets}
+\PYG{l+s+sd}{        * y \PYGZob{}numpy array\PYGZcb{} \PYGZhy{}\PYGZhy{} y raw data sets}
+\PYG{l+s+sd}{        * data \PYGZob{}[type]\PYGZcb{} \PYGZhy{}\PYGZhy{} data set the Forest is built upon}
+\PYG{l+s+sd}{        * mask\PYGZus{}best\PYGZus{}featureset \PYGZob{}bool\PYGZcb{} \PYGZhy{}\PYGZhy{} feature set (1: feature contained, 0: feature not contained)}
+\PYG{l+s+sd}{        * X\PYGZus{}test \PYGZob{}numpy array\PYGZcb{} \PYGZhy{}\PYGZhy{} test data set}
+\PYG{l+s+sd}{        * y\PYGZus{}test \PYGZob{}numpy array\PYGZcb{} \PYGZhy{}\PYGZhy{} test data set}
+
+\PYG{l+s+sd}{    Returns:}
+\PYG{l+s+sd}{        data \PYGZhy{}\PYGZhy{} updated data base}
+\PYG{l+s+sd}{    \PYGZdq{}\PYGZdq{}\PYGZdq{}}
+    \PYG{c+c1}{\PYGZsh{} create the best mean feature set}
+    \PYG{n}{X\PYGZus{}sub} \PYG{o}{=} \PYG{n}{X}\PYG{p}{[}\PYG{p}{:}\PYG{p}{,} \PYG{n}{mask\PYGZus{}best\PYGZus{}featureset}\PYG{p}{]}
+    \PYG{c+c1}{\PYGZsh{} compute the corresponding y values}
+    \PYG{n}{y\PYGZus{}new} \PYG{o}{=} \PYG{n}{compute}\PYG{p}{(}\PYG{n}{X\PYGZus{}sub}\PYG{p}{,} \PYG{n}{y}\PYG{p}{,} \PYG{n}{mask\PYGZus{}best\PYGZus{}featureset}\PYG{p}{,} \PYG{n}{X\PYGZus{}test}\PYG{p}{,} \PYG{n}{y\PYGZus{}test}\PYG{p}{)}
+    \PYG{c+c1}{\PYGZsh{} combine feature set and new y (result)}
+    \PYG{n}{new\PYGZus{}dataset} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{n}{mask\PYGZus{}best\PYGZus{}featureset}\PYG{p}{,} \PYG{n}{y\PYGZus{}new}\PYG{p}{)}
+    \PYG{c+c1}{\PYGZsh{} print \PYGZdq{}new\PYGZus{}dataset\PYGZus{}mean: \PYGZdq{} + str(new\PYGZus{}dataset\PYGZus{}mean) \PYGZsh{} Debugging Line}
+    \PYG{c+c1}{\PYGZsh{} print new\PYGZus{}dataset\PYGZus{}mean.shape \PYGZsh{} Debugging Line}
+
+    \PYG{c+c1}{\PYGZsh{} append new feature sets and according result to dataset}
+    \PYG{n}{data} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{n}{data}\PYG{p}{,} \PYG{p}{[}\PYG{n}{new\PYGZus{}dataset}\PYG{p}{]}\PYG{p}{,} \PYG{n}{axis}\PYG{o}{=}\PYG{l+m+mi}{0}\PYG{p}{)}
+    \PYG{k}{return} \PYG{n}{data}
+
+
+\PYG{c+c1}{\PYGZsh{} This is the main part of the program which uses the above made definitions}
+\PYG{k}{def} \PYG{n+nf}{main\PYGZus{}loop}\PYG{p}{(}\PYG{n}{n\PYGZus{}start}\PYG{p}{,} \PYG{n}{pruning}\PYG{p}{,} \PYG{n}{min\PYGZus{}data}\PYG{p}{,} \PYG{n}{n\PYGZus{}forests}\PYG{p}{,} \PYG{n}{n\PYGZus{}trees}\PYG{p}{,} \PYG{n}{n\PYGZus{}configs\PYGZus{}biased}\PYG{p}{,} \PYG{n}{n\PYGZus{}configs\PYGZus{}unbiased}\PYG{p}{,} \PYG{n}{multiplier\PYGZus{}stepup}\PYG{p}{,} \PYG{n}{seen\PYGZus{}forests}\PYG{p}{,}
+              \PYG{n}{weight\PYGZus{}mean}\PYG{p}{,} \PYG{n}{weight\PYGZus{}gradient}\PYG{p}{,} \PYG{n}{scoref}\PYG{p}{,} \PYG{n}{demo\PYGZus{}mode}\PYG{p}{,} \PYG{n}{plot\PYGZus{}enable}\PYG{p}{)}\PYG{p}{:}
+    \PYG{l+s+sd}{\PYGZdq{}\PYGZdq{}\PYGZdq{}Load raw data and Generate database for Random Forest. Iteratively build and burn down new Random Forests, predict the performance of new feature sets and compute two new feature sets per round.}
+
+\PYG{l+s+sd}{    Arguments:}
+
+\PYG{l+s+sd}{        * n\PYGZus{}start \PYGZob{}int\PYGZcb{} \PYGZhy{}\PYGZhy{} number of runs before building first RF = number of data points in first RF; minimum = 4, default = 50}
+\PYG{l+s+sd}{        * pruning \PYGZob{}float\PYGZcb{} \PYGZhy{}\PYGZhy{} if greater than zero, branches of a Decision Tree will be pruned proportional to pruning value; default = 0}
+\PYG{l+s+sd}{        * min\PYGZus{}data \PYGZob{}float\PYGZcb{} \PYGZhy{}\PYGZhy{} minimum percentage of Datasets that is used in RF generation; default = 0.2}
+\PYG{l+s+sd}{        * n\PYGZus{}forests \PYGZob{}int\PYGZcb{} \PYGZhy{}\PYGZhy{} number of forests; minimum=1;  default = 25}
+\PYG{l+s+sd}{        * n\PYGZus{}trees \PYGZob{}int\PYGZcb{} \PYGZhy{}\PYGZhy{} \PYGZsh{} number of trees that stand in a forest; min = 3; default = number of features x 3 x}
+\PYG{l+s+sd}{        * n\PYGZus{}configs\PYGZus{}biased \PYGZob{}int\PYGZcb{} \PYGZhy{}\PYGZhy{} \PYGZsh{} number of deliberately chosen feature sets that get predicted in each forest; default = n\PYGZus{}trees x 5}
+\PYG{l+s+sd}{        * n\PYGZus{}configs\PYGZus{}unbiased \PYGZob{}int\PYGZcb{} \PYGZhy{}\PYGZhy{} \PYGZsh{} number of randomly chosen feature sets that get predicted in each forest; default = n\PYGZus{}configs\PYGZus{}biased x0.2}
+\PYG{l+s+sd}{        * multiplier\PYGZus{}stepup \PYGZob{}float\PYGZcb{} \PYGZhy{}\PYGZhy{} \PYGZsh{} sets how aggressively the feature importance changes; default = 0.25}
+\PYG{l+s+sd}{        * seen\PYGZus{}forests \PYGZob{}int\PYGZcb{} \PYGZhy{}\PYGZhy{} \PYGZsh{} number of recent forests that are taken into acount for generating probability of the chosen feature sets default = 4}
+\PYG{l+s+sd}{        * weight\PYGZus{}mean \PYGZob{}float\PYGZcb{} \PYGZhy{}\PYGZhy{} \PYGZsh{} weight of the mean in calculating the new probability for selecting future feature sets; default = 0.2}
+\PYG{l+s+sd}{        * weight\PYGZus{}gradient \PYGZob{}bool\PYGZcb{} \PYGZhy{}\PYGZhy{} \PYGZsh{} weight of the gradient in calculating the new probability for selecting future feature sets; default = 0.8}
+\PYG{l+s+sd}{        * scoref \PYGZob{}function\PYGZcb{} \PYGZhy{}\PYGZhy{} \PYGZsh{} which scoring metric should be used in the Decision Tree (available: entropy and giniimpurity); default = entropy}
+\PYG{l+s+sd}{        * demo\PYGZus{}mode bool \PYGZhy{}\PYGZhy{} \PYGZsh{} if true a comparison between the Random Forest driven Search and a random search is done}
+\PYG{l+s+sd}{        * plot\PYGZus{}enable bool \PYGZhy{}\PYGZhy{} \PYGZsh{} decide if at the end a plot should be generated , only possible in demo mode}
+
+\PYG{l+s+sd}{    \PYGZdq{}\PYGZdq{}\PYGZdq{}}
+    \PYG{n+nb}{print} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{Starting script}\PYG{l+s+s2}{\PYGZdq{}}
+    \PYG{c+c1}{\PYGZsh{} Generate Test Data}
+    \PYG{n+nb}{print} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{Loading Raw Data}\PYG{l+s+s2}{\PYGZdq{}}
+    \PYG{n}{X\PYGZus{}test}\PYG{p}{,} \PYG{n}{X}\PYG{p}{,} \PYG{n}{y\PYGZus{}test}\PYG{p}{,} \PYG{n}{y}\PYG{p}{,} \PYG{n}{n\PYGZus{}feat} \PYG{o}{=} \PYG{n}{import\PYGZus{}data}\PYG{p}{(}\PYG{p}{)}
+    \PYG{c+c1}{\PYGZsh{} set default hyperparameters}
+    \PYG{n+nb}{print} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{Setting Hyperparameters}\PYG{l+s+s2}{\PYGZdq{}}
+    \PYG{k}{if} \PYG{n}{n\PYGZus{}trees} \PYG{o+ow}{is} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{default}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{:}
+        \PYG{n}{n\PYGZus{}trees} \PYG{o}{=} \PYG{n}{n\PYGZus{}feat} \PYG{o}{*} \PYG{l+m+mi}{3}
+    \PYG{k}{if} \PYG{n}{seen\PYGZus{}forests} \PYG{o+ow}{is} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{default}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{:}
+        \PYG{n}{seen\PYGZus{}forests} \PYG{o}{=} \PYG{l+m+mi}{4}
+    \PYG{k}{if} \PYG{n}{n\PYGZus{}configs\PYGZus{}biased} \PYG{o+ow}{is} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{default}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{:}
+        \PYG{n}{n\PYGZus{}configs\PYGZus{}biased} \PYG{o}{=} \PYG{n}{n\PYGZus{}trees} \PYG{o}{*} \PYG{l+m+mi}{5}  \PYG{c+c1}{\PYGZsh{} number of biased configs that get predicted in each forest}
+    \PYG{k}{if} \PYG{n}{n\PYGZus{}configs\PYGZus{}unbiased} \PYG{o+ow}{is} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{default}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{:}
+        \PYG{n}{n\PYGZus{}configs\PYGZus{}unbiased} \PYG{o}{=} \PYG{n+nb}{int}\PYG{p}{(}\PYG{n+nb}{round}\PYG{p}{(}\PYG{n}{n\PYGZus{}configs\PYGZus{}biased} \PYG{o}{*} \PYG{l+m+mf}{0.2}\PYG{p}{)}\PYG{p}{)}  \PYG{c+c1}{\PYGZsh{} number of unbiased configs that get predicted in each forest}
+    \PYG{k}{if} \PYG{n}{multiplier\PYGZus{}stepup} \PYG{o+ow}{is} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{default}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{:}
+        \PYG{n}{multiplier\PYGZus{}stepup} \PYG{o}{=} \PYG{l+m+mf}{0.01}
+    \PYG{k}{if} \PYG{n}{weight\PYGZus{}mean} \PYG{o+ow}{is} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{default}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{:}
+        \PYG{n}{weight\PYGZus{}mean} \PYG{o}{=} \PYG{l+m+mf}{0.1}
+    \PYG{k}{if} \PYG{n}{weight\PYGZus{}gradient} \PYG{o+ow}{is} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{default}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{:}
+        \PYG{n}{weight\PYGZus{}gradient} \PYG{o}{=} \PYG{l+m+mf}{0.9}
+    \PYG{k}{if} \PYG{n}{scoref} \PYG{o+ow}{is} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{default}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{:}
+        \PYG{n}{scoref} \PYG{o}{=} \PYG{n}{entropy}
+    \PYG{k}{elif} \PYG{n}{scoref} \PYG{o+ow}{is} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{entropy}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{:}
+        \PYG{n}{scoref} \PYG{o}{=} \PYG{n}{entropy}
+    \PYG{k}{elif} \PYG{n}{scoref} \PYG{o+ow}{is} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{giniimpurity}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{:}
+        \PYG{n}{scoref} \PYG{o}{=} \PYG{n}{giniimpurity}
+    \PYG{k}{elif} \PYG{n}{scoref} \PYG{o+ow}{is} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{variance}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{:}
+        \PYG{n}{scoref} \PYG{o}{=} \PYG{n}{variance}
+    \PYG{k}{if} \PYG{n}{pruning} \PYG{o}{\PYGZgt{}} \PYG{l+m+mi}{0}\PYG{p}{:}
+        \PYG{n+nb}{print} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{Pruning enabled}\PYG{l+s+s2}{\PYGZdq{}}
+
+    \PYG{n}{multiplier} \PYG{o}{=} \PYG{l+m+mi}{1}  \PYG{c+c1}{\PYGZsh{} initialize value for multiplier}
+
+    \PYG{n}{Probability} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{zeros}\PYG{p}{(}\PYG{n}{shape}\PYG{o}{=}\PYG{p}{[}\PYG{n}{n\PYGZus{}forests}\PYG{p}{,} \PYG{n}{n\PYGZus{}feat}\PYG{p}{]}\PYG{p}{)}  \PYG{c+c1}{\PYGZsh{} Prelocate Memory: probabilites for selecting features in svm}
+
+    \PYG{c+c1}{\PYGZsh{} Generate database for RF}
+    \PYG{n+nb}{print} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{Generate Data Base for Random Forest}\PYG{l+s+s2}{\PYGZdq{}}
+    \PYG{n}{data} \PYG{o}{=} \PYG{n}{gen\PYGZus{}database}\PYG{p}{(}\PYG{n}{n\PYGZus{}start}\PYG{p}{,} \PYG{n}{X}\PYG{p}{,} \PYG{n}{y}\PYG{p}{,} \PYG{n}{X\PYGZus{}test}\PYG{p}{,} \PYG{n}{y\PYGZus{}test}\PYG{p}{)}
+
+    \PYG{k}{if} \PYG{n}{demo\PYGZus{}mode}\PYG{p}{:}
+        \PYG{n}{data\PYGZus{}start} \PYG{o}{=} \PYG{n}{data}  \PYG{c+c1}{\PYGZsh{} save starting data for later comparison with random feature set selection}
+    \PYG{c+c1}{\PYGZsh{} print \PYGZdq{}len(data): \PYGZdq{} + str(len(data)) \PYGZsh{} Debugging Line}
+
+    \PYG{c+c1}{\PYGZsh{} \PYGZsh{}\PYGZsh{}\PYGZsh{} Start of ForestFire \PYGZsh{}\PYGZsh{}\PYGZsh{}}
+    \PYG{n+nb}{print} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{Starting ForestFire}\PYG{l+s+s2}{\PYGZdq{}}
+
+    \PYG{c+c1}{\PYGZsh{} Creating Random Forests: build n\PYGZus{}trees, each sees only subs\PYGZsh{}et of data points and subset of features of data}
+    \PYG{k}{for} \PYG{n}{i} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{n}{n\PYGZus{}forests}\PYG{p}{)}\PYG{p}{:}
+
+        \PYG{c+c1}{\PYGZsh{} create the forest}
+        \PYG{n+nb}{print} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{ }\PYG{l+s+s2}{\PYGZdq{}}
+        \PYG{n+nb}{print} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{Building Random Forest Nr. }\PYG{l+s+s2}{\PYGZdq{}} \PYG{o}{+} \PYG{n+nb}{str}\PYG{p}{(}\PYG{n}{i} \PYG{o}{+} \PYG{l+m+mi}{1}\PYG{p}{)}
+        \PYG{n}{RF}\PYG{p}{,} \PYG{n}{Probability}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]}\PYG{p}{,} \PYG{n}{trees} \PYG{o}{=} \PYG{n}{buildforest}\PYG{p}{(}\PYG{n}{data}\PYG{p}{,} \PYG{n}{n\PYGZus{}trees}\PYG{p}{,} \PYG{n}{scoref}\PYG{p}{,} \PYG{n}{n\PYGZus{}feat}\PYG{p}{,} \PYG{n}{min\PYGZus{}data}\PYG{p}{,} \PYG{n}{pruning}\PYG{p}{)}
+        \PYG{c+c1}{\PYGZsh{} print \PYGZdq{}RF: \PYGZdq{} + str(RF) \PYGZsh{} Debugging Line}
+
+        \PYG{c+c1}{\PYGZsh{} Update probability}
+        \PYG{n}{prob\PYGZus{}current} \PYG{o}{=} \PYG{n}{update\PYGZus{}prob}\PYG{p}{(}\PYG{n}{Probability}\PYG{p}{,} \PYG{n}{i}\PYG{p}{,} \PYG{n}{weight\PYGZus{}mean}\PYG{p}{,} \PYG{n}{weight\PYGZus{}gradient}\PYG{p}{,} \PYG{n}{multiplier}\PYG{p}{,} \PYG{n}{seen\PYGZus{}forests}\PYG{p}{)}
+        \PYG{n+nb}{print} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{max Probability: }\PYG{l+s+s2}{\PYGZdq{}} \PYG{o}{+} \PYG{n+nb}{str}\PYG{p}{(}\PYG{n}{np}\PYG{o}{.}\PYG{n}{max}\PYG{p}{(}\PYG{n}{prob\PYGZus{}current}\PYG{p}{)}\PYG{p}{)}
+        \PYG{c+c1}{\PYGZsh{} print np.multiply(np.divide(1.0, n\PYGZus{}feat), 2)}
+        \PYG{k}{if} \PYG{n}{i} \PYG{o}{\PYGZgt{}} \PYG{l+m+mi}{1} \PYG{o+ow}{and} \PYG{n}{np}\PYG{o}{.}\PYG{n}{max}\PYG{p}{(}\PYG{n}{prob\PYGZus{}current}\PYG{p}{)} \PYG{o}{\PYGZlt{}} \PYG{n}{np}\PYG{o}{.}\PYG{n}{multiply}\PYG{p}{(}\PYG{n}{np}\PYG{o}{.}\PYG{n}{divide}\PYG{p}{(}\PYG{l+m+mf}{1.0}\PYG{p}{,} \PYG{n}{n\PYGZus{}feat}\PYG{p}{)}\PYG{p}{,} \PYG{l+m+mi}{2}\PYG{p}{)}\PYG{p}{:}
+            \PYG{n}{multiplier} \PYG{o}{+}\PYG{o}{=} \PYG{n}{multiplier\PYGZus{}stepup}
+            \PYG{n+nb}{print} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{raised multiplier to }\PYG{l+s+s2}{\PYGZdq{}} \PYG{o}{+} \PYG{n+nb}{str}\PYG{p}{(}\PYG{n}{multiplier}\PYG{p}{)}
+        \PYG{c+c1}{\PYGZsh{} print RF \PYGZsh{} Debugging Line}
+        \PYG{c+c1}{\PYGZsh{} print \PYGZdq{} \PYGZdq{} \PYGZsh{} Debugging Line}
+        \PYG{c+c1}{\PYGZsh{} print \PYGZdq{}Predicting new possible configs\PYGZdq{} \PYGZsh{} Debugging Line}
+        \PYG{c+c1}{\PYGZsh{} print \PYGZdq{}biased configs\PYGZdq{} \PYGZsh{} Debugging Line}
+
+        \PYG{c+c1}{\PYGZsh{} test new biased and unbiased feature sets and extract the best feature sets}
+        \PYG{n}{best\PYGZus{}mean\PYGZus{}biased}\PYG{p}{,} \PYG{n}{best\PYGZus{}var\PYGZus{}biased}\PYG{p}{,} \PYG{n}{best\PYGZus{}featureset\PYGZus{}mean\PYGZus{}biased}\PYG{p}{,} \PYG{n}{best\PYGZus{}featureset\PYGZus{}var\PYGZus{}biased} \PYG{o}{=} \PYG{n}{forest\PYGZus{}predict}\PYG{p}{(}
+            \PYG{n}{data}\PYG{p}{,} \PYG{n}{trees}\PYG{p}{,} \PYG{n}{prob\PYGZus{}current}\PYG{p}{,} \PYG{n}{n\PYGZus{}configs\PYGZus{}biased}\PYG{p}{,} \PYG{n}{biased}\PYG{o}{=}\PYG{k+kc}{True}\PYG{p}{)}
+        \PYG{c+c1}{\PYGZsh{} print \PYGZdq{} \PYGZdq{} \PYGZsh{} Debugging Line}
+        \PYG{c+c1}{\PYGZsh{} print \PYGZdq{}unbiased configs\PYGZdq{} \PYGZsh{} Debugging Line}
+        \PYG{n}{best\PYGZus{}mean\PYGZus{}unbiased}\PYG{p}{,} \PYG{n}{best\PYGZus{}var\PYGZus{}unbiased}\PYG{p}{,} \PYG{n}{best\PYGZus{}featureset\PYGZus{}mean\PYGZus{}unbiased}\PYG{p}{,} \PYG{n}{best\PYGZus{}featureset\PYGZus{}var\PYGZus{}unbiased} \PYG{o}{=} \PYG{n}{forest\PYGZus{}predict}\PYG{p}{(}
+            \PYG{n}{data}\PYG{p}{,} \PYG{n}{trees}\PYG{p}{,} \PYG{n}{prob\PYGZus{}current}\PYG{p}{,} \PYG{n}{n\PYGZus{}configs\PYGZus{}unbiased}\PYG{p}{,} \PYG{n}{biased}\PYG{o}{=}\PYG{k+kc}{False}\PYG{p}{)}
+        \PYG{c+c1}{\PYGZsh{} print \PYGZdq{}best mean\PYGZus{}biased: \PYGZdq{} + str(best\PYGZus{}mean\PYGZus{}biased) \PYGZsh{} Debugging Line}
+        \PYG{c+c1}{\PYGZsh{} print \PYGZdq{}best mean\PYGZus{}unbiased: \PYGZdq{} + str(best\PYGZus{}mean\PYGZus{}unbiased) \PYGZsh{} Debugging Line}
+        \PYG{c+c1}{\PYGZsh{} print \PYGZdq{} \PYGZdq{} \PYGZsh{} Debugging Line}
+        \PYG{n}{best\PYGZus{}mean} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{max}\PYG{p}{(}\PYG{p}{(}\PYG{n}{best\PYGZus{}mean\PYGZus{}biased}\PYG{p}{,} \PYG{n}{best\PYGZus{}mean\PYGZus{}unbiased}\PYG{p}{)}\PYG{p}{)}
+        \PYG{k}{if} \PYG{n}{best\PYGZus{}mean} \PYG{o}{==} \PYG{n}{best\PYGZus{}mean\PYGZus{}biased}\PYG{p}{:}
+            \PYG{n}{best\PYGZus{}featureset\PYGZus{}mean} \PYG{o}{=} \PYG{n}{best\PYGZus{}featureset\PYGZus{}mean\PYGZus{}biased}
+            \PYG{n+nb}{print} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{picked biased feature set for mean}\PYG{l+s+s2}{\PYGZdq{}}
+        \PYG{k}{elif} \PYG{n}{best\PYGZus{}mean} \PYG{o}{==} \PYG{n}{best\PYGZus{}mean\PYGZus{}unbiased}\PYG{p}{:}
+            \PYG{n}{best\PYGZus{}featureset\PYGZus{}mean} \PYG{o}{=} \PYG{n}{best\PYGZus{}featureset\PYGZus{}mean\PYGZus{}unbiased}
+            \PYG{n+nb}{print} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{picked unbiased feature set for mean}\PYG{l+s+s2}{\PYGZdq{}}
+        \PYG{c+c1}{\PYGZsh{} print best\PYGZus{}mean \PYGZsh{} Debugging Line}
+        \PYG{c+c1}{\PYGZsh{} print best\PYGZus{}featureset\PYGZus{}mean \PYGZsh{} Debugging Line}
+        \PYG{c+c1}{\PYGZsh{} print \PYGZdq{}best\PYGZus{}var\PYGZus{}biased: \PYGZdq{} + str(best\PYGZus{}var\PYGZus{}biased) \PYGZsh{} Debugging Line}
+        \PYG{c+c1}{\PYGZsh{} print \PYGZdq{}best\PYGZus{}var\PYGZus{}unbiased: \PYGZdq{} + str(best\PYGZus{}var\PYGZus{}unbiased) \PYGZsh{} Debugging Line}
+        \PYG{n}{best\PYGZus{}var} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{max}\PYG{p}{(}\PYG{p}{(}\PYG{n}{best\PYGZus{}var\PYGZus{}biased}\PYG{p}{,} \PYG{n}{best\PYGZus{}var\PYGZus{}unbiased}\PYG{p}{)}\PYG{p}{)}
+        \PYG{k}{if} \PYG{n}{best\PYGZus{}var} \PYG{o}{==} \PYG{n}{best\PYGZus{}var\PYGZus{}biased}\PYG{p}{:}
+            \PYG{n}{best\PYGZus{}featureset\PYGZus{}var} \PYG{o}{=} \PYG{n}{best\PYGZus{}featureset\PYGZus{}var\PYGZus{}biased}
+            \PYG{n+nb}{print} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{picked biased feature set for var}\PYG{l+s+s2}{\PYGZdq{}}
+        \PYG{k}{elif} \PYG{n}{best\PYGZus{}var} \PYG{o}{==} \PYG{n}{best\PYGZus{}var\PYGZus{}unbiased}\PYG{p}{:}
+            \PYG{n}{best\PYGZus{}featureset\PYGZus{}var} \PYG{o}{=} \PYG{n}{best\PYGZus{}featureset\PYGZus{}var\PYGZus{}unbiased}
+            \PYG{n+nb}{print} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{picked unbiased feature set for var}\PYG{l+s+s2}{\PYGZdq{}}
+
+        \PYG{c+c1}{\PYGZsh{} update database with two new feature sets}
+        \PYG{c+c1}{\PYGZsh{} print \PYGZdq{}current feature sets:\PYGZdq{} + str(data[:, :\PYGZhy{}1]) \PYGZsh{} Debugging Line}
+        \PYG{c+c1}{\PYGZsh{} print \PYGZdq{}best\PYGZus{}var feature set:\PYGZdq{} + str(best\PYGZus{}featureset\PYGZus{}var) \PYGZsh{} Debugging Line}
+        \PYG{c+c1}{\PYGZsh{} print \PYGZdq{}best\PYGZus{}mean feature set:\PYGZdq{} + str(best\PYGZus{}featureset\PYGZus{}mean) \PYGZsh{} Debugging Line}
+
+        \PYG{c+c1}{\PYGZsh{} check if newly selected feature sets  are already in data. if so, there is no need to compute again}
+        \PYG{n}{check\PYGZus{}mean} \PYG{o}{=} \PYG{n+nb}{any}\PYG{p}{(}\PYG{n}{check} \PYG{k}{for} \PYG{n}{check} \PYG{o+ow}{in} \PYG{p}{(}\PYG{n}{np}\PYG{o}{.}\PYG{n}{array\PYGZus{}equal}\PYG{p}{(}\PYG{n}{data}\PYG{p}{[}\PYG{n}{entry}\PYG{p}{,} \PYG{p}{:}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{]}\PYG{p}{,} \PYG{n}{best\PYGZus{}featureset\PYGZus{}mean}\PYG{p}{)} \PYG{k}{for} \PYG{n}{entry} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{data}\PYG{p}{)}\PYG{p}{)}\PYG{p}{)}\PYG{p}{)}
+        \PYG{n}{check\PYGZus{}var} \PYG{o}{=} \PYG{n+nb}{any}\PYG{p}{(}\PYG{n}{check} \PYG{k}{for} \PYG{n}{check} \PYG{o+ow}{in} \PYG{p}{(}\PYG{n}{np}\PYG{o}{.}\PYG{n}{array\PYGZus{}equal}\PYG{p}{(}\PYG{n}{data}\PYG{p}{[}\PYG{n}{entry}\PYG{p}{,} \PYG{p}{:}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{]}\PYG{p}{,} \PYG{n}{best\PYGZus{}featureset\PYGZus{}var}\PYG{p}{)} \PYG{k}{for} \PYG{n}{entry} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{data}\PYG{p}{)}\PYG{p}{)}\PYG{p}{)}\PYG{p}{)}
+
+        \PYG{c+c1}{\PYGZsh{} print \PYGZdq{}data len: \PYGZdq{} + str(len(data)) \PYGZsh{} Debugging Line}
+
+        \PYG{n}{double\PYGZus{}var} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{all}\PYG{p}{(}\PYG{n}{np}\PYG{o}{.}\PYG{n}{all}\PYG{p}{(}\PYG{n}{data}\PYG{p}{[}\PYG{n}{x}\PYG{p}{,} \PYG{p}{:}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{]} \PYG{o}{==} \PYG{n}{best\PYGZus{}featureset\PYGZus{}var} \PYG{k}{for} \PYG{n}{x} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{data}\PYG{p}{[}\PYG{p}{:}\PYG{p}{,} \PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{]}\PYG{p}{)}\PYG{p}{)}\PYG{p}{)}\PYG{p}{)}
+        \PYG{n}{double\PYGZus{}mean} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{all}\PYG{p}{(}\PYG{n}{np}\PYG{o}{.}\PYG{n}{all}\PYG{p}{(}\PYG{n}{data}\PYG{p}{[}\PYG{n}{x}\PYG{p}{,} \PYG{p}{:}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{]} \PYG{o}{==} \PYG{n}{best\PYGZus{}featureset\PYGZus{}mean} \PYG{k}{for} \PYG{n}{x} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{data}\PYG{p}{[}\PYG{p}{:}\PYG{p}{,} \PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{]}\PYG{p}{)}\PYG{p}{)}\PYG{p}{)}\PYG{p}{)}
+
+        \PYG{k}{if} \PYG{n}{check\PYGZus{}var}\PYG{p}{:}
+            \PYG{n}{z} \PYG{o}{=} \PYG{l+m+mi}{0}
+            \PYG{n}{stopper} \PYG{o}{=} \PYG{k+kc}{False}
+            \PYG{k}{for} \PYG{n}{x} \PYG{o+ow}{in} \PYG{n}{double\PYGZus{}var}\PYG{p}{:}
+                \PYG{k}{if} \PYG{n}{x}\PYG{o}{.}\PYG{n}{all}\PYG{p}{(}\PYG{p}{)} \PYG{o+ow}{and} \PYG{o+ow}{not} \PYG{n}{stopper}\PYG{p}{:}
+                    \PYG{c+c1}{\PYGZsh{} print \PYGZdq{}Stopper: \PYGZdq{} + str(stopper) \PYGZsh{} Debugging Line}
+                    \PYG{n+nb}{print} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{Variance feature set already computed. No need to do it again}\PYG{l+s+s2}{\PYGZdq{}}
+                    \PYG{n}{data} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{n}{data}\PYG{p}{,} \PYG{p}{[}\PYG{n}{data}\PYG{p}{[}\PYG{n}{z}\PYG{p}{]}\PYG{p}{]}\PYG{p}{,} \PYG{n}{axis}\PYG{o}{=}\PYG{l+m+mi}{0}\PYG{p}{)}
+                    \PYG{n}{stopper} \PYG{o}{=} \PYG{k+kc}{True}
+                \PYG{n}{z} \PYG{o}{+}\PYG{o}{=} \PYG{l+m+mi}{1}
+        \PYG{k}{else}\PYG{p}{:}
+            \PYG{n}{data} \PYG{o}{=} \PYG{n}{update\PYGZus{}database}\PYG{p}{(}\PYG{n}{X}\PYG{p}{,} \PYG{n}{y}\PYG{p}{,} \PYG{n}{data}\PYG{p}{,} \PYG{n}{best\PYGZus{}featureset\PYGZus{}var}\PYG{p}{,} \PYG{n}{X\PYGZus{}test}\PYG{p}{,} \PYG{n}{y\PYGZus{}test}\PYG{p}{)}
+
+        \PYG{k}{if} \PYG{n}{check\PYGZus{}mean}\PYG{p}{:}
+            \PYG{n}{z} \PYG{o}{=} \PYG{l+m+mi}{0}
+            \PYG{n}{stopper} \PYG{o}{=} \PYG{k+kc}{False}
+            \PYG{k}{for} \PYG{n}{x} \PYG{o+ow}{in} \PYG{n}{double\PYGZus{}mean}\PYG{p}{:}
+                \PYG{k}{if} \PYG{n}{x}\PYG{o}{.}\PYG{n}{all}\PYG{p}{(}\PYG{p}{)} \PYG{o+ow}{and} \PYG{o+ow}{not} \PYG{n}{stopper}\PYG{p}{:}
+                    \PYG{c+c1}{\PYGZsh{} print \PYGZdq{}Stopper: \PYGZdq{} + str(stopper) \PYGZsh{} Debugging Line}
+                    \PYG{n+nb}{print} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{Mean feature set already computed. No need to do it agin!}\PYG{l+s+s2}{\PYGZdq{}}
+                    \PYG{n}{data} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{n}{data}\PYG{p}{,} \PYG{p}{[}\PYG{n}{data}\PYG{p}{[}\PYG{n}{z}\PYG{p}{]}\PYG{p}{]}\PYG{p}{,} \PYG{n}{axis}\PYG{o}{=}\PYG{l+m+mi}{0}\PYG{p}{)}
+                    \PYG{n}{stopper} \PYG{o}{=} \PYG{k+kc}{True}
+                \PYG{n}{z} \PYG{o}{+}\PYG{o}{=} \PYG{l+m+mi}{1}
+        \PYG{k}{else}\PYG{p}{:}
+            \PYG{n}{data} \PYG{o}{=} \PYG{n}{update\PYGZus{}database}\PYG{p}{(}\PYG{n}{X}\PYG{p}{,} \PYG{n}{y}\PYG{p}{,} \PYG{n}{data}\PYG{p}{,} \PYG{n}{best\PYGZus{}featureset\PYGZus{}mean}\PYG{p}{,} \PYG{n}{X\PYGZus{}test}\PYG{p}{,} \PYG{n}{y\PYGZus{}test}\PYG{p}{)}
+
+        \PYG{c+c1}{\PYGZsh{} check for current best feature sets}
+        \PYG{n}{best\PYGZus{}featuresets\PYGZus{}sorted} \PYG{o}{=} \PYG{n}{data}\PYG{p}{[}\PYG{n}{np}\PYG{o}{.}\PYG{n}{argsort}\PYG{p}{(}\PYG{o}{\PYGZhy{}}\PYG{n}{data}\PYG{p}{[}\PYG{p}{:}\PYG{p}{,} \PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{]}\PYG{p}{)}\PYG{p}{]}
+        \PYG{k}{if} \PYG{n}{i} \PYG{o}{==} \PYG{l+m+mi}{0}\PYG{p}{:}
+            \PYG{n}{best\PYGZus{}featuresets\PYGZus{}sorted\PYGZus{}old} \PYG{o}{=} \PYG{n}{best\PYGZus{}featuresets\PYGZus{}sorted}  \PYG{c+c1}{\PYGZsh{} initialize storage value}
+        \PYG{c+c1}{\PYGZsh{} if the best 5 feature sets have improved, update the current best feature sets}
+        \PYG{k}{if} \PYG{n+nb}{sum}\PYG{p}{(}\PYG{n}{best\PYGZus{}featuresets\PYGZus{}sorted}\PYG{p}{[}\PYG{p}{:}\PYG{l+m+mi}{5}\PYG{p}{,} \PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{]}\PYG{p}{)} \PYG{o}{\PYGZgt{}} \PYG{n+nb}{sum}\PYG{p}{(}\PYG{n}{best\PYGZus{}featuresets\PYGZus{}sorted\PYGZus{}old}\PYG{p}{[}\PYG{p}{:}\PYG{l+m+mi}{5}\PYG{p}{,} \PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{]}\PYG{p}{)} \PYG{o+ow}{or} \PYG{n}{i} \PYG{o}{==} \PYG{l+m+mi}{0}\PYG{p}{:}
+            \PYG{n+nb}{print} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{found new best 5 feature sets: }\PYG{l+s+s2}{\PYGZdq{}} \PYG{o}{+} \PYG{n+nb}{str}\PYG{p}{(}\PYG{n}{best\PYGZus{}featuresets\PYGZus{}sorted}\PYG{p}{[}\PYG{p}{:}\PYG{l+m+mi}{5}\PYG{p}{]}\PYG{p}{)}
+        \PYG{c+c1}{\PYGZsh{} store values for comparison to later results}
+        \PYG{n}{best\PYGZus{}featuresets\PYGZus{}sorted\PYGZus{}old} \PYG{o}{=} \PYG{n}{best\PYGZus{}featuresets\PYGZus{}sorted}
+
+    \PYG{c+c1}{\PYGZsh{} \PYGZsh{}\PYGZsh{}\PYGZsh{} End of ForestFire \PYGZsh{}\PYGZsh{}\PYGZsh{}}
+
+    \PYG{c+c1}{\PYGZsh{} store results}
+    \PYG{n+nb}{print} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{Storing results}\PYG{l+s+s2}{\PYGZdq{}}
+    \PYG{n}{np}\PYG{o}{.}\PYG{n}{savetxt}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{results.txt}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{,} \PYG{n}{best\PYGZus{}featuresets\PYGZus{}sorted}\PYG{p}{)}
+    \PYG{n}{np}\PYG{o}{.}\PYG{n}{save}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{results}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{,} \PYG{n}{best\PYGZus{}featuresets\PYGZus{}sorted}\PYG{p}{)}
+
+    \PYG{n+nb}{print} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{ }\PYG{l+s+s2}{\PYGZdq{}}
+    \PYG{n+nb}{print} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{ForestFire finished}\PYG{l+s+s2}{\PYGZdq{}}
+    \PYG{n+nb}{print} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{ }\PYG{l+s+s2}{\PYGZdq{}}
+
+    \PYG{k}{if} \PYG{n}{demo\PYGZus{}mode}\PYG{p}{:}
+        \PYG{c+c1}{\PYGZsh{} Generate additional data set to compare performance of RF to random selection of feature sets}
+        \PYG{n+nb}{print} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{Generating more randomly selected feature sets for comparison}\PYG{l+s+s2}{\PYGZdq{}}
+        \PYG{n}{data\PYGZus{}compare} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{n}{data\PYGZus{}start}\PYG{p}{,} \PYG{n}{gen\PYGZus{}database}\PYG{p}{(}\PYG{l+m+mi}{2} \PYG{o}{*} \PYG{n}{n\PYGZus{}forests}\PYG{p}{,} \PYG{n}{X}\PYG{p}{,} \PYG{n}{y}\PYG{p}{,} \PYG{n}{X\PYGZus{}test}\PYG{p}{,} \PYG{n}{y\PYGZus{}test}\PYG{p}{)}\PYG{p}{,} \PYG{n}{axis}\PYG{o}{=}\PYG{l+m+mi}{0}\PYG{p}{)}
+        \PYG{c+c1}{\PYGZsh{} print \PYGZdq{}len(data\PYGZus{}compare): \PYGZdq{} + str(len(data\PYGZus{}compare))}
+
+        \PYG{c+c1}{\PYGZsh{} sort according to lowest MSE}
+        \PYG{n}{best\PYGZus{}featuresets\PYGZus{}sorted\PYGZus{}compare} \PYG{o}{=} \PYG{n}{data\PYGZus{}compare}\PYG{p}{[}\PYG{n}{np}\PYG{o}{.}\PYG{n}{argsort}\PYG{p}{(}\PYG{o}{\PYGZhy{}}\PYG{n}{data\PYGZus{}compare}\PYG{p}{[}\PYG{p}{:}\PYG{p}{,} \PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{]}\PYG{p}{)}\PYG{p}{]}
+
+        \PYG{c+c1}{\PYGZsh{} print out some of the results}
+        \PYG{n+nb}{print} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{best 5 feature sets of random selection: }\PYG{l+s+s2}{\PYGZdq{}} \PYG{o}{+} \PYG{n+nb}{str}\PYG{p}{(}\PYG{n}{best\PYGZus{}featuresets\PYGZus{}sorted\PYGZus{}compare}\PYG{p}{[}\PYG{p}{:}\PYG{l+m+mi}{5}\PYG{p}{]}\PYG{p}{)}
+        \PYG{n+nb}{print} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{ }\PYG{l+s+s2}{\PYGZdq{}}
+        \PYG{n+nb}{print} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{Best result after }\PYG{l+s+s2}{\PYGZdq{}} \PYG{o}{+} \PYG{n+nb}{str}\PYG{p}{(}\PYG{n}{n\PYGZus{}start} \PYG{o}{+} \PYG{l+m+mi}{2} \PYG{o}{*} \PYG{n}{n\PYGZus{}forests}\PYG{p}{)} \PYG{o}{+} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{ random SVM runs: }\PYG{l+s+s2}{\PYGZdq{}} \PYG{o}{+} \PYG{n+nb}{str}\PYG{p}{(}\PYG{n}{best\PYGZus{}featuresets\PYGZus{}sorted\PYGZus{}compare}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{,} \PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{]}\PYG{p}{)}
+        \PYG{n+nb}{print} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{Best result of ForestFire after }\PYG{l+s+s2}{\PYGZdq{}} \PYG{o}{+} \PYG{n+nb}{str}\PYG{p}{(}\PYG{n}{n\PYGZus{}start}\PYG{p}{)} \PYG{o}{+} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{ initial random runs and }\PYG{l+s+s2}{\PYGZdq{}} \PYG{o}{+} \PYG{n+nb}{str}\PYG{p}{(}\PYG{l+m+mi}{2} \PYG{o}{*} \PYG{n}{n\PYGZus{}forests}\PYG{p}{)} \PYG{o}{+} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{ guided runs: }\PYG{l+s+s2}{\PYGZdq{}} \PYG{o}{+} \PYG{n+nb}{str}\PYG{p}{(}\PYG{n}{best\PYGZus{}featuresets\PYGZus{}sorted}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{,} \PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{]}\PYG{p}{)}
+        \PYG{k}{if} \PYG{n}{best\PYGZus{}featuresets\PYGZus{}sorted}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{,} \PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{]} \PYG{o}{\PYGZgt{}} \PYG{n}{best\PYGZus{}featuresets\PYGZus{}sorted\PYGZus{}compare}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{,} \PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{]}\PYG{p}{:}
+            \PYG{n+nb}{print} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{Performance with ForestFire improved by }\PYG{l+s+s2}{\PYGZdq{}} \PYG{o}{+} \PYG{n+nb}{str}\PYG{p}{(}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{100} \PYG{o}{*} \PYG{p}{(}\PYG{l+m+mi}{1} \PYG{o}{\PYGZhy{}} \PYG{n}{np}\PYG{o}{.}\PYG{n}{divide}\PYG{p}{(}\PYG{n}{best\PYGZus{}featuresets\PYGZus{}sorted}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{,} \PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{]}\PYG{p}{,} \PYG{n}{best\PYGZus{}featuresets\PYGZus{}sorted\PYGZus{}compare}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{,} \PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{]}\PYG{p}{)}\PYG{p}{)}\PYG{p}{)} \PYG{o}{+} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{\PYGZpc{}}\PYG{l+s+s2}{\PYGZdq{}}
+        \PYG{k}{if} \PYG{n}{best\PYGZus{}featuresets\PYGZus{}sorted}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{,} \PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{]} \PYG{o}{==} \PYG{n}{best\PYGZus{}featuresets\PYGZus{}sorted\PYGZus{}compare}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{,} \PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{]}\PYG{p}{:}
+            \PYG{n+nb}{print} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{Performance could not be improved (same MSE as in random selection)}\PYG{l+s+s2}{\PYGZdq{}}
+        \PYG{k}{if} \PYG{n}{best\PYGZus{}featuresets\PYGZus{}sorted}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{,} \PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{]} \PYG{o}{\PYGZlt{}} \PYG{n}{best\PYGZus{}featuresets\PYGZus{}sorted\PYGZus{}compare}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{,} \PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{]}\PYG{p}{:}
+            \PYG{n+nb}{print} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{Performance deteriorated, ForestFire is not suitable :(}\PYG{l+s+s2}{\PYGZdq{}}
+        \PYG{n+nb}{print} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{Execution finished}\PYG{l+s+s2}{\PYGZdq{}}
+
+        \PYG{c+c1}{\PYGZsh{} Compare Random Search VS Random Forest Search}
+        \PYG{n+nb}{print} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{ }\PYG{l+s+s2}{\PYGZdq{}}
+        \PYG{n+nb}{print} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{Found best value for ForestFire Search after }\PYG{l+s+s2}{\PYGZdq{}} \PYG{o}{+} \PYG{n+nb}{str}\PYG{p}{(}\PYG{n}{n\PYGZus{}start}\PYG{p}{)} \PYG{o}{+} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{ initial runs and }\PYG{l+s+s2}{\PYGZdq{}} \PYG{o}{+} \PYG{n+nb}{str}\PYG{p}{(}\PYG{n}{np}\PYG{o}{.}\PYG{n}{argmax}\PYG{p}{(}\PYG{n}{data}\PYG{p}{[}\PYG{p}{:}\PYG{p}{,} \PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{]} \PYG{o}{+} \PYG{l+m+mi}{1}\PYG{p}{)} \PYG{o}{\PYGZhy{}} \PYG{n}{n\PYGZus{}start}\PYG{p}{)} \PYG{o}{+} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{/}\PYG{l+s+s2}{\PYGZdq{}} \PYG{o}{+} \PYG{n+nb}{str}\PYG{p}{(}\PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{data}\PYG{p}{)} \PYG{o}{\PYGZhy{}} \PYG{n}{n\PYGZus{}start}\PYG{p}{)} \PYG{o}{+} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{ smart runs}\PYG{l+s+s2}{\PYGZdq{}}
+        \PYG{n+nb}{print} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{Best value with ForestFire: }\PYG{l+s+s2}{\PYGZdq{}} \PYG{o}{+} \PYG{n+nb}{str}\PYG{p}{(}\PYG{n}{np}\PYG{o}{.}\PYG{n}{max}\PYG{p}{(}\PYG{n}{data}\PYG{p}{[}\PYG{p}{:}\PYG{p}{,} \PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{]}\PYG{p}{)}\PYG{p}{)}
+        \PYG{n+nb}{print} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{ }\PYG{l+s+s2}{\PYGZdq{}}
+        \PYG{n+nb}{print} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{Found best value for Random Search after }\PYG{l+s+s2}{\PYGZdq{}} \PYG{o}{+} \PYG{n+nb}{str}\PYG{p}{(}\PYG{n}{np}\PYG{o}{.}\PYG{n}{argmax}\PYG{p}{(}\PYG{n}{data\PYGZus{}compare}\PYG{p}{[}\PYG{p}{:}\PYG{p}{,} \PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{]}\PYG{p}{)}\PYG{p}{)} \PYG{o}{+} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{ random runs}\PYG{l+s+s2}{\PYGZdq{}}
+        \PYG{n+nb}{print} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{Best value with Random Search: }\PYG{l+s+s2}{\PYGZdq{}} \PYG{o}{+} \PYG{n+nb}{str}\PYG{p}{(}\PYG{n}{np}\PYG{o}{.}\PYG{n}{max}\PYG{p}{(}\PYG{n}{data\PYGZus{}compare}\PYG{p}{[}\PYG{p}{:}\PYG{p}{,} \PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{]}\PYG{p}{)}\PYG{p}{)}
+
+        \PYG{n+nb}{print} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{ }\PYG{l+s+s2}{\PYGZdq{}}
+        \PYG{n+nb}{print} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{Creating Plots}\PYG{l+s+s2}{\PYGZdq{}}
+
+        \PYG{c+c1}{\PYGZsh{} plots}
+        \PYG{k}{if} \PYG{n}{plot\PYGZus{}enable} \PYG{o+ow}{and} \PYG{n}{demo\PYGZus{}mode}\PYG{p}{:}
+            \PYG{c+c1}{\PYGZsh{} first plot}
+            \PYG{n}{plt}\PYG{o}{.}\PYG{n}{figure}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{,} \PYG{n}{figsize}\PYG{o}{=}\PYG{p}{(}\PYG{l+m+mi}{25}\PYG{p}{,} \PYG{l+m+mi}{12}\PYG{p}{)}\PYG{p}{)}
+            \PYG{n}{plt}\PYG{o}{.}\PYG{n}{plot}\PYG{p}{(}\PYG{n}{np}\PYG{o}{.}\PYG{n}{array}\PYG{p}{(}\PYG{n+nb}{range}\PYG{p}{(}\PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{data}\PYG{p}{[}\PYG{p}{:}\PYG{p}{,} \PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{]}\PYG{p}{)}\PYG{p}{)}\PYG{p}{)}\PYG{p}{,} \PYG{n}{data}\PYG{p}{[}\PYG{p}{:}\PYG{p}{,} \PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{]}\PYG{p}{,} \PYG{n}{label}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{ForestFire}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
+            \PYG{n}{plt}\PYG{o}{.}\PYG{n}{plot}\PYG{p}{(}\PYG{n}{np}\PYG{o}{.}\PYG{n}{array}\PYG{p}{(}\PYG{n+nb}{range}\PYG{p}{(}\PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{data\PYGZus{}compare}\PYG{p}{[}\PYG{p}{:}\PYG{p}{,} \PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{]}\PYG{p}{)}\PYG{p}{)}\PYG{p}{)}\PYG{p}{,} \PYG{n}{data\PYGZus{}compare}\PYG{p}{[}\PYG{p}{:}\PYG{p}{,} \PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{]}\PYG{p}{,} \PYG{n}{label}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{Random Search}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
+
+            \PYG{n}{plt}\PYG{o}{.}\PYG{n}{xlabel}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{n\PYGZus{}start}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
+            \PYG{n}{plt}\PYG{o}{.}\PYG{n}{ylabel}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{Score}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
+            \PYG{n}{plt}\PYG{o}{.}\PYG{n}{title}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{Results current best score}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
+            \PYG{n}{plt}\PYG{o}{.}\PYG{n}{legend}\PYG{p}{(}\PYG{n}{loc}\PYG{o}{=}\PYG{l+m+mi}{2}\PYG{p}{)}
+            \PYG{n}{plt}\PYG{o}{.}\PYG{n}{annotate}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{Highest Score ForestFire}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{,} \PYG{n}{xycoords}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{data}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{,}
+                         \PYG{n}{xy}\PYG{o}{=}\PYG{p}{(}\PYG{n}{np}\PYG{o}{.}\PYG{n}{argmax}\PYG{p}{(}\PYG{n}{data}\PYG{p}{[}\PYG{p}{:}\PYG{p}{,} \PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{]}\PYG{p}{)}\PYG{p}{,} \PYG{n}{np}\PYG{o}{.}\PYG{n}{max}\PYG{p}{(}\PYG{n}{data}\PYG{p}{[}\PYG{p}{:}\PYG{p}{,} \PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{]}\PYG{p}{)}\PYG{p}{)}\PYG{p}{,}
+                         \PYG{n}{xytext}\PYG{o}{=}\PYG{p}{(}\PYG{n}{np}\PYG{o}{.}\PYG{n}{argmax}\PYG{p}{(}\PYG{n}{data}\PYG{p}{[}\PYG{p}{:}\PYG{p}{,} \PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{]}\PYG{p}{)} \PYG{o}{*} \PYG{l+m+mf}{1.05}\PYG{p}{,} \PYG{n}{np}\PYG{o}{.}\PYG{n}{max}\PYG{p}{(}\PYG{n}{data}\PYG{p}{[}\PYG{p}{:}\PYG{p}{,} \PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{]}\PYG{p}{)} \PYG{o}{*} \PYG{l+m+mf}{1.01}\PYG{p}{)}\PYG{p}{,}
+                         \PYG{n}{arrowprops}\PYG{o}{=}\PYG{n+nb}{dict}\PYG{p}{(}\PYG{n}{facecolor}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{black}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{,} \PYG{n}{shrink}\PYG{o}{=}\PYG{l+m+mi}{1}\PYG{p}{)}\PYG{p}{,}
+                         \PYG{p}{)}
+            \PYG{n}{plt}\PYG{o}{.}\PYG{n}{annotate}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{Highest Score Random Search}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{,} \PYG{n}{xycoords}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{data}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{,}
+                         \PYG{n}{xy}\PYG{o}{=}\PYG{p}{(}\PYG{n}{np}\PYG{o}{.}\PYG{n}{argmax}\PYG{p}{(}\PYG{n}{data\PYGZus{}compare}\PYG{p}{[}\PYG{p}{:}\PYG{p}{,} \PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{]}\PYG{p}{)}\PYG{p}{,} \PYG{n}{np}\PYG{o}{.}\PYG{n}{max}\PYG{p}{(}\PYG{n}{data\PYGZus{}compare}\PYG{p}{[}\PYG{p}{:}\PYG{p}{,} \PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{]}\PYG{p}{)}\PYG{p}{)}\PYG{p}{,}
+                         \PYG{n}{xytext}\PYG{o}{=}\PYG{p}{(}\PYG{n}{np}\PYG{o}{.}\PYG{n}{argmax}\PYG{p}{(}\PYG{n}{data\PYGZus{}compare}\PYG{p}{[}\PYG{p}{:}\PYG{p}{,} \PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{]}\PYG{p}{)} \PYG{o}{*} \PYG{l+m+mf}{1.05}\PYG{p}{,} \PYG{n}{np}\PYG{o}{.}\PYG{n}{max}\PYG{p}{(}\PYG{n}{data\PYGZus{}compare}\PYG{p}{[}\PYG{p}{:}\PYG{p}{,} \PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{]}\PYG{p}{)} \PYG{o}{*} \PYG{l+m+mf}{0.95}\PYG{p}{)}\PYG{p}{,}
+                         \PYG{n}{arrowprops}\PYG{o}{=}\PYG{n+nb}{dict}\PYG{p}{(}\PYG{n}{facecolor}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{black}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{,} \PYG{n}{shrink}\PYG{o}{=}\PYG{l+m+mi}{1}\PYG{p}{)}\PYG{p}{,}
+                         \PYG{p}{)}
+
+            \PYG{c+c1}{\PYGZsh{} second plot}
+            \PYG{n}{data\PYGZus{}high} \PYG{o}{=} \PYG{n}{data}
+            \PYG{k}{for} \PYG{n}{x} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{data\PYGZus{}high}\PYG{p}{)} \PYG{o}{\PYGZhy{}} \PYG{l+m+mi}{1}\PYG{p}{)}\PYG{p}{:}
+                \PYG{k}{if} \PYG{n}{data\PYGZus{}high}\PYG{p}{[}\PYG{n}{x}\PYG{p}{,} \PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{]} \PYG{o}{\PYGZgt{}} \PYG{n}{data\PYGZus{}high}\PYG{p}{[}\PYG{n}{x} \PYG{o}{+} \PYG{l+m+mi}{1}\PYG{p}{,} \PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{]}\PYG{p}{:}
+                    \PYG{n}{data\PYGZus{}high}\PYG{p}{[}\PYG{n}{x} \PYG{o}{+} \PYG{l+m+mi}{1}\PYG{p}{,} \PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{]} \PYG{o}{=} \PYG{n}{data\PYGZus{}high}\PYG{p}{[}\PYG{n}{x}\PYG{p}{,} \PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{]}
+
+            \PYG{n}{data\PYGZus{}compare\PYGZus{}high} \PYG{o}{=} \PYG{n}{data\PYGZus{}compare}
+            \PYG{k}{for} \PYG{n}{x} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{data\PYGZus{}compare\PYGZus{}high}\PYG{p}{)} \PYG{o}{\PYGZhy{}} \PYG{l+m+mi}{1}\PYG{p}{)}\PYG{p}{:}
+                \PYG{k}{if} \PYG{n}{data\PYGZus{}compare\PYGZus{}high}\PYG{p}{[}\PYG{n}{x}\PYG{p}{,} \PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{]} \PYG{o}{\PYGZgt{}} \PYG{n}{data\PYGZus{}compare\PYGZus{}high}\PYG{p}{[}\PYG{n}{x} \PYG{o}{+} \PYG{l+m+mi}{1}\PYG{p}{,} \PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{]}\PYG{p}{:}
+                    \PYG{n}{data\PYGZus{}compare\PYGZus{}high}\PYG{p}{[}\PYG{n}{x} \PYG{o}{+} \PYG{l+m+mi}{1}\PYG{p}{,} \PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{]} \PYG{o}{=} \PYG{n}{data\PYGZus{}compare\PYGZus{}high}\PYG{p}{[}\PYG{n}{x}\PYG{p}{,} \PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{]}
+
+            \PYG{n}{plt}\PYG{o}{.}\PYG{n}{figure}\PYG{p}{(}\PYG{l+m+mi}{2}\PYG{p}{,} \PYG{n}{figsize}\PYG{o}{=}\PYG{p}{(}\PYG{l+m+mi}{25}\PYG{p}{,} \PYG{l+m+mi}{12}\PYG{p}{)}\PYG{p}{)}
+            \PYG{n}{plt}\PYG{o}{.}\PYG{n}{plot}\PYG{p}{(}\PYG{n}{np}\PYG{o}{.}\PYG{n}{array}\PYG{p}{(}\PYG{n+nb}{range}\PYG{p}{(}\PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{data}\PYG{p}{[}\PYG{p}{:}\PYG{p}{,} \PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{]}\PYG{p}{)}\PYG{p}{)}\PYG{p}{)}\PYG{p}{,} \PYG{n}{data\PYGZus{}high}\PYG{p}{[}\PYG{p}{:}\PYG{p}{,} \PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{]}\PYG{p}{,} \PYG{n}{label}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{ForestFire}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
+            \PYG{n}{plt}\PYG{o}{.}\PYG{n}{plot}\PYG{p}{(}\PYG{n}{np}\PYG{o}{.}\PYG{n}{array}\PYG{p}{(}\PYG{n+nb}{range}\PYG{p}{(}\PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{data\PYGZus{}compare}\PYG{p}{[}\PYG{p}{:}\PYG{p}{,} \PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{]}\PYG{p}{)}\PYG{p}{)}\PYG{p}{)}\PYG{p}{,} \PYG{n}{data\PYGZus{}compare}\PYG{p}{[}\PYG{p}{:}\PYG{p}{,} \PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{]}\PYG{p}{,} \PYG{n}{label}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{Random Search}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
+
+            \PYG{n}{plt}\PYG{o}{.}\PYG{n}{xlabel}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{n\PYGZus{}start}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
+            \PYG{n}{plt}\PYG{o}{.}\PYG{n}{ylabel}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{Score}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
+            \PYG{n}{plt}\PYG{o}{.}\PYG{n}{title}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{Results all time best score}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
+            \PYG{n}{plt}\PYG{o}{.}\PYG{n}{legend}\PYG{p}{(}\PYG{n}{loc}\PYG{o}{=}\PYG{l+m+mi}{2}\PYG{p}{)}
+
+            \PYG{n}{plt}\PYG{o}{.}\PYG{n}{show}\PYG{p}{(}\PYG{p}{)}
+\end{sphinxVerbatim}
 
 
 \chapter{Indices and tables}

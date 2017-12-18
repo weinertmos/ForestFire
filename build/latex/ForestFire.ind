@@ -3,41 +3,41 @@
 
   \bigletter B
   \item branch, \hyperindexformat{\textbf}{3}
-  \item buildforest() (in module ForestFire.Main), \hyperpage{27}
-  \item buildtree() (in module ForestFire.Main), \hyperpage{22}
+  \item buildforest() (in module ForestFire.Main), \hyperpage{22}
+  \item buildtree() (in module ForestFire.Main), \hyperpage{18}
 
   \indexspace
   \bigletter C
-  \item check\_path() (in module ForestFire.Main), \hyperpage{23}
-  \item classify() (in module ForestFire.Main), \hyperpage{22}
-  \item compute() (in module ForestFire.compute), \hyperpage{6}
+  \item check\_path() (in module ForestFire.Main), \hyperpage{19}
+  \item classify() (in module ForestFire.Main), \hyperpage{18}
+  \item compute() (in module ForestFire.compute), \hyperpage{5}
 
   \indexspace
   \bigletter D
   \item Decision Tree, \hyperindexformat{\textbf}{3}
-  \item decisionnode (class in ForestFire.Main), \hyperpage{20}
-  \item divideset() (in module ForestFire.Main), \hyperpage{21}
-  \item drawnode() (in module ForestFire.Main), \hyperpage{22}
-  \item drawtree() (in module ForestFire.Main), \hyperpage{22}
+  \item decisionnode (class in ForestFire.Main), \hyperpage{16}
+  \item divideset() (in module ForestFire.Main), \hyperpage{17}
+  \item drawnode() (in module ForestFire.Main), \hyperpage{18}
+  \item drawtree() (in module ForestFire.Main), \hyperpage{18}
 
   \indexspace
   \bigletter E
-  \item entropy() (in module ForestFire.Main), \hyperpage{21}
+  \item entropy() (in module ForestFire.Main), \hyperpage{17}
 
   \indexspace
   \bigletter F
   \item feature, \hyperindexformat{\textbf}{3}
   \item feature set, \hyperindexformat{\textbf}{4}
-  \item forest\_predict() (in module ForestFire.Main), \hyperpage{28}
+  \item forest\_predict() (in module ForestFire.Main), \hyperpage{23}
   \item ForestFire, \hyperindexformat{\textbf}{4}
   \item ForestFire (module), \hyperpage{1}
 
   \indexspace
   \bigletter G
-  \item gen\_database() (in module ForestFire.Main), \hyperpage{6}
-  \item getdepth() (in module ForestFire.Main), \hyperpage{22}
-  \item getwidth() (in module ForestFire.Main), \hyperpage{22}
-  \item giniimpurity() (in module ForestFire.Main), \hyperpage{21}
+  \item gen\_database() (in module ForestFire.Main), \hyperpage{5}
+  \item getdepth() (in module ForestFire.Main), \hyperpage{18}
+  \item getwidth() (in module ForestFire.Main), \hyperpage{18}
+  \item giniimpurity() (in module ForestFire.Main), \hyperpage{17}
 
   \indexspace
   \bigletter I
@@ -50,7 +50,7 @@
   \indexspace
   \bigletter M
   \item Machine Learning Algorithm, \hyperindexformat{\textbf}{4}
-  \item main\_loop() (in module ForestFire.Main), \hyperpage{13}
+  \item main\_loop() (in module ForestFire.Main), \hyperpage{10}
 
   \indexspace
   \bigletter N
@@ -62,10 +62,10 @@
 
   \indexspace
   \bigletter P
-  \item path\_gen() (in module ForestFire.Main), \hyperpage{23}
-  \item path\_gen2() (in module ForestFire.Main), \hyperpage{23}
-  \item printtree() (in module ForestFire.Main), \hyperpage{22}
-  \item prune() (in module ForestFire.Main), \hyperpage{22}
+  \item path\_gen() (in module ForestFire.Main), \hyperpage{19}
+  \item path\_gen2() (in module ForestFire.Main), \hyperpage{19}
+  \item printtree() (in module ForestFire.Main), \hyperpage{18}
+  \item prune() (in module ForestFire.Main), \hyperpage{18}
   \item pruning, \hyperindexformat{\textbf}{4}
 
   \indexspace
@@ -79,13 +79,13 @@
 
   \indexspace
   \bigletter U
-  \item uniquecounts() (in module ForestFire.Main), \hyperpage{22}
-  \item update\_database() (in module ForestFire.Main), \hyperpage{29}
-  \item update\_prob() (in module ForestFire.Main), \hyperpage{27}
-  \item update\_RF() (in module ForestFire.Main), \hyperpage{27}
+  \item uniquecounts() (in module ForestFire.Main), \hyperpage{18}
+  \item update\_database() (in module ForestFire.Main), \hyperpage{24}
+  \item update\_prob() (in module ForestFire.Main), \hyperpage{22}
+  \item update\_RF() (in module ForestFire.Main), \hyperpage{22}
 
   \indexspace
   \bigletter V
-  \item variance() (in module ForestFire.Main), \hyperpage{21}
+  \item variance() (in module ForestFire.Main), \hyperpage{17}
 
 \end{theindex}

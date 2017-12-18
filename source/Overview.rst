@@ -103,15 +103,3 @@ About the author
 ----------------
 
 Information about the author.
-
-
-
-
-
-
-.. _blank:
-
-.. figure:: pyplots/blank.jpg
-    :scale: 80%
-    :alt: treeview.jpg
-    :align: center

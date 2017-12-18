@@ -210,14 +210,3 @@ A generic output (with demo mode on) can look like this::
     **Functions used in this chapter**
 
     .. autofunction:: ForestFire.Main.main_loop
-
-
-
-
-
-.. _blank:
-
-.. figure:: pyplots/blank.jpg
-    :scale: 80%
-    :alt: treeview.jpg
-    :align: center

@@ -41,6 +41,14 @@ Evaluation Mode
 
     Evaluation
 
+Source Code
+-----------
+
+.. toctree::
+    :maxdepth: 3
+
+    SourceCode
+
 Indices and tables
 ==================
 
