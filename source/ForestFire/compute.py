@@ -29,7 +29,7 @@ def compute(X_train, y_train, mask_sub_features, X_test, y_test):
     """
 
     # insert your own machine learning algorithm #
-    param_grid = [{'C': np.logspace(-1, 1, 6), 'gamma': np.logspace(-1, 1, 6)}]
+    param_grid = [{'C': np.logspace(-1, 1, 16), 'gamma': np.logspace(-1, 1, 16)}]
     clf = svm.SVC()  # SVR for regression, SVC for classification
     grid = GridSearchCV(clf, param_grid, cv=None, n_jobs=-1, scoring='neg_mean_squared_error', pre_dispatch=8)
     grid.fit(X_train, y_train)

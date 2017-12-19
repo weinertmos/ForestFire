@@ -17,6 +17,7 @@ from import_data import import_data
 np.set_printoptions(threshold=np.inf)   # print whole numpy array in console
 np.seterr(divide='ignore', invalid='ignore')  # ignore warnings if dividing by zero or NaN
 plt.style.use('bmh')
+plt.rcParams.update({'font.size': 25})
 
 # Definitions #
 
@@ -772,8 +773,8 @@ def forest_predict(data, trees, prob, n_configs, biased):
         var[x] = np.var(predictions) / abs(mean[x])  # ? correct?
         # check if current mean and var are better than best mean and var
         # calculation: best_mean = 1.0*mean + 0.1*var and vice versa
-        if best_mean == [0] or mean[x] + var[x] * 0.1 > best_mean:
-            best_mean = mean[x] + var[x] * 0.1
+        if best_mean == [0] or mean[x] + var[x] * 0.75 > best_mean:
+            best_mean = mean[x] + var[x] * 0.75
 
             # print "best_mean updated: " + str(best_mean) # Debugging Line
             best_featureset_mean = mask_sub_features
@@ -1051,7 +1052,7 @@ def main_loop(n_start, pruning, min_data, n_forests, n_trees, n_configs_biased, 
             for x in double_mean:
                 if x.all() and not stopper:
                     # print "Stopper: " + str(stopper) # Debugging Line
-                    print "Mean feature set already computed. No need to do it agin!"
+                    print "Mean feature set already computed. No need to do it again!"
                     data = np.append(data, [data[z]], axis=0)
                     stopper = True
                 z += 1
@@ -1119,7 +1120,7 @@ def main_loop(n_start, pruning, min_data, n_forests, n_trees, n_configs_biased, 
             plt.plot(np.array(range(len(data[:, -1]))), data[:, -1], label='ForestFire')
             plt.plot(np.array(range(len(data_compare[:, -1]))), data_compare[:, -1], label='Random Search')
 
-            plt.xlabel('n_start')
+            plt.xlabel('No. tested feature sets')
             plt.ylabel('Score')
             plt.title('Results current best score')
             plt.legend(loc=2)
