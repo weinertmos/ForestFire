@@ -1120,7 +1120,7 @@ def main_loop(n_start, pruning, min_data, n_forests, n_trees, n_configs_biased, 
             plt.plot(np.array(range(len(data[:, -1]))), data[:, -1], label='ForestFire')
             plt.plot(np.array(range(len(data_compare[:, -1]))), data_compare[:, -1], label='Random Search')
 
-            plt.xlabel('No. tested feature sets')
+            plt.xlabel('No. tested Feature Sets')
             plt.ylabel('Score')
             plt.title('Results current best score')
             plt.legend(loc=2)
@@ -1150,7 +1150,7 @@ def main_loop(n_start, pruning, min_data, n_forests, n_trees, n_configs_biased, 
             plt.plot(np.array(range(len(data[:, -1]))), data_high[:, -1], label='ForestFire')
             plt.plot(np.array(range(len(data_compare[:, -1]))), data_compare[:, -1], label='Random Search')
 
-            plt.xlabel('n_start')
+            plt.xlabel('No. tested Feature Sets')
             plt.ylabel('Score')
             plt.title('Results all time best score')
             plt.legend(loc=2)

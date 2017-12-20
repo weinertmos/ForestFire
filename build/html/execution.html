@@ -59,15 +59,15 @@
 
 <span class="c1"># number of runs before building first Random Forest = number of data points in first RF; minimum = 4, default = 50</span>
 <span class="c1"># adjust according to computational capabilities and demands of the underlying machine learning algorithm</span>
-<span class="n">n_start</span> <span class="o">=</span> <span class="mi">30</span>  <span class="c1"># default = 30</span>
+<span class="n">n_start</span> <span class="o">=</span> <span class="mi">30</span>  <span class="c1"># default = 30e</span>
 <span class="c1"># if pruning is greater than zero, branches of a Decision Tree will be pruned proportional to pruning value; default = 0</span>
 <span class="c1"># advanced parameter. If set too high, all trees will be cut down to stumps. Increase carefully. Start with values between 0 and 1.</span>
-<span class="n">pruning</span> <span class="o">=</span> <span class="mf">0.4</span>
+<span class="n">pruning</span> <span class="o">=</span> <span class="mf">0.3</span>
 <span class="c1"># minimum percentage of Datasets that is used in RF generation; default = 0.2</span>
-<span class="n">min_data</span> <span class="o">=</span> <span class="mf">0.2</span>
+<span class="n">min_data</span> <span class="o">=</span> <span class="mf">0.1</span>
 <span class="c1"># number of forests; minimum=1;  default = 25</span>
 <span class="c1"># adjust according to computational capabilities. For each forest two new computational runs are done. default = 20</span>
-<span class="n">n_forests</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">n_forests</span> <span class="o">=</span> <span class="mi">85</span>
 </pre></div>
 </div>
 <p>These parameters should be chosen according to computational demand of the <a class="reference internal" href="Overview.html#mla"><span class="std std-ref">MLA</span></a>.
@@ -98,9 +98,9 @@ But changing them can tweak the performance.</p>
 
 <span class="c1"># which scoring metric should be used in the Decision Tree (available: entropy, giniimpurity and variance); default = entropy</span>
 <span class="c1"># select variance for numerical values in y only</span>
-<span class="n">scoref</span> <span class="o">=</span> <span class="s1">&#39;variance&#39;</span>
+<span class="n">scoref</span> <span class="o">=</span> <span class="s1">&#39;entropy&#39;</span>
 <span class="c1"># set random seed for repeatabilit; comment out if no repeatability is required; default = 1</span>
-<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>

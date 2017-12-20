@@ -102,4 +102,6 @@ References
 About the author
 ----------------
 
-Information about the author.
+Marlon Weinert is currently graduating from the University of Stuttgart, Germany.
+After finishing a B.Sc. degree in Renewable Energies in 2015 he enroled in the M.Sc. program for Energy Technology.
+ForestFire is his first python and machine learning project.

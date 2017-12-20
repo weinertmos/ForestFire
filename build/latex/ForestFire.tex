@@ -40,7 +40,7 @@
 
 
 \title{ForestFire Documentation}
-\date{Dec 18, 2017}
+\date{Dec 20, 2017}
 \release{1.1.5}
 \author{Marlon Weinert}
 \newcommand{\sphinxlogo}{}
@@ -253,7 +253,9 @@ Feature Importance = Feature Probability
 
 \subsection{About the author}
 \label{\detokenize{Overview:about-the-author}}
-Information about the author.
+Marlon Weinert is currently graduating from the University of Stuttgart, Germany.
+After finishing a B.Sc. degree in Renewable Energies in 2015 he enroled in the M.Sc. program for Energy Technology.
+ForestFire is his first python and machine learning project.
 
 
 \section{Import Data}
@@ -415,15 +417,15 @@ There is a number of hyperparameters that can be changed or left at default:
 
 \PYG{c+c1}{\PYGZsh{} number of runs before building first Random Forest = number of data points in first RF; minimum = 4, default = 50}
 \PYG{c+c1}{\PYGZsh{} adjust according to computational capabilities and demands of the underlying machine learning algorithm}
-\PYG{n}{n\PYGZus{}start} \PYG{o}{=} \PYG{l+m+mi}{30}  \PYG{c+c1}{\PYGZsh{} default = 30}
+\PYG{n}{n\PYGZus{}start} \PYG{o}{=} \PYG{l+m+mi}{30}  \PYG{c+c1}{\PYGZsh{} default = 30e}
 \PYG{c+c1}{\PYGZsh{} if pruning is greater than zero, branches of a Decision Tree will be pruned proportional to pruning value; default = 0}
 \PYG{c+c1}{\PYGZsh{} advanced parameter. If set too high, all trees will be cut down to stumps. Increase carefully. Start with values between 0 and 1.}
-\PYG{n}{pruning} \PYG{o}{=} \PYG{l+m+mf}{0.4}
+\PYG{n}{pruning} \PYG{o}{=} \PYG{l+m+mf}{0.3}
 \PYG{c+c1}{\PYGZsh{} minimum percentage of Datasets that is used in RF generation; default = 0.2}
-\PYG{n}{min\PYGZus{}data} \PYG{o}{=} \PYG{l+m+mf}{0.2}
+\PYG{n}{min\PYGZus{}data} \PYG{o}{=} \PYG{l+m+mf}{0.1}
 \PYG{c+c1}{\PYGZsh{} number of forests; minimum=1;  default = 25}
 \PYG{c+c1}{\PYGZsh{} adjust according to computational capabilities. For each forest two new computational runs are done. default = 20}
-\PYG{n}{n\PYGZus{}forests} \PYG{o}{=} \PYG{l+m+mi}{10}
+\PYG{n}{n\PYGZus{}forests} \PYG{o}{=} \PYG{l+m+mi}{85}
 \end{sphinxVerbatim}
 
 These parameters should be chosen according to computational demand of the {\hyperref[\detokenize{Overview:mla}]{\sphinxcrossref{\DUrole{std,std-ref}{MLA}}}}.
@@ -457,9 +459,9 @@ But changing them can tweak the performance.
 
 \PYG{c+c1}{\PYGZsh{} which scoring metric should be used in the Decision Tree (available: entropy, giniimpurity and variance); default = entropy}
 \PYG{c+c1}{\PYGZsh{} select variance for numerical values in y only}
-\PYG{n}{scoref} \PYG{o}{=} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{variance}\PYG{l+s+s1}{\PYGZsq{}}
+\PYG{n}{scoref} \PYG{o}{=} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{entropy}\PYG{l+s+s1}{\PYGZsq{}}
 \PYG{c+c1}{\PYGZsh{} set random seed for repeatabilit; comment out if no repeatability is required; default = 1}
-\PYG{n}{np}\PYG{o}{.}\PYG{n}{random}\PYG{o}{.}\PYG{n}{seed}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{)}
+\PYG{n}{np}\PYG{o}{.}\PYG{n}{random}\PYG{o}{.}\PYG{n}{seed}\PYG{p}{(}\PYG{l+m+mi}{10}\PYG{p}{)}
 \end{sphinxVerbatim}
 
 
@@ -1899,7 +1901,7 @@ In this section the complete source Code is presented in html friendly style.
 \PYG{l+s+sd}{    \PYGZdq{}\PYGZdq{}\PYGZdq{}}
 
     \PYG{c+c1}{\PYGZsh{} insert your own machine learning algorithm \PYGZsh{}}
-    \PYG{n}{param\PYGZus{}grid} \PYG{o}{=} \PYG{p}{[}\PYG{p}{\PYGZob{}}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{C}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{:} \PYG{n}{np}\PYG{o}{.}\PYG{n}{logspace}\PYG{p}{(}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{,} \PYG{l+m+mi}{1}\PYG{p}{,} \PYG{l+m+mi}{6}\PYG{p}{)}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{gamma}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{:} \PYG{n}{np}\PYG{o}{.}\PYG{n}{logspace}\PYG{p}{(}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{,} \PYG{l+m+mi}{1}\PYG{p}{,} \PYG{l+m+mi}{6}\PYG{p}{)}\PYG{p}{\PYGZcb{}}\PYG{p}{]}
+    \PYG{n}{param\PYGZus{}grid} \PYG{o}{=} \PYG{p}{[}\PYG{p}{\PYGZob{}}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{C}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{:} \PYG{n}{np}\PYG{o}{.}\PYG{n}{logspace}\PYG{p}{(}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{,} \PYG{l+m+mi}{1}\PYG{p}{,} \PYG{l+m+mi}{16}\PYG{p}{)}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{gamma}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{:} \PYG{n}{np}\PYG{o}{.}\PYG{n}{logspace}\PYG{p}{(}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{,} \PYG{l+m+mi}{1}\PYG{p}{,} \PYG{l+m+mi}{16}\PYG{p}{)}\PYG{p}{\PYGZcb{}}\PYG{p}{]}
     \PYG{n}{clf} \PYG{o}{=} \PYG{n}{svm}\PYG{o}{.}\PYG{n}{SVC}\PYG{p}{(}\PYG{p}{)}  \PYG{c+c1}{\PYGZsh{} SVR for regression, SVC for classification}
     \PYG{n}{grid} \PYG{o}{=} \PYG{n}{GridSearchCV}\PYG{p}{(}\PYG{n}{clf}\PYG{p}{,} \PYG{n}{param\PYGZus{}grid}\PYG{p}{,} \PYG{n}{cv}\PYG{o}{=}\PYG{k+kc}{None}\PYG{p}{,} \PYG{n}{n\PYGZus{}jobs}\PYG{o}{=}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{,} \PYG{n}{scoring}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{neg\PYGZus{}mean\PYGZus{}squared\PYGZus{}error}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{,} \PYG{n}{pre\PYGZus{}dispatch}\PYG{o}{=}\PYG{l+m+mi}{8}\PYG{p}{)}
     \PYG{n}{grid}\PYG{o}{.}\PYG{n}{fit}\PYG{p}{(}\PYG{n}{X\PYGZus{}train}\PYG{p}{,} \PYG{n}{y\PYGZus{}train}\PYG{p}{)}
@@ -1928,15 +1930,15 @@ In this section the complete source Code is presented in html friendly style.
 
 \PYG{c+c1}{\PYGZsh{} number of runs before building first Random Forest = number of data points in first RF; minimum = 4, default = 50}
 \PYG{c+c1}{\PYGZsh{} adjust according to computational capabilities and demands of the underlying machine learning algorithm}
-\PYG{n}{n\PYGZus{}start} \PYG{o}{=} \PYG{l+m+mi}{30}  \PYG{c+c1}{\PYGZsh{} default = 30}
+\PYG{n}{n\PYGZus{}start} \PYG{o}{=} \PYG{l+m+mi}{30}  \PYG{c+c1}{\PYGZsh{} default = 30e}
 \PYG{c+c1}{\PYGZsh{} if pruning is greater than zero, branches of a Decision Tree will be pruned proportional to pruning value; default = 0}
 \PYG{c+c1}{\PYGZsh{} advanced parameter. If set too high, all trees will be cut down to stumps. Increase carefully. Start with values between 0 and 1.}
-\PYG{n}{pruning} \PYG{o}{=} \PYG{l+m+mf}{0.4}
+\PYG{n}{pruning} \PYG{o}{=} \PYG{l+m+mf}{0.3}
 \PYG{c+c1}{\PYGZsh{} minimum percentage of Datasets that is used in RF generation; default = 0.2}
-\PYG{n}{min\PYGZus{}data} \PYG{o}{=} \PYG{l+m+mf}{0.2}
+\PYG{n}{min\PYGZus{}data} \PYG{o}{=} \PYG{l+m+mf}{0.1}
 \PYG{c+c1}{\PYGZsh{} number of forests; minimum=1;  default = 25}
 \PYG{c+c1}{\PYGZsh{} adjust according to computational capabilities. For each forest two new computational runs are done. default = 20}
-\PYG{n}{n\PYGZus{}forests} \PYG{o}{=} \PYG{l+m+mi}{10}
+\PYG{n}{n\PYGZus{}forests} \PYG{o}{=} \PYG{l+m+mi}{85}
 
 \PYG{c+c1}{\PYGZsh{} number of trees that stand in a forest; min = 3; default = number of features * 3}
 \PYG{n}{n\PYGZus{}trees} \PYG{o}{=} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{default}\PYG{l+s+s1}{\PYGZsq{}}
@@ -1959,9 +1961,9 @@ In this section the complete source Code is presented in html friendly style.
 
 \PYG{c+c1}{\PYGZsh{} which scoring metric should be used in the Decision Tree (available: entropy, giniimpurity and variance); default = entropy}
 \PYG{c+c1}{\PYGZsh{} select variance for numerical values in y only}
-\PYG{n}{scoref} \PYG{o}{=} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{variance}\PYG{l+s+s1}{\PYGZsq{}}
+\PYG{n}{scoref} \PYG{o}{=} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{entropy}\PYG{l+s+s1}{\PYGZsq{}}
 \PYG{c+c1}{\PYGZsh{} set random seed for repeatabilit; comment out if no repeatability is required; default = 1}
-\PYG{n}{np}\PYG{o}{.}\PYG{n}{random}\PYG{o}{.}\PYG{n}{seed}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{)}
+\PYG{n}{np}\PYG{o}{.}\PYG{n}{random}\PYG{o}{.}\PYG{n}{seed}\PYG{p}{(}\PYG{l+m+mi}{10}\PYG{p}{)}
 
 \PYG{c+c1}{\PYGZsh{} if true a comparison between the Random Forest driven Search and a random search is done}
 \PYG{n}{demo\PYGZus{}mode} \PYG{o}{=} \PYG{k+kc}{True}
@@ -1996,6 +1998,7 @@ In this section the complete source Code is presented in html friendly style.
 \PYG{n}{np}\PYG{o}{.}\PYG{n}{set\PYGZus{}printoptions}\PYG{p}{(}\PYG{n}{threshold}\PYG{o}{=}\PYG{n}{np}\PYG{o}{.}\PYG{n}{inf}\PYG{p}{)}   \PYG{c+c1}{\PYGZsh{} print whole numpy array in console}
 \PYG{n}{np}\PYG{o}{.}\PYG{n}{seterr}\PYG{p}{(}\PYG{n}{divide}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{ignore}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{,} \PYG{n}{invalid}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{ignore}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}  \PYG{c+c1}{\PYGZsh{} ignore warnings if dividing by zero or NaN}
 \PYG{n}{plt}\PYG{o}{.}\PYG{n}{style}\PYG{o}{.}\PYG{n}{use}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{bmh}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{rcParams}\PYG{o}{.}\PYG{n}{update}\PYG{p}{(}\PYG{p}{\PYGZob{}}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{font.size}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{:} \PYG{l+m+mi}{25}\PYG{p}{\PYGZcb{}}\PYG{p}{)}
 
 \PYG{c+c1}{\PYGZsh{} Definitions \PYGZsh{}}
 
@@ -2751,8 +2754,8 @@ In this section the complete source Code is presented in html friendly style.
         \PYG{n}{var}\PYG{p}{[}\PYG{n}{x}\PYG{p}{]} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{var}\PYG{p}{(}\PYG{n}{predictions}\PYG{p}{)} \PYG{o}{/} \PYG{n+nb}{abs}\PYG{p}{(}\PYG{n}{mean}\PYG{p}{[}\PYG{n}{x}\PYG{p}{]}\PYG{p}{)}  \PYG{c+c1}{\PYGZsh{} ? correct?}
         \PYG{c+c1}{\PYGZsh{} check if current mean and var are better than best mean and var}
         \PYG{c+c1}{\PYGZsh{} calculation: best\PYGZus{}mean = 1.0*mean + 0.1*var and vice versa}
-        \PYG{k}{if} \PYG{n}{best\PYGZus{}mean} \PYG{o}{==} \PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]} \PYG{o+ow}{or} \PYG{n}{mean}\PYG{p}{[}\PYG{n}{x}\PYG{p}{]} \PYG{o}{+} \PYG{n}{var}\PYG{p}{[}\PYG{n}{x}\PYG{p}{]} \PYG{o}{*} \PYG{l+m+mf}{0.1} \PYG{o}{\PYGZgt{}} \PYG{n}{best\PYGZus{}mean}\PYG{p}{:}
-            \PYG{n}{best\PYGZus{}mean} \PYG{o}{=} \PYG{n}{mean}\PYG{p}{[}\PYG{n}{x}\PYG{p}{]} \PYG{o}{+} \PYG{n}{var}\PYG{p}{[}\PYG{n}{x}\PYG{p}{]} \PYG{o}{*} \PYG{l+m+mf}{0.1}
+        \PYG{k}{if} \PYG{n}{best\PYGZus{}mean} \PYG{o}{==} \PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]} \PYG{o+ow}{or} \PYG{n}{mean}\PYG{p}{[}\PYG{n}{x}\PYG{p}{]} \PYG{o}{+} \PYG{n}{var}\PYG{p}{[}\PYG{n}{x}\PYG{p}{]} \PYG{o}{*} \PYG{l+m+mf}{0.75} \PYG{o}{\PYGZgt{}} \PYG{n}{best\PYGZus{}mean}\PYG{p}{:}
+            \PYG{n}{best\PYGZus{}mean} \PYG{o}{=} \PYG{n}{mean}\PYG{p}{[}\PYG{n}{x}\PYG{p}{]} \PYG{o}{+} \PYG{n}{var}\PYG{p}{[}\PYG{n}{x}\PYG{p}{]} \PYG{o}{*} \PYG{l+m+mf}{0.75}
 
             \PYG{c+c1}{\PYGZsh{} print \PYGZdq{}best\PYGZus{}mean updated: \PYGZdq{} + str(best\PYGZus{}mean) \PYGZsh{} Debugging Line}
             \PYG{n}{best\PYGZus{}featureset\PYGZus{}mean} \PYG{o}{=} \PYG{n}{mask\PYGZus{}sub\PYGZus{}features}
@@ -3030,7 +3033,7 @@ In this section the complete source Code is presented in html friendly style.
             \PYG{k}{for} \PYG{n}{x} \PYG{o+ow}{in} \PYG{n}{double\PYGZus{}mean}\PYG{p}{:}
                 \PYG{k}{if} \PYG{n}{x}\PYG{o}{.}\PYG{n}{all}\PYG{p}{(}\PYG{p}{)} \PYG{o+ow}{and} \PYG{o+ow}{not} \PYG{n}{stopper}\PYG{p}{:}
                     \PYG{c+c1}{\PYGZsh{} print \PYGZdq{}Stopper: \PYGZdq{} + str(stopper) \PYGZsh{} Debugging Line}
-                    \PYG{n+nb}{print} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{Mean feature set already computed. No need to do it agin!}\PYG{l+s+s2}{\PYGZdq{}}
+                    \PYG{n+nb}{print} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{Mean feature set already computed. No need to do it again!}\PYG{l+s+s2}{\PYGZdq{}}
                     \PYG{n}{data} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{n}{data}\PYG{p}{,} \PYG{p}{[}\PYG{n}{data}\PYG{p}{[}\PYG{n}{z}\PYG{p}{]}\PYG{p}{]}\PYG{p}{,} \PYG{n}{axis}\PYG{o}{=}\PYG{l+m+mi}{0}\PYG{p}{)}
                     \PYG{n}{stopper} \PYG{o}{=} \PYG{k+kc}{True}
                 \PYG{n}{z} \PYG{o}{+}\PYG{o}{=} \PYG{l+m+mi}{1}
@@ -3098,7 +3101,7 @@ In this section the complete source Code is presented in html friendly style.
             \PYG{n}{plt}\PYG{o}{.}\PYG{n}{plot}\PYG{p}{(}\PYG{n}{np}\PYG{o}{.}\PYG{n}{array}\PYG{p}{(}\PYG{n+nb}{range}\PYG{p}{(}\PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{data}\PYG{p}{[}\PYG{p}{:}\PYG{p}{,} \PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{]}\PYG{p}{)}\PYG{p}{)}\PYG{p}{)}\PYG{p}{,} \PYG{n}{data}\PYG{p}{[}\PYG{p}{:}\PYG{p}{,} \PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{]}\PYG{p}{,} \PYG{n}{label}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{ForestFire}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
             \PYG{n}{plt}\PYG{o}{.}\PYG{n}{plot}\PYG{p}{(}\PYG{n}{np}\PYG{o}{.}\PYG{n}{array}\PYG{p}{(}\PYG{n+nb}{range}\PYG{p}{(}\PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{data\PYGZus{}compare}\PYG{p}{[}\PYG{p}{:}\PYG{p}{,} \PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{]}\PYG{p}{)}\PYG{p}{)}\PYG{p}{)}\PYG{p}{,} \PYG{n}{data\PYGZus{}compare}\PYG{p}{[}\PYG{p}{:}\PYG{p}{,} \PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{]}\PYG{p}{,} \PYG{n}{label}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{Random Search}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
 
-            \PYG{n}{plt}\PYG{o}{.}\PYG{n}{xlabel}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{n\PYGZus{}start}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
+            \PYG{n}{plt}\PYG{o}{.}\PYG{n}{xlabel}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{No. tested Feature Sets}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
             \PYG{n}{plt}\PYG{o}{.}\PYG{n}{ylabel}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{Score}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
             \PYG{n}{plt}\PYG{o}{.}\PYG{n}{title}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{Results current best score}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
             \PYG{n}{plt}\PYG{o}{.}\PYG{n}{legend}\PYG{p}{(}\PYG{n}{loc}\PYG{o}{=}\PYG{l+m+mi}{2}\PYG{p}{)}
@@ -3128,7 +3131,7 @@ In this section the complete source Code is presented in html friendly style.
             \PYG{n}{plt}\PYG{o}{.}\PYG{n}{plot}\PYG{p}{(}\PYG{n}{np}\PYG{o}{.}\PYG{n}{array}\PYG{p}{(}\PYG{n+nb}{range}\PYG{p}{(}\PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{data}\PYG{p}{[}\PYG{p}{:}\PYG{p}{,} \PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{]}\PYG{p}{)}\PYG{p}{)}\PYG{p}{)}\PYG{p}{,} \PYG{n}{data\PYGZus{}high}\PYG{p}{[}\PYG{p}{:}\PYG{p}{,} \PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{]}\PYG{p}{,} \PYG{n}{label}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{ForestFire}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
             \PYG{n}{plt}\PYG{o}{.}\PYG{n}{plot}\PYG{p}{(}\PYG{n}{np}\PYG{o}{.}\PYG{n}{array}\PYG{p}{(}\PYG{n+nb}{range}\PYG{p}{(}\PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{data\PYGZus{}compare}\PYG{p}{[}\PYG{p}{:}\PYG{p}{,} \PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{]}\PYG{p}{)}\PYG{p}{)}\PYG{p}{)}\PYG{p}{,} \PYG{n}{data\PYGZus{}compare}\PYG{p}{[}\PYG{p}{:}\PYG{p}{,} \PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{]}\PYG{p}{,} \PYG{n}{label}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{Random Search}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
 
-            \PYG{n}{plt}\PYG{o}{.}\PYG{n}{xlabel}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{n\PYGZus{}start}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
+            \PYG{n}{plt}\PYG{o}{.}\PYG{n}{xlabel}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{No. tested Feature Sets}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
             \PYG{n}{plt}\PYG{o}{.}\PYG{n}{ylabel}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{Score}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
             \PYG{n}{plt}\PYG{o}{.}\PYG{n}{title}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{Results all time best score}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
             \PYG{n}{plt}\PYG{o}{.}\PYG{n}{legend}\PYG{p}{(}\PYG{n}{loc}\PYG{o}{=}\PYG{l+m+mi}{2}\PYG{p}{)}
