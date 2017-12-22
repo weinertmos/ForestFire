@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2017.1.10)  20 DEC 2017 12:47
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2017.1.10)  22 DEC 2017 11:28
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1169,68 +1169,72 @@ File: ts1ptm.fd 2001/06/04 font definitions for TS1/ptm.
 
 ] [2]
 Chapter 2.
-LaTeX Font Info:    Try loading font information for T1+pcr on input line 169.
+LaTeX Font Info:    Try loading font information for T1+pcr on input line 156.
 (/usr/local/texlive/2016/texmf-dist/tex/latex/psnfss/t1pcr.fd
 File: t1pcr.fd 2001/06/04 font definitions for T1/pcr.
 )
 LaTeX Font Info:    Font shape `T1/pcr/m/it' in size <9> not available
-(Font)              Font shape `T1/pcr/m/sl' tried instead on input line 170.
+(Font)              Font shape `T1/pcr/m/sl' tried instead on input line 157.
 LaTeX Font Info:    Font shape `T1/pcr/bx/n' in size <9> not available
-(Font)              Font shape `T1/pcr/b/n' tried instead on input line 171.
+(Font)              Font shape `T1/pcr/b/n' tried instead on input line 158.
  [3
 
 ]
 LaTeX Font Info:    Font shape `T1/pcr/bx/n' in size <10> not available
 (Font)              Font shape `T1/pcr/b/n' tried instead on input line 1.
  [4] [5]
-LaTeX Font Info:    Try loading font information for TS1+pcr on input line 442.
+LaTeX Font Info:    Try loading font information for TS1+pcr on input line 429.
 
 
 (/usr/local/texlive/2016/texmf-dist/tex/latex/psnfss/ts1pcr.fd
 File: ts1pcr.fd 2001/06/04 font definitions for TS1/pcr.
 )
-Overfull \vbox (2.78503pt too high) detected at line 465
+Overfull \vbox (10.00792pt too high) detected at line 452
  []
 
 [6] [7]
-Underfull \vbox (badness 1472) detected at line 624
+Underfull \vbox (badness 10000) detected at line 611
+ []
+
+
+Underfull \vbox (badness 10000) detected at line 611
  []
 
 [8]
-Underfull \vbox (badness 10000) detected at line 624
+Underfull \vbox (badness 10000) detected at line 611
  []
 
 
-Underfull \vbox (badness 10000) detected at line 624
+Underfull \vbox (badness 10000) detected at line 611
  []
 
-[9] <generic_run_current.png, id=352, 1806.75pt x 867.24pt>
+[9] <generic_run_current.png, id=353, 1806.75pt x 867.24pt>
 File: generic_run_current.png Graphic file (type png)
 
 <use generic_run_current.png>
-Package pdftex.def Info: generic_run_current.png used on input line 638.
+Package pdftex.def Info: generic_run_current.png used on input line 625.
 (pdftex.def)             Requested size: 632.37198pt x 303.53854pt.
 
-<generic_run_all_time.png, id=354, 1806.75pt x 867.24pt>
+<generic_run_all_time.png, id=355, 1806.75pt x 867.24pt>
 File: generic_run_all_time.png Graphic file (type png)
 
 <use generic_run_all_time.png>
-Package pdftex.def Info: generic_run_all_time.png used on input line 643.
+Package pdftex.def Info: generic_run_all_time.png used on input line 630.
 (pdftex.def)             Requested size: 632.37198pt x 303.53854pt.
- [10 <./generic_run_current.png>] [11 <./generic_run_all_time.png>] [12
+ [10 <./generic_run_current.png> <./generic_run_all_time.png>] [11] [12
 
 ]
 Chapter 3.
 LaTeX Font Info:    Font shape `T1/ptm/bx/it' in size <10> not available
-(Font)              Font shape `T1/ptm/b/it' tried instead on input line 759.
-[13] <treeview.jpg, id=395, 803.0pt x 622.325pt>
+(Font)              Font shape `T1/ptm/b/it' tried instead on input line 746.
+[13] <treeview.jpg, id=396, 803.0pt x 622.325pt>
 File: treeview.jpg Graphic file (type jpg)
  <use treeview.jpg>
-Package pdftex.def Info: treeview.jpg used on input line 825.
+Package pdftex.def Info: treeview.jpg used on input line 812.
 (pdftex.def)             Requested size: 642.40088pt x 497.86067pt.
  [14]
 [15 <./treeview.jpg>] [16] [17] [18] [19] [20] [21]
-Underfull \hbox (badness 10000) in paragraph at lines 1506--1506
+Underfull \hbox (badness 10000) in paragraph at lines 1493--1493
 []\T1/ptm/m/it/10 Probability\T1/ptm/m/n/10 , \T1/ptm/m/it/10 i\T1/ptm/m/n/10 ,
  \T1/ptm/m/it/10 weight_mean\T1/ptm/m/n/10 , \T1/ptm/m/it/10 weight_gradient\T1
 /ptm/m/n/10 , \T1/ptm/m/it/10 mul-ti-plier\T1/ptm/m/n/10 ,
@@ -1240,216 +1244,216 @@ Underfull \hbox (badness 10000) in paragraph at lines 1506--1506
 
 ]
 Chapter 4.
-<results_current.png, id=563, 1806.75pt x 867.24pt>
+<results_current.png, id=564, 1806.75pt x 867.24pt>
 File: results_current.png Graphic file (type png)
  <use results_current.png>
-Package pdftex.def Info: results_current.png used on input line 1762.
+Package pdftex.def Info: results_current.png used on input line 1749.
 (pdftex.def)             Requested size: 632.37198pt x 303.53854pt.
 
-<results_all_time.png, id=564, 1806.75pt x 867.24pt>
+<results_all_time.png, id=565, 1806.75pt x 867.24pt>
 File: results_all_time.png Graphic file (type png)
 
 <use results_all_time.png>
-Package pdftex.def Info: results_all_time.png used on input line 1767.
+Package pdftex.def Info: results_all_time.png used on input line 1754.
 (pdftex.def)             Requested size: 632.37198pt x 303.53854pt.
  [27 <./results_current.png>] [28 <./results_all_time.png>]
 Chapter 5.
 [29
 
 ]
-Overfull \vbox (9.12766pt too high) detected at line 1976
+Overfull \vbox (9.12766pt too high) detected at line 1963
  []
 
 [30]
-Underfull \vbox (badness 10000) detected at line 1976
+Underfull \vbox (badness 10000) detected at line 1963
  []
 
 
-Underfull \vbox (badness 10000) detected at line 1976
+Underfull \vbox (badness 10000) detected at line 1963
  []
 
 [31]
 LaTeX Font Info:    Font shape `TS1/pcr/m/it' in size <9> not available
-(Font)              Font shape `TS1/pcr/m/sl' tried instead on input line 1994.
+(Font)              Font shape `TS1/pcr/m/sl' tried instead on input line 1981.
 
 
-Overfull \vbox (9.12766pt too high) detected at line 3140
+Overfull \vbox (9.12766pt too high) detected at line 3127
  []
 
 [32]
-Underfull \vbox (badness 10000) detected at line 3140
+Underfull \vbox (badness 10000) detected at line 3127
  []
 
 
-Underfull \vbox (badness 10000) detected at line 3140
+Underfull \vbox (badness 10000) detected at line 3127
  []
 
 [33]
-Underfull \vbox (badness 10000) detected at line 3140
+Underfull \vbox (badness 10000) detected at line 3127
  []
 
 
-Underfull \vbox (badness 10000) detected at line 3140
+Underfull \vbox (badness 10000) detected at line 3127
  []
 
 [34]
-Underfull \vbox (badness 10000) detected at line 3140
+Underfull \vbox (badness 10000) detected at line 3127
  []
 
 
-Underfull \vbox (badness 10000) detected at line 3140
+Underfull \vbox (badness 10000) detected at line 3127
  []
 
 [35]
-Underfull \vbox (badness 10000) detected at line 3140
+Underfull \vbox (badness 10000) detected at line 3127
  []
 
 
-Underfull \vbox (badness 10000) detected at line 3140
+Underfull \vbox (badness 10000) detected at line 3127
  []
 
 [36]
-Underfull \vbox (badness 10000) detected at line 3140
+Underfull \vbox (badness 10000) detected at line 3127
  []
 
 
-Underfull \vbox (badness 10000) detected at line 3140
+Underfull \vbox (badness 10000) detected at line 3127
  []
 
 [37]
-Underfull \vbox (badness 10000) detected at line 3140
+Underfull \vbox (badness 10000) detected at line 3127
  []
 
 
-Underfull \vbox (badness 10000) detected at line 3140
+Underfull \vbox (badness 10000) detected at line 3127
  []
 
 [38]
-Underfull \vbox (badness 10000) detected at line 3140
+Underfull \vbox (badness 10000) detected at line 3127
  []
 
 
-Underfull \vbox (badness 10000) detected at line 3140
+Underfull \vbox (badness 10000) detected at line 3127
  []
 
 [39]
-Underfull \vbox (badness 10000) detected at line 3140
+Underfull \vbox (badness 10000) detected at line 3127
  []
 
 
-Underfull \vbox (badness 10000) detected at line 3140
+Underfull \vbox (badness 10000) detected at line 3127
  []
 
 [40]
-Underfull \vbox (badness 10000) detected at line 3140
+Underfull \vbox (badness 10000) detected at line 3127
  []
 
 
-Underfull \vbox (badness 10000) detected at line 3140
+Underfull \vbox (badness 10000) detected at line 3127
  []
 
 [41]
-Underfull \vbox (badness 10000) detected at line 3140
+Underfull \vbox (badness 10000) detected at line 3127
  []
 
 
-Underfull \vbox (badness 10000) detected at line 3140
+Underfull \vbox (badness 10000) detected at line 3127
  []
 
 [42]
-Underfull \vbox (badness 10000) detected at line 3140
+Underfull \vbox (badness 10000) detected at line 3127
  []
 
 
-Underfull \vbox (badness 10000) detected at line 3140
+Underfull \vbox (badness 10000) detected at line 3127
  []
 
 [43]
-Underfull \vbox (badness 10000) detected at line 3140
+Underfull \vbox (badness 10000) detected at line 3127
  []
 
 
-Underfull \vbox (badness 10000) detected at line 3140
+Underfull \vbox (badness 10000) detected at line 3127
  []
 
 [44]
-Underfull \vbox (badness 10000) detected at line 3140
+Underfull \vbox (badness 10000) detected at line 3127
  []
 
 
-Overfull \vbox (9.36998pt too high) detected at line 3140
+Overfull \vbox (9.36998pt too high) detected at line 3127
  []
 
 [45]
-Underfull \vbox (badness 10000) detected at line 3140
+Underfull \vbox (badness 10000) detected at line 3127
  []
 
 
-Underfull \vbox (badness 10000) detected at line 3140
+Underfull \vbox (badness 10000) detected at line 3127
  []
 
 [46]
-Underfull \vbox (badness 10000) detected at line 3140
+Underfull \vbox (badness 10000) detected at line 3127
  []
 
 
-Underfull \vbox (badness 10000) detected at line 3140
+Underfull \vbox (badness 10000) detected at line 3127
  []
 
 [47]
-Underfull \vbox (badness 10000) detected at line 3140
+Underfull \vbox (badness 10000) detected at line 3127
  []
 
 
-Underfull \vbox (badness 10000) detected at line 3140
+Underfull \vbox (badness 10000) detected at line 3127
  []
 
 [48]
-Underfull \vbox (badness 10000) detected at line 3140
+Underfull \vbox (badness 10000) detected at line 3127
  []
 
 
-Underfull \vbox (badness 10000) detected at line 3140
+Underfull \vbox (badness 10000) detected at line 3127
  []
 
 [49]
-Underfull \vbox (badness 10000) detected at line 3140
+Underfull \vbox (badness 10000) detected at line 3127
  []
 
 
-Underfull \vbox (badness 10000) detected at line 3140
+Underfull \vbox (badness 10000) detected at line 3127
  []
 
 [50]
-Underfull \vbox (badness 10000) detected at line 3140
+Underfull \vbox (badness 10000) detected at line 3127
  []
 
 
-Underfull \vbox (badness 10000) detected at line 3140
+Underfull \vbox (badness 10000) detected at line 3127
  []
 
 [51]
-Underfull \vbox (badness 10000) detected at line 3140
+Underfull \vbox (badness 10000) detected at line 3127
  []
 
 
-Underfull \vbox (badness 10000) detected at line 3140
+Underfull \vbox (badness 10000) detected at line 3127
  []
 
 [52]
-Underfull \vbox (badness 10000) detected at line 3140
+Underfull \vbox (badness 10000) detected at line 3127
  []
 
 
-Underfull \vbox (badness 10000) detected at line 3140
+Underfull \vbox (badness 10000) detected at line 3127
  []
 
 [53] [54]
 Chapter 6.
-<blank.jpg, id=685, 1279.78125pt x 1656.1875pt>
+<blank.jpg, id=686, 1279.78125pt x 1656.1875pt>
 File: blank.jpg Graphic file (type jpg)
  <use blank.jpg>
-Package pdftex.def Info: blank.jpg used on input line 3158.
+Package pdftex.def Info: blank.jpg used on input line 3145.
 (pdftex.def)             Requested size: 1023.8264pt x 1324.95184pt.
  [55
 
@@ -1465,11 +1469,11 @@ Package pdftex.def Info: blank.jpg used on input line 3158.
 
 
 ])
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 3177.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 3177.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 3164.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 3164.
  (./ForestFire.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 3177.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 3177.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 3164.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 3164.
 
 Package rerunfilecheck Info: File `ForestFire.out' has not changed.
 (rerunfilecheck)             Checksum: 3CFDB624C6234ABED858FA708514AD6E;5845.
@@ -1477,7 +1481,7 @@ Package rerunfilecheck Info: File `ForestFire.out' has not changed.
 
 LaTeX Warning: There were multiply-defined labels.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 3177.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 3164.
  ) 
 Here is how much of TeX's memory you used:
  14120 strings out of 493013
@@ -1504,10 +1508,10 @@ uhvr8a.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/urw/times/utmb8a.pfb
 ></usr/local/texlive/2016/texmf-dist/fonts/type1/urw/times/utmbi8a.pfb></usr/lo
 cal/texlive/2016/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/local/texliv
 e/2016/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on ForestFire.pdf (64 pages, 1652442 bytes).
+Output written on ForestFire.pdf (64 pages, 1652549 bytes).
 PDF statistics:
- 857 PDF objects out of 1000 (max. 8388607)
- 751 compressed objects within 8 object streams
+ 858 PDF objects out of 1000 (max. 8388607)
+ 752 compressed objects within 8 object streams
  193 named destinations out of 1000 (max. 500000)
  379 words of extra memory for PDF output out of 10000 (max. 10000000)
 

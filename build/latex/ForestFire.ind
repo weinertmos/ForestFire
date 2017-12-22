@@ -27,9 +27,9 @@
   \indexspace
   \bigletter F
   \item feature, \hyperindexformat{\textbf}{3}
-  \item feature set, \hyperindexformat{\textbf}{4}
+  \item feature set, \hyperindexformat{\textbf}{3}
   \item forest\_predict() (in module ForestFire.Main), \hyperpage{23}
-  \item ForestFire, \hyperindexformat{\textbf}{4}
+  \item ForestFire, \hyperindexformat{\textbf}{3}
   \item ForestFire (module), \hyperpage{1}
 
   \indexspace
@@ -45,12 +45,12 @@
 
   \indexspace
   \bigletter L
-  \item leaf, \hyperindexformat{\textbf}{4}
+  \item leaf, \hyperindexformat{\textbf}{3}
 
   \indexspace
   \bigletter M
   \item Machine Learning Algorithm, \hyperindexformat{\textbf}{4}
-  \item main\_loop() (in module ForestFire.Main), \hyperpage{10}
+  \item main\_loop() (in module ForestFire.Main), \hyperpage{11}
 
   \indexspace
   \bigletter N

@@ -28,7 +28,7 @@ n_configs_unbiased = 'default'
 multiplier_stepup = 'default'
 # number of recent forests that are taken into acount for generating probability of the chosen feature sets default = 0.01
 seen_forests = 'default'
-# the chosen feature sets default = 4 ? make variable?
+# the chosen feature sets default = 4
 
 # weight of the mean in calculating the new probability for selecting future feature sets; default = 0.2
 weight_mean = 'default'

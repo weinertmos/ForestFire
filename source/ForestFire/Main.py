@@ -206,8 +206,6 @@ def entropy(rows):
         ent -= p * log2(p)
     return ent
 
-# compute variance of target values if they are numbers, ? not needed ?
-
 
 def variance(rows):
     """Evaluates how close together numerical values lie
@@ -412,7 +410,7 @@ def prune(tree, mingain):
             fb += [[v]] * c
 
         # Test the reduction in entropy
-        delta = entropy(tb + fb) - (entropy(tb) + entropy(fb)) / 2  # different in book?
+        delta = entropy(tb + fb) - (entropy(tb) + entropy(fb)) / 2
         # print delta
         if delta < mingain:
             # Merge the branches
@@ -770,7 +768,7 @@ def forest_predict(data, trees, prob, n_configs, biased):
         # print "best_mean = " + str(best_mean) # Debugging Line
         # calculate mean an std for all predictions in a tree
         mean[x] = np.mean(predictions)
-        var[x] = np.var(predictions) / abs(mean[x])  # ? correct?
+        var[x] = np.var(predictions) / abs(mean[x])
         # check if current mean and var are better than best mean and var
         # calculation: best_mean = 1.0*mean + 0.1*var and vice versa
         if best_mean == [0] or mean[x] + var[x] * 0.75 > best_mean:

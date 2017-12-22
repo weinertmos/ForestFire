@@ -40,7 +40,7 @@
 
 
 \title{ForestFire Documentation}
-\date{Dec 20, 2017}
+\date{Dec 22, 2017}
 \release{1.1.5}
 \author{Marlon Weinert}
 \newcommand{\sphinxlogo}{}
@@ -144,22 +144,9 @@ Quickstart: \href{https://github.com/weinertmos/ForestFire}{Clone Repository} an
 
 \section{Overview}
 \label{\detokenize{Overview:overview}}\label{\detokenize{Overview::doc}}\label{\detokenize{Overview:id1}}
-\begin{sphinxadmonition}{note}{Todo}
-\begin{itemize}
-\item {} 
-write a nice Overview
+ForestFire takes as input raw data and an unsupervised machine learning algorithm provided by the user and tries to optimize the feature selection for the given classifier.
 
-\item {} 
-do it in the end when all references are complete
-
-\item {} 
-mention references
-
-\item {} 
-add sklearn as reference
-
-\end{itemize}
-\end{sphinxadmonition}
+It uses Decision Trees and Random Forests to predict the performance of untested feature sets. Only those which are most likely to perform well are used during future runs of the {\hyperref[\detokenize{Overview:term-machine-learning-algorithm}]{\sphinxtermref{\DUrole{xref,std,std-term}{Machine Learning Algorithm}}}}.
 
 
 \subsection{Utilized Modules}
@@ -219,7 +206,7 @@ Last point of a {\hyperref[\detokenize{Overview:term-branch}]{\sphinxtermref{\DU
 
 \item[{Machine Learning Algorithm\index{Machine Learning Algorithm|textbf}}] \leavevmode\phantomsection\label{\detokenize{Overview:term-machine-learning-algorithm}}
 Specified by the user in {\hyperref[\detokenize{Generate_Database:compute}]{\sphinxcrossref{\DUrole{std,std-ref}{Generate Database}}}}.
-Can basically be any existing algorithm that classifies the raw data.
+Can basically be any existing unsupervised machine learning algorithm that classifies the raw data.
 Results can be improved by {\hyperref[\detokenize{Overview:term-forestfire}]{\sphinxtermref{\DUrole{xref,std,std-term}{ForestFire}}}}
 
 \item[{node\index{node|textbf}}] \leavevmode\phantomsection\label{\detokenize{Overview:term-node}}

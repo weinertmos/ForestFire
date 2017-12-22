@@ -2,9 +2,9 @@
 \indexentry{branch|hyperindexformat{\textbf}}{3}
 \indexentry{Decision Tree|hyperindexformat{\textbf}}{3}
 \indexentry{feature|hyperindexformat{\textbf}}{3}
-\indexentry{feature set|hyperindexformat{\textbf}}{4}
-\indexentry{ForestFire|hyperindexformat{\textbf}}{4}
-\indexentry{leaf|hyperindexformat{\textbf}}{4}
+\indexentry{feature set|hyperindexformat{\textbf}}{3}
+\indexentry{ForestFire|hyperindexformat{\textbf}}{3}
+\indexentry{leaf|hyperindexformat{\textbf}}{3}
 \indexentry{Machine Learning Algorithm|hyperindexformat{\textbf}}{4}
 \indexentry{node|hyperindexformat{\textbf}}{4}
 \indexentry{Observation|hyperindexformat{\textbf}}{4}
@@ -15,7 +15,7 @@
 \indexentry{import\_data() (in module ForestFire.import\_data)|hyperpage}{4}
 \indexentry{compute() (in module ForestFire.compute)|hyperpage}{5}
 \indexentry{gen\_database() (in module ForestFire.Main)|hyperpage}{5}
-\indexentry{main\_loop() (in module ForestFire.Main)|hyperpage}{10}
+\indexentry{main\_loop() (in module ForestFire.Main)|hyperpage}{11}
 \indexentry{decisionnode (class in ForestFire.Main)|hyperpage}{16}
 \indexentry{divideset() (in module ForestFire.Main)|hyperpage}{17}
 \indexentry{giniimpurity() (in module ForestFire.Main)|hyperpage}{17}
