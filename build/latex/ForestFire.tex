@@ -437,7 +437,7 @@ But changing them can tweak the performance.
 \PYG{n}{multiplier\PYGZus{}stepup} \PYG{o}{=} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{default}\PYG{l+s+s1}{\PYGZsq{}}
 \PYG{c+c1}{\PYGZsh{} number of recent forests that are taken into acount for generating probability of the chosen feature sets default = 0.01}
 \PYG{n}{seen\PYGZus{}forests} \PYG{o}{=} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{default}\PYG{l+s+s1}{\PYGZsq{}}
-\PYG{c+c1}{\PYGZsh{} the chosen feature sets default = 4 ? make variable?}
+\PYG{c+c1}{\PYGZsh{} the chosen feature sets default = 4}
 
 \PYG{c+c1}{\PYGZsh{} weight of the mean in calculating the new probability for selecting future feature sets; default = 0.2}
 \PYG{n}{weight\PYGZus{}mean} \PYG{o}{=} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{default}\PYG{l+s+s1}{\PYGZsq{}}
@@ -629,11 +629,6 @@ Since Demo mode was turned on at the end two plots are produced:
 
 \noindent\sphinxincludegraphics[scale=0.35]{{generic_run_all_time}.png}
 \end{figure}
-
-\begin{sphinxadmonition}{note}{Todo}
-
-no green highlighting in source code?
-\end{sphinxadmonition}
 
 \begin{sphinxadmonition}{important}{Important:}
 \sphinxstylestrong{Functions used in this chapter}
@@ -1939,7 +1934,7 @@ In this section the complete source Code is presented in html friendly style.
 \PYG{n}{multiplier\PYGZus{}stepup} \PYG{o}{=} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{default}\PYG{l+s+s1}{\PYGZsq{}}
 \PYG{c+c1}{\PYGZsh{} number of recent forests that are taken into acount for generating probability of the chosen feature sets default = 0.01}
 \PYG{n}{seen\PYGZus{}forests} \PYG{o}{=} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{default}\PYG{l+s+s1}{\PYGZsq{}}
-\PYG{c+c1}{\PYGZsh{} the chosen feature sets default = 4 ? make variable?}
+\PYG{c+c1}{\PYGZsh{} the chosen feature sets default = 4}
 
 \PYG{c+c1}{\PYGZsh{} weight of the mean in calculating the new probability for selecting future feature sets; default = 0.2}
 \PYG{n}{weight\PYGZus{}mean} \PYG{o}{=} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{default}\PYG{l+s+s1}{\PYGZsq{}}
@@ -2174,8 +2169,6 @@ In this section the complete source Code is presented in html friendly style.
         \PYG{n}{ent} \PYG{o}{\PYGZhy{}}\PYG{o}{=} \PYG{n}{p} \PYG{o}{*} \PYG{n}{log2}\PYG{p}{(}\PYG{n}{p}\PYG{p}{)}
     \PYG{k}{return} \PYG{n}{ent}
 
-\PYG{c+c1}{\PYGZsh{} compute variance of target values if they are numbers, ? not needed ?}
-
 
 \PYG{k}{def} \PYG{n+nf}{variance}\PYG{p}{(}\PYG{n}{rows}\PYG{p}{)}\PYG{p}{:}
     \PYG{l+s+sd}{\PYGZdq{}\PYGZdq{}\PYGZdq{}Evaluates how close together numerical values lie}
@@ -2380,7 +2373,7 @@ In this section the complete source Code is presented in html friendly style.
             \PYG{n}{fb} \PYG{o}{+}\PYG{o}{=} \PYG{p}{[}\PYG{p}{[}\PYG{n}{v}\PYG{p}{]}\PYG{p}{]} \PYG{o}{*} \PYG{n}{c}
 
         \PYG{c+c1}{\PYGZsh{} Test the reduction in entropy}
-        \PYG{n}{delta} \PYG{o}{=} \PYG{n}{entropy}\PYG{p}{(}\PYG{n}{tb} \PYG{o}{+} \PYG{n}{fb}\PYG{p}{)} \PYG{o}{\PYGZhy{}} \PYG{p}{(}\PYG{n}{entropy}\PYG{p}{(}\PYG{n}{tb}\PYG{p}{)} \PYG{o}{+} \PYG{n}{entropy}\PYG{p}{(}\PYG{n}{fb}\PYG{p}{)}\PYG{p}{)} \PYG{o}{/} \PYG{l+m+mi}{2}  \PYG{c+c1}{\PYGZsh{} different in book?}
+        \PYG{n}{delta} \PYG{o}{=} \PYG{n}{entropy}\PYG{p}{(}\PYG{n}{tb} \PYG{o}{+} \PYG{n}{fb}\PYG{p}{)} \PYG{o}{\PYGZhy{}} \PYG{p}{(}\PYG{n}{entropy}\PYG{p}{(}\PYG{n}{tb}\PYG{p}{)} \PYG{o}{+} \PYG{n}{entropy}\PYG{p}{(}\PYG{n}{fb}\PYG{p}{)}\PYG{p}{)} \PYG{o}{/} \PYG{l+m+mi}{2}
         \PYG{c+c1}{\PYGZsh{} print delta}
         \PYG{k}{if} \PYG{n}{delta} \PYG{o}{\PYGZlt{}} \PYG{n}{mingain}\PYG{p}{:}
             \PYG{c+c1}{\PYGZsh{} Merge the branches}
@@ -2738,7 +2731,7 @@ In this section the complete source Code is presented in html friendly style.
         \PYG{c+c1}{\PYGZsh{} print \PYGZdq{}best\PYGZus{}mean = \PYGZdq{} + str(best\PYGZus{}mean) \PYGZsh{} Debugging Line}
         \PYG{c+c1}{\PYGZsh{} calculate mean an std for all predictions in a tree}
         \PYG{n}{mean}\PYG{p}{[}\PYG{n}{x}\PYG{p}{]} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{mean}\PYG{p}{(}\PYG{n}{predictions}\PYG{p}{)}
-        \PYG{n}{var}\PYG{p}{[}\PYG{n}{x}\PYG{p}{]} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{var}\PYG{p}{(}\PYG{n}{predictions}\PYG{p}{)} \PYG{o}{/} \PYG{n+nb}{abs}\PYG{p}{(}\PYG{n}{mean}\PYG{p}{[}\PYG{n}{x}\PYG{p}{]}\PYG{p}{)}  \PYG{c+c1}{\PYGZsh{} ? correct?}
+        \PYG{n}{var}\PYG{p}{[}\PYG{n}{x}\PYG{p}{]} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{var}\PYG{p}{(}\PYG{n}{predictions}\PYG{p}{)} \PYG{o}{/} \PYG{n+nb}{abs}\PYG{p}{(}\PYG{n}{mean}\PYG{p}{[}\PYG{n}{x}\PYG{p}{]}\PYG{p}{)}
         \PYG{c+c1}{\PYGZsh{} check if current mean and var are better than best mean and var}
         \PYG{c+c1}{\PYGZsh{} calculation: best\PYGZus{}mean = 1.0*mean + 0.1*var and vice versa}
         \PYG{k}{if} \PYG{n}{best\PYGZus{}mean} \PYG{o}{==} \PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]} \PYG{o+ow}{or} \PYG{n}{mean}\PYG{p}{[}\PYG{n}{x}\PYG{p}{]} \PYG{o}{+} \PYG{n}{var}\PYG{p}{[}\PYG{n}{x}\PYG{p}{]} \PYG{o}{*} \PYG{l+m+mf}{0.75} \PYG{o}{\PYGZgt{}} \PYG{n}{best\PYGZus{}mean}\PYG{p}{:}

@@ -200,11 +200,6 @@ A generic output (with demo mode on) can look like this::
     :alt: generic_run_all_time.png
     :align: center
 
-
-
-.. todo::
-    no green highlighting in source code?
-
 .. important::
 
     **Functions used in this chapter**
