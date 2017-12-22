@@ -62,7 +62,7 @@ Glossary
 
     Machine Learning Algorithm
         Specified by the user in :ref:`compute`. 
-        Can basically be any existing algorithm that classifies the raw data.
+        Can basically be any existing unsupervised machine learning algorithm that classifies the raw data.
         Results can be improved by :term:`ForestFire`
 
     feature
