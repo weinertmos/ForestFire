@@ -3,11 +3,9 @@
 Overview
 =========
 
-.. todo::
-    * write a nice Overview 
-    * do it in the end when all references are complete
-    * mention references
-    * add sklearn as reference
+ForestFire takes as input raw data and an unsupervised machine learning algorithm provided by the user and tries to optimize the feature selection for the given classifier.
+
+It uses Decision Trees and Random Forests to predict the performance of untested feature sets. Only those which are most likely to perform well are used during future runs of the :term:`Machine Learning Algorithm`.
 
 
 Utilized Modules
